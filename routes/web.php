@@ -15,7 +15,7 @@ Route::get('/', function () {
 
 	$Imie = "Homerent";
 
-    return view('welcome', ['name' => $Imie]);
+    return view('pages.index', ['name' => $Imie]);
 });
 
 
