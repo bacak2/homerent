@@ -11,13 +11,5 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', 'Apartaments@showIndex');
 
-	$Imie = "Homerent";
-
-    return view('pages.index', ['name' => $Imie]);
-});
-
-
-
-//Route::redirect('/apartaments', 'http://www.interia.pl/', 301);

@@ -15,8 +15,8 @@ class CreateApartamentsTable extends Migration
     {
         Schema::create('apartaments', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('apartament_geo_x','5','5');
-            $table->double('apartament_geo_y','5','5');
+            $table->double('apartament_geo_x','10','5');
+            $table->double('apartament_geo_y','10','5');
             $table->string('apartament_address','200');
             $table->string('apartament_address_2','200');
             $table->string('apartament_city','200');
