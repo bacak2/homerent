@@ -13,3 +13,9 @@
 
 Route::get('/', 'Apartaments@showIndex');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/apartaments/{id}', 'Apartaments@showApartamentInfo');

@@ -30,7 +30,7 @@
 		</div>
 		<div class="foot2">
 			<h2 class="footer">Bądź na bieżąco</h2>
-			<img style="padding-top: 20px;" src="images/placeholderfbgoogle.jpg">
+			<img style="padding-top: 20px;" src="{{ asset('images/placeholderfbgoogle.jpg') }}">
 		</div>
 
 		<div class="foot2">

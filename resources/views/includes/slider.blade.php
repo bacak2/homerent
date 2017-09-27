@@ -18,16 +18,16 @@
 	<div class="ism-slider" data-transition_type="fade" data-play_type="loop" data-image_fx="none" data-buttons="false" id="slider">
 	  <ol>
 	    <li>
-	      <img src="ism/image/slides/tatry1.jpg">
+	      <img src="{{ asset('ism/image/slides/tatry1.jpg') }}">
 	    </li>
 	    <li>
-	      <img src="ism/image/slides/krakow-city.jpg">
+	      <img src="{{ asset('ism/image/slides/krakow-city.jpg') }}">
 	    </li>
 	    <li>
-	      <img src="ism/image/slides/tatry2.jpg">
+	      <img src="{{ asset('ism/image/slides/tatry2.jpg') }}">
 	    </li>
 	    <li>
-	      <img src="ism/image/slides/gdansk.jpg">
+	      <img src="{{ asset('ism/image/slides/gdansk.jpg') }}">
 	    </li>
 	  </ol>
 	</div>
