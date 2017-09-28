@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Apartament;
+use App\Apartament_description;
 
 use DB; 
 
@@ -13,29 +14,26 @@ class Apartaments extends Controller
     public function showIndex()
     {
 
-    	$apartaments = $this->showIndexApartaments();
-
+        $apartaments = Apartament::all();
     	return view('pages.index', ['apartaments' => $apartaments]);
-    }
 
+    }
 
 
     //Generuje stronę/widok dla poszczególnych apartamentów
     public function showApartamentInfo($id) {
 
-       $apartament = Apartament::getApartamentInfo($id);
+       $apartament = Apartament::where('id', $id)->first();
 
-       return view('pages.apartaments', ['apartament' => $apartament]);
+       $descriptions = Apartament_description::find(1)->descriptions;
+       dd($descriptions);
+       return view('pages.apartaments', ['apartament' => $apartament,
+        'description' => $descriptions
+        ]);
 
     }
 
 
-    //Generuje apartamenty wyświetlane na stronie głównej
-    public function showIndexApartaments() {
-    	// $apartaments = DB::select('select * from apartaments');
-    	 $apartaments = DB::table('apartaments')->get();
-    	 return $apartaments;
-    }
 
 
 

@@ -2,12 +2,15 @@
 
 @section('title', '- Apartament '.$apartament->id)
 
+{{--{{ dd($description) }} --}}
+
+
+
 @section('content')
 	<div class="clear"></div>
 	{{-- Apartament {{ $apartament->id }} --}}
 	<div class="apartament-nawigacja">
 		<a href="#"><button class='back'>Powrót do wyników wyszukiwania</button></a>
-
 
 
 	</div>
@@ -74,8 +77,7 @@
 	<div class="apartament-info">
 		<div class="apartament-info-l">
 			<h2 class="apartamenty">Opis</h2>
-			<p class="article-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.</p>
+			<p class="article-text">x</p>
 
 			<h2 class="apartamenty" style="padding-top: 15px;">Zdjęcia</h2>
 			<div class="galeria-container">
