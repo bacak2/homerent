@@ -24,8 +24,8 @@ class CreateApartamentsTable extends Migration
             $table->integer('apartament_beds');
             $table->integer('group_id')->unsigned();
             $table->integer('owner_id')->unsigned();
-            $table->foreign('group_id')->references('id')->on('apartament_groups');
-            $table->foreign('owner_id')->references('id')->on('owners');
+        //    $table->foreign('group_id')->references('id')->on('apartament_groups');
+        //    $table->foreign('owner_id')->references('id')->on('owners');
             $table->timestamps();
         });
     }

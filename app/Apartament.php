@@ -11,4 +11,10 @@ class Apartament extends Model
     	return $this->hasMany('App\Apartament_description');
     }
 
+
+    public function groups()
+    {
+        return $this->belongsTo('App\Apartament_group');
+    }
+
 }

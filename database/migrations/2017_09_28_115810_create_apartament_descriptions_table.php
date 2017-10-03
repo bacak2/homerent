@@ -20,8 +20,8 @@ class CreateApartamentDescriptionsTable extends Migration
             $table->string('apartament_name','200');
             $table->longtext('apartament_description');
             $table->timestamps();
-            $table->foreign('apartament_id')->references('id')->on('apartaments');
-            $table->foreign('language_id')->references('id')->on('languages');
+        //    $table->foreign('apartament_id')->references('id')->on('apartaments');
+        //    $table->foreign('language_id')->references('id')->on('languages');
 
         });
     }

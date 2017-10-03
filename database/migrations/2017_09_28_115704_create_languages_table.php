@@ -18,9 +18,9 @@ class CreateLanguagesTable extends Migration
             $table->string('language_name','200');
             $table->string('language_code','100');
             $table->string('language_flag');
-            $table->integer('currency_name')->unsigned();
+            $table->integer('currency_id')->unsigned();
             $table->timestamps();
-            $table->foreign('currency_name')->references('id')->on('currencies');
+          //  $table->foreign('currency_name')->references('id')->on('currencies');
         });
     }
 

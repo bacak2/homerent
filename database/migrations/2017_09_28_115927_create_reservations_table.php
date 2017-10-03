@@ -22,8 +22,8 @@ class CreateReservationsTable extends Migration
             $table->integer('reservation_persons');
             $table->integer('reservation_kids');
             $table->integer('reservation_status');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('apartament_id')->references('id')->on('apartaments');
+         //   $table->foreign('user_id')->references('id')->on('users');
+         //   $table->foreign('apartament_id')->references('id')->on('apartaments');
             $table->timestamps();
         });
     }

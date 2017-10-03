@@ -19,7 +19,7 @@ class CreateApartamentDiscountsTable extends Migration
             $table->string('discount_name');
             $table->float('discount_value');
             $table->integer('discount_days_counter');
-            $table->foreign('apartament_id')->references('id')->on('apartaments');
+           // $table->foreign('apartament_id')->references('id')->on('apartaments');
             $table->timestamps();
         });
     }

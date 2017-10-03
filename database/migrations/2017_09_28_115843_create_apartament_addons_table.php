@@ -19,8 +19,8 @@ class CreateApartamentAddonsTable extends Migration
             $table->integer('language_id')->unsigned();
             $table->string('apartament_addons_text');
             $table->float('apartament_addons_price');
-            $table->foreign('apartament_id')->references('id')->on('apartaments');
-            $table->foreign('language_id')->references('id')->on('languages');
+           // $table->foreign('apartament_id')->references('id')->on('apartaments');
+           // $table->foreign('language_id')->references('id')->on('languages');
         });
     }
 

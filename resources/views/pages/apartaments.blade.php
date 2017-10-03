@@ -1,9 +1,6 @@
 @extends ('layout.layout')
 
-@section('title', '- Apartament '.$apartament->id)
-
-{{--{{ dd($description) }} --}}
-
+@section('title', '- '.$apartament->descriptions[0]->apartament_name )
 
 
 @section('content')
@@ -20,7 +17,7 @@
 		
 		<div class="apartament-l-container">
 			<div class="apartament-l-title">
-				<p class="apartament-l-title-big">Wiosenny apartament</p>
+				<p class="apartament-l-title-big">{{  $apartament->descriptions[0]->apartament_name or '' }}</p>
 				<p class="apartament-l-title-address">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}, {{ $apartament->apartament_address_2 }}</p>
 			</div>
 			<div class="apartament-l-ocena">
@@ -77,7 +74,7 @@
 	<div class="apartament-info">
 		<div class="apartament-info-l">
 			<h2 class="apartamenty">Opis</h2>
-			<p class="article-text">x</p>
+			<p class="article-text">{{ $apartament->descriptions[0]->apartament_description or '' }}</p>
 
 			<h2 class="apartamenty" style="padding-top: 15px;">Zdjęcia</h2>
 			<div class="galeria-container">
@@ -98,95 +95,36 @@
 			<h2 class="apartamenty">Podobne apartamenty</h2>
 			<div class="parent">
 
+			@foreach ($groups as $group)	
+				<div class="child-found">
+					<div class="info-top">
+						<div class="wyniki-cena"><p class="cena-top">160 zł</p></div>
+						<div class="info-bottom"><p class="info-addons">Śniadanie w cenie</p></div>
 
-			<div class="child-found">
-				<div class="info-top">
-					<div class="wyniki-cena"><p class="cena-top">160 zł</p></div>
-					<div class="info-bottom"><p class="info-addons">Śniadanie w cenie</p></div>
+					</div>
+					<p class="title-found">{{ $group->apartament_name }}</p>
+					<p class="address">{{ $group->apartament_city }}, {{$group->apartament_address}}, {{$group->apartament_address_2}}</p>
 
+					<table class="t-options" >
+						<tbody>
+						<tr >
+							<td><img src="{{ asset('images/person.png') }}" alt="Liczba miejsc dla dorosłuch"></td>
+							<td><img src="{{ asset('images/cumel.png') }}" alt="Liczba miejsc dla dzieci"></td>
+							<td><img src="{{ asset('images/bed.png') }}" alt="Liczba łóżek"></td>
+							<td><p class="ocena">4,5</p></td>
+						</tr>
+						<tr>
+							<td> 3</td>
+							<td> 2</td>
+							<td> 4</td>
+							<td>23 oceny</td>
+						</tr>
+						</tbody>
+					</table>				
 				</div>
-				<p class="title-found">Nowoczesny apartament z basenem</p>
-				<p class="address">Kraków (Stare Miasto), ul. Testowa 1/1 </p>
-
-				<table class="t-options" >
-					<tbody>
-					<tr >
-						<td><img src="{{ asset('images/person.png') }}" alt="Liczba miejsc dla dorosłuch"></td>
-						<td><img src="{{ asset('images/cumel.png') }}" alt="Liczba miejsc dla dzieci"></td>
-						<td><img src="{{ asset('images/bed.png') }}" alt="Liczba łóżek"></td>
-						<td><p class="ocena">4,5</p></td>
-					</tr>
-					<tr>
-						<td> 3</td>
-						<td> 2</td>
-						<td> 4</td>
-						<td>23 oceny</td>
-					</tr>
-					</tbody>
-				</table>				
-			</div>
-
-			<div class="child-found">
-				<div class="info-top">
-					<div class="wyniki-cena"><p class="cena-top">160 zł</p></div>
-					<div class="info-bottom"><p class="info-addons">Śniadanie w cenie</p></div>
-
-				</div>
-				<p class="title-found">Nowoczesny apartament z basenem</p>
-				<p class="address">Kraków (Stare Miasto), ul. Testowa 1/1 </p>
-
-				<table class="t-options">
-					<tbody>
-					<tr >
-						<td><img src="{{ asset('images/person.png') }}" alt="Liczba miejsc dla dorosłuch"></td>
-						<td><img src="{{ asset('images/cumel.png') }}" alt="Liczba miejsc dla dzieci"></td>
-						<td><img src="{{ asset('images/bed.png') }}" alt="Liczba łóżek"></td>
-						<td><p class="ocena">4,5</p></td>
-					</tr>
-					<tr>
-						<td> 3</td>
-						<td> 2</td>
-						<td> 4</td>
-						<td>23 oceny</td>
-					</tr>
-					</tbody>
-				</table>				
-			</div>
-
-			<div class="child-found">
-				<div class="info-top">
-					<div class="wyniki-cena"><p class="cena-top">160 zł</p></div>
-					<div class="info-bottom"><p class="info-addons">Śniadanie w cenie</p></div>
-
-				</div>
-				<p class="title-found">Nowoczesny apartament z basenem</p>
-				<p class="address">Kraków (Stare Miasto), ul. Testowa 1/1 </p>
-
-				<table class="t-options">
-					<tbody>
-				<tr >
-						<td><img src="{{ asset('images/person.png') }}" alt="Liczba miejsc dla dorosłuch"></td>
-						<td><img src="{{ asset('images/cumel.png') }}" alt="Liczba miejsc dla dzieci"></td>
-						<td><img src="{{ asset('images/bed.png') }}" alt="Liczba łóżek"></td>
-						<td><p class="ocena">4,5</p></td>
-					</tr>
-					<tr>
-						<td> 3</td>
-						<td> 2</td>
-						<td> 4</td>
-						<td>23 oceny</td>
-					</tr>
-					</tbody>
-				</table>				
-			</div>
-
-
+			@endforeach
 
 			</div>
-
-
-
-
 		</div>
 	</div>
 @endsection

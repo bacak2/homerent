@@ -21,8 +21,8 @@ class CreateApartamentPricesTable extends Migration
             $table->date('date_of_price');
             $table->float('price_discount');
             $table->timestamps();
-            $table->foreign('apartament_id')->references('id')->on('apartaments');
-            $table->foreign('language_id')->references('id')->on('languages');
+          //  $table->foreign('apartament_id')->references('id')->on('apartaments');
+          //  $table->foreign('language_id')->references('id')->on('languages');
 
         });
     }
