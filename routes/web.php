@@ -11,6 +11,8 @@
 |
 */
 
+
+
 Route::get('/', 'Apartaments@showIndex');
 
 
@@ -20,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/apartaments/{id}', 'Apartaments@showApartamentInfo');
 
+Route::get('/search','Apartaments@searchApartaments');

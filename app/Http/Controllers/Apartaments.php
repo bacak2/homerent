@@ -69,7 +69,9 @@ class Apartaments extends Controller
 
     }
 
-
+    public function searchApartaments() {
+        return view('pages.results');
+    }
 
 
 

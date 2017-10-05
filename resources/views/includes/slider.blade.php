@@ -4,7 +4,7 @@
 			<div class="region">Wpisz miasto, region lub adres</div>
 			<div class="przyjazd">Przyjazd</div>
 			<div class="przyjazd">Powrót</div>
-		<form action="wyniki.html" method="POST" class="form-search">
+		<form action="/search" method="GET" class="form-search">
 			<input type="text" id="region" placeholder="np. Kraków lub Mazury">
 			<input type="text" id="przyjazd">
 			<input type="text" id="powrot">
