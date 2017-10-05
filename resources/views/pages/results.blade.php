@@ -2,7 +2,7 @@
 @section('title', '- Wyszukiwarka')
 @section('content')
 	<div id="found">
-		<h3 class="found">243 obiekty</h3>
+		<h3 class="found">243 obiekty {{ $test }} oraz {{ $test2 }}</h3>
 	</div>
 	{{-- ZNALEZIONE APARTAMENTY --}}
 	<div id="apartaments" style="padding-top: 10px">

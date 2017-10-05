@@ -69,8 +69,15 @@ class Apartaments extends Controller
 
     }
 
-    public function searchApartaments() {
-        return view('pages.results');
+    public function searchApartaments(Request $request) {
+
+        $test = $request->input('region');
+        $test2 = $request->input('przyjazd');
+
+
+        return view('pages.results', [  'test' => $test,
+                                        'test2' => $test2,
+                                     ]);
     }
 
 
