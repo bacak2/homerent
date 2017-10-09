@@ -12,14 +12,20 @@
 */
 
 
+Route::group(
+[
+	'prefix' => LaravelLocalization::setLocale(),
+	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+],
+function()
+{
+	Route::get('/', 'Apartaments@showIndex');
 
-Route::get('/', 'Apartaments@showIndex');
+	Auth::routes();
 
+	Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+	Route::get('/apartaments/{id}', 'Apartaments@showApartamentInfo');
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/apartaments/{id}', 'Apartaments@showApartamentInfo');
-
-Route::get('/search','Apartaments@searchApartaments');
+	Route::get('/search','Apartaments@searchApartaments');
+});

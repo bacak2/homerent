@@ -17,15 +17,26 @@ use DB;
 
 class Apartaments extends Controller
 {
+
+
     //Język strony
-    private $language = 1;
+    protected $language = 1; 
+
+     public function __construct()
+      {
+        $temp = \App::getLocale();
+        $language = DB::table('languages')->select('id')->where('language_code',$temp)->first();
+        $this->language = $language;
+      }
+    
+
 
     //Generuje widok strony głównej
     public function showIndex()
     {
-        
+
         $apartaments = Apartament::with(array('descriptions' => function($query){
-                        $query->where('language_id', $this->language);
+                        $query->where('language_id', $this->language->id);
                         }))
                         ->get();
 
@@ -42,7 +53,7 @@ class Apartaments extends Controller
 
         $apartament = Apartament::with(array('descriptions' => function($query)
                 {
-                    $query->where('language_id', $this->language);
+                    $query->where('language_id', $this->language->id);
                 }))->find($id);
     
         $apartamentGroup = DB::table('apartaments')->select('group_id')->where('id',$id)->pluck('group_id');
@@ -53,7 +64,7 @@ class Apartaments extends Controller
                     ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                     ->join('languages', function($join) {
                         $join->on('apartament_descriptions.language_id','=','languages.id')
-                            ->where('languages.id', $this->language);
+                            ->where('languages.id', $this->language->id);
                     })
                     ->where('apartaments.group_id',$id)
                     ->limit(3)  // Maksymalnie 3 apartamenty

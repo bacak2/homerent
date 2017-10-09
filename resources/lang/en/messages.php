@@ -1,0 +1,43 @@
+<?php
+
+return [
+	'cheap' => 'Cheap',
+	'entercity' => 'Write your city or address',
+	'arrive' => 'Arrive date',
+	'return' => 'Return date',
+	'fast' => 'Fast',
+	'safe' => 'Safe',
+	'ap4u' => 'Apartaments for You',
+	'mostpopular' => 'Most popular',
+	'help' => 'Help',
+	'aboutus' => 'About us',
+	'social' => 'Stay in contact',
+	'travelwith' => 'Travel with us',
+	'cookie' => 'To continue using this website, your browser must accept cookies',
+	'addapartament' => 'Add apartament',
+	'login' => 'Log in',
+	'register' => 'Register',
+	'logout' => 'Log out',
+	'search' => 'Search',
+	'saveto' => 'Save to newsletter here!',
+	'saveself' => 'Save',
+	'pernight' => ' per night',
+	'from' => 'from',
+	'checkprivacy' => 'Check info in our ',
+	'privacypolicy' => 'privacy policy',
+	'forexample' => 'for example Cracow..',
+	'backto' => 'Back to the search results',
+	'description' => 'Description',
+	'similiarap' => 'Similiar appartaments',
+	'photos' => 'Photos',
+	'improvements' => 'Improvements',
+	'pricepernightfrom' => 'Price per night from:',
+	'arrived' => 'Arrive',
+	'adultskids' => 'Adults, kids',
+	'fprice' => 'Final Price',
+	'aval' => 'This date is available',
+
+
+	'placeholder' => 'English placeholder text. We can add translation here.',
+
+];

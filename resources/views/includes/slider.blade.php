@@ -1,16 +1,16 @@
 <div id="search-slider">
 	<div class="search">
 		<div class="search-wrapper">
-			<div class="region">Wpisz miasto, region lub adres</div>
-			<div class="przyjazd">Przyjazd</div>
-			<div class="przyjazd">Powrót</div>
+			<div class="region">{{ __('messages.entercity') }}</div>
+			<div class="przyjazd">{{ __('messages.arrive') }}</div>
+			<div class="przyjazd">{{ __('messages.return') }}</div>
 		<form action="/search" method="GET" class="form-search">
-			<input type="text" id="region" name="region" placeholder="np. Kraków lub Mazury">
+			<input type="text" id="region" name="region" placeholder="{{ __('messages.forexample') }}">
 			<input type="text" id="przyjazd" name="przyjazd">
 			<input type="text" id="powrot">
 			<input type="number"  value="0" min="0" max="100" id="nights" >
 			<input type="number"  value="0" min="0" max="100" id="persons" >
-			<input type="submit" id="submit" value="Szukaj">
+			<input type="submit" id="submit" value="{{ __('messages.search') }}">
 		</div>
 		</form>
 	</div>

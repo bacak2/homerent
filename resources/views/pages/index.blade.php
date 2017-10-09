@@ -7,13 +7,13 @@
 	@include('includes.benifits')
 	{{--APARTAMENTS--}}
 	<div id="apartaments" style="padding-top: 80px;">
-	<h2 class="ap">Apartamenty dla Ciebie</h2>
+	<h2 class="ap">{{ __('messages.ap4u') }}</h2>
 	<div class="parent">
 		@foreach ($apartaments as $apartament)
 
 			<a class="divlink" href="/apartaments/{{ $apartament->id }}">
 			<div class="child" style="background-image: url('{{ asset('images/1.jpg') }}');">
-			<p class="title">{{$apartament->descriptions[0]->apartament_name}}</p><p class="cena">od <b>260 zł</b> / noc</p></div>
+			<p class="title">{{$apartament->descriptions[0]->apartament_name}}</p><p class="cena">{{ __('messages.from') }} <b>260 zł</b>{{ __('messages.pernight') }}</p></div>
 			</a>
 		@endforeach
 	</div></div>

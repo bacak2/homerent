@@ -2,12 +2,11 @@
 
 @section('title', '- '.$apartament->descriptions[0]->apartament_name )
 
-
 @section('content')
 	<div class="clear"></div>
 	{{-- Apartament {{ $apartament->id }} --}}
 	<div class="apartament-nawigacja">
-		<a href="#"><button class='back'>Powrót do wyników wyszukiwania</button></a>
+		<a href="#"><button class='back'>{{ __('messages.backto') }}</button></a>
 
 
 	</div>
@@ -54,29 +53,29 @@
 
 	<div class="apartament-big-r">
 		<div class="apartament-cena">
-			<div class="apartament-cena-cena"><p class="padding5">Cena za noc od:</p><p class="cena-apart-noc">150 PLN</p></div>
+			<div class="apartament-cena-cena"><p class="padding5">{{ __('messages.pricepernightfrom') }}</p><p class="cena-apart-noc">150 PLN</p></div>
 
 			<div class="form-apartament">
 				<form class="apartament">
-					<p class="przyjazd">Przyjazd</p><p class="wyjazd">Wyjazd</p><br>
+					<p class="przyjazd">{{ __('messages.arrived') }}</p><p class="wyjazd">{{ __('messages.return') }}</p><br>
 					<input type="text" id="przyjazd">
 					<input type="text" id="powrot">
-					<input type="text" id="ileosob" placeholder="dorośli, dzieci">
+					<input type="text" id="ileosob" placeholder="{{ __('messages.adultskids') }}">
 				</form>
 			</div>
 			 <hr class="ln1">
-			<div class="form-apartament">Razem do zapłaty:<p class="cena-apart-noc" style="font-size: 25px;">300 zł</p></div>
-			<p class="termin">Ten termin jest dostępny</p>
+			<div class="form-apartament">{{ __('messages.fprice') }}<p class="cena-apart-noc" style="font-size: 25px;">300 zł</p></div>
+			<p class="termin">{{ __('messages.aval') }}</p>
 		</div>
 	</div>
 	</div>
 	<div class="clear"></div>
 	<div class="apartament-info">
 		<div class="apartament-info-l">
-			<h2 class="apartamenty">Opis</h2>
+			<h2 class="apartamenty">{{ __('messages.description') }}</h2>
 			<p class="article-text">{{ $apartament->descriptions[0]->apartament_description or '' }}</p>
 
-			<h2 class="apartamenty" style="padding-top: 15px;">Zdjęcia</h2>
+			<h2 class="apartamenty" style="padding-top: 15px;">{{ __('messages.photos') }}</h2>
 			<div class="galeria-container">
 				<div class="fotorama" data-nav="thumbs" data-autoplay="true">
 		 			<a href="{{ asset('images/4.jpg') }}"><img src="{{ asset('images/4.jpg') }}"></a>		
@@ -86,17 +85,17 @@
 				</div>
 			</div>
 
-			<h2 class="apartamenty">Udogodnienia</h2>
+			<h2 class="apartamenty">{{ __('messages.improvements') }}</h2>
 			<p class="article-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.<br><br></p>
 
 		</div>
 		<div class="apartament-info-r">
-			<h2 class="apartamenty">Podobne apartamenty</h2>
+			<h2 class="apartamenty">{{ __('messages.similiarap') }}</h2>
 			<div class="parent">
 
 			@foreach ($groups as $group)
-				<a class="divlink" href="/apartaments/#">
+				<a class="divlink" href="/apartaments/{{ $group->apartament_id }}">
 					<div class="child-found">
 						<div class="info-top">
 							<div class="wyniki-cena"><p class="cena-top">160 zł</p></div>
