@@ -12,14 +12,15 @@ use Illuminate\Http\Request;
 use App\Apartament;
 use App\Apartament_description;
 use App\Apartament_group;
+use App\Reservation;
 
 use DB; 
 
 class Apartaments extends Controller
 {
 
-
-    //Język strony
+  
+    //Język strony z bazy danych
     protected $language = 1; 
 
      public function __construct()
@@ -49,7 +50,7 @@ class Apartaments extends Controller
 
     //Generuje stronę/widok dla poszczególnych apartamentów
     public function showApartamentInfo($id) {
-       // DB::enableQueryLog();
+
 
         $apartament = Apartament::with(array('descriptions' => function($query)
                 {
@@ -73,7 +74,6 @@ class Apartaments extends Controller
 
        // dd($groups); 
        // dd($descriptions);
-       // dd(DB::getQueryLog());
        return view('pages.apartaments', ['apartament' => $apartament,
                                          'groups' => $groups
                                         ]);
@@ -82,12 +82,51 @@ class Apartaments extends Controller
 
     public function searchApartaments(Request $request) {
 
-        $test = $request->input('region');
-        $test2 = $request->input('przyjazd');
+        $region = $request->input('region');
+        $arriveDate = $request->input('przyjazd');
+        $returnDate = $request->input('powrot');
+
+      //DB::enableQueryLog();
+      // dd(DB::getQueryLog());
+
+        $reservations = DB::Table('reservations')
+                          ->whereNotBetween('reservation_arrive_date',[$returnDate,$arriveDate])
+                          ->whereNotBetween('reservation_departure_date',[$returnDate,$arriveDate])
+                          ->get();
+
+    //  dd($reservations);
+        $reservationsArray = json_decode(json_encode($reservations), True);
+
+        $finds = DB::Table('apartaments')
+                ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                ->join('languages', function($join) {
+                        $join->on('apartament_descriptions.language_id','=','languages.id')
+                            ->where('languages.id', $this->language->id);
+                  })
+                ->whereNotIn('apartaments.id',$reservationsArray)
+                ->get();
 
 
-        return view('pages.results', [  'test' => $test,
-                                        'test2' => $test2,
+
+      /*  $finds = DB::table('reservations')
+                ->join('apartaments', function($join) {
+                      $join->on('reservations.apartament_id','=','apartaments.id');
+                })
+                    ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                    ->join('languages', function($join) {
+                        $join->on('apartament_descriptions.language_id','=','languages.id')
+                            ->where('languages.id', $this->language->id);
+                    })
+                ->whereNotBetween('reservation_arrive_date',[$returnDate,$arriveDate])
+                ->whereNotBetween('reservation_departure_date',[$returnDate,$arriveDate])
+                ->get(); */
+
+                dd($finds);
+
+        return view('pages.results', [  'region' => $region,
+                                        'arive_date' => $arriveDate,
+                                        'return_date' => $returnDate,
+                                        'finds' => $finds,
                                      ]);
     }
 

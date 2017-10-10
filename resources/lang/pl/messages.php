@@ -32,7 +32,7 @@ return [
 	'photos' => 'Zdjęcia',
 	'improvements' => 'Udogodnienia',
 	'pricepernightfrom' => 'Cena za noc od:',
-	'arrive_d' => 'Przyjazd',
+	'arrived' => 'Przyjazd',
 	'adultskids' => 'Dorośli, dzieci',
 	'fprice' => 'Razem do zapłaty',
 	'aval' => 'Ten termin jest dostępny',

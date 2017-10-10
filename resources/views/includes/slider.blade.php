@@ -7,7 +7,7 @@
 		<form action="/search" method="GET" class="form-search">
 			<input type="text" id="region" name="region" placeholder="{{ __('messages.forexample') }}">
 			<input type="text" id="przyjazd" name="przyjazd">
-			<input type="text" id="powrot">
+			<input type="text" id="powrot" name="powrot">
 			<input type="number"  value="0" min="0" max="100" id="nights" >
 			<input type="number"  value="0" min="0" max="100" id="persons" >
 			<input type="submit" id="submit" value="{{ __('messages.search') }}">
