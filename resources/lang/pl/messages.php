@@ -36,7 +36,10 @@ return [
 	'adultskids' => 'Dorośli, dzieci',
 	'fprice' => 'Razem do zapłaty',
 	'aval' => 'Ten termin jest dostępny',
-	
+	'apartaments' => '{0}apartamentów|{1}apartament|[2,4]apartamenty|[5,*]apartamentów',
+	'found' => 'Znaleziono',
+	'inclbreakfast' => 'Śniadanie wliczone',
+
 
 	'placeholder' => 'Przykładowy tekst w języku polskim. Ten tekst jest po polsku.'
 

@@ -99,7 +99,7 @@
 					<div class="child-found">
 						<div class="info-top">
 							<div class="wyniki-cena"><p class="cena-top">160 zł</p></div>
-							<div class="info-bottom"><p class="info-addons">Śniadanie w cenie</p></div>
+							<div class="info-bottom"><p class="info-addons">{{ __('messages.inclbreakfast') }}</p></div>
 
 						</div>
 						<p class="title-found">{{ $group->apartament_name }}</p>

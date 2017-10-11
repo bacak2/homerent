@@ -86,16 +86,7 @@ class Apartaments extends Controller
         $arriveDate = $request->input('przyjazd');
         $returnDate = $request->input('powrot');
 
-      //DB::enableQueryLog();
-      // dd(DB::getQueryLog());
-
-        $reservations = DB::Table('reservations')
-                          ->whereNotBetween('reservation_arrive_date',[$returnDate,$arriveDate])
-                          ->whereNotBetween('reservation_departure_date',[$returnDate,$arriveDate])
-                          ->get();
-
-    //  dd($reservations);
-        $reservationsArray = json_decode(json_encode($reservations), True);
+        DB::connection()->enableQueryLog();   
 
         $finds = DB::Table('apartaments')
                 ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
@@ -103,30 +94,28 @@ class Apartaments extends Controller
                         $join->on('apartament_descriptions.language_id','=','languages.id')
                             ->where('languages.id', $this->language->id);
                   })
-                ->whereNotIn('apartaments.id',$reservationsArray)
-                ->get();
-
-
-
-      /*  $finds = DB::table('reservations')
-                ->join('apartaments', function($join) {
-                      $join->on('reservations.apartament_id','=','apartaments.id');
+                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->where(function($query) {
+                    $query->WhereNull('reservation_arrive_date')
+                          ->WhereNull('reservation_departure_date');
                 })
-                    ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
-                    ->join('languages', function($join) {
-                        $join->on('apartament_descriptions.language_id','=','languages.id')
-                            ->where('languages.id', $this->language->id);
-                    })
-                ->whereNotBetween('reservation_arrive_date',[$returnDate,$arriveDate])
-                ->whereNotBetween('reservation_departure_date',[$returnDate,$arriveDate])
-                ->get(); */
+                ->orWhere(function($query) use($arriveDate,$returnDate){
+                    $query->WhereNotBetween('reservation_arrive_date',[$arriveDate,$returnDate])
+                          ->WhereNotBetween('reservation_departure_date',[$arriveDate,$returnDate]);
+                })
 
-                dd($finds);
+                ->get(); 
+
+        $counted = count($finds);
+       // dd($finds);
+
+      //  dd(DB::getQueryLog());
 
         return view('pages.results', [  'region' => $region,
                                         'arive_date' => $arriveDate,
                                         'return_date' => $returnDate,
                                         'finds' => $finds,
+                                        'counted' => $counted,
                                      ]);
     }
 

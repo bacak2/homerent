@@ -36,7 +36,9 @@ return [
 	'adultskids' => 'Adults, kids',
 	'fprice' => 'Final Price',
 	'aval' => 'This date is available',
-
+	'apartaments' => 'apartaments',
+	'found' => 'We found',
+	'inclbreakfast' => 'Breakfast included',
 
 	'placeholder' => 'English placeholder text. We can add translation here.',
 
