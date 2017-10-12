@@ -127,6 +127,15 @@ form.logowanie input#login{
 	padding-left: 10px;
 }
 
+form.logowanie input#name{
+	border: 1px solid #a8b7c3;
+	width: 290px;
+	height: 40px;
+	font-size: 18px;
+	margin-top: 20px;
+	padding-left: 10px;
+}
+
 form.logowanie input#password{
 	border: 1px solid #a8b7c3;
 	width: 290px;

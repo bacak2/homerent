@@ -95,14 +95,18 @@ class Apartaments extends Controller
                             ->where('languages.id', $this->language->id);
                   })
                 ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->where('apartaments.apartament_address',$region)
+                ->orWhere('apartaments.apartament_city',$region)
                 ->where(function($query) {
                     $query->WhereNull('reservation_arrive_date')
                           ->WhereNull('reservation_departure_date');
+
                 })
                 ->orWhere(function($query) use($arriveDate,$returnDate){
                     $query->WhereNotBetween('reservation_arrive_date',[$arriveDate,$returnDate])
                           ->WhereNotBetween('reservation_departure_date',[$arriveDate,$returnDate]);
                 })
+
 
                 ->get(); 
 

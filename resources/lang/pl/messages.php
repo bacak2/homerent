@@ -1,8 +1,9 @@
 <?php
 
 return [
+	'lang' => 'pl',
 	'cheap' => 'Tanio',
-	'entercity' => 'Wpisz miasto, region lub adres',
+	'entercity' => 'Wpisz miasto lub adres',
 	'arrive' => 'Przyjazd',
 	'return' => 'Powrót',
 	'fast' => 'Szybko',
@@ -25,7 +26,7 @@ return [
 	'from' => 'od',
 	'checkprivacy' => 'Sprawdź cel, warunki przechowywania lub dostępu do nich w ',
 	'privacypolicy' => 'polityce prywatności',
-	'forexample' => 'np. Kraków lub Mazury',
+	'forexample' => 'np. Kraków',
 	'backto' => 'Powrót do wyników wyszukiwania',
 	'description' => 'Opis',
 	'similiarap' => 'Podobne apartamenty',
@@ -39,7 +40,7 @@ return [
 	'apartaments' => '{0}apartamentów|{1}apartament|[2,4]apartamenty|[5,*]apartamentów',
 	'found' => 'Znaleziono',
 	'inclbreakfast' => 'Śniadanie wliczone',
-
+	'choosedate' => 'Wybierz datę',
 
 	'placeholder' => 'Przykładowy tekst w języku polskim. Ten tekst jest po polsku.'
 

@@ -1,6 +1,7 @@
 <?php
 
 return [
+	'lang' => 'en',
 	'cheap' => 'Cheap',
 	'entercity' => 'Write your city or address',
 	'arrive' => 'Arrive date',
@@ -39,6 +40,7 @@ return [
 	'apartaments' => 'apartaments',
 	'found' => 'We found',
 	'inclbreakfast' => 'Breakfast included',
+	'choosedate' => 'Choose date',
 
 	'placeholder' => 'English placeholder text. We can add translation here.',
 
