@@ -58,9 +58,14 @@
 			<div class="form-apartament">
 				<form class="apartament">
 					<p class="przyjazd">{{ __('messages.arrived') }}</p><p class="wyjazd">{{ __('messages.return') }}</p><br>
-					<input type="text" id="przyjazd">
-					<input type="text" id="powrot">
-					<input type="text" id="ileosob" placeholder="{{ __('messages.adultskids') }}">
+					<input type="text" id="przyjazd" name="przyjazd">
+					<input type="text" id="powrot" name="powrot">
+					Ilość nocy: <p id="ilenocy"></p><br>
+					Ilość dorosłych:
+					<input type="number"  style="width: 30px;" value="0" min="0" max="100" id="adults" ><br>
+					Ilość dzieci:
+					<input type="number"  style="width: 30px;" value="0" min="0" max="100" id="kids" >
+
 				</form>
 			</div>
 			 <hr class="ln1">
@@ -128,5 +133,65 @@
 			</div>
 		</div>
 	</div>
-@endsection
 
+
+<script type="text/javascript">
+	$( "#przyjazd" ).datepicker({
+		  dateFormat: "yy-mm-dd",
+		  minDate: new Date(), 
+	});
+	$( "#powrot").datepicker({
+		  dateFormat: "yy-mm-dd",
+		  minDate: new Date(), 
+
+	});
+ 	$( "#przyjazd" ).datepicker( $.datepicker.regional[ "pl" ] ); 
+ 	$( "#powrot" ).datepicker( $.datepicker.regional[ "pl" ] ); 
+
+
+
+	//var $dateInc = $("#przyjazd");
+	//var $dateOut = $("#powrot");
+
+	$('#przyjazd').change(function(){
+		$('#powrot').change(function(){
+
+			var dateInc = $("#przyjazd");
+			var dateOut = $("#powrot");
+			
+		    $.ajax({
+		        type: "GET",
+		        url: '/test',
+		        dataType : 'json',
+		        data: {
+		        	przyjazd: dateInc.val(),
+		        	powrot: dateOut.val(),
+		        },
+		        success: function(data) {
+		            console.log(data);
+
+		       
+		           $('#ilenocy').text(data.days_number);
+
+
+
+
+		        },
+		        error: function() {
+		            console.log( "Error in connection with controller");
+		        },
+		    });
+		    
+
+			//$('#ilenocy').text("Data przyjazdu: "+dateInc.val()+" Data powrotu: "+dateOut.val());
+
+		});
+
+	});
+
+
+
+
+</script>
+
+@endsection

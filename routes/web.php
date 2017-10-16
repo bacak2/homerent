@@ -28,4 +28,6 @@ function()
 	Route::get('/apartaments/{id}', 'Apartaments@showApartamentInfo');
 
 	Route::get('/search','Apartaments@searchApartaments');
+
+	Route::get('/test','Apartaments@showTotalApartamentPrice');
 });

@@ -124,6 +124,15 @@ class Apartaments extends Controller
     }
 
 
+    public function showTotalApartamentPrice(Request $request)
+    {
+        $data = $request->json()->all();
 
+
+        return response()->json([   'days_number' => 5,
+                                    'price' => 21,
+
+        ]);
+    }
 
 }
