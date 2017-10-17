@@ -57,6 +57,7 @@ class Apartaments extends Controller
                     $query->where('language_id', $this->language->id);
                 }))->find($id);
     
+
         $apartamentGroup = DB::table('apartaments')->select('group_id')->where('id',$id)->pluck('group_id');
 
         //Generuje podobne apartamenty na podstawie grupy w której znajduje się dany apartament
@@ -80,6 +81,7 @@ class Apartaments extends Controller
 
     }
 
+    //Wyszukiwarka apartamentów
     public function searchApartaments(Request $request) {
 
         $region = $request->input('region');
@@ -126,12 +128,43 @@ class Apartaments extends Controller
 
     public function showTotalApartamentPrice(Request $request)
     {
-        $data = $request->json()->all();
+        $przyjazd = $request->input('przyjazd');
+        $powrot = $request->input('powrot');
+        $id = $request->input('id');
 
+        $dprz = strtotime($przyjazd);
+        $dpwr = strtotime($powrot);
+        $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
 
-        return response()->json([   'days_number' => 5,
+        //Sprawdza dostępność danego apartamentu w wybranym terminie przesłanym przez Ajax JS
+        $availabity = DB::Table('apartaments')
+                        ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                        ->where('apartaments.id','=',$id)
+                        ->where(function($query) {
+                            $query->WhereNull('reservation_arrive_date')
+                                  ->WhereNull('reservation_departure_date');
+
+                        })
+                        ->orWhere(function($query) use($przyjazd,$powrot){
+                            $query->WhereNotBetween('reservation_arrive_date',[$przyjazd,$powrot])
+                                  ->WhereNotBetween('reservation_departure_date',[$przyjazd,$powrot]);
+                        })                        
+                        ->get();
+
+        $is_available= TRUE;
+
+        if(count($availabity) == 1) {
+            $is_available = TRUE;
+
+        }   
+        else  {
+            $is_available = FALSE;
+
+        }
+
+        return response()->json([   'days_number' => $nightsCounter,
                                     'price' => 21,
-
+                                    'is_available' => $is_available,
         ]);
     }
 

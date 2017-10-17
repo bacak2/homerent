@@ -8,7 +8,6 @@
 	<div class="apartament-nawigacja">
 		<a href="#"><button class='back'>{{ __('messages.backto') }}</button></a>
 
-
 	</div>
 
 	<div id="apartament-big" style="background-image: url('{{ asset('images/placeholder.jpg') }}');">
@@ -58,19 +57,20 @@
 			<div class="form-apartament">
 				<form class="apartament">
 					<p class="przyjazd">{{ __('messages.arrived') }}</p><p class="wyjazd">{{ __('messages.return') }}</p><br>
-					<input type="text" id="przyjazd" name="przyjazd">
-					<input type="text" id="powrot" name="powrot">
-					Ilość nocy: <p id="ilenocy"></p><br>
+					<input type="text" id="przyjazd" name="przyjazd" readonly="readonly">
+					<input type="text" id="powrot" name="powrot" readonly="readonly">
+					<p align="left">Ilość nocy:</p><p id="ilenocy"></p><br>
 					Ilość dorosłych:
 					<input type="number"  style="width: 30px;" value="0" min="0" max="100" id="adults" ><br>
 					Ilość dzieci:
 					<input type="number"  style="width: 30px;" value="0" min="0" max="100" id="kids" >
 
 				</form>
-			</div>
+			</div>{{--
 			 <hr class="ln1">
-			<div class="form-apartament">{{ __('messages.fprice') }}<p class="cena-apart-noc" style="font-size: 25px;">300 zł</p></div>
-			<p class="termin">{{ __('messages.aval') }}</p>
+	
+			<div class="form-apartament">{{ __('messages.fprice') }}<p class="cena-apart-noc" style="font-size: 25px;">300 zł</p></div> --}}
+			<p class="termin" id="termin"></p>
 		</div>
 	</div>
 	</div>
@@ -137,61 +137,75 @@
 
 <script type="text/javascript">
 	$( "#przyjazd" ).datepicker({
-		  dateFormat: "yy-mm-dd",
-		  minDate: new Date(), 
+		defaultDate: new Date(),
+		dateFormat: "yy-mm-dd",
+		minDate: new Date(), 
+		onSelect: function(dateStr) 
+		{         
+			$("#powrot").datepicker("destroy");
+			$("#powrot").val(dateStr);
+			$("#powrot").datepicker({ 
+				minDate: new Date(dateStr),
+				dateFormat: "yy-mm-dd",
+			})
+		}
 	});
 	$( "#powrot").datepicker({
-		  dateFormat: "yy-mm-dd",
-		  minDate: new Date(), 
-
+        defaultDate: new Date(),
+		dateFormat: "yy-mm-dd",
+		minDate: new Date(), 
 	});
- 	$( "#przyjazd" ).datepicker( $.datepicker.regional[ "pl" ] ); 
- 	$( "#powrot" ).datepicker( $.datepicker.regional[ "pl" ] ); 
 
 
-
-	//var $dateInc = $("#przyjazd");
-	//var $dateOut = $("#powrot");
-
-	$('#przyjazd').change(function(){
-		$('#powrot').change(function(){
-
-			var dateInc = $("#przyjazd");
-			var dateOut = $("#powrot");
-			
-		    $.ajax({
-		        type: "GET",
-		        url: '/test',
-		        dataType : 'json',
-		        data: {
-		        	przyjazd: dateInc.val(),
-		        	powrot: dateOut.val(),
-		        },
-		        success: function(data) {
-		            console.log(data);
-
-		       
-		           $('#ilenocy').text(data.days_number);
-
-
-
-
-		        },
-		        error: function() {
-		            console.log( "Error in connection with controller");
-		        },
-		    });
-		    
-
-			//$('#ilenocy').text("Data przyjazdu: "+dateInc.val()+" Data powrotu: "+dateOut.val());
-
+	$(document).ready(function(){
+		$('#przyjazd').change(function(){
+			if ($.trim($('#powrot').val()) != '')
+			{
+				ajaxConenction();
+			}
 		});
 
+		$('#powrot').change(function(){
+			if ($.trim($('#przyjazd').val()) != '')
+			{
+				ajaxConenction();
+			}
+		});
+
+		function ajaxConenction(){
+						var dateInc = $("#przyjazd");
+						var dateOut = $("#powrot");
+						var id = {{ $apartament->id }};
+						
+					    $.ajax({
+					        type: "GET",
+					        url: '/test',
+					        dataType : 'json',
+					        data: {
+					        	przyjazd: dateInc.val(),
+					        	powrot: dateOut.val(),
+					        	id: id,
+					        },
+					        success: function(data) {
+					            console.log(data);  
+
+					           $('#ilenocy').text(data.days_number);
+
+					           if(data.is_available) {
+		 							$('#termin').text("Apartament dostępny");
+					           }
+					           else {
+					           	 	$('#termin').text("Apartament zajęty").css('color','red');
+					           }
+					        },
+					        error: function() {
+					            console.log( "Error in connection with controller");
+					        },
+					    });	
+			}
 	});
 
-
-
-
+	
 </script>
 
 @endsection
