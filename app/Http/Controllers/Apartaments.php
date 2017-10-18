@@ -50,7 +50,11 @@ class Apartaments extends Controller
 
     //Generuje stronę/widok dla poszczególnych apartamentów
     public function showApartamentInfo($id) {
-
+/*
+        $przyjazd = "2017-10-18";
+        $powrot = "2017-10-25";
+        dd($availabity);
+*/
 
         $apartament = Apartament::with(array('descriptions' => function($query)
                 {
@@ -105,15 +109,15 @@ class Apartaments extends Controller
 
                 })
                 ->orWhere(function($query) use($arriveDate,$returnDate){
-                    $query->WhereNotBetween('reservation_arrive_date',[$arriveDate,$returnDate])
-                          ->WhereNotBetween('reservation_departure_date',[$arriveDate,$returnDate]);
+                            $query->WhereNotBetween('reservation_arrive_date',[$arriveDate,$returnDate])
+                                  ->WhereNotBetween('reservation_departure_date',[$arriveDate,$returnDate]);
                 })
 
 
                 ->get(); 
 
         $counted = count($finds);
-       // dd($finds);
+        dd($finds);
 
       //  dd(DB::getQueryLog());
 
@@ -139,15 +143,17 @@ class Apartaments extends Controller
         //Sprawdza dostępność danego apartamentu w wybranym terminie przesłanym przez Ajax JS
         $availabity = DB::Table('apartaments')
                         ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
-                        ->where('apartaments.id','=',$id)
-                        ->where(function($query) {
-                            $query->WhereNull('reservation_arrive_date')
-                                  ->WhereNull('reservation_departure_date');
 
+                        ->where(function($query) use($id) {
+                            $query->WhereNull('reservation_arrive_date')
+                                  ->WhereNull('reservation_departure_date')
+                                  ->Where('apartaments.id','=',$id);
                         })
-                        ->orWhere(function($query) use($przyjazd,$powrot){
+                        ->orWhere(function($query) use($przyjazd,$powrot,$id){
                             $query->WhereNotBetween('reservation_arrive_date',[$przyjazd,$powrot])
-                                  ->WhereNotBetween('reservation_departure_date',[$przyjazd,$powrot]);
+                                  ->WhereNotBetween('reservation_departure_date',[$przyjazd,$powrot])
+                                  ->Where('apartaments.id','=',$id);
+
                         })                        
                         ->get();
 

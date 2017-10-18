@@ -71,6 +71,7 @@
 	
 			<div class="form-apartament">{{ __('messages.fprice') }}<p class="cena-apart-noc" style="font-size: 25px;">300 zł</p></div> --}}
 			<p class="termin" id="termin"></p>
+			<button style="display:none;" name="reservation" id="reservation" >Rezerwuj</button>
 		</div>
 	</div>
 	</div>
@@ -136,6 +137,9 @@
 
 
 <script type="text/javascript">
+
+
+
 	$( "#przyjazd" ).datepicker({
 		defaultDate: new Date(),
 		dateFormat: "yy-mm-dd",
@@ -148,6 +152,10 @@
 				minDate: new Date(dateStr),
 				dateFormat: "yy-mm-dd",
 			})
+		},
+		onClose: function()
+		{
+			$("#powrot").focus();
 		}
 	});
 	$( "#powrot").datepicker({
@@ -157,11 +165,17 @@
 	});
 
 
+
+
 	$(document).ready(function(){
+
+
 		$('#przyjazd').change(function(){
+
 			if ($.trim($('#powrot').val()) != '')
 			{
 				ajaxConenction();
+	
 			}
 		});
 
@@ -193,6 +207,7 @@
 
 					           if(data.is_available) {
 		 							$('#termin').text("Apartament dostępny");
+		 							$('#reservation').css('display','show');
 					           }
 					           else {
 					           	 	$('#termin').text("Apartament zajęty").css('color','red');
