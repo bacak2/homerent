@@ -11,7 +11,7 @@
 	<div class="parent">
 		@foreach ($apartaments as $apartament)
 
-			<a class="divlink" href="/apartaments/{{ $apartament->id }}">
+			<a class="divlink" href="/apartaments/{{ $apartament->descriptions[0]->apartament_link }}">
 			<div class="child" style="background-image: url('{{ asset('images/1.jpg') }}');">
 			<p class="title">{{$apartament->descriptions[0]->apartament_name}}</p><p class="cena">{{ __('messages.from') }} <b>260 zł</b>{{ __('messages.pernight') }}</p></div>
 			</a>

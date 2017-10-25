@@ -14,13 +14,13 @@ use App\Apartament_description;
 use App\Apartament_group;
 use App\Reservation;
 
-use DB; 
+use Illuminate\Support\Facades\DB;
 
 class Apartaments extends Controller
 {
 
   
-    //Język strony z bazy danych
+    //Site language from database
     protected $language = 1; 
 
      public function __construct()
@@ -32,7 +32,7 @@ class Apartaments extends Controller
     
 
 
-    //Generuje widok strony głównej
+    //Generates homepage view
     public function showIndex()
     {
 
@@ -41,20 +41,25 @@ class Apartaments extends Controller
                         }))
                         ->get();
 
-       // dd($apartaments);
+        //dd($apartaments);
 
     	return view('pages.index', ['apartaments' => $apartaments]);
 
     }
 
 
-    //Generuje stronę/widok dla poszczególnych apartamentów
-    public function showApartamentInfo($id) {
-/*
-        $przyjazd = "2017-10-18";
-        $powrot = "2017-10-25";
-        dd($availabity);
-*/
+    //Generates view for single apartament
+    public function showApartamentInfo($link) {
+
+        //Find id of an apartment with $link passed to controller
+        $linktoid = DB::table('apartament_descriptions')
+                    ->select('apartament_id')
+                    ->where('apartament_link',$link)
+                    ->get();
+
+
+        $id = $linktoid[0]->apartament_id;
+
 
         $apartament = Apartament::with(array('descriptions' => function($query)
                 {
@@ -64,7 +69,7 @@ class Apartaments extends Controller
 
         $apartamentGroup = DB::table('apartaments')->select('group_id')->where('id',$id)->pluck('group_id');
 
-        //Generuje podobne apartamenty na podstawie grupy w której znajduje się dany apartament
+        //Generates similiar apartments, that are into the same group like mother-apartment.
         $groups =  DB::table('apartaments')
                     ->join('apartament_groups', 'apartaments.group_id', '=', 'apartament_groups.id')
                     ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
@@ -85,14 +90,14 @@ class Apartaments extends Controller
 
     }
 
-    //Wyszukiwarka apartamentów
+    //Apartments search engine
     public function searchApartaments(Request $request) {
 
         $region = $request->input('region');
         $arriveDate = $request->input('przyjazd');
         $returnDate = $request->input('powrot');
 
-        DB::connection()->enableQueryLog();   
+        DB::connection()->enableQueryLog();
 
         $finds = DB::Table('apartaments')
                 ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
@@ -101,25 +106,31 @@ class Apartaments extends Controller
                             ->where('languages.id', $this->language->id);
                   })
                 ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
-                ->where('apartaments.apartament_address',$region)
-                ->orWhere('apartaments.apartament_city',$region)
-                ->where(function($query) {
-                    $query->WhereNull('reservation_arrive_date')
-                          ->WhereNull('reservation_departure_date');
-
-                })
-                ->orWhere(function($query) use($arriveDate,$returnDate){
-                            $query->WhereNotBetween('reservation_arrive_date',[$arriveDate,$returnDate])
-                                  ->WhereNotBetween('reservation_departure_date',[$arriveDate,$returnDate]);
+                ->where(function($query) use ($region){
+                    $query->where('apartaments.apartament_address',$region)
+                          ->orWhere('apartaments.apartament_city',$region);
                 })
 
 
-                ->get(); 
+                ->where(function($query) use ($arriveDate,$returnDate) {
+                    $query->where(function($query) {
+                        $query->WhereNull('reservation_arrive_date')
+                              ->WhereNull('reservation_departure_date');
+
+                        })
+                            ->orWhere(function($query) use($arriveDate,$returnDate){
+                                        $query->whereRaw('? not between reservation_arrive_date and reservation_departure_date AND ? not between reservation_arrive_date and reservation_departure_date',[$arriveDate,$returnDate]);
+
+                            });
+
+
+                })
+               ->get(); 
 
         $counted = count($finds);
-        dd($finds);
+        //dd($finds);
 
-      //  dd(DB::getQueryLog());
+       //dd(DB::getQueryLog());
 
         return view('pages.results', [  'region' => $region,
                                         'arive_date' => $arriveDate,
@@ -140,7 +151,7 @@ class Apartaments extends Controller
         $dpwr = strtotime($powrot);
         $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
 
-        //Sprawdza dostępność danego apartamentu w wybranym terminie przesłanym przez Ajax JS
+        //Checks abailabity for each apartment in date (AJAX + JS)
         $availabity = DB::Table('apartaments')
                         ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
 
@@ -150,10 +161,7 @@ class Apartaments extends Controller
                                   ->Where('apartaments.id','=',$id);
                         })
                         ->orWhere(function($query) use($przyjazd,$powrot,$id){
-                            $query->WhereNotBetween('reservation_arrive_date',[$przyjazd,$powrot])
-                                  ->WhereNotBetween('reservation_departure_date',[$przyjazd,$powrot])
-                                  ->Where('apartaments.id','=',$id);
-
+                            $query->whereRaw('apartaments.id = ? AND ( ? not between reservation_arrive_date and reservation_departure_date AND ? not between reservation_arrive_date and reservation_departure_date)',[$id,$przyjazd,$powrot]);
                         })                        
                         ->get();
 
@@ -174,4 +182,24 @@ class Apartaments extends Controller
         ]);
     }
 
+
+    public function apartamentAutoComplete(Request $request)
+    {
+
+        $przyjazd = $request->input('phrase');
+
+
+
+        $apartaments = DB::table('apartaments')->select('apartament_descriptions.apartament_name','apartaments.apartament_address')
+                    ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                    ->join('languages', function($join) {
+                        $join->on('apartament_descriptions.language_id','=','languages.id')
+                            ->where('languages.id', $this->language->id);
+                    })
+                    ->where('apartament_name','like','%'.$przyjazd.'%')
+                    ->get();
+
+        //dd($apartaments);
+        return response(json_encode($apartaments));
+    }
 }

@@ -106,7 +106,6 @@
 						<div class="info-top">
 							<div class="wyniki-cena"><p class="cena-top">160 zł</p></div>
 							<div class="info-bottom"><p class="info-addons">{{ __('messages.inclbreakfast') }}</p></div>
-
 						</div>
 						<p class="title-found">{{ $group->apartament_name }}</p>
 						<p class="address">{{ $group->apartament_city }}, {{$group->apartament_address}}, {{$group->apartament_address_2}}</p>
@@ -206,7 +205,8 @@
 					           $('#ilenocy').text(data.days_number);
 
 					           if(data.is_available) {
-		 							$('#termin').text("Apartament dostępny");
+		 							$('#termin').text("Apartament dostępny").css('color','green');
+
 		 							$('#reservation').css('display','show');
 					           }
 					           else {

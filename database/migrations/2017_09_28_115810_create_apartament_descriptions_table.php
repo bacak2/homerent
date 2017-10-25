@@ -18,6 +18,7 @@ class CreateApartamentDescriptionsTable extends Migration
             $table->integer('apartament_id')->unsigned();
             $table->integer('language_id')->unsigned();
             $table->string('apartament_name','200');
+            $table->string('apartament_link','300');
             $table->longtext('apartament_description');
             $table->timestamps();
         //    $table->foreign('apartament_id')->references('id')->on('apartaments');

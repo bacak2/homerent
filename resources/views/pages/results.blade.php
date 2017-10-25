@@ -8,7 +8,7 @@
 	<div id="apartaments" style="padding-top: 10px">
 	<div class="parent">
 		@foreach ($finds as $apartament)
-			<a class="divlink" href="#">
+			<a class="divlink" href="/apartaments/{{ $apartament->apartament_link }}">
 
 				<div class="child-found">
 					<div class="info-top" style="background-image: url('{{asset('images/1.jpg')}}')">

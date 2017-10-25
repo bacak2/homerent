@@ -19,6 +19,15 @@
 	{{-- FOTORAMA PLUGIN --}}
 	<script type="text/javascript" src="{{ asset('js/fotorama.js') }}"></script>
 	<link href="{{ asset('css/fotorama.css') }}" rel="stylesheet">
+	{{-- AUTOCOMPLETE PLUGIN --}}
+	<!-- JS file -->
+	<script src="{{ asset('node_modules/easy-autocomplete/dist/jquery.easy-autocomplete.min.js')}}"></script> 
+
+	<!-- CSS file -->
+	<link rel="stylesheet" href="{{ asset('node_modules/easy-autocomplete/dist/easy-autocomplete.min.css')}}"> 
+
+	<!-- Additional CSS Themes file - not required-->
+	<link rel="stylesheet" href="{{ asset('node_modules/easy-autocomplete/dist/easy-autocomplete.themes.min.css') }}"> 
 
 <body>
 	{{-- HEADER --}}

@@ -25,9 +25,12 @@ function()
 
 	Route::get('/home', 'HomeController@index')->name('home');
 
-	Route::get('/apartaments/{id}', 'Apartaments@showApartamentInfo');
+	Route::get('/apartaments/{link}', 'Apartaments@showApartamentInfo');
 
 	Route::get('/search','Apartaments@searchApartaments');
 
 	Route::get('/test','Apartaments@showTotalApartamentPrice');
+
+	Route::get('/autocomplete','Apartaments@apartamentAutoComplete');
+	
 });
