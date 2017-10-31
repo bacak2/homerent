@@ -69,6 +69,11 @@ class Apartaments extends Controller
 
         $apartamentGroup = DB::table('apartaments')->select('group_id')->where('id',$id)->pluck('group_id');
 
+        $images = DB::table('apartaments')->select('apartament_photos.photo_link','apartaments.id')
+                            ->join('apartament_photos','apartaments.id','=','apartament_photos.apartament_id')
+                            ->where('apartament_id',$id)
+                            ->get();
+
         //Generates similiar apartments, that are into the same group like mother-apartment.
         $groups =  DB::table('apartaments')
                     ->join('apartament_groups', 'apartaments.group_id', '=', 'apartament_groups.id')
@@ -85,7 +90,8 @@ class Apartaments extends Controller
        // dd($groups); 
        // dd($descriptions);
        return view('pages.apartaments', ['apartament' => $apartament,
-                                         'groups' => $groups
+                                         'groups' => $groups,
+                                         'images' => $images
                                         ]);
 
     }

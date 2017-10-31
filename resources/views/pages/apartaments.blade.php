@@ -84,10 +84,12 @@
 			<h2 class="apartamenty" style="padding-top: 15px;">{{ __('messages.photos') }}</h2>
 			<div class="galeria-container">
 				<div class="fotorama" data-nav="thumbs" data-autoplay="true">
-		 			<a href="{{ asset('images/4.jpg') }}"><img src="{{ asset('images/4.jpg') }}"></a>		
-		 			<a href="{{ asset('images/1.jpg') }}"><img src="{{ asset('images/1.jpg') }}"></a>
-		 			<a href="{{ asset('images/2.jpg') }}"><img src="{{ asset('images/2.jpg') }}"></a>
-		 			<a href="{{ asset('images/3.jpg') }}"><img src="{{ asset('images/3.jpg') }}"></a>
+
+					@forelse($images as $image)
+			 			<a href="{{ asset("images/apartaments/$image->id/$image->photo_link") }}"><img src="{{ asset("images/apartaments/$image->id/$image->photo_link") }}"></a>
+			 		@empty
+			 		<p>No photos for this apartment</p>
+		 			@endforelse
 				</div>
 			</div>
 
