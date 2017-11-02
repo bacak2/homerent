@@ -67,12 +67,22 @@ class Apartaments extends Controller
                 }))->find($id);
     
 
-        $apartamentGroup = DB::table('apartaments')->select('group_id')->where('id',$id)->pluck('group_id');
+        $apartamentGroup = DB::table('apartaments')
+                    ->select('group_id')
+                    ->where('id',$id)
+                    ->pluck('group_id');
 
-        $images = DB::table('apartaments')->select('apartament_photos.photo_link','apartaments.id')
-                            ->join('apartament_photos','apartaments.id','=','apartament_photos.apartament_id')
-                            ->where('apartament_id',$id)
-                            ->get();
+        //Generates an array of images gallery
+        $images = DB::table('apartaments')
+                    ->select('apartament_photos.photo_link','apartaments.id')
+                    ->join('apartament_photos','apartaments.id','=','apartament_photos.apartament_id')
+                    ->where('apartament_id',$id)
+                    ->get();
+
+        $priceFrom = DB::table('apartament_prices')
+                    ->select('price_value')
+                    ->where('apartament_id',$id)
+                    ->min('price_value');
 
         //Generates similiar apartments, that are into the same group like mother-apartment.
         $groups =  DB::table('apartaments')
@@ -91,7 +101,8 @@ class Apartaments extends Controller
        // dd($descriptions);
        return view('pages.apartaments', ['apartament' => $apartament,
                                          'groups' => $groups,
-                                         'images' => $images
+                                         'images' => $images,
+                                         'priceFrom' => $priceFrom
                                         ]);
 
     }
@@ -188,7 +199,7 @@ class Apartaments extends Controller
         ]);
     }
 
-
+    //Ajax autoComplete, returns json
     public function apartamentAutoComplete(Request $request)
     {
 

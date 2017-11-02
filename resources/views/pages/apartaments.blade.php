@@ -52,7 +52,7 @@
 
 	<div class="apartament-big-r">
 		<div class="apartament-cena">
-			<div class="apartament-cena-cena"><p class="padding5">{{ __('messages.pricepernightfrom') }}</p><p class="cena-apart-noc">150 PLN</p></div>
+			<div class="apartament-cena-cena"><p class="padding5">{{ __('messages.pricepernightfrom') }}</p><p class="cena-apart-noc">{{ $priceFrom }} PLN</p></div>
 
 			<div class="form-apartament">
 				<form class="apartament">
@@ -103,7 +103,7 @@
 			<div class="parent">
 
 			@foreach ($groups as $group)
-				<a class="divlink" href="/apartaments/{{ $group->apartament_id }}">
+				<a class="divlink" href="/apartaments/{{ $group->apartament_link }}">
 					<div class="child-found">
 						<div class="info-top">
 							<div class="wyniki-cena"><p class="cena-top">160 zł</p></div>

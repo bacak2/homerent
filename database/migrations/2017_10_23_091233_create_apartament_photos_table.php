@@ -16,7 +16,6 @@ class CreateApartamentPhotosTable extends Migration
         Schema::create('apartament_photos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('apartament_id')->unsigned();
-            $table->string('photo_dir','200');
             $table->string('photo_link','300');
             $table->timestamps();
         });

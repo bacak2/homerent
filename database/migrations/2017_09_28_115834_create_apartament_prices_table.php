@@ -16,7 +16,7 @@ class CreateApartamentPricesTable extends Migration
         Schema::create('apartament_prices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('apartament_id')->unsigned();
-            $table->integer('language_id')->unsigned();
+            $table->integer('currency_id')->unsigned();
             $table->float('price_value');
             $table->date('date_of_price');
             $table->float('price_discount');
