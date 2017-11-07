@@ -168,7 +168,7 @@ class Apartaments extends Controller
         $dpwr = strtotime($powrot);
         $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
 
-        //Checks abailabity for each apartment in date (AJAX + JS)
+        //Checks availabity for each apartment in date (AJAX + JS)
         $availabity = DB::Table('apartaments')
                         ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
 
