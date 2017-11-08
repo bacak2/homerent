@@ -59,7 +59,9 @@
 					<p class="przyjazd">{{ __('messages.arrived') }}</p><p class="wyjazd">{{ __('messages.return') }}</p><br>
 					<input type="text" id="przyjazd" name="przyjazd" readonly="readonly">
 					<input type="text" id="powrot" name="powrot" readonly="readonly">
-					<p align="left">Ilość nocy:</p><p id="ilenocy"></p><br>
+					Ilość nocy: <b><span id="ilenocy"></span></b><br>
+					Cena: <b><span id="price"></span></b><br>
+
 					Ilość dorosłych:
 					<input type="number"  style="width: 30px;" value="0" min="0" max="100" id="adults" ><br>
 					Ilość dzieci:
@@ -202,13 +204,13 @@
 					        	id: id,
 					        },
 					        success: function(data) {
-					            console.log(data);  
+					            //console.log(data);  
 
 					           $('#ilenocy').text(data.days_number);
 
 					           if(data.is_available) {
 		 							$('#termin').text("Apartament dostępny").css('color','green');
-
+		 							$('#price').text(data.price+" PLN");
 		 							$('#reservation').css('display','show');
 					           }
 					           else {

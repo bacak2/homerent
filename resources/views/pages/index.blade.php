@@ -10,10 +10,9 @@
 	<h2 class="ap">{{ __('messages.ap4u') }}</h2>
 	<div class="parent">
 		@foreach ($apartaments as $apartament)
-
-			<a class="divlink" href="/apartaments/{{ $apartament->descriptions[0]->apartament_link }}">
+			<a class="divlink" href="/apartaments/{{ $apartament->apartament_link }}">
 			<div class="child" style="background-image: url('{{ asset('images/1.jpg') }}');">
-			<p class="title">{{$apartament->descriptions[0]->apartament_name}}</p><p class="cena">{{ __('messages.from') }} <b>260 zł</b>{{ __('messages.pernight') }}</p></div>
+			<p class="title">{{$apartament->apartament_name}}</p><p class="cena">{{ __('messages.from') }} <b>{{$apartament->price_value}} zł</b>{{ __('messages.pernight') }}</p></div>
 			</a>
 		@endforeach
 	</div></div>

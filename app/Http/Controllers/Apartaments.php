@@ -1,7 +1,7 @@
 <?php
 /**
  *@category Kontroler apartamentów, aplikacji HOMERENT
- *@author Arkadiusz Adamczyk - ARTPLUS
+ *@author Arkadiusz Adamczyk
  *@version 1.0
  */
 
@@ -35,16 +35,28 @@ class Apartaments extends Controller
     //Generates homepage view
     public function showIndex()
     {
+        $todayDate = date("Y-m-d");
+        //DB::connection()->enableQueryLog();
+        //dd(DB::getQueryLog());
+       
+        $apartaments = DB::table('apartaments')
+                        ->selectRaw('distinct(apartaments.id), apartament_descriptions.apartament_name, 
+                          apartament_descriptions.apartament_link, MIN(apartament_prices.price_value) AS price_value')
+                        ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                        ->join('languages', function($join) {
+                            $join->on('apartament_descriptions.language_id','=','languages.id')
+                                 ->where('languages.id', $this->language->id);
+                            })
+                        ->join('apartament_prices', function($join) use($todayDate) {
+                            $join->on('apartament_prices.apartament_id','=','apartaments.id')
 
-        $apartaments = Apartament::with(array('descriptions' => function($query){
-                        $query->where('language_id', $this->language->id);
-                        }))
+                            ->Where('apartament_prices.date_of_price','>=',$todayDate);
+
+                        })
+                        ->groupBy('apartaments.id','apartament_descriptions.id')
                         ->get();
 
-        //dd($apartaments);
-
     	return view('pages.index', ['apartaments' => $apartaments]);
-
     }
 
 
@@ -59,7 +71,6 @@ class Apartaments extends Controller
 
 
         $id = $linktoid[0]->apartament_id;
-
 
         $apartament = Apartament::with(array('descriptions' => function($query)
                 {
@@ -79,10 +90,7 @@ class Apartaments extends Controller
                     ->where('apartament_id',$id)
                     ->get();
 
-        $priceFrom = DB::table('apartament_prices')
-                    ->select('price_value')
-                    ->where('apartament_id',$id)
-                    ->min('price_value');
+        $priceFrom = $this->getPriceFrom($id);
 
         //Generates similiar apartments, that are into the same group like mother-apartment.
         $groups =  DB::table('apartaments')
@@ -107,6 +115,19 @@ class Apartaments extends Controller
 
     }
 
+    //Gets min apartament price
+    public function getPriceFrom($id) {
+        $todayDate = date("Y-m-d");
+        $priceFrom = DB::table('apartament_prices')
+                    ->select('price_value')
+                    ->where('apartament_id',$id)
+                    ->where('date_of_price','>=',$todayDate)
+                    ->min('price_value');
+
+
+        return $priceFrom;
+    }
+
     //Apartments search engine
     public function searchApartaments(Request $request) {
 
@@ -114,7 +135,6 @@ class Apartaments extends Controller
         $arriveDate = $request->input('przyjazd');
         $returnDate = $request->input('powrot');
 
-        DB::connection()->enableQueryLog();
 
         $finds = DB::Table('apartaments')
                 ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
@@ -127,27 +147,21 @@ class Apartaments extends Controller
                     $query->where('apartaments.apartament_address',$region)
                           ->orWhere('apartaments.apartament_city',$region);
                 })
-
-
                 ->where(function($query) use ($arriveDate,$returnDate) {
                     $query->where(function($query) {
                         $query->WhereNull('reservation_arrive_date')
                               ->WhereNull('reservation_departure_date');
-
                         })
                             ->orWhere(function($query) use($arriveDate,$returnDate){
                                         $query->whereRaw('? not between reservation_arrive_date and reservation_departure_date AND ? not between reservation_arrive_date and reservation_departure_date',[$arriveDate,$returnDate]);
-
                             });
-
-
                 })
                ->get(); 
 
         $counted = count($finds);
         //dd($finds);
 
-       //dd(DB::getQueryLog());
+
 
         return view('pages.results', [  'region' => $region,
                                         'arive_date' => $arriveDate,
@@ -182,6 +196,13 @@ class Apartaments extends Controller
                         })                        
                         ->get();
 
+        $totalPrice = DB::Table('apartament_prices')
+                        ->selectRaw('sum(price_value) AS total_price')
+                        ->where('apartament_id',$id)
+                        ->where('date_of_price','>=',$przyjazd)
+                        ->where('date_of_price','<',$powrot)
+                        ->get();
+
         $is_available= TRUE;
 
         if(count($availabity) == 1) {
@@ -194,8 +215,9 @@ class Apartaments extends Controller
         }
 
         return response()->json([   'days_number' => $nightsCounter,
-                                    'price' => 21,
+                                    'price' => $totalPrice[0]->total_price,
                                     'is_available' => $is_available,
+                                    'message' => 'Test'
         ]);
     }
 
