@@ -1,68 +1,94 @@
-<style type="text/css">
-	.easy-autocomplete-container {
-    width: 50%;
-    margin-top: 45px;
-}
+<!-- Slider -->
+<header>
+  <div id="mainSliderSearch" class="carousel slide" data-ride="carousel" data-interval="4000">
+      <div class="carousel-inner d-none d-md-block d-lg-block d-xl-block">
+          <div class="carousel-item active">
+              <img class="d-block w-100" src="images/slider/1.png" alt="First slide">
+          </div>
+          <div class="carousel-item">
+              <img class="d-block w-100" src="images/slider/2.png" alt="Second slide">
+          </div>
+          <div class="carousel-item">
+              <img class="d-block w-100" src="images/slider/3.png" alt="Third slide">
+          </div>
+      </div>
+      <div id="topSearch">
+        <div class="container searchCont">
+              <h4 class="d-block d-sm-none">Szukaj wśród 34 678<br>
+              noclegów w Polsce</h4>
 
-</style>
-
-<div id="search-slider">
-	<div class="search">
-		<div class="search-wrapper">
-		<form action="/search" method="GET" class="form-search">
-			<input type="text"  id="region" name="region" placeholder="{{ __('messages.forexample') }}" required>
-			<input type="text" class="date" id="przyjazd" name="przyjazd" placeholder='{{__('messages.choosedate')}}' pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
-			<input type="text" class="date" id="powrot" name="powrot" placeholder='{{__('messages.choosedate')}}' pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
-			<input type="number"  value="0" min="0" max="100" id="nights" >
-			<input type="number"  value="0" min="0" max="100" id="persons" > 
-			<input type="submit" id="submit" value="{{ __('messages.search') }}"> 
-		</form>
-		</div>
-	</div>
-
-	<div class="ism-slider" data-transition_type="fade" data-play_type="loop" data-image_fx="none" data-buttons="false" id="slider">
-	  <ol>
-	    <li>
-	      <img src="{{ asset('ism/image/slides/tatry1.jpg') }}">
-	    </li>
-	    <li>
-	      <img src="{{ asset('ism/image/slides/krakow-city.jpg') }}">
-	    </li>
-	    <li>
-	      <img src="{{ asset('ism/image/slides/tatry2.jpg') }}">
-	    </li>
-	    <li>
-	      <img src="{{ asset('ism/image/slides/gdansk.jpg') }}">
-	    </li>
-	  </ol>
-	</div>
-</div>
+            <div class="col">
+              <form class="wyszukiwarka" action="/search" method="GET" >
+                <div class="form-row">
+                  <div class="col-md-3 mb-2 mb-sm-0">
+                    <input type="text" class="form-control" id="region" name="region" placeholder="np. Kraków">
+                  </div>
+                  <div class="col-md mb-2 mb-sm-0">
+                    <span id="pick-date">
+                      <div class="input-group mb-2 mb-sm-0">
+                          <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                          <input type="text" class="form-control" id="przyjazd" name="przyjazd" placeholder="Przyjazd" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
+                      </div>
+                  </div>
+                  <div class="col-md mb-2 mb-sm-0">
+                      <div class="input-group mb-2 mb-sm-0">
+                          <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                          <input type="text" class="form-control" id="powrot" name="powrot" placeholder="Powrót" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
+                      </div>
+                   </span>
+                  </div>
+                  <div class="col-md">
+                      <div class="input-group mb-2 mb-sm-0">
+                        <div class="input-group-addon"><i class="fa fa-male" aria-hidden="true"></i></div>
+                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Dorośli">
+                      </div>
+                  </div>
+                  <div class="col-md">
+                    <div class="input-group mb-2 mb-sm-0">
+                      <div class="input-group-addon"><i class="fa fa-child" aria-hidden="true"></i></div>
+                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Dzieci">
+                    </div>
+                  </div>
+                  <div class="col-md">
+                    <button type="submit" class="btn btn-primary searchbtn">{{ __('messages.search') }}</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </div>
+      </div>
+  </div>
+</header>
 
 <script type="text/javascript">
-	$( "#przyjazd" ).datepicker({
-		defaultDate: new Date(),
-		dateFormat: "yy-mm-dd",
-		minDate: new Date(), 
-		onSelect: function(dateStr) 
-		{         
-			$("#powrot").datepicker("destroy");
-			$("#powrot").val(dateStr);
-			$("#powrot").datepicker({ 
-				minDate: new Date(dateStr),
-				dateFormat: "yy-mm-dd",
-			})
-		},
-		onClose: function()
-		{
-			$("#powrot").focus();
-		}
-	});
-	$( "#powrot").datepicker({
-        defaultDate: new Date(),
-		dateFormat: "yy-mm-dd",
-		minDate: new Date(), 
-	});
+$('#pick-date').dateRangePicker(
+  {
+    separator : ' to ',
+    autoClose: true,
+    startOfWeek: 'monday',
+    startDate: new Date(),
+    customOpenAnimation: function(cb)
+    {
+      $(this).fadeIn(100, cb);
+    },
+    customCloseAnimation: function(cb)
+    {
+      $(this).fadeOut(100, cb);
+    },
 
+    getValue: function()
+    {
+      if ($('#przyjazd').val() && $('#powrot').val() )
+        return $('#przyjazd').val() + ' to ' + $('#powrot').val();
+      else
+        return '';
+    },
+    setValue: function(s,s1,s2)
+    {
+      $('#przyjazd').val(s1);
+      $('#powrot').val(s2);
+    }
+  });
 
 
 var options = {
@@ -78,7 +104,7 @@ var options = {
 	template: {
 		type: "description",
 		fields: {
-			description: "apartament_address"
+			description: "apartament_city"
 		}
 
 
@@ -89,6 +115,5 @@ var options = {
 
 	$("#region").easyAutocomplete(options);
 
- 	$('.ui-autocomplete-input').css('height','300px');
 
 </script>

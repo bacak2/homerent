@@ -8,18 +8,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Apartament;
 use App\Apartament_description;
 use App\Apartament_group;
 use App\Reservation;
 
-use Illuminate\Support\Facades\DB;
 
 class Apartaments extends Controller
 {
-
-  
     //Site language from database
     protected $language = 1; 
 
@@ -30,15 +28,12 @@ class Apartaments extends Controller
         $this->language = $language;
       }
     
-
-
     //Generates homepage view
     public function showIndex()
     {
         $todayDate = date("Y-m-d");
         //DB::connection()->enableQueryLog();
         //dd(DB::getQueryLog());
-       
         $apartaments = DB::table('apartaments')
                         ->selectRaw('distinct(apartaments.id), apartament_descriptions.apartament_name, 
                           apartament_descriptions.apartament_link, MIN(apartament_prices.price_value) AS price_value')
@@ -53,7 +48,7 @@ class Apartaments extends Controller
                             ->Where('apartament_prices.date_of_price','>=',$todayDate);
 
                         })
-                        ->groupBy('apartaments.id','apartament_descriptions.id')
+                        ->groupBy('apartaments.id','apartament_descriptions.id','apartament_descriptions.apartament_name','apartament_descriptions.apartament_link')
                         ->get();
 
     	return view('pages.index', ['apartaments' => $apartaments]);
@@ -104,7 +99,6 @@ class Apartaments extends Controller
                     ->limit(3)  // Maksymalnie 3 apartamenty
                     ->get();
 
-
        // dd($groups); 
        // dd($descriptions);
        return view('pages.apartaments', ['apartament' => $apartament,
@@ -144,7 +138,7 @@ class Apartaments extends Controller
                   })
                 ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
                 ->where(function($query) use ($region){
-                    $query->where('apartaments.apartament_address',$region)
+                    $query->where('apartament_descriptions.apartament_name',$region)
                           ->orWhere('apartaments.apartament_city',$region);
                 })
                 ->where(function($query) use ($arriveDate,$returnDate) {
@@ -160,9 +154,6 @@ class Apartaments extends Controller
 
         $counted = count($finds);
         //dd($finds);
-
-
-
         return view('pages.results', [  'region' => $region,
                                         'arive_date' => $arriveDate,
                                         'return_date' => $returnDate,
@@ -225,17 +216,15 @@ class Apartaments extends Controller
     public function apartamentAutoComplete(Request $request)
     {
 
-        $przyjazd = $request->input('phrase');
-
-
-
-        $apartaments = DB::table('apartaments')->select('apartament_descriptions.apartament_name','apartaments.apartament_address')
+        $phrase = $request->input('phrase');
+        
+        $apartaments = DB::table('apartaments')->select('apartament_descriptions.apartament_name','apartaments.apartament_city')
                     ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                     ->join('languages', function($join) {
                         $join->on('apartament_descriptions.language_id','=','languages.id')
                             ->where('languages.id', $this->language->id);
                     })
-                    ->where('apartament_name','like','%'.$przyjazd.'%')
+                    ->where('apartament_name','like','%'.$phrase.'%')
                     ->get();
 
         //dd($apartaments);

@@ -1,0 +1,156 @@
+$desktop: "(min-width: 768px)";
+
+.main-text
+{
+
+    color: #FFF;
+}
+
+.easy-autocomplete-container {
+	z-index: 200 !important;
+	}
+
+.input-group-addon {
+		min-width: 40px;
+	    text-align:left;
+	}
+
+input	{
+	border-radius: 0 !important;
+}
+
+		
+#apartament-big {
+	.col {
+		height: 200px;
+		background: no-repeat center;
+	    background-image: none;
+	    background-size: auto auto;
+		background-size: cover;
+			.ap-transparent, .reviews {
+				background-color: rgba(255,255,255,0.8);
+				height: auto;
+				}
+
+		}
+	
+
+	.reviews {
+	background-color: rgba(255,255,255,0.8);
+	height: auto;
+	width: auto;
+		h4 {
+		color: green;
+		font-weight: bold;
+		}
+	}
+}
+
+#topSearch {
+
+	background-color: lightgrey;
+	padding-bottom: 20px;
+
+	.search {
+		padding-top: 20px;
+	}
+
+	h4 {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+
+	.col {
+		background-color: rgba(255, 255, 255, 0.5);
+		margin: 0 auto;
+		padding-bottom: 20px;
+	}
+
+	.wyszukiwarka {
+		padding-top: 20px;
+
+		button	{
+			width: 100%;
+			cursor: pointer;
+		}
+	}
+
+
+}
+
+#benifits {
+
+	p {
+		font-size: 14px;
+	}
+
+	h4	{
+		padding: 0;
+		margin: 0;
+	}
+
+	.row {
+		padding-top: 20px;
+	}
+
+}
+
+#apartamentsforyou{
+	padding-top: 25px;
+
+	a {
+		margin: 0;
+		padding-left: 2px;
+		padding-right: 2px;
+		color: black;
+		text-decoration: none;
+	}
+
+	p.title {
+		position: absolute;
+		top: 0;
+		background-color: rgba(255, 255, 255, 0.75);
+		width: 100%;
+		font-size: 20px;
+		padding-left: 10px;
+	}
+
+	p.price {
+		position: absolute;
+		background-color: rgba(255, 255, 255, 0.5);
+		right: 0;
+		margin-bottom: 0;
+		bottom: 0;
+		font-size: 20px;
+		padding-left: 10px;
+
+		width: 100%;
+	}
+
+	.apartament {
+		height: 180px;
+		width: 100%;
+		margin-bottom: 5px;
+		background-repeat: no-repeat;
+ 		background-position: center center;
+	}
+}
+
+
+@media #{$desktop} {
+
+	#topSearch {
+		height: 400px;
+		position: absolute;
+	    top: 50px;
+	    width: 100%;
+		background-color: transparent;
+
+
+		.container {
+			padding-top: 150px;
+		}
+
+	}
+
+} 
