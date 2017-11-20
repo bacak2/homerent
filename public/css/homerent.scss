@@ -1,4 +1,15 @@
 $desktop: "(min-width: 768px)";
+ @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+
+body	{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.form-control {
+	border-radius: 0;
+}
+
 
 .main-text
 {
@@ -15,36 +26,23 @@ $desktop: "(min-width: 768px)";
 	    text-align:left;
 	}
 
-input	{
-	border-radius: 0 !important;
-}
 
-		
-#apartament-big {
-	.col {
-		height: 200px;
+.back {
+		height: auto;
 		background: no-repeat center;
 	    background-image: none;
 	    background-size: auto auto;
 		background-size: cover;
-			.ap-transparent, .reviews {
-				background-color: rgba(255,255,255,0.8);
-				height: auto;
-				}
-
-		}
-	
-
-	.reviews {
-	background-color: rgba(255,255,255,0.8);
-	height: auto;
-	width: auto;
-		h4 {
-		color: green;
-		font-weight: bold;
-		}
-	}
 }
+
+.transparent {
+					background-color: rgba(255,255,255,0.68);
+	&:hover {
+							background-color: rgba(255,255,255,0.9);
+
+	}
+}	
+
 
 #topSearch {
 

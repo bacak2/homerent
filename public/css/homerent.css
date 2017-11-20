@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+body {
+  font-family: 'Open Sans', sans-serif; }
+
+.form-control {
+  border-radius: 0; }
+
 .main-text {
   color: #FFF; }
 
@@ -8,25 +15,17 @@
   min-width: 40px;
   text-align: left; }
 
-input {
-  border-radius: 0 !important; }
-
-#apartament-big .col {
-  height: 200px;
+.back {
+  height: auto;
   background: no-repeat center;
   background-image: none;
   background-size: auto auto;
   background-size: cover; }
-  #apartament-big .col .ap-transparent, #apartament-big .col .reviews {
-    background-color: rgba(255, 255, 255, 0.8);
-    height: auto; }
-#apartament-big .reviews {
-  background-color: rgba(255, 255, 255, 0.8);
-  height: auto;
-  width: auto; }
-  #apartament-big .reviews h4 {
-    color: green;
-    font-weight: bold; }
+
+.transparent {
+  background-color: rgba(255, 255, 255, 0.68); }
+  .transparent:hover {
+    background-color: rgba(255, 255, 255, 0.9); }
 
 #topSearch {
   background-color: lightgrey;
