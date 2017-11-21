@@ -35,13 +35,14 @@ return [
 	'pricepernightfrom' => 'Price per night from:',
 	'arrived' => 'Arrive',
 	'adultskids' => 'Adults, kids',
-	'fprice' => 'Final Price',
+	'fprice' => 'Final Price: ',
 	'aval' => 'This date is available',
 	'apartaments' => 'apartaments',
 	'found' => 'We found',
 	'inclbreakfast' => 'Breakfast included',
 	'choosedate' => 'Choose date',
-
+	'adults' => 'Adults',
+	'kids' => 'Kids',
 	'placeholder' => 'English placeholder text. We can add translation here.',
 
 ];

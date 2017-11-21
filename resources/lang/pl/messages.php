@@ -35,13 +35,14 @@ return [
 	'pricepernightfrom' => 'Cena za noc od:',
 	'arrived' => 'Przyjazd',
 	'adultskids' => 'Dorośli, dzieci',
-	'fprice' => 'Razem do zapłaty',
+	'fprice' => 'Razem:',
 	'aval' => 'Ten termin jest dostępny',
 	'apartaments' => '{0}apartamentów|{1}apartament|[2,4]apartamenty|[5,*]apartamentów',
 	'found' => 'Znaleziono',
 	'inclbreakfast' => 'Śniadanie wliczone',
 	'choosedate' => 'Wybierz datę',
-
+	'adults' => 'Dorośli',
+	'kids' => 'Dzieci',
 	'placeholder' => 'Przykładowy tekst w języku polskim. Ten tekst jest po polsku.'
 
 ];

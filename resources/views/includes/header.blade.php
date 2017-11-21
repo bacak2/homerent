@@ -17,10 +17,10 @@
           <ul class="navbar-nav ml-auto">
           	@guest
 	            <li class="nav-item">
-	              <a class="nav-link" href="{{ route('login') }}">Zaloguj</a>
+	              <a class="nav-link" href="{{ route('login') }}">{{ __('messages.login')}}</a>
 	            </li>
 	            <li class="nav-item">
-	              <a class="nav-link" href="{{ route('register') }}">Zarejestruj</a>
+	              <a class="nav-link" href="{{ route('register') }}">{{ __('messages.register')}}</a>
 	            </li>
 	        @else 
 				{{ Auth::user()->name }} 
