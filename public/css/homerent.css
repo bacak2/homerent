@@ -2,8 +2,15 @@
 body {
   font-family: 'Open Sans', sans-serif; }
 
+.results-search {
+  background-color: grey;
+  border-radius: 20px; }
+
 .form-control {
   border-radius: 0; }
+
+button:hover {
+  cursor: pointer; }
 
 .main-text {
   color: #FFF; }
@@ -42,8 +49,7 @@ body {
   #topSearch .wyszukiwarka {
     padding-top: 20px; }
     #topSearch .wyszukiwarka button {
-      width: 100%;
-      cursor: pointer; }
+      width: 100%; }
 
 #benifits p {
   font-size: 14px; }

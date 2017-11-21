@@ -153,6 +153,7 @@ class Apartaments extends Controller
                ->get(); 
 
         $counted = count($finds);
+
         //dd($finds);
         return view('pages.results', [  'region' => $region,
                                         'arive_date' => $arriveDate,

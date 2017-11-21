@@ -5,11 +5,20 @@ body	{
     font-family: 'Open Sans', sans-serif;
 }
 
+.results-search {
+	background-color: grey;
+	border-radius: 20px;
+}
+
 .form-control {
 	border-radius: 0;
 }
 
-
+button {
+	&:hover {
+		cursor: pointer;
+	}
+}
 
 .main-text
 {
@@ -69,7 +78,6 @@ body	{
 
 		button	{
 			width: 100%;
-			cursor: pointer;
 		}
 	}
 

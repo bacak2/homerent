@@ -23,12 +23,13 @@
 	              <a class="nav-link" href="{{ route('register') }}">{{ __('messages.register')}}</a>
 	            </li>
 	        @else 
-				{{ Auth::user()->name }} 
-
+              <li class="nav-item">
+               <div class="nav-link">{{ Auth::user()->name }} </div> 
+              </li>
                 <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">
-                   <button class='top-button'>{{ __('messages.logout') }}</button>
+                   <button class='btn '>{{ __('messages.logout') }}</button>
                 </a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
