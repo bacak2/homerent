@@ -13,9 +13,9 @@
 		    <div class="row">
 				@foreach ($apartaments as $apartament)
 			      <a class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" href="/apartaments/{{ $apartament->apartament_link }}">
-			        <div style="background-image: url('{{ asset('images/1.jpg') }}');"  class="apartament">
+			        <div style="background-image: url('{{ asset("images/apartaments/$apartament->id/$apartament->photo_link") }}');"  class="apartament">
 			        <p class="title">{{$apartament->apartament_name}}</p>
-			        <p class="price pb-1 pt-1"><b>{{ __('messages.from') }} {{$apartament->price_value}} {{ __('messages.pernight') }}</b></p>
+			        <p class="price pb-1 pt-1"><b>{{ __('messages.from') }} {{$apartament->price_value}} zł {{ __('messages.pernight') }}</b></p>
 			      </div>
 			      </a>
 				@endforeach

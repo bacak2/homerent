@@ -1,6 +1,6 @@
 <?php
 /**
- *@category Kontroler apartamentów, aplikacji HOMERENT
+ *@category Kontroler apartamentów, aplikacji HOMEENT
  *@author Arkadiusz Adamczyk
  *@version 1.0
  */
@@ -36,7 +36,7 @@ class Apartaments extends Controller
         //dd(DB::getQueryLog());
         $apartaments = DB::table('apartaments')
                         ->selectRaw('distinct(apartaments.id), apartament_descriptions.apartament_name, 
-                          apartament_descriptions.apartament_link, MIN(apartament_prices.price_value) AS price_value')
+                          apartament_descriptions.apartament_link, apartament_photos.photo_link, MIN(apartament_prices.price_value) AS price_value')
                         ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                         ->join('languages', function($join) {
                             $join->on('apartament_descriptions.language_id','=','languages.id')
@@ -48,10 +48,12 @@ class Apartaments extends Controller
                             ->Where('apartament_prices.date_of_price','>=',$todayDate);
 
                         })
+                        ->join('apartament_photos','apartaments.apartament_default_photo_id', '=', 'apartament_photos.id')
                         ->groupBy('apartaments.id','apartament_descriptions.id','apartament_descriptions.apartament_name','apartament_descriptions.apartament_link')
                         ->get();
 
-    	return view('pages.index', ['apartaments' => $apartaments]);
+        
+        return view('pages.index', ['apartaments' => $apartaments]);
     }
 
 

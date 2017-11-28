@@ -81,11 +81,16 @@
 	</div>
 </div>
 <div class="container">
-	<div class="row ml-2 mr-2 ml-sm-0 mr-sm-0 mt-2">
+	<div class="row ">
 		<div class="col-md-8">
-			<div class="row">
-				<h5><b>{{ __('messages.description') }}</b></h5>
-				<p>{{ $apartament->descriptions[0]->apartament_description or '' }}</p>
+			<div class="row mt-3 mb-3">
+				<div class="col">
+					<h5><b>{{ __('messages.description') }}</b></h5>
+					<p>{{ $apartament->descriptions[0]->apartament_description or '' }}</p>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col">
 				<h5><b>{{ __('messages.photos') }}</b></h5>
 					<div class="fotorama" data-nav="thumbs" data-autoplay="true">
 
@@ -95,18 +100,19 @@
 				 		<p>No photos for this apartment</p>
 			 			@endforelse
 					</div>
+				</div>
 			</div>
-
+			<div class="row mb-3">
+				<div class="col-12"><h5 class="mt-2 mt-md-0"><b>Udogodnienia</b></h5></div>
+					<div class="col-8">Maksymalna liczba osób</div><div class="col-4 text-right"><b>{{ $apartament->apartament_persons  }}</b></div>
+					<div class="col-8">Ilość pokoi</div><div class="col-4 text-right"><b>{{ $apartament->apartament_rooms_number  }}</b></div>
+					<div class="col-8">Ilość łóżek pojedynczych</div><div class="col-4 text-right"><b>{{ $apartament->apartament_single_beds }}</b></div>
+					<div class="col-8">Ilość łóżek podwójnych</div><div class="col-4 text-right"><b>{{ $apartament->apartament_double_beds  }}</b></div>
+			</div>
 		</div>
 		<div class="col-md-4">
 			<div class="row">
-				<h5 class="mt-2 mt-md-0"><b>Udogodnienia</b></h5>
-				<div class="row">
-					<div class="col-8">Max- liczba osób</div><div class="col-4 text-right"><b>12</b></div>
-					<div class="col-8">Ilość pokoi</div><div class="col-4 text-right"><b>5</b></div>
-					<div class="col-8">Ilość łóżek</div><div class="col-4 text-right"><b>3</b></div>
-				
-				</div>
+
 			</div>
 			<div class="row">
 				
@@ -119,7 +125,7 @@
 
 <script type="text/javascript">
 
- $('.res-info').hide();
+$('.res-info').hide();
 
 $(document).ready(function(){
 

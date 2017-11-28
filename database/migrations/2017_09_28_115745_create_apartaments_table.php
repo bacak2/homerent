@@ -15,13 +15,22 @@ class CreateApartamentsTable extends Migration
     {
         Schema::create('apartaments', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('apartament_geo_x','10','5');
-            $table->double('apartament_geo_y','10','5');
+            $table->double('apartament_geo_lat','10','6');
+            $table->double('apartament_geo_lan','10','6');
             $table->string('apartament_address','200');
             $table->string('apartament_address_2','200');
             $table->string('apartament_city','200');
+            $table->integer('apartament_persons');
             $table->integer('apartament_rooms_number');
-            $table->integer('apartament_beds');
+            $table->integer('apartament_single_beds');
+            $table->integer('apartament_double_beds');
+            $table->integer('apartament_living_area');
+            $table->integer('apartament_floors_number');
+            $table->boolean('apartament_animals');
+            $table->boolean('apartament_wifi');
+            $table->string('apartament_registration_time','200');
+            $table->string('apartament_checkout_time','200');
+            $table->integer('apartament_default_photo_id');
             $table->integer('group_id')->unsigned();
             $table->integer('owner_id')->unsigned();
         //    $table->foreign('group_id')->references('id')->on('apartament_groups');

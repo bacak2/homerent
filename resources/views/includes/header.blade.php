@@ -1,6 +1,6 @@
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;" >
       <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">Homerent</a>
+        <a class="navbar-brand" href="{{ url('/') }}">Homent</a>
 			<div class="row mx-auto">        
 		    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
 		            <a style="text-decoration: none;" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
