@@ -5,6 +5,9 @@
 	{{-- CSS --}}
 	<link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700" rel="stylesheet">
 	<link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+
+
 	<link href="{{ asset('css/homerent.css') }}" rel="stylesheet">
 	<link href="{{ asset('vendor/jquery-date-range-picker/src/daterangepicker.css') }}" rel="stylesheet">
 	<link href="{{ asset('vendor/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -13,6 +16,7 @@
 	<script type="text/javascript" src="{{ asset('vendor/moment/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
     <script type="text/javascript" src="{{ asset('vendor/jquery-date-range-picker/dist/jquery.daterangepicker.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('vendor/fotorama/fotorama.js') }}"></script>
 	{{-- JS AUTOCOMPLETE --}}

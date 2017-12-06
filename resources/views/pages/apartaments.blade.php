@@ -3,19 +3,49 @@
 @section('title', '- '.$apartament->descriptions[0]->apartament_name )
 
 @section('content')
-
 <div class="row">
 	<div class="container py-1"><button type="button" class="btn btn-primary ml-2">Powrót</button></div>
 </div>
 
-<div class="row back" style="background-image: url('{{ asset('images/placeholder.jpg') }}">
+<div class="row back" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}">
 	<div class="container">
-	    <div class="row" >
-	        <div class="col-md-8 h-400">
+	    <div class="row apartament-info" >
+	        <div class="col-md-8">
 	        	<div class="col transparent mt-2 mb-2 pb-1 pt-1 ">
 	        		<h4><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></h4>
 					<p>{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}, {{ $apartament->apartament_address_2 }}</p>
 	        	</div>
+	        	<div class="col transparent mt-4 mb-2 pt-3 ">
+	        		<div class="container">
+		        		<div class="row">
+		        			<div class="col-md-3">
+		        				<div class="row">
+		        					<i class="fa fa-user fa-lg pt-1" aria-hidden="true"></i>
+		        					<p class="pl-2">Pokój dla {{ $apartament->apartament_persons  }} osób</p>
+		        				</div>
+		        			</div>
+		        			<div class="col-md-3">
+		        				<div class="row">
+		        					<i class="fa fa-home fa-lg pt-1" aria-hidden="true"></i>
+		        					<p class="pl-2">{{$apartament->apartament_rooms_number }} pokoje</p>
+		        				</div>
+		        			</div>
+		        			<div class="col-md-3">
+		        				<div class="row">
+		        					<i class="fa fa-calculator fa-lg pt-1" aria-hidden="true"></i>
+		        					<p class="pl-2">Metraż: 17 m²</p>
+		        				</div>
+		        			</div>
+		        			<div class="col-md-3">
+		        				<div class="row">
+		        					<i class="fa fa-bed fa-lg pt-1" aria-hidden="true"></i>
+		        					<p class="pl-2">{{ $beds }} łóżka </p>
+		        				</div>
+		        			</div>
+		        		</div>
+	        		</div>
+	        	</div>
+
 	        </div>
 	        <div class="col-md-4 ml-2 mr-2 ml-sm-0 mr-sm-0">
 	        	<div class="col transparent mt-2 mb-2 pb-1 pt-1">
@@ -90,6 +120,55 @@
 				</div>
 			</div>
 			<div class="row mb-3">
+				<div class="col-12">
+					<h5 class="mt-2 mt-md-0"><b>Informacje ogólne</b></h5>
+				</div>
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col">
+							Liczba osób: <b>{{$apartament->apartament_persons}}</b>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							Liczba pokoi: <b>{{$apartament->apartament_rooms_number}}</b>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							Liczba pięter: <b>{{$apartament->apartament_floors_number}}</b>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col">Liczba łóżek pojedynczych: <b>{{$apartament->apartament_single_beds}}</b></div>
+					</div>
+					<div class="row">
+						<div class="col">Liczba łóżek podwójnych: <b>{{$apartament->apartament_double_beds}}</b></div>
+					</div>
+					<div class="row">
+						<div class="col">Wifi: 
+
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col">Zameldowanie: <b>{{$apartament->apartament_registration_time }}</b></div>
+					</div>
+					<div class="row">
+						<div class="col">Wymeldowanie: <b>{{$apartament->apartament_checkout_time }}</b></div>
+					</div>
+					<div class="row">
+						<div class="col">Kaucja: </div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="row mb-3">
 				<div class="col">
 				<h5><b>{{ __('messages.photos') }}</b></h5>
 					<div class="fotorama" data-nav="thumbs" data-autoplay="true">
@@ -102,13 +181,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row mb-3">
-				<div class="col-12"><h5 class="mt-2 mt-md-0"><b>Udogodnienia</b></h5></div>
-					<div class="col-8">Maksymalna liczba osób</div><div class="col-4 text-right"><b>{{ $apartament->apartament_persons  }}</b></div>
-					<div class="col-8">Ilość pokoi</div><div class="col-4 text-right"><b>{{ $apartament->apartament_rooms_number  }}</b></div>
-					<div class="col-8">Ilość łóżek pojedynczych</div><div class="col-4 text-right"><b>{{ $apartament->apartament_single_beds }}</b></div>
-					<div class="col-8">Ilość łóżek podwójnych</div><div class="col-4 text-right"><b>{{ $apartament->apartament_double_beds  }}</b></div>
-			</div>
+
 		</div>
 		<div class="col-md-4">
 			<div class="row">

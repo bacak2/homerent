@@ -26,6 +26,10 @@ button {
     color: #FFF;
 }
 
+.icon	{
+	width: 20px !important;
+}
+
 .easy-autocomplete-container {
 	z-index: 200 !important;
 	}
@@ -110,28 +114,28 @@ button {
 		padding-right: 2px;
 		color: black;
 		text-decoration: none;
+		position: relative;
 	}
 
-	p.title {
+	.semi-transparent {
 		position: absolute;
-		top: 0;
-		background-color: rgba(255, 255, 255, 0.75);
-		width: 100%;
-		font-size: 20px;
-		padding-left: 10px;
-	}
-
-	p.price {
-		position: absolute;
-		background-color: rgba(255, 255, 255, 0.5);
-		right: 0;
-		margin-bottom: 0;
+		background-color: rgba(0,0,0,0.40);
+		font-size: 14px;
 		bottom: 0;
-		font-size: 20px;
-		padding-left: 10px;
+		margin-bottom: 15px;
+		color: white;
 
-		width: 100%;
+		h1 {
+			font-size: 18px;
+			font-weight: bold;
+		}
+
+		p.price {
+			font-size: 16px;
+		}
+
 	}
+
 
 	.apartament {
 		height: 180px;
@@ -144,6 +148,10 @@ button {
 
 
 @media #{$desktop} {
+
+.apartament-info {
+	height: 380px;
+}
 
 	#topSearch {
 		height: 400px;

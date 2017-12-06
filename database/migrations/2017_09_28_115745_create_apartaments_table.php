@@ -28,6 +28,8 @@ class CreateApartamentsTable extends Migration
             $table->integer('apartament_floors_number');
             $table->boolean('apartament_animals');
             $table->boolean('apartament_wifi');
+            $table->boolean('apartament_parking');
+            $table->boolean('apartament_elevator');
             $table->string('apartament_registration_time','200');
             $table->string('apartament_checkout_time','200');
             $table->integer('apartament_default_photo_id');

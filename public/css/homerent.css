@@ -15,6 +15,9 @@ button:hover {
 .main-text {
   color: #FFF; }
 
+.icon {
+  width: 20px !important; }
+
 .easy-autocomplete-container {
   z-index: 200 !important; }
 
@@ -66,23 +69,20 @@ button:hover {
     padding-left: 2px;
     padding-right: 2px;
     color: black;
-    text-decoration: none; }
-  #apartamentsforyou p.title {
+    text-decoration: none;
+    position: relative; }
+  #apartamentsforyou .semi-transparent {
     position: absolute;
-    top: 0;
-    background-color: rgba(255, 255, 255, 0.75);
-    width: 100%;
-    font-size: 20px;
-    padding-left: 10px; }
-  #apartamentsforyou p.price {
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.5);
-    right: 0;
-    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    font-size: 14px;
     bottom: 0;
-    font-size: 20px;
-    padding-left: 10px;
-    width: 100%; }
+    margin-bottom: 15px;
+    color: white; }
+    #apartamentsforyou .semi-transparent h1 {
+      font-size: 18px;
+      font-weight: bold; }
+    #apartamentsforyou .semi-transparent p.price {
+      font-size: 16px; }
   #apartamentsforyou .apartament {
     height: 180px;
     width: 100%;
@@ -91,6 +91,9 @@ button:hover {
     background-position: center center; }
 
 @media (min-width: 768px) {
+  .apartament-info {
+    height: 380px; }
+
   #topSearch {
     height: 400px;
     position: absolute;

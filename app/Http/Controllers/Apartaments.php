@@ -101,12 +101,15 @@ class Apartaments extends Controller
                     ->limit(3)  // Maksymalnie 3 apartamenty
                     ->get();
 
+        //suma wszystkich łóżek      
+        $beds = $apartament->apartament_single_beds+$apartament->apartament_double_beds;
        // dd($groups); 
        // dd($descriptions);
        return view('pages.apartaments', ['apartament' => $apartament,
                                          'groups' => $groups,
                                          'images' => $images,
-                                         'priceFrom' => $priceFrom
+                                         'priceFrom' => $priceFrom,
+                                         'beds' => $beds
                                         ]);
 
     }
@@ -128,9 +131,12 @@ class Apartaments extends Controller
     public function searchApartaments(Request $request) {
 
         $region = $request->input('region');
-        $arriveDate = $request->input('przyjazd');
-        $returnDate = $request->input('powrot');
-
+        
+        $aDate = $request->input('przyjazd');
+        $rDate = $request->input('powrot');
+        //Date Parsing
+        $arriveDate = date("d-m-Y", strtotime($aDate));
+        $returnDate = date("d-m-Y", strtotime($rDate));
 
         $finds = DB::Table('apartaments')
                 ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
