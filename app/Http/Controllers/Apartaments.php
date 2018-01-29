@@ -49,7 +49,7 @@ class Apartaments extends Controller
 
                         })
                         ->join('apartament_photos','apartaments.apartament_default_photo_id', '=', 'apartament_photos.id')
-                        ->groupBy('apartaments.id','apartament_descriptions.id','apartament_descriptions.apartament_name','apartament_descriptions.apartament_link')
+                        ->groupBy('apartaments.id','apartament_descriptions.id','apartament_descriptions.apartament_name','apartament_descriptions.apartament_link','apartament_photos.photo_link')
                         ->get();
 
         

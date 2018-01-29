@@ -38,11 +38,13 @@ button:hover {
     background-color: rgba(255, 255, 255, 0.9); }
 
 #topSearch {
-  background-color: lightgrey;
+  background: no-repeat center;
+  background-size: cover;
   padding-bottom: 20px; }
   #topSearch .search {
     padding-top: 20px; }
   #topSearch h4 {
+    color: white;
     padding-top: 20px;
     padding-bottom: 20px; }
   #topSearch .col {
@@ -88,7 +90,9 @@ button:hover {
     width: 100%;
     margin-bottom: 5px;
     background-repeat: no-repeat;
-    background-position: center center; }
+    background-position: center;
+    resize: both;
+    background-size: auto 100%; }
 
 @media (min-width: 768px) {
   .apartament-info {
@@ -99,7 +103,7 @@ button:hover {
     position: absolute;
     top: 50px;
     width: 100%;
-    background-color: transparent; }
+    background-image: none !important; }
     #topSearch .container {
       padding-top: 150px; } }
 

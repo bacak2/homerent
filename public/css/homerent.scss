@@ -58,8 +58,9 @@ button {
 
 
 #topSearch {
+	background: no-repeat center;
+	background-size: cover;
 
-	background-color: lightgrey;
 	padding-bottom: 20px;
 
 	.search {
@@ -67,6 +68,7 @@ button {
 	}
 
 	h4 {
+		color: white;
 		padding-top: 20px;
 		padding-bottom: 20px;
 	}
@@ -136,13 +138,14 @@ button {
 
 	}
 
-
 	.apartament {
 		height: 180px;
 		width: 100%;
 		margin-bottom: 5px;
-		background-repeat: no-repeat;
- 		background-position: center center;
+        background-repeat: no-repeat;
+		background-position: center;    
+		resize: both;
+    	background-size: auto 100%;
 	}
 }
 
@@ -158,8 +161,7 @@ button {
 		position: absolute;
 	    top: 50px;
 	    width: 100%;
-		background-color: transparent;
-
+		background-image: none !important;
 
 		.container {
 			padding-top: 150px;

@@ -7,20 +7,20 @@
       <div class="form-inline col-md-5 form-row pick-date ">
           <div class="col-md-6 mb-2 mb-sm-0">
               <div class="input-group mb-2 mb-sm-0">
-                  <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                  <div class="input-group-addon"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i></div>
                   <input type="text" class="form-control" id="przyjazd" name="przyjazd" placeholder="{{ __('messages.arrive')}}" required>
               </div>
           </div>
           <div class="col-md-6 mb-2 mb-sm-0">
               <div class="input-group mb-2 mb-sm-0">
-                  <div class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></div>
+                  <div class="input-group-addon"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i></div>
                   <input type="text" class="form-control" id="powrot" name="powrot" placeholder="{{ __('messages.return')}}"  required>
               </div>
           </div>
       </div>
       <div class="col-md">
           <div class="input-group mb-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-male" aria-hidden="true"></i></div>
+            <div class="input-group-addon"><i class="fa fa-lg fa-male" aria-hidden="true"></i></div>
               <select class="form-control" placeholder="{{ __('messages.adults')}}">
                 <option value="1">1</option>
                 <option value="2">2</option>

@@ -12,7 +12,7 @@
               <img class="d-block w-100" src="images/slider/3.png" alt="Third slide">
           </div>
       </div>
-      <div id="topSearch">
+      <div id="topSearch" style="background-image: url('images/slider/1.png');">
         <div class="container searchCont">
               <h4 class="d-block d-sm-none">Szukaj wśród 34 678<br>
               noclegów w Polsce</h4>
