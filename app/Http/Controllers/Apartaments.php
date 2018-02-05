@@ -129,7 +129,7 @@ class Apartaments extends Controller
 
     //Apartments search engine
     public function searchApartaments(Request $request) {
-
+        
         $region = $request->input('region');
         
         $aDate = $request->input('przyjazd');
@@ -138,7 +138,7 @@ class Apartaments extends Controller
         $arriveDate = date("d-m-Y", strtotime($aDate));
         $returnDate = date("d-m-Y", strtotime($rDate));
 
-        $finds = DB::Table('apartaments')
+        $finds = DB::Table('apartaments')//->select('apartaments.id')//->get();
                 ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                 ->join('languages', function($join) {
                         $join->on('apartament_descriptions.language_id','=','languages.id')
@@ -158,7 +158,8 @@ class Apartaments extends Controller
                                         $query->whereRaw('? not between reservation_arrive_date and reservation_departure_date AND ? not between reservation_arrive_date and reservation_departure_date',[$arriveDate,$returnDate]);
                             });
                 })
-               ->get(); 
+                ->addSelect('*', 'apartaments.id')
+                ->get();
 
         $counted = count($finds);
 
@@ -233,8 +234,7 @@ class Apartaments extends Controller
                         $join->on('apartament_descriptions.language_id','=','languages.id')
                             ->where('languages.id', $this->language->id);
                     })
-                    ->where('apartament_name','like','%'.$phrase.'%')
-                    ->get();
+                    ->where('apartament_name','like','%'.$phrase.'%')->get();
 
         //dd($apartaments);
         return response(json_encode($apartaments));
