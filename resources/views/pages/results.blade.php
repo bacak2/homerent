@@ -152,8 +152,11 @@ $('.pick-date').dateRangePicker(
     },
     setValue: function(s,s1,s2)
     {
+      s1 = s1.replace('Mon', 'Pon').replace('Tue', 'Wto').replace('Wed', 'Śro').replace('Thu', 'Czw').replace('Fri', 'Pią').replace('Sat', 'Sob').replace('Sun', 'Nie');
+      s2 = s2.replace('Mon', 'Pon').replace('Tue', 'Wto').replace('Wed', 'Śro').replace('Thu', 'Czw').replace('Fri', 'Pią').replace('Sat', 'Sob').replace('Sun', 'Nie');
       $('#przyjazd').val(s1);
       $('#powrot').val(s2);
+      console.trace();
     }
   });
 

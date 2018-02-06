@@ -148,9 +148,7 @@
 						<div class="col">Liczba łóżek podwójnych: <b>{{$apartament->apartament_double_beds}}</b></div>
 					</div>
 					<div class="row">
-						<div class="col">Wifi: 
-
-						</div>
+                                            <div class="col">Wifi: <b>{{ $apartament->apartament_wifi ? 'Tak' : 'Nie'}}</b></div>
 					</div>
 				</div>
 				<div class="col-md-4">

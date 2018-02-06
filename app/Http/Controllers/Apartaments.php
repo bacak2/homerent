@@ -138,7 +138,7 @@ class Apartaments extends Controller
         $arriveDate = date("d-m-Y", strtotime($aDate));
         $returnDate = date("d-m-Y", strtotime($rDate));
 
-        $finds = DB::Table('apartaments')//->select('apartaments.id')//->get();
+        $finds = DB::Table('apartaments')
                 ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                 ->join('languages', function($join) {
                         $join->on('apartament_descriptions.language_id','=','languages.id')
