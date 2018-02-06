@@ -4,9 +4,8 @@
 
 @section('content')
 <div class="row">
-	<div class="container py-1"><button type="button" class="btn btn-primary ml-2">Powrót</button></div>
+    <div class="container py-1"><a href="{{ url()->previous() }}" class="btn btn-primary ml-2">Powrót</a></div>
 </div>
-
 <div class="row back" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}">
 	<div class="container">
 	    <div class="row apartament-info" >
@@ -21,25 +20,25 @@
 		        			<div class="col-md-3">
 		        				<div class="row">
 		        					<i class="fa fa-user fa-lg pt-1" aria-hidden="true"></i>
-		        					<p class="pl-2">Pokój dla {{ $apartament->apartament_persons  }} osób</p>
+		        					<p class="pl-2">{{ __('messages.Room for') }} {{ $apartament->apartament_persons }} {{trans_choice('messages.persons',$apartament->apartament_persons)}}</p>
 		        				</div>
 		        			</div>
 		        			<div class="col-md-3">
 		        				<div class="row">
 		        					<i class="fa fa-home fa-lg pt-1" aria-hidden="true"></i>
-		        					<p class="pl-2">{{$apartament->apartament_rooms_number }} pokoje</p>
+		        					<p class="pl-2">{{ $apartament->apartament_rooms_number }} {{trans_choice('messages.rooms_number',$apartament->apartament_rooms_number)}}</p>
 		        				</div>
 		        			</div>
 		        			<div class="col-md-3">
 		        				<div class="row">
 		        					<i class="fa fa-calculator fa-lg pt-1" aria-hidden="true"></i>
-		        					<p class="pl-2">Metraż: 17 m²</p>
+		        					<p class="pl-2">{{ __('messages.ApSize') }}: 17 m²</p>
 		        				</div>
 		        			</div>
 		        			<div class="col-md-3">
 		        				<div class="row">
 		        					<i class="fa fa-bed fa-lg pt-1" aria-hidden="true"></i>
-		        					<p class="pl-2">{{ $beds }} łóżka </p>
+		        					<p class="pl-2">{{ $beds }} {{trans_choice('messages.beds_number',$beds)}} </p>
 		        				</div>
 		        			</div>
 		        		</div>
@@ -121,45 +120,45 @@
 			</div>
 			<div class="row mb-3">
 				<div class="col-12">
-					<h5 class="mt-2 mt-md-0"><b>Informacje ogólne</b></h5>
+					<h5 class="mt-2 mt-md-0"><b>{{__('messages.General information')}}</b></h5>
 				</div>
 				<div class="col-md-4">
 					<div class="row">
 						<div class="col">
-							Liczba osób: <b>{{$apartament->apartament_persons}}</b>
+							{{__('messages.Number of')}} {{__('messages.people')}}: <b>{{$apartament->apartament_persons}}</b>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
-							Liczba pokoi: <b>{{$apartament->apartament_rooms_number}}</b>
+							{{__('messages.Number of')}} {{__('messages.rooms')}}: <b>{{$apartament->apartament_rooms_number}}</b>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
-							Liczba pięter: <b>{{$apartament->apartament_floors_number}}</b>
+							{{__('messages.Number of')}} {{__('messages.floors')}}: <b>{{$apartament->apartament_floors_number}}</b>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="row">
-						<div class="col">Liczba łóżek pojedynczych: <b>{{$apartament->apartament_single_beds}}</b></div>
+						<div class="col">{{__('messages.Number of')}} {{__('messages.single beds')}}: <b>{{$apartament->apartament_single_beds}}</b></div>
 					</div>
 					<div class="row">
-						<div class="col">Liczba łóżek podwójnych: <b>{{$apartament->apartament_double_beds}}</b></div>
+						<div class="col">{{__('messages.Number of')}} {{__('messages.double beds')}}: <b>{{$apartament->apartament_double_beds}}</b></div>
 					</div>
 					<div class="row">
-                                            <div class="col">Wifi: <b>{{ $apartament->apartament_wifi ? 'Tak' : 'Nie'}}</b></div>
+                                            <div class="col">Wifi: <b>{{ $apartament->apartament_wifi ? __('messages.Yes') : __('messages.No')}}</b></div>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="row">
-						<div class="col">Zameldowanie: <b>{{$apartament->apartament_registration_time }}</b></div>
+						<div class="col">{{__('messages.Check-in')}}: <b>{{$apartament->apartament_registration_time }}</b></div>
 					</div>
 					<div class="row">
-						<div class="col">Wymeldowanie: <b>{{$apartament->apartament_checkout_time }}</b></div>
+						<div class="col">{{__('messages.Check-out')}}: <b>{{$apartament->apartament_checkout_time }}</b></div>
 					</div>
 					<div class="row">
-						<div class="col">Kaucja: </div>
+						<div class="col">{{__('messages.Deposit')}}: </div>
 					</div>
 				</div>
 			</div>

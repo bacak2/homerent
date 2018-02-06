@@ -52,7 +52,7 @@
 		<div class="row">
 			@foreach ($finds as $apartament)
 		      <a class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" href="/apartaments/{{ $apartament->apartament_link }}">
-		        <div style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}');"  class="apartament">
+		        <div style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover;"  class="apartament">
 		        <p class="title">{{$apartament->apartament_name}}</p>
 
 		      </div>
@@ -60,6 +60,10 @@
 			@endforeach 	
 		</div>
 	</div>
+
+<div id="lang" style="display: none;">
+        {{ App::getLocale() }}
+</div>
 
 <script type="text/javascript">
 {{-- 
@@ -152,11 +156,13 @@ $('.pick-date').dateRangePicker(
     },
     setValue: function(s,s1,s2)
     {
-      s1 = s1.replace('Mon', 'Pon').replace('Tue', 'Wto').replace('Wed', 'Śro').replace('Thu', 'Czw').replace('Fri', 'Pią').replace('Sat', 'Sob').replace('Sun', 'Nie');
-      s2 = s2.replace('Mon', 'Pon').replace('Tue', 'Wto').replace('Wed', 'Śro').replace('Thu', 'Czw').replace('Fri', 'Pią').replace('Sat', 'Sob').replace('Sun', 'Nie');
+      var lang = document.getElementById("lang").textContent;
+      if (lang == "pl"){
+            s1 = s1.replace('Mon', 'Pon').replace('Tue', 'Wto').replace('Wed', 'Śro').replace('Thu', 'Czw').replace('Fri', 'Pią').replace('Sat', 'Sob').replace('Sun', 'Nie');
+            s2 = s2.replace('Mon', 'Pon').replace('Tue', 'Wto').replace('Wed', 'Śro').replace('Thu', 'Czw').replace('Fri', 'Pią').replace('Sat', 'Sob').replace('Sun', 'Nie');
+        }
       $('#przyjazd').val(s1);
       $('#powrot').val(s2);
-      console.trace();
     }
   });
 

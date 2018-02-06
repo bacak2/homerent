@@ -46,8 +46,22 @@ return [
 	'placeholder' => 'English placeholder text. We can add translation here.',
 	'nights' => 'Nights: ',
 	'reserve' => 'Reserve',
-
-	'lowestpricepnight' => 'The lowest price per night: ',
-
-
+        'lowestpricepnight' => 'The lowest price per night: ',
+        'Yes' => 'Yes',
+        'No' => 'No',
+        'Deposit' => 'Deposit',
+        'Check-in' => 'Check-in',
+        'Check-out' => 'Check-out',
+        'Number of' => 'Number of',
+        'floors' => 'floors',
+        'people' => 'persons',
+        'rooms' => 'rooms',
+        'single beds' => 'single beds',
+        'double beds' => 'double beds',
+        'General information' => 'General information',
+    'Room for' => 'Room for',
+    'persons' => '[0,1]person|[2,*]persons',
+    'rooms_number' => '[0,1]room|[2,*]rooms',
+    'beds_number' => '[0,1]bed|[2,*]beds',
+    'ApSize' => 'Size',
 ];
