@@ -63,6 +63,7 @@ return [
         'persons' => '{0}osób|{1}osoby|[2,*]osób',
         'rooms_number' => '{0}pokoi|{1}pokój|[2,4]pokoje|[5,*]pokoi',
         'beds_number' => '{0}łóżek|{1}łóżko|[2,4]łóżka|[5,*]łóżek',
-    'ApSize' => 'Metraż',
+        'ApSize' => 'Metraż',
+        'Return' => 'Powrót',
 
 ];

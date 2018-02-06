@@ -214,11 +214,11 @@ class Apartaments extends Controller
             $is_available = FALSE;
 
         }
-
+    
         return response()->json([   'days_number' => $nightsCounter,
                                     'price' => $totalPrice[0]->total_price,
                                     'is_available' => $is_available,
-                                    'message' => 'Test'
+                                    'message' => $this->language->id,
         ]);
     }
 

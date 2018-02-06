@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row">
-    <div class="container py-1"><a href="{{ url()->previous() }}" class="btn btn-primary ml-2">Powrót</a></div>
+    <div class="container py-1"><a href="{{ url()->previous() }}" class="btn btn-primary ml-2">{{ __('messages.Return') }}</a></div>
 </div>
 <div class="row back" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}">
 	<div class="container">
@@ -255,14 +255,19 @@ $(document).ready(function(){
 					            //console.log(data);  
 
 					           $('#ilenocy').text(data.days_number);
-
+                                                         
+      
 					           if(data.is_available) {
-		 							$('.termin').text("Apartament dostępny").css('color','green');
+		 							$('.termin').css('color','green');
+                                                                        if (data.message == 1) $('.termin').text("Apartament dostępny");
+                                                                        else $('.termin').text("Apartment is available");
 		 							$('#price').text(data.price+" PLN");
 		 							$('.res-info').show(1000);
 					           }
 					           else {
-					           	 	$('.termin').text("Apartament zajęty").css('color','red');
+					           	 	$('.termin').css('color','red');
+                                                                if (data.message == 1) $('.termin').text("Apartament zajęty");
+                                                                else $('.termin').text("Apartment is not available");
 					           	 	$('.res-btn').hide();
 					           }
 					        },
