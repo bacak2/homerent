@@ -1,5 +1,5 @@
 <div class="col">
-  <form class="wyszukiwarka" action="/search" method="GET" >
+  <form class="wyszukiwarka" action="/search/kafle" method="GET" >
     <div class="form-row">
       <div class="col-md-3 mb-2 mb-sm-0">
         <input type="text" class="form-control" id="region" name="region" placeholder="{{ __('messages.forexample')}}">

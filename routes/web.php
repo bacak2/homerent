@@ -27,7 +27,7 @@ function()
 
 	Route::get('/apartaments/{link}', 'Apartaments@showApartamentInfo');
 
-	Route::get('/search','Apartaments@searchApartaments');
+	Route::get('/search/{view}','Apartaments@searchApartaments');
 
 	Route::get('/test','Apartaments@showTotalApartamentPrice');
 

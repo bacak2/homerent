@@ -128,7 +128,7 @@ class Apartaments extends Controller
     }
 
     //Apartments search engine
-    public function searchApartaments(Request $request) {
+    public function searchApartaments(Request $request, $view = 'kafle') {
         
         $region = $request->input('region');
         
@@ -163,12 +163,15 @@ class Apartaments extends Controller
 
         $counted = count($finds);
 
+        //dd($view);
         //dd($finds);
-        return view('pages.results', [  'region' => $region,
+        $viewName = "pages.results-kafle";
+        return view("pages.results-kafle", [  'region' => $region,
                                         'arive_date' => $arriveDate,
                                         'return_date' => $returnDate,
                                         'finds' => $finds,
                                         'counted' => $counted,
+                                        'request' => $request,
                                      ]);
     }
 
