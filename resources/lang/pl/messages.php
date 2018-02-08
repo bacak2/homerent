@@ -65,5 +65,7 @@ return [
         'beds_number' => '{0}łóżek|{1}łóżko|[2,4]łóżka|[5,*]łóżek',
         'ApSize' => 'Metraż',
         'Return' => 'Powrót',
+        'book' => 'Zarezerwuj',
+        'see details' => 'Zobacz szczegóły',
 
 ];

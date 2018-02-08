@@ -65,4 +65,6 @@ return [
         'beds_number' => '[0,1]bed|[2,*]beds',
         'ApSize' => 'Size',
         'Return' => 'Return',
+        'book' => 'Book',
+        'see details' => 'See details',
 ];

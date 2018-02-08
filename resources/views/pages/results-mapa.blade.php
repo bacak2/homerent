@@ -2,7 +2,7 @@
 @section ('displayResults')
             <div class="row">
                 <div class="col-10"><h3 class="pb-2">{{__('messages.found')}} {{ $counted }} {{trans_choice('messages.apartaments',$counted)}}</h3></div>
-                <div class="col-2 inline-wrapper"> <a class="btn btn-default" href="/search/kafle?{{ http_build_query(Request::except('page')) }}"><b>Kafle</b></a> <a class="btn btn-default" href="/search/lista?{{ http_build_query(Request::except('page')) }}">Lista</a> <a class="btn btn-default" href="/search/mapa?{{ http_build_query(Request::except('page')) }}">Mapa</a> </div>
+                <div class="col-2 inline-wrapper"> <a class="btn btn-default" href="/search/kafle?{{ http_build_query(Request::except('page')) }}">Kafle</a> <a class="btn btn-default" href="/search/lista?{{ http_build_query(Request::except('page')) }}">Lista</a> <a class="btn btn-default" href="/search/mapa?{{ http_build_query(Request::except('page')) }}"><b>Mapa</b></a> </div>
             </div>
 		<div class="row">
 			@foreach ($finds as $apartament)
@@ -15,5 +15,4 @@
 			@endforeach 	
 		</div>
 
-                {{ $finds->appends(['dorosli' => $request->dorosli, 'dzieci' => $request->dzieci, 'powrot' => $request->powrot, 'przyjazd' => $request->przyjazd, 'region' => $request->region])->links() }}
 @endsection

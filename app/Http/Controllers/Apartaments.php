@@ -128,7 +128,7 @@ class Apartaments extends Controller
     }
 
     //Apartments search engine
-    public function searchApartaments(Request $request, $view = 'kafle') {
+    public function searchApartaments(Request $request, $view) {
         
         $region = $request->input('region');
         
@@ -138,6 +138,21 @@ class Apartaments extends Controller
         $arriveDate = date("d-m-Y", strtotime($aDate));
         $returnDate = date("d-m-Y", strtotime($rDate));
 
+        switch($view) {
+                    case 'kafle':
+                        $paginate = 1;
+                        break;
+                    case 'lista':
+                        $paginate = 2;
+                        break;
+                    case 'mapa':
+                        $paginate = 100;
+                        break;   
+                    default:
+                        $paginate = 2;
+                        break;
+            }
+            
         $finds = DB::Table('apartaments')
                 ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                 ->join('languages', function($join) {
@@ -158,15 +173,11 @@ class Apartaments extends Controller
                                         $query->whereRaw('? not between reservation_arrive_date and reservation_departure_date AND ? not between reservation_arrive_date and reservation_departure_date',[$arriveDate,$returnDate]);
                             });
                 })
-                ->addSelect('*', 'apartaments.id')
-                ->get();
-
+                ->addSelect('*', 'apartaments.id')->paginate($paginate);
+                   
         $counted = count($finds);
 
-        //dd($view);
-        //dd($finds);
-        $viewName = "pages.results-kafle";
-        return view("pages.results-kafle", [  'region' => $region,
+        return view("pages.results-".$view, [  'region' => $region,
                                         'arive_date' => $arriveDate,
                                         'return_date' => $returnDate,
                                         'finds' => $finds,

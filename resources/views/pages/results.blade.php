@@ -8,13 +8,9 @@
 </div>
 </div>
 	<div class="container" id="apartamentsforyou">
-            <div class="row">
-                <div class="col-10"><h3 class="pb-2">{{__('messages.found')}} {{ $counted }} {{trans_choice('messages.apartaments',$counted)}}</h3></div>
-                <div class="col-2 inline-wrapper"> <a class="btn btn-default" href="/search/kafle?{{request()->getQueryString()}}">Kafle</a> <a class="btn btn-default" href="/search/lista?{{request()->getQueryString()}}">Lista</a> <a class="btn btn-default" href="/search/lista?{{request()->getQueryString()}}">Mapa</a> </div>
-            </div>
+
                 @yield('displayResults')
 	</div>
-
 <div id="lang" style="display: none;">
         {{ App::getLocale() }}
 </div>
