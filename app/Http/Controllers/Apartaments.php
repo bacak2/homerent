@@ -174,8 +174,8 @@ class Apartaments extends Controller
                             });
                 })
                 ->addSelect('*', 'apartaments.id')->paginate($paginate);
-                   
-        $counted = count($finds);
+      
+        $counted = $finds->total();
 
         return view("pages.results-".$view, [  'region' => $region,
                                         'arive_date' => $arriveDate,

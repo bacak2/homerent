@@ -93,6 +93,48 @@ button:hover {
     background-position: center;
     resize: both;
     background-size: auto 100%; }
+  
+  .map-description-bottom{
+      font-size: 10px;
+      position: absolute;
+      left: 0;
+      bottom: 8px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 5px 20px 5px 5px; 
+  }  
+  
+  .map-description-top{
+      font-size: 16px;
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+      top: 8px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 5px 20px 5px 5px; 
+  }  
+
+  .map-see-more{
+      display: none;
+      position: absolute;
+      left:0;
+      top:0;
+  }
+  
+  .map-img-wrapper:hover > .map-see-more {
+    display: inline;
+  }
+
+  .map-img-wrapper{
+    position: relative;
+  }
+  
+  .btn-wrapper {
+      position: absolute;
+      left: 90px;
+      top: 50px;
+}
 
 @media (min-width: 768px) {
   .apartament-info {
