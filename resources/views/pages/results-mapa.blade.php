@@ -47,7 +47,7 @@
 			mapa = new google.maps.Map(document.getElementById("mapka"), opcjeMapy);
                         
                         mapLegend = document.createElement('mapLegend');
-                        mapLegend.innerHTML = '<div class="mapLegend"><label><input style="visibility:hidden" type="checkbox"><div style="float: right">Spałniające <br>kryteria i daty</div></label><label class="map-legend-button"><input type="checkbox"><div style="float: right">Nie spałniające <br> kryteriów</div></label> <label class="map-legend-button"><input type="checkbox"><div style="float: right">Niedostępne w <br> tym terminie</div></label><span class="map-legend-toggle"><b> >> </b></div></div>';
+                        mapLegend.innerHTML = '<div class="mapLegend"><label><input style="visibility:hidden" type="checkbox"><div style="float: right">Spałniające <br>kryteria i daty</div></label><label class="map-legend-button"><input type="checkbox" name="notMeetCriteria" onchange="ajaxConenction()"><div style="float: right">Nie spałniające <br> kryteriów</div></label> <label class="map-legend-button"><input type="checkbox" name="notAvailable" onchange="ajaxConenction()"><div style="float: right">Niedostępne w <br> tym terminie</div></label><span class="map-legend-toggle"><b> >> </b></div></div>';
 
                         /* Push Legend to Right Top */
                         mapa.controls[google.maps.ControlPosition.RIGHT_TOP].push(mapLegend);                        
@@ -55,12 +55,71 @@
                             var marker1 = dodajMarker( {{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }},'<div class="map-img-wrapper"><img style="width: 300px; height: 169px"src="{{ asset("images/apartaments/$apartament->id/1.jpg") }}"><div class="map-see-more"><div class="container py-1"><a href="/apartaments/{{ $apartament->apartament_link }}" style="width: 100%" class="btn btn-primary">{{ __("messages.book") }}</a></div><div class="container py-1"><a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-primary" style="width: 100%">{{ __("messages.see details") }}</a></div></div><div class="map-description-top">112 PLN</div> <div class="map-description-bottom">śniadanie w cenie</div></div><br><span style="font-size: 17px">{{ $apartament->apartament_name }}</span><br> <span style="font-size: 11px">{{ $apartament->apartament_address }}</span>');
                         @endforeach
 		}
+
+
+		function mapaRefresh(data)   
+		{   
+                        console.log(data);
+                        var wspolrzedne = new google.maps.LatLng(49.292166,19.952385);
+			var opcjeMapy = {
+			  zoom: 13,
+			  center: wspolrzedne,
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			
+			mapa = new google.maps.Map(document.getElementById("mapka"), opcjeMapy);
+                        
+                        mapLegend = document.createElement('mapLegend');
+                        mapLegend.innerHTML = '<div class="mapLegend"><label><input style="visibility:hidden" type="checkbox"><div style="float: right">Spałniające <br>kryteria i daty</div></label><label class="map-legend-button"><input type="checkbox" name="notMeetCriteria" onchange="ajaxConenction()"><div style="float: right">Nie spałniające <br> kryteriów</div></label> <label class="map-legend-button"><input type="checkbox" name="notAvailable" onchange="ajaxConenction()"><div style="float: right">Niedostępne w <br> tym terminie</div></label><span class="map-legend-toggle"><b> >> </b></div></div>';
+
+                        /* Push Legend to Right Top */
+                        mapa.controls[google.maps.ControlPosition.RIGHT_TOP].push(mapLegend); 
+                        
+                        for (let i = 0; i < data.length; i++) {
+                            dodajMarker( data[i].apartament_geo_lat , data[i].apartament_geo_lan ,'<div class="map-img-wrapper"><img style="width: 300px; height: 169px"src="{{ asset("images/apartaments/$apartament->id/1.jpg") }}"><div class="map-see-more"><div class="container py-1"><a href="/apartaments/{{ $apartament->apartament_link }}" style="width: 100%" class="btn btn-primary">{{ __("messages.book") }}</a></div><div class="container py-1"><a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-primary" style="width: 100%">{{ __("messages.see details") }}</a></div></div><div class="map-description-top">112 PLN</div> <div class="map-description-bottom">śniadanie w cenie</div></div><br><span style="font-size: 17px">{{ $apartament->apartament_name }}</span><br> <span style="font-size: 11px">{{ $apartament->apartament_address }}</span>');
+                        }
+                        //dodajMarker( data[1].apartament_geo_lat , data[1].apartament_geo_lan ,'<div class="map-img-wrapper"><img style="width: 300px; height: 169px"src="{{ asset("images/apartaments/$apartament->id/1.jpg") }}"><div class="map-see-more"><div class="container py-1"><a href="/apartaments/{{ $apartament->apartament_link }}" style="width: 100%" class="btn btn-primary">{{ __("messages.book") }}</a></div><div class="container py-1"><a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-primary" style="width: 100%">{{ __("messages.see details") }}</a></div></div><div class="map-description-top">112 PLN</div> <div class="map-description-bottom">śniadanie w cenie</div></div><br><span style="font-size: 17px">{{ $apartament->apartament_name }}</span><br> <span style="font-size: 11px">{{ $apartament->apartament_address }}</span>');
+                        
+		}
                 
                 $(document).ready(function(){
                     $(".map-legend-toggle").click(function(){
                         $(".mapLegend").toggle();
                     });
                 });
+                
+                function ajaxConenction(){
+                    
+                    if($('input[name="notMeetCriteria"]').is(':checked')) var notMeetCriteria = 1;
+                    else    var notMeetCriteria = 0;
+                    
+                    if($('input[name="notAvailable"]').is(':checked')) var notAvailable = 1;
+                    else    var notAvailable = 0;
+                    
+			$.ajax({
+			type: "GET",
+			url: '/map',
+			dataType : 'json',
+			data: {
+                            nieKryteria: notMeetCriteria,
+                            niedostepne: notAvailable,
+                            region: "{{ $finds[0]->apartament_city}}",
+                            przyjazd: $('#przyjazd').val(),
+                            powrot: $('#powrot').val(),
+                            dorosli: $('[name="dorosli"]').val(),
+                            dzieci: $('[name="dzieci"]').val(),
+			},
+                            success: function(data) {
+
+                                mapaRefresh(data);
+                                //$('#ilenocy').text(data.days_number);
+
+                            },
+                            error: function() {
+                                    console.log( "Error in connection with controller");
+                            },
+			});	
+		}
                 
                 window.onload = mapaStart;
 		</script>   

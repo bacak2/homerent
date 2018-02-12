@@ -255,4 +255,20 @@ class Apartaments extends Controller
         //dd($apartaments);
         return response(json_encode($apartaments));
     }
+    
+    public function showApartamentsOnMap(Request $request){
+        
+        if ($request->niedostepne == 1){
+            $finds = DB::Table('apartaments')
+                    ->get();
+        }
+        
+        else if ($request->nieKryteria == 1){
+            $finds = DB::Table('apartaments')
+                    ->where('apartament_city', '=', $request->region)
+                    ->get(); 
+        }
+        return response()->json($finds);
+        
+    }
 }
