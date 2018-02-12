@@ -176,6 +176,8 @@ class Apartaments extends Controller
                 ->addSelect('*', 'apartaments.id')->paginate($paginate);
       
         $counted = $finds->total();
+        
+        if ($counted === 0) $view = ("none");
 
         return view("pages.results-".$view, [  'region' => $region,
                                         'arive_date' => $arriveDate,

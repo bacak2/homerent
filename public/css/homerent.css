@@ -116,10 +116,11 @@ button:hover {
   }  
 
   .map-see-more{
-      display: none;
-      position: absolute;
-      left:0;
-      top:0;
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   
   .map-img-wrapper:hover > .map-see-more {
@@ -128,12 +129,26 @@ button:hover {
 
   .map-img-wrapper{
     position: relative;
+    text-align: center;
   }
-  
-  .btn-wrapper {
-      position: absolute;
-      left: 90px;
-      top: 50px;
+
+.map-button{
+
+    width: 280px;
+}
+
+.mapLegend{
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 20px 10px 10px 10px;
+}
+
+.map-legend-button{
+    margin-left: 40px;
+}
+
+.map-legend-toggle:hover{
+    cursor: pointer;
 }
 
 @media (min-width: 768px) {

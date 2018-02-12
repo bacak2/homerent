@@ -46,10 +46,21 @@
 			
 			mapa = new google.maps.Map(document.getElementById("mapka"), opcjeMapy);
                         
+                        mapLegend = document.createElement('mapLegend');
+                        mapLegend.innerHTML = '<div class="mapLegend"><label><input style="visibility:hidden" type="checkbox"><div style="float: right">Spałniające <br>kryteria i daty</div></label><label class="map-legend-button"><input type="checkbox"><div style="float: right">Nie spałniające <br> kryteriów</div></label> <label class="map-legend-button"><input type="checkbox"><div style="float: right">Niedostępne w <br> tym terminie</div></label><span class="map-legend-toggle"><b> >> </b></div></div>';
+
+                        /* Push Legend to Right Top */
+                        mapa.controls[google.maps.ControlPosition.RIGHT_TOP].push(mapLegend);                        
                         @foreach ($finds as $apartament)
-                            var marker1 = dodajMarker( {{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }},'<div class="map-img-wrapper"><img style="width: 255px; height: 144px"src="{{ asset("images/apartaments/$apartament->id/1.jpg") }}"><div class="map-see-more"><div class="btn-wrapper"><a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-primary">{{ __("messages.book") }}</a></div></div><div class="map-description-top">112 PLN</div> <div class="map-description-bottom">śniadanie w cenie</div></div><br><strong>{{ $apartament->apartament_name }}</strong><br> {{ $apartament->apartament_address }}');
+                            var marker1 = dodajMarker( {{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }},'<div class="map-img-wrapper"><img style="width: 300px; height: 169px"src="{{ asset("images/apartaments/$apartament->id/1.jpg") }}"><div class="map-see-more"><div class="container py-1"><a href="/apartaments/{{ $apartament->apartament_link }}" style="width: 100%" class="btn btn-primary">{{ __("messages.book") }}</a></div><div class="container py-1"><a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-primary" style="width: 100%">{{ __("messages.see details") }}</a></div></div><div class="map-description-top">112 PLN</div> <div class="map-description-bottom">śniadanie w cenie</div></div><br><span style="font-size: 17px">{{ $apartament->apartament_name }}</span><br> <span style="font-size: 11px">{{ $apartament->apartament_address }}</span>');
                         @endforeach
 		}
+                
+                $(document).ready(function(){
+                    $(".map-legend-toggle").click(function(){
+                        $(".mapLegend").toggle();
+                    });
+                });
                 
                 window.onload = mapaStart;
 		</script>   
