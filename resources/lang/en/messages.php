@@ -61,6 +61,7 @@ return [
         'General information' => 'General information',
         'Room for' => 'Room for',
         'persons' => '[0,1]person|[2,*]persons',
+        'Persons' => 'Persons',
         'rooms_number' => '[0,1]room|[2,*]rooms',
         'beds_number' => '[0,1]bed|[2,*]beds',
         'ApSize' => 'Size',
@@ -70,4 +71,7 @@ return [
         'not found apartaments' => 'No objects were found matching the search criteria',
         'not found change criteria' => 'Change the search criteria or select a different date',
         'not found see others' => 'Other objects available on this date',
+        'number of nights' => 'number of nights',
+        'Filters' => 'Filters',
+        'change' => 'change',
 ];

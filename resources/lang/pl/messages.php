@@ -61,6 +61,7 @@ return [
         'General information' => 'Informacje ogólne',
         'Room for' => 'Pokój dla',
         'persons' => '{0}osób|{1}osoby|[2,*]osób',
+        'Persons' => 'Osoby',
         'rooms_number' => '{0}pokoi|{1}pokój|[2,4]pokoje|[5,*]pokoi',
         'beds_number' => '{0}łóżek|{1}łóżko|[2,4]łóżka|[5,*]łóżek',
         'ApSize' => 'Metraż',
@@ -70,5 +71,8 @@ return [
         'not found apartaments' => 'Nie znaleziono obiektów spełniających kryteria wyszukiwania',
         'not found change criteria' => 'Zmień kryteria wyszukiwania lub wybierz inny termin',
         'not found see others' => 'Inne obiekty dostępne w tym terminie',
+        'number of nights' => 'liczba nocy',
+        'Filters' => 'Filtry',
+        'change' => 'zmień',
 
 ];

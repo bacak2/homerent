@@ -139,6 +139,16 @@ button:hover {
         border: solid 1px;
         margin-right: 5px;
   }
+
+  .description-below-img.desktop-none.note span{
+       color: white;
+       font-size: 10px;
+       font-weight: bold;
+       position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
   
   .description-below-img span{
        font-size: 8px;
@@ -147,7 +157,7 @@ button:hover {
        bottom: 0;
        left: 10px
   }
-  
+ 
 .add-to-favourities{
         position: absolute;
         right: 5px;
@@ -233,7 +243,19 @@ img.active{
     border: solid 2px;
 }
 
+.text-mobile-search{
+    font-size: 12px;
+}
+
 @media (min-width: 768px) {
+    .desktop-hidden{
+        visibility: hidden !important;
+    }
+
+    .desktop-none{
+        display: none !important;
+    }
+    
   .apartament-info {
     height: 380px; }
 
@@ -244,6 +266,20 @@ img.active{
     width: 100%;
     background-image: none !important; }
     #topSearch .container {
-      padding-top: 150px; } }
+      padding-top: 150px; } 
+}
 
+@media (max-width: 767px){
+    #mapka{
+        height: 380px !important;
+    }
+    
+    .mobile-hidden{
+        visibility: hidden !important;
+    }
+    
+    .mobile-none{
+        display: none !important;
+    }
+}
 /*# sourceMappingURL=homerent.css.map */

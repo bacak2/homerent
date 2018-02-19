@@ -134,6 +134,9 @@ class Apartaments extends Controller
         
         $aDate = $request->input('przyjazd');
         $rDate = $request->input('powrot');
+        $dprz = strtotime($aDate);
+        $dpwr = strtotime($rDate);
+        $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
         //Date Parsing
         $arriveDate = date("d-m-Y", strtotime($aDate));
         $returnDate = date("d-m-Y", strtotime($rDate));
@@ -214,6 +217,7 @@ class Apartaments extends Controller
                                         'request' => $request,
                                         'black' => $black,
                                         'gray' => $gray,
+                                        'nightsCounter' => $nightsCounter,
                                      ]);
     }
 
