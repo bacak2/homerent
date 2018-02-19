@@ -174,7 +174,34 @@ class Apartaments extends Controller
                             });
                 })
                 ->addSelect('*', 'apartaments.id')->paginate($paginate);
-      
+        
+        $black = 0;
+        $gray = 0;
+        
+        if($view == 'mapa'){
+            $black = DB::Table('apartaments')
+                ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                ->join('languages', function($join) {
+                        $join->on('apartament_descriptions.language_id','=','languages.id')
+                            ->where('languages.id', $this->language->id);
+                  })
+                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->where(function($query) use ($region){
+                    $query->where('apartaments.apartament_city','Kościelisko');
+                })
+                ->where(function($query) use ($arriveDate,$returnDate) {
+                    $query->where(function($query) {
+                        $query->WhereNull('reservation_arrive_date')
+                              ->WhereNull('reservation_departure_date');
+                        })
+                            ->orWhere(function($query) use($arriveDate,$returnDate){
+                                        $query->whereRaw('? not between reservation_arrive_date and reservation_departure_date AND ? not between reservation_arrive_date and reservation_departure_date',[$arriveDate,$returnDate]);
+                            });
+                })
+                ->addSelect('*', 'apartaments.id')->paginate($paginate);
+                    
+        }
+        
         $counted = $finds->total();
         
         if ($counted === 0) $view = ("none");
@@ -185,6 +212,8 @@ class Apartaments extends Controller
                                         'finds' => $finds,
                                         'counted' => $counted,
                                         'request' => $request,
+                                        'black' => $black,
+                                        'gray' => $gray,
                                      ]);
     }
 

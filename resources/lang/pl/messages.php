@@ -67,5 +67,8 @@ return [
         'Return' => 'Powrót',
         'book' => 'Zarezerwuj',
         'see details' => 'Zobacz szczegóły',
+        'not found apartaments' => 'Nie znaleziono obiektów spełniających kryteria wyszukiwania',
+        'not found change criteria' => 'Zmień kryteria wyszukiwania lub wybierz inny termin',
+        'not found see others' => 'Inne obiekty dostępne w tym terminie',
 
 ];

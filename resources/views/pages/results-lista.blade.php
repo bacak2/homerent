@@ -1,8 +1,17 @@
 @extends ('pages.results')
 @section ('displayResults')
             <div class="row">
-                <div class="col-10"><h3 class="pb-2">{{__('messages.found')}} {{ $counted }} {{trans_choice('messages.apartaments',$counted)}}</h3></div>
-                <div class="col-2 inline-wrapper"> <a class="btn btn-default" href="/search/kafle?{{ http_build_query(Request::except('page')) }}">Kafle</a> <a class="btn btn-default" href="/search/lista?{{ http_build_query(Request::except('page')) }}"><b>Lista</b></a> <a class="btn btn-default" href="/search/mapa?{{ http_build_query(Request::except('page')) }}">Mapa</a> </div>
+                <div class="col-lg-6 col-md-12"><h3 class="pb-2">{{__('messages.found')}} {{ $counted }} {{trans_choice('messages.apartaments',$counted)}}</h3></div>
+                <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12">Sortuj:
+                    <select id="u1001_input" name="sort">
+                        <option selected="" value="Najlepsze dopasowanie">Najlepsze dopasowanie</option>
+                        <option value="Najniższa cena">Najniższa cena</option>
+                        <option value="Najlepiej oceniane">Najlepiej oceniane</option>
+                        <option value="Najpopularniejsze">Najpopularniejsze</option>
+                        <option value="Najbliżej">Najbliżej</option>
+                    </select>
+                </div>
+                <div class="col-12 col-lg-3 col-md-5 col-sm-12 col-xs-12 inline-wrapper text-right"> <a class="btn btn-default" href="/search/kafle?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/kafle.png") }}'></a> <a class="btn btn-default" href="/search/lista?{{ http_build_query(Request::except('page')) }}"><img class="active" src='{{ asset("images/results/lista.png") }}'></a> <a class="btn btn-default" href="/search/mapa?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/mapa.png") }}'></a></div>
             </div>
             @foreach ($finds as $apartament)
 		<div class="row">
@@ -37,6 +46,6 @@
 		</div>
             @endforeach
             
-            {{ $finds->appends(['dorosli' => $request->dorosli, 'dzieci' => $request->dzieci, 'powrot' => $request->powrot, 'przyjazd' => $request->przyjazd, 'region' => $request->region])->links() }}
+            <div style="text-align: right">{{ $finds->appends(['dorosli' => $request->dorosli, 'dzieci' => $request->dzieci, 'powrot' => $request->powrot, 'przyjazd' => $request->przyjazd, 'region' => $request->region])->links() }}</div>
 
 @endsection

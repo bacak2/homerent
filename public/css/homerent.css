@@ -98,10 +98,60 @@ button:hover {
       font-size: 10px;
       position: absolute;
       left: 0;
-      bottom: 8px;
+      bottom: 10px;
       background-color: rgba(0, 0, 0, 0.6);
       color: white;
       padding: 5px 20px 5px 5px; 
+  }  
+
+  .map-description > span, .map-description > div{
+      margin-top: 7px;
+  }
+  
+.description-bottom-right{
+        font-size: 10px;
+        position: absolute;
+        right: 5px;
+        bottom: 2px; 
+  }
+  
+  .description-map-bottom-right{
+        font-size: 10px;
+        position: absolute;
+        right: 23px;
+        bottom: 2px;       
+  }
+  
+  .description-below{
+        padding: 5px;
+        margin-bottom: 10px;
+        background-color: rgba(0, 0, 0, 0.1);
+  } 
+  
+  .description-below-img{
+        position: relative;
+        background-color: #fff;
+        background-repeat: no-repeat;
+        background-position: center top;
+        display: inline-block;
+        width: 26px;
+        height: 26px;
+        border: solid 1px;
+        margin-right: 5px;
+  }
+  
+  .description-below-img span{
+       font-size: 8px;
+       font-weight: bold;
+       position: absolute;
+       bottom: 0;
+       left: 10px
+  }
+  
+.add-to-favourities{
+        position: absolute;
+        right: 5px;
+        top: 5px; 
   }  
   
   .map-description-top{
@@ -123,7 +173,7 @@ button:hover {
     transform: translate(-50%, -50%);
   }
   
-  .map-img-wrapper:hover > .map-see-more {
+  .map-img-wrapper:hover .map-see-more {
     display: inline;
   }
 
@@ -149,6 +199,38 @@ button:hover {
 
 .map-legend-toggle:hover{
     cursor: pointer;
+}
+
+ul.pagination > li > a, ul.pagination > li > span {
+    margin: 0 5px 0 0 !important;
+    border: 1px solid black; 
+}
+
+ul.pagination {
+    display: inline-block;
+    margin-top: 25px;
+}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a,  ul.pagination li span{
+    
+    padding: 8px !important;
+    text-decoration: none;
+}
+
+ul.pagination li.active span {
+    background-color: white;
+    color: black;
+}
+
+ul.pagination li a {
+    background-color: #f7f3ef;
+    color: #1b8ce8 !important;
+}
+
+img.active{
+    border: solid 2px;
 }
 
 @media (min-width: 768px) {

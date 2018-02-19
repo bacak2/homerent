@@ -67,4 +67,7 @@ return [
         'Return' => 'Return',
         'book' => 'Book',
         'see details' => 'See details',
+        'not found apartaments' => 'No objects were found matching the search criteria',
+        'not found change criteria' => 'Change the search criteria or select a different date',
+        'not found see others' => 'Other objects available on this date',
 ];
