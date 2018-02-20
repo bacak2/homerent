@@ -140,6 +140,14 @@ button:hover {
         margin-right: 5px;
   }
 
+    .description-below-notes{
+        position: relative;
+        vertical-align: middle;
+        position: relative;
+        display: inline-block;
+        height: 26px;
+  }
+  
   .description-below-img.desktop-none.note span{
        color: white;
        font-size: 10px;
@@ -247,6 +255,18 @@ img.active{
     font-size: 12px;
 }
 
+
+.mapLegend{
+    position: relative;
+}
+    
+.map-legend-toggle{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translate(-5%, -50%);
+}
+
 @media (min-width: 768px) {
     .desktop-hidden{
         visibility: hidden !important;
@@ -268,7 +288,7 @@ img.active{
     #topSearch .container {
       padding-top: 150px; } 
 }
-
+    
 @media (max-width: 767px){
     #mapka{
         height: 380px !important;
@@ -281,5 +301,22 @@ img.active{
     .mobile-none{
         display: none !important;
     }
+    
+    .map-description-bottom{
+        left: 2px;
+    }
+    
+    .map-description-top{
+        left: 2px;
+    }
+
+}
+
+@media (max-width: 430px){
+    .map-legend-button:nth-child(3){
+        margin-left: 16px;
+    } 
+    
+
 }
 /*# sourceMappingURL=homerent.css.map */
