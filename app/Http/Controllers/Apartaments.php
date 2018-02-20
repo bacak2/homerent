@@ -9,12 +9,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
-use App\Apartament;
-use App\Apartament_description;
-use App\Apartament_group;
-use App\Reservation;
-
+use App\{Apartament, Apartament_description, Apartament_group, Reservation};
 
 class Apartaments extends Controller
 {
