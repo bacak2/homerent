@@ -288,6 +288,18 @@ img.active{
     border: 0.5px solid #565656;
 }
 
+.btn-filter{
+    padding: 0px 7px 0px 7px;
+    background-color: #b2b2b2;
+    font-size: 12px;
+    letter-spacing: -1px;
+}
+
+.btn-filter span{
+    display: block;
+    margin-bottom: -5px;
+}
+
 select {
     height:20px;
     font-size: 12px;

@@ -43,8 +43,9 @@
               </select>
         </div>
       </div>
-      <div class="col-md">
+      <div class="col-md btn-group">
         <button type="submit" class="btn btn-primary searchbtn">{{ __('messages.search') }}</button>
+        <button type="button" class="btn btn-filter"><span>{{ __('messages.Filters') }}</span><img src="{{ asset("images/results/filter.png") }}"></button>
       </div>
     </div>
   </form>
