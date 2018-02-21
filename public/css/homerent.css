@@ -121,6 +121,13 @@ button:hover {
         right: 23px;
         bottom: 2px;       
   }
+
+  .description-map-bottom-right.desktop-none{
+        font-size: 10px;
+        position: absolute;
+        right: 23px;
+        bottom: 17px;       
+  }
   
   .description-below{
         padding: 5px;
@@ -279,6 +286,11 @@ img.active{
     color: #ffffff !important;
     background-color: #565656 !important;
     border: 0.5px solid #565656;
+}
+
+select {
+    height:20px;
+    font-size: 12px;
 }
 
 @media (min-width: 768px) {
