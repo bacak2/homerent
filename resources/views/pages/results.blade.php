@@ -141,6 +141,8 @@ var options = {
 
 	$("#region").easyAutocomplete(options);
 
-
+$( ".dropdown-menu" ).click(function( event ) {
+  event.stopPropagation();
+});
 </script>
 @endsection

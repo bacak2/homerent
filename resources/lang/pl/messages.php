@@ -74,5 +74,6 @@ return [
         'number of nights' => 'liczba nocy',
         'Filters' => 'Filtry',
         'change' => 'zmień',
+        'Apply filters' => 'Zastosuj filtry',
 
 ];

@@ -74,4 +74,5 @@ return [
         'number of nights' => 'number of nights',
         'Filters' => 'Filters',
         'change' => 'change',
+        'Apply filters' => 'Apply filters',
 ];
