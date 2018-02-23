@@ -2,13 +2,13 @@
 @section ('displayResults')
             <div class="row">
                 <div class="col-lg-6 col-md-12"><h3 class="pb-2">{{__('messages.found')}} {{ $counted }} {{trans_choice('messages.apartaments',$counted)}}</h3></div>
-                <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12">Sortuj:
+                <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12">{{__('messages.Sort by')}}:
                     <select id="u1001_input" name="sort">
-                        <option selected="" value="Najlepsze dopasowanie">Najlepsze dopasowanie</option>
-                        <option value="Najniższa cena">Najniższa cena</option>
-                        <option value="Najlepiej oceniane">Najlepiej oceniane</option>
-                        <option value="Najpopularniejsze">Najpopularniejsze</option>
-                        <option value="Najbliżej">Najbliżej</option>
+                        <option selected="" value="Najlepsze dopasowanie">{{__('messages.Best fit')}}</option>
+                        <option value="Najniższa cena">{{__('messages.Lowest price')}}</option>
+                        <option value="Najlepiej oceniane">{{__('messages.Top rated')}}</option>
+                        <option value="Najpopularniejsze">{{__('messages.Most popular')}}</option>
+                        <option value="Najbliżej">{{__('messages.Closest')}}</option>
                     </select>
                 </div>
                 <div class="col-12 col-lg-3 col-md-5 col-sm-12 col-xs-12 inline-wrapper text-right"> <a class="btn btn-default" href="/search/kafle?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/kafle.png") }}'></a> <a class="btn btn-default" href="/search/lista?{{ http_build_query(Request::except('page')) }}"><img class="active" src='{{ asset("images/results/lista.png") }}'></a> <a class="btn btn-default" href="/search/mapa?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/mapa.png") }}'></a></div>
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-lg-2 col-md-12">
                         <div class="row">
-                            <div class="container py-1 text-right font-weight-bold"><h3>od 122 zł</h3></div>
+                            <div class="container py-1 text-right font-weight-bold"><h3>{{__('messages.from')}} 122 zł</h3></div>
                         </div>
                         <div class="row">
                             <div class="container py-1" ><a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-primary ml-2" style="width: 100%">{{ __('messages.book') }}</a></div>

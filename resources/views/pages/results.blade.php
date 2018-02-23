@@ -144,5 +144,76 @@ var options = {
 $( ".dropdown-menu" ).click(function( event ) {
   event.stopPropagation();
 });
+
+function restoreDefaultFilters(){
+    $("#klimatyzacja").prop('checked', true);
+    $("#wifi").prop('checked', false);
+    
+    $("#1room").prop('checked', true);
+    $("#2rooms").prop('checked', true);
+    $("#3rooms").prop('checked', true);
+    $("#4rooms").prop('checked', true);
+    
+    rangeBar();
+}
+
+function rangeBar(){
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 0, 500 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( ui.values[ 0 ] );
+        $( "#amount2" ).val( ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) );
+    $( "#amount2" ).val( $( "#slider-range" ).slider( "values", 1 ) );
+}
+
+$( "a#resetFilters" ).click(function( event ) {
+  event.stopPropagation();
+  restoreDefaultFilters();
+});
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+
+$(document).ready(function(){
+    $("span.cenaRange").click(function(){
+        $("div.cenaRange").toggle();
+        $("i.cenaRange").toggleClass("fa-caret-down fa-caret-up");
+    });
+    
+    $("span.lpokoi").click(function(){
+        $("div.lpokoi").toggle();
+        $("i.lpokoi").toggleClass("fa-caret-down fa-caret-up");
+    });
+    
+    $("span.lozka").click(function(){
+        $("div.lozka").toggle();
+        $("i.lozka").toggleClass("fa-caret-down fa-caret-up");
+    });
+    
+    $("span.budynek").click(function(){
+        $("div.budynek").toggle();
+        $("i.budynek").toggleClass("fa-caret-down fa-caret-up");
+    });
+
+    $("span.udogodnienia").click(function(){
+        $("div.udogodnienia").toggle();
+        $("i.udogodnienia").toggleClass("fa-caret-down fa-caret-up");
+    });
+    
+    $("span.dzielnica").click(function(){
+        $("div.dzielnica").toggle();
+        $("i.dzielnica").toggleClass("fa-caret-up fa-caret-down");
+    });
+    
+    rangeBar();
+  
+});
 </script>
 @endsection

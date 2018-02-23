@@ -306,8 +306,8 @@ select {
 }
 
 .dropdown-menu.show{
-    width: 1075px;
-    transform: translate3d(-940px, 34px, 0px) !important;
+    width: 1088px;
+    transform: translate3d(-954px, 34px, 0px) !important;
     background-color: #b2b2b2;
     padding-right: 24px;
     padding-left: 6px;
@@ -342,12 +342,62 @@ select {
         margin-right: 5px;
 }
 
+.filter-img-align{
+        position: relative;
+        background-color: #fff;
+        background-repeat: no-repeat;
+        background-position: center center;
+        display: inline-block;
+        width: 36px;
+        height: 36px;
+        border: solid 1px;
+        margin-right: 5px;
+}
+
 .filter-img span{
        font-size: 12px;
        font-weight: bold;
        position: absolute;
        bottom: 0;
        left: 14px
+}
+
+.filter-img.more span{
+        left: 10px;
+}
+
+div > span > i.fa{
+    margin-left: 5px;
+}
+
+.cenaRange #slider-range{
+    display: inline-block;
+    width: 140px;
+    margin-left: 5px;
+    margin-right: 5px;        
+}
+
+.cenaRange input[type='text'] {
+    display: inline-block;
+    width: 40px;
+}
+
+input[type=checkbox]:not(:checked) + label {
+    color: gray;
+}
+
+input[type=checkbox]:checked + label {
+    color: blue;
+}
+
+.dropdown-menu label:hover, .dropdown-menu span:hover, input[type=checkbox]:hover, label.map-legend-button:hover {
+    cursor: pointer;
+}
+
+a#resetFilters{
+    text-decoration:none;
+    color: black;
+    margin-left: 10px;
 }
 
 @media (min-width: 768px) {
@@ -408,7 +458,7 @@ select {
         background-color: #b2b2b2;
         padding-right: 24px;
         padding-left: 6px;
-    }  
+    }
 }
 
 @media (min-width: 991px) and (max-width: 1200px){
@@ -418,6 +468,18 @@ select {
         background-color: #b2b2b2;
         padding-right: 24px;
         padding-left: 6px;
-    }  
+    } 
+    
+    .cenaRange #slider-range{
+        display: inline-block;
+        width: 80px;
+        margin-left: 5px;
+        margin-right: 5px;        
+    }
+
+    .cenaRange input[type='text'] {
+        display: inline-block;
+        width: 40px;
+    }
 }
 /*# sourceMappingURL=homerent.css.map */

@@ -12,27 +12,27 @@
             </div>
             <div class="row desktop-none">
                 <div class="col-8"><h4 class="pb-2" style="display: inline">{{ $finds[0]->apartament_city}} <span class="desktop-none">({{ $counted }})</span></h4><span class="pb-2 mobile-none"> ({{ $counted }} {{trans_choice('messages.apartaments',$counted)}})</span></div>
-                <div class="col-4 inline-wrapper text-right desktop-none"> <div style="position: absolute; right:10px;"   class="btn-group"><a class="btn btn-selected btn-mobile" href="/search/kafle?{{ http_build_query(Request::except('page')) }}">Oferty</a><a class="btn btn-info btn-mobile" href="/search/mapa?{{ http_build_query(Request::except('page')) }}">Mapa</a></div></div>
+                <div class="col-4 inline-wrapper text-right desktop-none"> <div style="position: absolute; right:10px;"   class="btn-group"><a class="btn btn-selected btn-mobile" href="/search/kafle?{{ http_build_query(Request::except('page')) }}">{{__('messages.Offers')}}</a><a class="btn btn-info btn-mobile" href="/search/mapa?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a></div></div>
             </div>
-            <div style="margin-top: 15px; margin-bottom: 15px" class="desktop-none">Sortuj:
+            <div style="margin-top: 15px; margin-bottom: 15px" class="desktop-none">{{__('messages.Sort by')}}:
                     <select id="u1001_input" name="sort" class="input-sm">
-                        <option selected="" value="Najlepsze dopasowanie">Najlepsze dopasowanie</option>
-                        <option value="Najniższa cena">Najniższa cena</option>
-                        <option value="Najlepiej oceniane">Najlepiej oceniane</option>
-                        <option value="Najpopularniejsze">Najpopularniejsze</option>
-                        <option value="Najbliżej">Najbliżej</option>
+                        <option selected="" value="Najlepsze dopasowanie">{{__('messages.Best fit')}}</option>
+                        <option value="Najniższa cena">{{__('messages.Lowest price')}}</option>
+                        <option value="Najlepiej oceniane">{{__('messages.Top rated')}}</option>
+                        <option value="Najpopularniejsze">{{__('messages.Most popular')}}</option>
+                        <option value="Najbliżej">{{__('messages.Closest')}}</option>
                     </select>
             </div>
 
             <div class="row mobile-none">
                 <div class="col-lg-6 col-md-12"><h3 class="pb-2">{{__('messages.found')}} {{ $counted }} {{trans_choice('messages.apartaments',$counted)}}</h3></div>
-                <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12">Sortuj:
+                <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12">{{__('messages.Sort by')}}:
                     <select id="u1001_input" name="sort" class="input-sm">
-                        <option selected="" value="Najlepsze dopasowanie">Najlepsze dopasowanie</option>
-                        <option value="Najniższa cena">Najniższa cena</option>
-                        <option value="Najlepiej oceniane">Najlepiej oceniane</option>
-                        <option value="Najpopularniejsze">Najpopularniejsze</option>
-                        <option value="Najbliżej">Najbliżej</option>
+                        <option selected="" value="Najlepsze dopasowanie">{{__('messages.Best fit')}}</option>
+                        <option value="Najniższa cena">{{__('messages.Lowest price')}}</option>
+                        <option value="Najlepiej oceniane">{{__('messages.Top rated')}}</option>
+                        <option value="Najpopularniejsze">{{__('messages.Most popular')}}</option>
+                        <option value="Najbliżej">{{__('messages.Closest')}}</option>
                     </select>
                 </div>
                 <div class="col-12 col-lg-3 col-md-5 col-sm-12 col-xs-12 inline-wrapper text-right"> <a class="btn btn-default" href="/search/kafle?{{ http_build_query(Request::except('page')) }}"><img class="active" src='{{ asset("images/results/kafle.png") }}'></a> <a class="btn btn-default" href="/search/lista?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/lista.png") }}'></a> <a class="btn btn-default" href="/search/mapa?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/mapa.png") }}'></a></div>
@@ -58,12 +58,12 @@
                             </div>
                             <div class="add-to-favourities"><a href="#"><img src='{{ asset("images/results/heart.png") }}'></a></div>
                             <div class="map-description-top">112 PLN</div> 
-                            <div class="map-description-bottom">śniadanie w cenie</div>
+                            <div class="map-description-bottom">{{ __("messages.Breakfast included") }}</div>
                             <div class="description-bottom-right mobile-none">
                                 @for ($i = 0; $i < 5; $i++)
                                     <img src='{{ asset("images/results/star.png") }}'>
                                 @endfor
-                                <br><span style="color: green; margin-right: 10px">Doskonały</span> <span style="color: blue">55 opinii</span>
+                                <br><span style="color: green; margin-right: 10px">{{ __("messages.Perfect") }}</span> <span style="color: blue">55 {{ __("messages.reviews_number") }}</span>
                             </div>
                         </div>
                         <div class="description-below">
@@ -85,8 +85,8 @@
                                     <img src="{{ asset("images/results/star.png") }}">
                                 @endfor
                                 <br>
-                                <span style="color: green; margin-right: 10px">Doskonały</span> 
-                                <span style="color: blue">55 opinii</span>
+                                <span style="color: green; margin-right: 10px">{{ __("messages.Perfect") }}</span> 
+                                <span style="color: blue">55 {{ __("messages.reviews_number") }}</span>
                             </div>
                         </div>                        
                     </div>
