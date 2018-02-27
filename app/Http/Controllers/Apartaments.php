@@ -152,7 +152,7 @@ class Apartaments extends Controller
             }
             
         $whereData = []; 
-        if ($request->has('klimatyzacja')) array_push($whereData, ['', '1']);
+        if ($request->has('klimatyzacja')) array_push($whereData, ['apartament_air_conditioning', '1']);
         if ($request->has('wifi')) array_push($whereData, ['apartament_wifi', '1']);
         if ($request->has('garaz')) array_push($whereData, ['apartament_parking', '1']);
         if ($request->has('winda')) array_push($whereData, ['apartament_elevator', '1']);
