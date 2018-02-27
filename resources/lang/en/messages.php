@@ -37,7 +37,7 @@ return [
 	'adultskids' => 'Adults, kids',
 	'fprice' => 'Final Price: ',
 	'aval' => 'This date is available',
-	'apartaments' => 'apartaments',
+	'apartaments' => 'apartments',
 	'found' => 'We found',
 	'inclbreakfast' => 'Breakfast included',
 	'choosedate' => 'Choose date',
@@ -118,5 +118,7 @@ return [
         'on this date' => 'on this date',
         'reviews' => 'reviews',
         'Offers' => 'Offers',
-        'Map' => 'Map',    
+        'Map' => 'Map',  
+        'Last reservation' => 'Last reservation',
+        'hours ago' => 'hours ago',
 ];

@@ -14,23 +14,51 @@
                 <div class="col-12 col-lg-3 col-md-5 col-sm-12 col-xs-12 inline-wrapper text-right"> <a class="btn btn-default" href="/search/kafle?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/kafle.png") }}'></a> <a class="btn btn-default" href="/search/lista?{{ http_build_query(Request::except('page')) }}"><img class="active" src='{{ asset("images/results/lista.png") }}'></a> <a class="btn btn-default" href="/search/mapa?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/mapa.png") }}'></a></div>
             </div>
             @foreach ($finds as $apartament)
-		<div class="row">
+		<div class="row list-item">
                     <div class="col-lg-3 col-md-12 col-sm-6 col-xl-3">
-                        <a href="/apartaments/{{ $apartament->apartament_link }}">
-                            <img style="height: auto; width: 100%; max-width: 255px; max-height: 144px" src="{{ asset("images/apartaments/$apartament->id/1.jpg") }}">
-                        </a>
+                        <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; max-width: 285px; max-height: 149px;">
+                            <div class="list-item-description-bottom">{{ __("messages.Breakfast included") }}</div>
+                            <div class="add-to-favourities"><a href="#"><img src='{{ asset("images/results/heart.png") }}'></a></div>
+                        </div>
                     </div>
+                    
                     <div class="col-lg-7 col-md-12">
-                        <div class="row">
-                            <div class="container py-1 font-weight-bold"><h4>{{ $apartament->apartament_name }}</h4></div>
+                        <div class="row list-item-name">
+                            <div class="container py-1 font-weight-bold"><span style='font-size: 24px'>{{ $apartament->apartament_name }}</span>
+                                <span class="pull-right">
+                                @for ($i = 0; $i < 5; $i++)
+                                    <img class="list-item" src='{{ asset("images/results/star_list.png") }}'>
+                                @endfor
+                                </span>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="container py-1">{{ $apartament->apartament_address }}</div>
+                        <div class="row list-item-address">
+                            <div class="container py-1">{{ $apartament->apartament_address }}
+                                <span class="pull-right">
+                                    <span style="color: green; letter-spacing: -1px;"><b>8,3/10</b> <span style="font-size: 14px">{{ __("messages.Perfect") }}</span></span> <span style="color: blue; font-size: 10px">55 {{ __("messages.reviews_number") }}</span>
+                                </span>
+                            </div>
+                            
                         </div>
-                        <div class="row">
-                            <div class="container py-1">{{ substr($apartament->apartament_description, 0, 250) }}...</div>
+                        <div class="row list-item-description">
+                            <div class="container py-1">{{ substr($apartament->apartament_description, 0, 220) }}...</div>
                         </div>
-                       
+                        <div class="row list-item-icons">
+                            <div class="col-6 container py-1">
+                                <div class="description-below-img" style="background-image: url('{{ asset("images/results/person.png") }}');"> <span>{{ $apartament->apartament_persons }}</span> </div>
+                                <div class="description-below-img" style="background-image: url('{{ asset("images/results/doubleBed.png") }}');"> <span>{{ $apartament->apartament_double_beds }}</span> </div>
+                                <div class="description-below-img" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>{{ $apartament->apartament_single_beds }}</span> </div>
+                                @if ( $apartament->apartament_wifi == 1)
+                                    <div class="description-below-img" style="background-image: url('{{ asset("images/results/wifi.png") }}');"> </div>
+                                @endif
+                                @if ( $apartament->apartament_parking == 1)
+                                    <div class="description-below-img" style="background-image: url('{{ asset("images/results/parking.png") }}');"> </div>
+                                @endif                                                            
+                            </div>
+                            <div class="col-6 list-item-last-reservation">
+                                {{ __("messages.Last reservation") }} 2 {{ __("messages.hours ago") }}
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-2 col-md-12">
                         <div class="row">

@@ -3,12 +3,14 @@
 
             <div class="row desktop-none" style="margin-bottom: 20px">
                 <div class="col-9 text-mobile-search">
-                    <a href="/" style="color: #00afea">Start > </a><b>{{ $finds[0]->apartament_city}}</b>, {{__('messages.from')}} {{ $_GET['przyjazd'] }}, {{__('messages.number of nights')}}: {{ $nightsCounter }}, {{__('messages.Persons')}}: {{ $_GET['dorosli']+$_GET['dzieci'] }}, {{__('messages.Filters')}}: 
+                    <a href="{{ route('index') }}" style="color: #00afea">Start > </a><b>{{ $finds[0]->apartament_city}}</b>, {{__('messages.from')}} {{ $_GET['przyjazd'] }}, {{__('messages.number of nights')}}: {{ $nightsCounter }}, {{__('messages.Persons')}}: {{ $_GET['dorosli']+$_GET['dzieci'] }}, {{__('messages.Filters')}}: 
                 </div> 
                 <div class="col-3">
-                    <div  style="position: absolute; right:10px;"><a  class="btn btn-info btn-mobile">{{__('messages.change')}} </a></div>
+                    <div  style="position: absolute; right:10px;"><a  class="btn btn-info btn-mobile filters-toggle">{{__('messages.change')}} </a></div>
                 </div>
            
+                @include('includes.filters-mobile')
+                
             </div>
             <div class="row desktop-none">
                 <div class="col-8"><h4 class="pb-2" style="display: inline">{{ $finds[0]->apartament_city}} <span class="desktop-none">({{ $counted }})</span></h4><span class="pb-2 mobile-none"> ({{ $counted }} {{trans_choice('messages.apartaments',$counted)}})</span></div>

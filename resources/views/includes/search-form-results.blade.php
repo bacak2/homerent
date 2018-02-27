@@ -46,7 +46,7 @@
             <button type="submit" class="btn btn-primary searchbtn desktop-none">{{ __('messages.search') }}</button>
         <div class="col-md btn-group mobile-none">
             <button type="submit" class="btn btn-primary searchbtn">{{ __('messages.search') }}</button>
-</form>            
+           
             <button type="button" class="btn btn-filter dropdown-toggle" id="menu1" data-toggle="dropdown"><span>{{ __('messages.Filters') }}</span><!--img src="{{ asset("images/results/filter.png") }}"--></button>
             <div class="dropdown-menu" role="menu" aria-labelledby="menu1">
                 {!! Form::open(array('url' => '#')) !!}
@@ -64,19 +64,19 @@
                         <div class="lpokoi">
                             {!! Form::checkbox('1room', null, null, ['id' => '1room', 'style'=>'display:none']) !!}
                             <label for="1room">
-                                <div class="filter-img" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>1</span> </div>
+                                <div class="filter-img" style="background-image: url('{{ asset("images/results/houseNumber.png") }}');"> <span>1</span> </div>
                             </label>
                             {!! Form::checkbox('2rooms', null, null, ['id' => '2rooms', 'style'=>'display:none']) !!}
                             <label for="2rooms">
-                                <div class="filter-img" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>2</span> </div>
+                                <div class="filter-img" style="background-image: url('{{ asset("images/results/houseNumber.png") }}');"> <span>2</span> </div>
                             </label>
                             {!! Form::checkbox('3rooms', null, null, ['id' => '3rooms', 'style'=>'display:none']) !!}
                             <label for="3rooms">
-                                <div class="filter-img" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>3</span> </div>
+                                <div class="filter-img" style="background-image: url('{{ asset("images/results/houseNumber.png") }}');"> <span>3</span> </div>
                             </label>
                             {!! Form::checkbox('4rooms', null, null, ['id' => '4rooms', 'style'=>'display:none']) !!}
                             <label for="4rooms">
-                                <div class="filter-img more" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>4+</span> </div>
+                                <div class="filter-img more" style="background-image: url('{{ asset("images/results/houseNumber.png") }}');"> <span>4+</span> </div>
                             </label>                            
                         </div>
                     </div>   
@@ -106,15 +106,15 @@
                         <div class="budynek">
                             {!! Form::checkbox('apartment', null, null, ['id' => 'apartment', 'style'=>'display:none']) !!}
                             <label for="apartment">
-                                <div class="filter-img-align" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Apartment') }}" style="background-image: url('{{ asset("images/results/doubleBedFilter.png") }}');"></div>
+                                <div class="filter-img-align" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Apartment') }}" style="background-image: url('{{ asset("images/results/house.png") }}');"></div>
                             </label>   
                             {!! Form::checkbox('house', null, null, ['id' => 'house', 'style'=>'display:none']) !!}
                             <label for="house">
-                                <div class="filter-img-align" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.House') }}" style="background-image: url('{{ asset("images/results/doubleBedFilter.png") }}');"></div>
+                                <div class="filter-img-align" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.House') }}" style="background-image: url('{{ asset("images/results/house.png") }}');"></div>
                             </label>
                             {!! Form::checkbox('agrotourism', null, null, ['id' => 'agrotourism', 'style'=>'display:none']) !!}
                             <label for="agrotourism">
-                                <div class="filter-img-align" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Agrotourism') }}" style="background-image: url('{{ asset("images/results/doubleBedFilter.png") }}');"></div>
+                                <div class="filter-img-align" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Agrotourism') }}" style="background-image: url('{{ asset("images/results/house.png") }}');"></div>
                             </label>                            
                         </div>
                     </div>
@@ -153,27 +153,27 @@
                     </div> 
                     <div class="col-3 udogodnienia">
                         <p>
-                            <label>{!! Form::checkbox('klimatyzacja', null, null, ['id' => 'klimatyzacja']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Acceptance of animals') }}</label>
+                            <label>{!! Form::checkbox('zwierzeta', null, null, ['id' => 'zwierzeta']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Acceptance of animals') }}</label>
                         </p>
                         <p>
-                            <label>{!! Form::checkbox('wifi', null, null, ['id' => 'wifi']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.For smokers') }}</label>
+                            <label>{!! Form::checkbox('palacy', null, null, ['id' => 'palacy']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.For smokers') }}</label>
                         </p>
                         <p>
-                            <label>{!! Form::checkbox('garaz', null, null, ['id' => 'garaz']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.For the disabled') }}</label>
+                            <label>{!! Form::checkbox('niepelnosprawni', null, null, ['id' => 'niepelnosprawni']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.For the disabled') }}</label>
                         </p>                       
                     </div> 
                     <div class="col-3 udogodnienia">
                         <p>
-                            <label>{!! Form::checkbox('balkon', null, null, ['id' => 'balkon']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Cooker') }}</label>
+                            <label>{!! Form::checkbox('kuchenka', null, null, ['id' => 'kuchenka']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Cooker') }}</label>
                         </p>
                         <p>
-                            <label>{!! Form::checkbox('telewizor', null, null, ['id' => 'telewizor']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Electric kettle') }}</label>
+                            <label>{!! Form::checkbox('czajnik', null, null, ['id' => 'czajnik']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Electric kettle') }}</label>
                         </p>
                         <p>
-                            <label>{!! Form::checkbox('odkurzacz', null, null, ['id' => 'odkurzacz']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Washing machine') }}</label>
+                            <label>{!! Form::checkbox('zmywarka', null, null, ['id' => 'zmywarka']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Washing machine') }}</label>
                         </p>
                         <p>
-                            <label>{!! Form::checkbox('lozeczko', null, null, ['id' => 'lozeczko']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Microwave') }}</label>
+                            <label>{!! Form::checkbox('mikrofalowka', null, null, ['id' => 'mikrofalowka']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Microwave') }}</label>
                         </p>                        
                     </div>                    
                 </div>
@@ -182,10 +182,10 @@
                     <div class="col-3">
                         <span>{{ __('messages.Filter by opinion') }}</span>
                         <p>
-                            <label>{!! Form::checkbox('all', 'value') !!}{{ __('messages.All') }}</label>
+                            <label>{!! Form::checkbox('all', 'on') !!}{{ __('messages.All') }}</label>
                         </p>
                         <p>
-                            <label>{!! Form::checkbox('name', 'value') !!}                                 
+                            <label>{!! Form::checkbox('4stars', 'on') !!}                                 
                                 @for ($i = 0; $i < 4; $i++)
                                     <img src="{{ asset("images/results/star.png") }}">
                                 @endfor
@@ -193,7 +193,7 @@
                             </label>
                         </p>
                         <p>
-                            <label>{!! Form::checkbox('name', 'value') !!}                                 
+                            <label>{!! Form::checkbox('3stars', 'on') !!}                                 
                                 @for ($i = 0; $i < 3; $i++)
                                     <img src="{{ asset("images/results/star.png") }}">
                                 @endfor
@@ -203,7 +203,7 @@
                             </label>
                         </p>  
                         <p>
-                            <label>{!! Form::checkbox('name', 'value') !!}                                 
+                            <label>{!! Form::checkbox('2stars', 'on') !!}                                 
                                 @for ($i = 0; $i < 2; $i++)
                                     <img src="{{ asset("images/results/star.png") }}">
                                 @endfor
@@ -213,7 +213,7 @@
                             </label>
                         </p>
                         <p>
-                            <label>{!! Form::checkbox('name', 'value') !!}                                 
+                            <label>{!! Form::checkbox('1star', 'on') !!}                                 
                                 @for ($i = 0; $i < 1; $i++)
                                     <img src="{{ asset("images/results/star.png") }}">
                                 @endfor
@@ -225,28 +225,24 @@
                     </div>
                     <div class="col-9">
                         <span class="dzielnica">{{ __('messages.District') }}<i class="fa fa-caret-up dzielnica"></i></span>
-                    </div>
-                        <div class="dzielnica col-3 udogodnienia" style="display: none;">
+                        <div class="row">
+                            
 
-                            <p>
-                                <label>Stare miasto</label>
-                            </p>
-                            <p>
-                                <label>Kazimierz</label>
-                            </p>
+                            <div class="dzielnica col-3" style="display: none;">
 
+                                <p>
+                                    <label>{!! Form::checkbox('distr1', null, null, ['id' => 'distr1', 'style'=>'display:none']) !!}<span class="district">Stare miasto</span></label>
+                                </p>
+                                <p>
+                                    <label>{!! Form::checkbox('distr2', null, null, ['id' => 'distr2', 'style'=>'display:none']) !!}<span class="district">Kazimierz</span></label>
+                                </p>
+
+                            </div>
+                            <div class="dzielnica col-9" style="display: none;">
+
+                            </div>
                         </div>
-                        <div class="dzielnica col-6 udogodnienia" style="display: none;">
-
-                            <p>
-                                <label>Stare miasto</label>
-                            </p>
-                            <p>
-                                <label>Kazimierz</label>
-                            </p>
-
-                        </div>
-                   
+                    </div>    
                 </div>
                     <hr>
                     <button type="submit" class="btn btn-primary searchbtn">{{ __('messages.Apply filters') }}</button>

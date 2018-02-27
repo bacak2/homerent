@@ -118,5 +118,7 @@ return [
         'on this date' => 'tym terminie',  
         'reviews' => 'oceny',
         'Offers' => 'Oferty',
-        'Map' => 'Mapy',
+        'Map' => 'Mapa',
+        'Last reservation' => 'Ostatnia rezerwacja',
+        'hours ago' => 'godziny temu',
 ];

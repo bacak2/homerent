@@ -19,7 +19,7 @@ Route::group(
 ],
 function()
 {
-	Route::get('/', 'Apartaments@showIndex');
+	Route::get('/', 'Apartaments@showIndex')->name('index');
 
 	Auth::routes();
 
