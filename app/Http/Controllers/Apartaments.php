@@ -152,21 +152,21 @@ class Apartaments extends Controller
             }
             
         $whereData = []; 
-        $whereRooms = [];
+        if ($request->has('klimatyzacja')) array_push($whereData, ['', '1']);
+        if ($request->has('wifi')) array_push($whereData, ['apartament_wifi', '1']);
         if ($request->has('garaz')) array_push($whereData, ['apartament_parking', '1']);
-        if ($request->has('wifi')) array_push($whereData, ['apartament_wifi', '1']); 
-        
-        if ($request->has('1room')) array_push($whereRooms, ['1']);
-        if ($request->has('2rooms')) array_push($whereRooms, ['2']);
-        if ($request->has('3rooms')) array_push($whereRooms, ['3']);
-        if ($request->has('4rooms')){
-            $whereRooms = [];
-            array_push($whereData, ['apartament_rooms_number', '>','3']);
-        }
-        
-        if ($request->has('doubleBed')) array_push($whereData, ['apartament_double_beds', '>', '0']);
-        
-        if ($request->has('1bed')) array_push($whereData, ['apartament_single_beds', '=', '1']);
+        if ($request->has('winda')) array_push($whereData, ['apartament_elevator', '1']);
+        if ($request->has('balkon')) array_push($whereData, ['apartament_balcony', '1']);
+        if ($request->has('telewizor')) array_push($whereData, ['apartament_tv', '1']);
+        if ($request->has('odkurzacz')) array_push($whereData, ['apartament_vacuum cleaner', '1']);
+        if ($request->has('lozeczko')) array_push($whereData, ['apartament_kids_bed', '1']);
+        if ($request->has('zwierzeta')) array_push($whereData, ['apartament_animals', '1']);
+        if ($request->has('palacy')) array_push($whereData, ['apartament_smokers', '1']);
+        if ($request->has('niepelnosprawni')) array_push($whereData, ['apartament_disabled', '1']);
+        if ($request->has('kuchenka')) array_push($whereData, ['apartament_cooker', '1']);
+        if ($request->has('czajnik')) array_push($whereData, ['apartament_kettle', '1']);
+        if ($request->has('zmywarka')) array_push($whereData, ['apartament_washing_machine', '1']);
+        if ($request->has('mikrofalowka')) array_push($whereData, ['apartament_microwave', '1']);
         
        
         $finds = Apartament::select('*', 'apartaments.id')
@@ -175,7 +175,7 @@ class Apartaments extends Controller
                         $join->on('apartament_descriptions.language_id','=','languages.id')
                             ->where('languages.id', $this->language->id);
                   })
-                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')       
                 ->where(function($query) use ($region){
                     $query->where('apartament_descriptions.apartament_name',$region)
                           ->orWhere('apartaments.apartament_city',$region);
@@ -189,8 +189,23 @@ class Apartaments extends Controller
                                         $query->whereRaw('? not between reservation_arrive_date and reservation_departure_date AND ? not between reservation_arrive_date and reservation_departure_date',[$arriveDate,$returnDate]);
                             });
                 })
+                ->where(function($query) use ($request){
+                    if ($request->has('1room')) $query->where('apartament_rooms_number', '1');
+                    if ($request->has('2rooms')) $query->orWhere('apartament_rooms_number', '2');
+                    if ($request->has('3rooms')) $query->orWhere('apartament_rooms_number', '3');
+                    if ($request->has('4rooms')) $query->orWhere('apartament_rooms_number', '>', '3');
+                })
+                ->where(function($query) use ($request){
+                    $query->where(function($query) use ($request){
+                                if ($request->has('doubleBed'))$query->where('apartament_double_beds', '>', '0');
+                    })
+                            ->where(function($query) use ($request){
+                                if ($request->has('1bed')) $query->orwhere('apartament_single_beds', '1');
+                                if ($request->has('2beds')) $query->orWhere('apartament_single_beds', '2');
+                                if ($request->has('3beds')) $query->orWhere('apartament_single_beds', '>', '2');
+                    });                    
+                })
                 ->where($whereData)
-                ->whereIn('apartament_rooms_number', $whereRooms)
                 ->paginate($paginate);
 
         $black = 0;
