@@ -151,7 +151,25 @@ class Apartaments extends Controller
                         break;
             }
             
-        $finds = DB::Table('apartaments')
+        $whereData = []; 
+        $whereRooms = [];
+        if ($request->has('garaz')) array_push($whereData, ['apartament_parking', '1']);
+        if ($request->has('wifi')) array_push($whereData, ['apartament_wifi', '1']); 
+        
+        if ($request->has('1room')) array_push($whereRooms, ['1']);
+        if ($request->has('2rooms')) array_push($whereRooms, ['2']);
+        if ($request->has('3rooms')) array_push($whereRooms, ['3']);
+        if ($request->has('4rooms')){
+            $whereRooms = [];
+            array_push($whereData, ['apartament_rooms_number', '>','3']);
+        }
+        
+        if ($request->has('doubleBed')) array_push($whereData, ['apartament_double_beds', '>', '0']);
+        
+        if ($request->has('1bed')) array_push($whereData, ['apartament_single_beds', '=', '1']);
+        
+       
+        $finds = Apartament::select('*', 'apartaments.id')
                 ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                 ->join('languages', function($join) {
                         $join->on('apartament_descriptions.language_id','=','languages.id')
@@ -171,8 +189,10 @@ class Apartaments extends Controller
                                         $query->whereRaw('? not between reservation_arrive_date and reservation_departure_date AND ? not between reservation_arrive_date and reservation_departure_date',[$arriveDate,$returnDate]);
                             });
                 })
-                ->addSelect('*', 'apartaments.id')->paginate($paginate);
-        
+                ->where($whereData)
+                ->whereIn('apartament_rooms_number', $whereRooms)
+                ->paginate($paginate);
+
         $black = 0;
         $gray = 0;
         
@@ -204,7 +224,8 @@ class Apartaments extends Controller
         
         if ($counted === 0) $view = ("none");
 
-        return view("pages.results-".$view, [  'region' => $region,
+        return view("pages.results-".$view, [  
+                                        'region' => $region,
                                         'arive_date' => $arriveDate,
                                         'return_date' => $returnDate,
                                         'finds' => $finds,
