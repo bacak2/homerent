@@ -121,4 +121,5 @@ return [
         'Map' => 'Mapa',
         'Last reservation' => 'Ostatnia rezerwacja',
         'hours ago' => 'godziny temu',
+		'lastSeen' => 'Ostatnio oglądane przez Ciebie',
 ];

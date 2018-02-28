@@ -191,8 +191,6 @@
 	</div>
 </div>
 
-
-
 <script type="text/javascript">
 
 $('.res-info').hide();

@@ -95,4 +95,8 @@
                     @endforeach
                 </div>
 <div class="mobile-none" style="text-align: right">{{ $finds->appends(['dorosli' => $request->dorosli, 'dzieci' => $request->dzieci, 'powrot' => $request->powrot, 'przyjazd' => $request->przyjazd, 'region' => $request->region])->links() }}</div>
+@if($countedCookies > 0)
+    <h3 class="pb-2">{{__('messages.lastSeen')}}</h3>
+    @include('includes.last-seen')
+@endif
 @endsection

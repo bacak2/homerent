@@ -121,4 +121,5 @@ return [
         'Map' => 'Map',  
         'Last reservation' => 'Last reservation',
         'hours ago' => 'hours ago',
+		'lastSeen' => 'Last viewed by You',
 ];

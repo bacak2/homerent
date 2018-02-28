@@ -239,6 +239,21 @@ class Apartaments extends Controller
         
         if ($counted === 0) $view = ("none");
 
+        $cookiesApartments = [1, 2, 3, 4, 5, 6];
+
+        $lastSeen = Apartament::select('*', 'apartaments.id')
+            ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            ->join('languages', function($join) {
+                $join->on('apartament_descriptions.language_id','=','languages.id')
+                    ->where('languages.id', $this->language->id);
+            })
+            ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+            ->whereIn('apartaments.id', $cookiesApartments)
+            ->limit(4)
+            ->get();
+        
+        $countedCookies = $lastSeen->count();
+
         return view("pages.results-".$view, [  
                                         'region' => $region,
                                         'arive_date' => $arriveDate,
@@ -249,6 +264,8 @@ class Apartaments extends Controller
                                         'black' => $black,
                                         'gray' => $gray,
                                         'nightsCounter' => $nightsCounter,
+                                        'lastSeen' => $lastSeen,
+                                        'countedCookies' => $countedCookies,
                                      ]);
     }
 

@@ -93,7 +93,8 @@ button:hover {
     background-position: center;
     resize: both;
     background-size: auto 100%; }
-  
+
+/* apply to sass */  
   .map-description-bottom{
       font-size: 10px;
       position: absolute;
