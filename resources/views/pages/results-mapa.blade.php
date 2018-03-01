@@ -22,7 +22,7 @@
                 <div id="mapka" style="width: 100%; height: 500px; margin-bottom: 30px;"></div>    
             </div>
 
-<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&callback=initMap" type="text/javascript"></script>
 		<script type="text/javascript">   
 		
 		var mapa;
