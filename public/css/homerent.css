@@ -416,6 +416,11 @@ img.list-item {
 .filters-mobile p {
   margin-bottom: 0px; }
 
+.img-loader{
+  width: 80px;
+  height: 80px;
+}
+
 @media (min-width: 768px) {
   .desktop-hidden {
     visibility: hidden !important; }

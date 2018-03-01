@@ -40,6 +40,7 @@
                 <div class="col-12 col-lg-3 col-md-5 col-sm-12 col-xs-12 inline-wrapper text-right"> <a class="btn btn-default" href="/search/kafle?{{ http_build_query(Request::except('page')) }}"><img class="active" src='{{ asset("images/results/kafle.png") }}'></a> <a class="btn btn-default" href="/search/lista?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/lista.png") }}'></a> <a class="btn btn-default" href="/search/mapa?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/mapa.png") }}'></a></div>
             </div>
 
+<div class="infinite-scroll">
 		<div class="row">  
                     @foreach ($finds as $apartament)                        
                     <div style="overflow: auto;" class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
@@ -65,7 +66,7 @@
                                 @for ($i = 0; $i < 5; $i++)
                                     <img src='{{ asset("images/results/star.png") }}'>
                                 @endfor
-                                <br><span style="color: green; margin-right: 10px">{{ __("messages.Perfect") }}</span> <span style="color: blue">55 {{ __("messages.reviews_number") }}</span>
+                                <br><span style="color: green; margin-right: 10px;">{{ __("messages.Perfect") }}</span> <span style="color: blue;">55 {{ __("messages.reviews_number") }}</span>
                             </div>
                         </div>
                         <div class="description-below">
@@ -93,12 +94,34 @@
                         </div>                        
                     </div>
                     @endforeach
-                </div>
-<div class="mobile-none" style="text-align: right">{{ $finds->appends(['dorosli' => $request->dorosli, 'dzieci' => $request->dzieci, 'powrot' => $request->powrot, 'przyjazd' => $request->przyjazd, 'region' => $request->region])->links() }}</div>
+         </div>
+<div id="pagination" class="mobile-none" style="text-align: right">{{ $finds->appends(['dorosli' => $request->dorosli, 'dzieci' => $request->dzieci, 'powrot' => $request->powrot, 'przyjazd' => $request->przyjazd, 'region' => $request->region])->links() }}</div>
+</div>
+
 <span class="mobile-none">
-    @if($countedCookies > 0)
+@if($countedCookies > 0)
     <h3 class="pb-2" style="margin-top: 40px">{{__('messages.lastSeen')}}</h3>
     @include('includes.last-seen')
 @endif
 </span>
+
+            <script type="text/javascript">
+                $('#pagination').hide();
+                $(function() {
+                    $('.infinite-scroll').jscroll({
+                        autoTrigger: true,
+                        debug: true,
+                        loadingHtml: '<div class="text-center"><img class="img-loader" src="{{ asset('images/results/loader.gif') }}" alt="Loading..." /></div>',
+                        padding: 0,
+                        nextSelector: '.pagination li.active + li a',
+                        contentSelector: '.infinite-scroll',
+                        callback: function() {
+                            $('ul.pagination').remove();
+                        }
+                    });
+                });
+
+                console.log($(window).width());
+            </script>
+
 @endsection
