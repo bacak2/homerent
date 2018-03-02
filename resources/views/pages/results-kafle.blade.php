@@ -105,23 +105,23 @@
 @endif
 </span>
 
-            <script type="text/javascript">
-                $('#pagination').hide();
-                $(function() {
-                    $('.infinite-scroll').jscroll({
-                        autoTrigger: true,
-                        debug: true,
-                        loadingHtml: '<div class="text-center"><img class="img-loader" src="{{ asset('images/results/loader.gif') }}" alt="Loading..." /></div>',
-                        padding: 0,
-                        nextSelector: '.pagination li.active + li a',
-                        contentSelector: '.infinite-scroll',
-                        callback: function() {
-                            $('ul.pagination').remove();
-                        }
-                    });
-                });
-
-                console.log($(window).width());
-            </script>
+<script type="text/javascript">
+    if($(window).width() < 767) {
+        $('#pagination').hide();
+        $(function () {
+            $('.infinite-scroll').jscroll({
+                autoTrigger: true,
+                debug: true,
+                loadingHtml: '<div class="text-center"><img class="img-loader" src="{{ asset('images/results/loader.gif') }}" alt="Loading..." /></div>',
+                padding: 0,
+                nextSelector: '.pagination li.active + li a',
+                contentSelector: '.infinite-scroll',
+                callback: function () {
+                    $('ul.pagination').remove();
+                }
+            });
+        });
+    }
+</script>
 
 @endsection

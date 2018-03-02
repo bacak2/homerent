@@ -47,5 +47,8 @@
   "bugs": {
     "url": "https://github.com/bacak2/homerent/issues"
   },
-  "homepage": "https://github.com/bacak2/homerent#readme"
+  "homepage": "https://github.com/bacak2/homerent#readme",
+  "dependencies": {
+    "fullcalendar": "^3.8.2"
+  }
 }

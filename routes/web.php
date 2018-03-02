@@ -31,7 +31,7 @@ function()
 
 	Route::get('/test','Apartaments@showTotalApartamentPrice');
         
-        Route::get('/map','Apartaments@showApartamentsOnMap');
+    Route::get('/map','Apartaments@showApartamentsOnMap');
 
 	Route::get('/autocomplete','Apartaments@apartamentAutoComplete');
 	

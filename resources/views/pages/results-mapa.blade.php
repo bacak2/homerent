@@ -22,7 +22,7 @@
                 <div id="mapka" style="width: 100%; height: 500px; margin-bottom: 30px;"></div>    
             </div>
 
-<script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&callback=initMap" type="text/javascript"></script>
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw" type="text/javascript"></script>
 		<script type="text/javascript">   
 		
 		var mapa;
@@ -111,7 +111,7 @@
 			mapa = new google.maps.Map(document.getElementById("mapka"), opcjeMapy);
                         
                         mapLegend = document.createElement('mapLegend');
-                        mapLegend.innerHTML = '<div class="mapLegend"><span class="mapToggle"><label><input style="visibility:hidden" type="checkbox"><img src="{{ asset('images/map/u3576.png') }}"><div style="float: right">{{ __("messages.Satisfying") }} <br>{{ __("messages.criteria and dates") }}</div></label><label class="map-legend-button"><img src="{{ asset('images/map/u3586.png') }}"><input type="checkbox" name="notMeetCriteria" onchange="blackCheckbox()"><div style="float: right">{{ __("messages.Do not meet") }} <br>{{ __("messages.criteria") }}</div></label> <label class="map-legend-button"><img src="{{ asset('images/map/u3579.png') }}"><input type="checkbox" name="notAvailable" onchange="grayCheckbox()"><div style="float: right; margin-right: 5px">{{ __("messages.Not available") }} <br>{{ __("messages.on this date") }}</div></label></span><span class="map-legend-toggle" onclick=mapToggle()><i style="font-size:16px; font-weight: bold" class="fa">&#xf101;</i></span></div></div>';
+                        mapLegend.innerHTML = '<div class="mapLegend"><span class="mapToggle"><label><input style="visibility:hidden" type="checkbox"><img src="{{ asset('images/map/u3576.png') }}"><div style="float: right">{{ __("messages.Satisfying") }} <br>{{ __("messages.criteria and dates") }}</div></label><label class="map-legend-button"><img src="{{ asset('images/map/u3586.png') }}"><input type="checkbox" name="notMeetCriteria" onchange="blackCheckbox()"><div style="float: right">{{ __("messages.Do not meet") }} <br>{{ __("messages.criteria") }}</div></label> <label class="map-legend-button"><img src="{{ asset('images/map/u3579.png') }}"><input type="checkbox" name="notAvailable" onchange="grayCheckbox()"><div style="float: right; margin-right: 5px">{{ __("messages.Not available") }} <br>{{ __("messages.on this date") }}</div></label></span><span id="btn-map-toggle" class="map-legend-toggle" onclick=mapToggle()><i style="font-size:16px; font-weight: bold" class="fa">&#xf101;</i></span></div></div>';
 
                         /* Push Legend to Right Top */
                         mapa.controls[google.maps.ControlPosition.RIGHT_TOP].push(mapLegend);                        
@@ -209,8 +209,11 @@
                             },
 			});	
 		}
-                
-                window.onload = mapaStart;
+
+        $(document).ready(function(){
+            mapaStart();
+
+        });
 		</script>   
 
 @endsection
