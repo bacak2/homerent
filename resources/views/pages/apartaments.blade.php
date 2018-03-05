@@ -100,7 +100,7 @@
 								</div>
 								<div class="col-12 text-center font-weight-bold">
 									<p class="termin"></p>
-									<button class="btn btn-block btn-success res-btn">{{ __('messages.reserve')}}</button>
+									<a class="btn btn-block btn-success res-btn" href="/reservations/{{ $apartament->descriptions[0]->apartament_link }}">{{ __('messages.reserve')}}</a>
 								</div>
 							</div>
 						</div>

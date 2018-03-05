@@ -128,4 +128,5 @@ return [
 	'your data' => 'Twoje dane',
 	'payment' => 'Płatność',
 	'confirmation' => 'Potwierdzenie',
+	'res.firstStepDescription' => 'Dane kontaktowe właściciela zostaną podane po zakończeniu rezerwacji',
 ];

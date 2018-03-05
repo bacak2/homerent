@@ -128,4 +128,5 @@ return [
 	'your data' => 'Your data',
 	'payment' => 'Payment',
 	'confirmation' => 'Confirmation',
+	'res.firstStepDescription' => 'The owner\'s contact details will be provided after the booking is completed',
 ];

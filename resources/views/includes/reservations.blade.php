@@ -1,6 +1,6 @@
 @extends ('layout.layout')
 
-@section('title', '- '/*.$apartament->descriptions[0]->apartament_name */)
+@section('title', '- '.$apartament->descriptions[0]->apartament_name )
 
 @section('content')
 	<div class="container">
@@ -19,16 +19,4 @@
 
 	@yield('reservation.content')
 
-	<div class="bg-gray">
-		<div class="container py-3">
-			<div class="row">
-				<div class="col-lg-9 col-sm-12">
-					<a href="{{ url()->previous() }}" class="btn btn-link ml-2">{{ __('messages.Return') }}</a>
-				</div>
-				<div class="col-lg-3 col-sm-12">
-					<a href="{{ url()->previous() }}" class="btn ml-2 pointer">{{ __('messages.next') }}</a>
-				</div>
-			</div>
-		</div>
-	</div>
 @endsection
