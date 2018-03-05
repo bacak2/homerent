@@ -287,11 +287,13 @@
 							else $('.termin').text("Apartment is available");
 							$('#price').text(data.price+" PLN");
 							$('.res-info').show(1000);
+							$('.res-btn').show();
 						}
 						else {
 							$('.termin').css('color','red');
 							if (data.message == 1) $('.termin').text("Apartament zajęty");
 							else $('.termin').text("Apartment is not available");
+							$('.res-info').show(1000);
 							$('.res-btn').hide();
 						}
 					},
