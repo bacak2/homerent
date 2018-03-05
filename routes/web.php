@@ -34,5 +34,10 @@ function()
     Route::get('/map','Apartaments@showApartamentsOnMap');
 
 	Route::get('/autocomplete','Apartaments@apartamentAutoComplete');
+
+	Route::get('/reservations/{link}', [
+		'uses' => 'Reservations@firstStep',
+		'as' => 'reservations.firstStep'
+	]);
 	
 });

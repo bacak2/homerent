@@ -122,4 +122,10 @@ return [
         'Last reservation' => 'Last reservation',
         'hours ago' => 'hours ago',
 		'lastSeen' => 'Last viewed by You',
+	'next' => 'Next',
+	'reservation' => 'Reservation',
+	'offer' => 'Oferta',
+	'your data' => 'Your data',
+	'payment' => 'Payment',
+	'confirmation' => 'Confirmation',
 ];

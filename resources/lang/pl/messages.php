@@ -122,4 +122,10 @@ return [
         'Last reservation' => 'Ostatnia rezerwacja',
         'hours ago' => 'godziny temu',
 		'lastSeen' => 'Ostatnio oglądane przez Ciebie',
+	'next' => 'Dalej',
+	'reservation' => 'Rezerwacja',
+	'offer' => 'Oferta',
+	'your data' => 'Twoje dane',
+	'payment' => 'Płatność',
+	'confirmation' => 'Potwierdzenie',
 ];
