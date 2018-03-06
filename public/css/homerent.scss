@@ -562,7 +562,7 @@ img.list-item{
 	color: #fff;
 }
 
-.pointer:hover{
+.pointer:hover, .pointer-back:hover{
 	color: #fff;
 }
 
@@ -577,24 +577,13 @@ img.list-item{
 	border-top: 20px solid transparent;
 	border-bottom: 20px solid transparent; }
 
-.pointer-back {
-	width: 90%;
-	height: 40px;
-	position: relative;
-	background: #000000;
-	color: #fff;
+a.pointer-back {
+	display: inline-block;
+	width:100%;
+	background-size: auto 100%;
+	background-repeat: no-repeat;
+	color: #000;
 }
-
-.pointer-back:before {
-	content: "";
-	position: absolute;
-	left: -19px;
-	bottom: -1px;
-	width: 0;
-	height: 0;
-	border-right: 20px solid #000000;
-	border-top: 20px solid transparent;
-	border-bottom: 20px solid transparent; }
 
 .flex-box {
 	display: flex;
@@ -628,6 +617,10 @@ img.list-item{
 	color: #000000 !important;
 	background-color: #b2b2b2 !important;
 	font-weight: bold;
+}
+
+.txt-blue{
+	color: #0056ff;
 }
 
 @media (min-width: 768px) {
