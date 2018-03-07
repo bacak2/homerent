@@ -1,0 +1,1 @@
+console.log("alright");var person={name:"Krzysztof",age:22};
