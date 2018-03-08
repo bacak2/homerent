@@ -44,5 +44,9 @@ function()
 		'uses' => 'Reservations@secondStep',
 		'as' => 'reservations.secondStep'
 	]);
-	
+
+	Route::get('/reservations-fourth-step/{link}', [
+		'uses' => 'Reservations@fourthStep',
+		'as' => 'reservations.fourthStep'
+	]);
 });

@@ -64,6 +64,31 @@
                 </div>
                 <div class="col-12 mt-3">
                     <b>{{ __('messages.Contact details') }}</b>
+                    {{ $prev = url()->previous() }}
+                    {{ __('messages.Have you already your account') }}? <a href="{{ route('login', ['href' => "$prev"]) }}">{{ __('messages.log in') }}</a> {{ __('messages.to make everything easier') }}
+                    <div class="form-full-width">
+                        {!! Form::open(array('url' => 'foo/bar')) !!}
+                        <div class="form-group row">
+                            {!! Form::label('name', __('messages.name'), array('class' => 'col-sm-4 col-form-label')) !!}
+                            <div class="col-sm-8">
+                                {!! Form::text('name') !!}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            {!! Form::label('surname', __('messages.surname'), array('class' => 'col-sm-4 col-form-label')) !!}
+                            <div class="col-sm-8">
+                                {!! Form::text('surname') !!}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            {!! Form::label('email', 'E-mail', array('class' => 'col-sm-4 col-form-label')) !!}
+                            <div class="col-sm-8">
+                                {!! Form::text('email') !!}
+                            </div>
+                        </div>
+                        <a href="http://facebook.com"><img src="{{ asset('images/fb-log.png') }}"></a>
+                        {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
         </div>

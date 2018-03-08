@@ -47,10 +47,10 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-1  offset-sm-3">
+                <div class="offset-sm-3">
                     {!! Form::checkbox('name', 'value') !!}
                 </div>
-                {!! Form::label('name', __('messages.Place'), array('class' => 'col-sm-3')) !!}
+                {!! Form::label('name', __('messages.Place')) !!}
             </div>
             <div class="form-group row">
                 {!! Form::label('address', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}

@@ -51,11 +51,12 @@ class Reservations extends Controller
 
         //suma wszystkich łóżek
         $beds = $apartament->apartament_single_beds+$apartament->apartament_double_beds;
-
-        return view('reservation.firstStep', ['apartament' => $apartament,
+        
+        return view('reservation.firstStep', [
+            'apartament' => $apartament,
             'images' => $images,
             'priceFrom' => $priceFrom,
-            'beds' => $beds
+            'beds' => $beds,
         ]);
 
     }
@@ -94,7 +95,42 @@ class Reservations extends Controller
         ]);
 
     }
-    
+
+    public function fourthStep($link){
+        //Find id of an apartment with $link passed to controller
+        $linktoid = DB::table('apartament_descriptions')
+            ->select('apartament_id')
+            ->where('apartament_link',$link)
+            ->get();
+
+
+        $id = $linktoid[0]->apartament_id;
+
+        $apartament = Apartament::with(array('descriptions' => function($query)
+        {
+            $query->where('language_id', $this->language->id);
+        }))->find($id);
+
+        //Generates an array of images gallery
+        $images = DB::table('apartaments')
+            ->select('apartament_photos.photo_link','apartaments.id')
+            ->join('apartament_photos','apartaments.id','=','apartament_photos.apartament_id')
+            ->where('apartament_id',$id)
+            ->get();
+
+        $priceFrom = $this->getPriceFrom($id);
+
+        //suma wszystkich łóżek
+        $beds = $apartament->apartament_single_beds+$apartament->apartament_double_beds;
+
+        return view('reservation.fourthStep', ['apartament' => $apartament,
+            'images' => $images,
+            'priceFrom' => $priceFrom,
+            'beds' => $beds
+        ]);
+
+    }
+
     //Gets min apartament price
     public function getPriceFrom($id) {
         $todayDate = date("Y-m-d");
