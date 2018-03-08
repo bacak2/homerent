@@ -25,7 +25,7 @@
             <div class="form-group row">
                 {!! Form::label('address', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::select('address') !!}
+                    {!! Form::select('address', array('M' => __('Polska'), 'F' => __('Niemcy'))) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -65,9 +65,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('address', __('messages.Password'), array('class' => 'col-sm-3 col-form-label')) !!}
+                {!! Form::label('password', __('messages.Password'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::password('address') !!}
+                    {!! Form::password('password') !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -117,16 +117,51 @@
         <div class="row">
             <div class="col-lg-3 col-sm-12">
                 <a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/reservations/btn-back.png") }}')">
-                    <div  class="btn" >
-                    {{ __('messages.Return') }}
+                    <div  class="btn" style="width: 100%" >
+                        <b>{{ __('messages.Return') }}</b>
                     </div>
                 </a>
             </div>
-            <div class="col-lg-3 offset-lg-6 col-sm-12">
-                <a href="{{ url()->previous() }}" class="btn ml-2 pointer">{{ __('messages.next') }}</a>
+            <div class="col-lg-4 offset-lg-5 col-sm-12">
+                <a id="btn-next" href="#" class="pointer-back next-notAv" style="background-image: url('{{ asset("images/reservations/btn-next-nAv.png") }}')">
+                    <div  class="btn" style="width: 100%" >
+                        <b>{{ __('messages.Book and pay online') }}</b>
+                    </div>
+                </a>
+                <span id="notAvDescription" style="font-size: 11px">{{ __('messages.First, choose the method of payment') }}</span>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+        $('input').blur(function(e) {
+            var isValid = true;
+            $('input[type="password"]').each(function() {
+                if ($(this).val() === '') {
+                    isValid = false;
+                }
+                else {
+                    isValid = true;
+                }
+            });
+
+            if(isValid == true) {
+                $('#btn-next').css({"background-image": "url('http://127.0.0.1:8000/images/reservations/btn-next.png')", "color": "#fff"});
+                $('#btn-next').removeClass('next-notAv');
+                $('span#notAvDescription').hide();
+                $('a#btn-next').attr("href", "{{ url()->previous() }}");
+
+            }
+            if(isValid== false){
+                $('#btn-next').css({"background-image": "url('http://127.0.0.1:8000/images/reservations/btn-next-nAv.png')", "color": "#acacac"});
+                $('a#btn-next').attr("href", "#");
+            }
+
+            console.log(isValid);
+        });
+
+
+
+</script>
 @endsection()

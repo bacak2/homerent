@@ -64,10 +64,11 @@
                 </div>
                 <div class="col-12 mt-3">
                     <b>{{ __('messages.Contact details') }}</b>
-                    {{ $prev = url()->previous() }}
-                    {{ __('messages.Have you already your account') }}? <a href="{{ route('login', ['href' => "$prev"]) }}">{{ __('messages.log in') }}</a> {{ __('messages.to make everything easier') }}
+                    @if(Auth::guest())
+                        {{ __('messages.Have you already your account') }}? <a href="{{ route('login') }}">{{ __('messages.log in') }}</a> {{ __('messages.to make everything easier') }}
+                    @endif
                     <div class="form-full-width">
-                        {!! Form::open(array('url' => 'foo/bar')) !!}
+                        {!! Form::model(Auth::user(), ['url' => '/foo']) !!}
                         <div class="form-group row">
                             {!! Form::label('name', __('messages.name'), array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
@@ -86,7 +87,14 @@
                                 {!! Form::text('email') !!}
                             </div>
                         </div>
-                        <a href="http://facebook.com"><img src="{{ asset('images/fb-log.png') }}"></a>
+                        @guest
+                            <div class="form-group row">
+                                <div class="offset-sm-7 col-sm-5">{{__('messages.or')}}</div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-sm-4 col-sm-8"><a href="http://facebook.com"><img src="{{ asset('images/fb-log.png') }}"></a></div>
+                            </div>
+                        @endguest
                         {!! Form::close() !!}
                     </div>
                 </div>

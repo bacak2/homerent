@@ -163,4 +163,6 @@ return [
 	'Cellphone number' => 'Cellphone number',
 	'Password' => 'Password',
 	'Repeat password' => 'Repeat password',
+	'Book and pay online' => 'Book and pay online',
+	'First, choose the method of payment' => 'First, choose the method of payment',
 ];

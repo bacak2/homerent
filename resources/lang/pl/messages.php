@@ -162,4 +162,6 @@ return [
 	'Cellphone number' => 'Telefon komórkowy',
 	'Password' => 'Hasło',
 	'Repeat password' => 'Powtórz hasło',
+	'Book and pay online' => 'Rezerwuj i opłać online',
+	'First, choose the method of payment' => 'Najpierw wybierz sposób zapłaty',
 ];

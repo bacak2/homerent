@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\{Apartament, Apartament_description, Apartament_group, Reservation};
+use Auth;
 
 
 class Reservations extends Controller
@@ -51,7 +52,7 @@ class Reservations extends Controller
 
         //suma wszystkich łóżek
         $beds = $apartament->apartament_single_beds+$apartament->apartament_double_beds;
-        
+
         return view('reservation.firstStep', [
             'apartament' => $apartament,
             'images' => $images,
