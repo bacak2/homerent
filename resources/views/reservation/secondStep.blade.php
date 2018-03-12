@@ -17,33 +17,33 @@
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('address', __('messages.Name and surname'), array('class' => 'col-sm-3 col-form-label')) !!}
+                {!! Form::label('name', __('messages.Name and surname'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('address') !!}
+                    {!! Form::text('name', '', ['class' => 'required']) !!}
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('address', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
+                {!! Form::label('country', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::select('address', array('M' => __('Polska'), 'F' => __('Niemcy'))) !!}
+                    {!! Form::select('country', array('M' => __('Polska'), 'F' => __('Niemcy'))) !!}
                 </div>
             </div>
             <div class="form-group row">
                 {!! Form::label('address', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('address') !!}
+                    {!! Form::text('address', '', ['class' => 'required']) !!}
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('address', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
+                {!! Form::label('postcode', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('address', '', array('class' => 'not-full-with')) !!}
+                    {!! Form::text('postcode', '', array('class' => 'not-full-with')) !!}
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('address', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
+                {!! Form::label('place', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('address') !!}
+                    {!! Form::text('place') !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -53,27 +53,27 @@
                 {!! Form::label('name', __('messages.Place')) !!}
             </div>
             <div class="form-group row">
-                {!! Form::label('address', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
+                {!! Form::label('phone', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('address') !!}
+                    {!! Form::text('phone') !!}
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('address', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
+                {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('address') !!}
+                    {!! Form::text('email') !!}
                 </div>
             </div>
             <div class="form-group row">
                 {!! Form::label('password', __('messages.Password'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::password('password') !!}
+                    {!! Form::password('password', ['class' => '']) !!}
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('address', __('messages.Repeat password'), array('class' => 'col-sm-3 col-form-label')) !!}
+                {!! Form::label('password2', __('messages.Repeat password'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::password('address') !!}
+                    {!! Form::password('password2', ['class' => '']) !!}
                 </div>
             </div>
             {!! Form::close() !!}
@@ -110,12 +110,71 @@
             </div>
         </div>
     </div>
+
+    <div class="row mt-5">
+        <div class="col-lg-7 col-sm-12">
+            <h4><b>{{ __('messages.Message for the owner') }}</b></h4>
+            <div class="row">
+                <div class="col-3">Spodziewana godzina przybycia do apartamentu:</div>
+                <div class="col-6 col-offset-3">range</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-lg-7 col-sm-12 pb-3 mb-3" style="border-bottom: dashed">
+            <h4><b>{{ __('messages.Method of payment') }}</b></h4>
+            <div class="row reservation-payment-method p-3 mb-3">
+                <div class="col-lg-3 col-sm-9">
+                    Zaliczka
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    <input id="zalNow" name="zalNow" type="checkbox">
+                    <label for="zalNow" class="reservation">opłata online - przelew</label>
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    <input id="zalNow2" name="zalNow2" type="checkbox">
+                    <label for="zalNow2" class="reservation">opłata online - przelew</label>
+                </div>
+                <div class="col-lg-3 col-sm-3 pt-2" align="right">
+                    100,00 PLN
+                </div>
+            </div>
+            <div class="row reservation-payment-method p-3">
+                <div class="col-lg-3 col-sm-9">
+                    Zaliczka
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    x
+                </div>
+                <div class="col-lg-3 col-sm-12">
+                    x
+                </div>
+                <div class="col-lg-3 col-sm-3 pt-2" align="right">
+                    100,00 PLN
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7 col-sm-12 pb-3 mb-3">
+            <div class="row mb-3">
+                <input id="accept1" name="accept1" type="checkbox">
+                <label for="accept1" class="reservation">Akceptuję regulamin serwisu Nazwa serwisu Lorem ipsum dolor sit amet</label>
+            </div>
+            <div class="row mb-3">
+                <input id="accept2" name="accept2" type="checkbox">
+                <label for="accept2" class="reservation">Chcę otrzymywać na mój adres e-mail informacje o promocjach z Homerent</label>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
 
 <div class="bg-gray">
     <div class="container py-3">
         <div class="row">
-            <div class="col-lg-3 col-sm-12">
+            <div class="col-lg-3 col-sm-12 mb-2">
                 <a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/reservations/btn-back.png") }}')">
                     <div  class="btn" style="width: 100%" >
                         <b>{{ __('messages.Return') }}</b>
@@ -135,11 +194,12 @@
 </div>
 
 <script>
-        $('input').blur(function(e) {
+        $('input').change(function(e) {
             var isValid = true;
-            $('input[type="password"]').each(function() {
+            $('input.required').each(function() {
                 if ($(this).val() === '') {
                     isValid = false;
+                    return false;
                 }
                 else {
                     isValid = true;
@@ -153,15 +213,12 @@
                 $('a#btn-next').attr("href", "{{ url()->previous() }}");
 
             }
-            if(isValid== false){
+            if(isValid == false){
                 $('#btn-next').css({"background-image": "url('http://127.0.0.1:8000/images/reservations/btn-next-nAv.png')", "color": "#acacac"});
+                $('#btn-next').addClass('next-notAv');
+                $('span#notAvDescription').show();
                 $('a#btn-next').attr("href", "#");
             }
-
-            console.log(isValid);
         });
-
-
-
 </script>
 @endsection()

@@ -165,4 +165,7 @@ return [
 	'Repeat password' => 'Repeat password',
 	'Book and pay online' => 'Book and pay online',
 	'First, choose the method of payment' => 'First, choose the method of payment',
+	'Method of payment' => 'Method of payment',
+	'Message for the owner' => 'Message for the owner',
+	'My account' => 'My account',
 ];

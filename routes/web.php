@@ -49,4 +49,16 @@ function()
 		'uses' => 'Reservations@fourthStep',
 		'as' => 'reservations.fourthStep'
 	]);
+
+	Route::get('/reservations-fourth-step/{link}', [
+		'uses' => 'Reservations@fourthStep',
+		'as' => 'reservations.fourthStep'
+	]);
+
+	Route::prefix('/account')->group(function () {
+		Route::GET('/data', [
+			'uses' => 'Account@index',
+			'as' => 'account'
+		]);
+	});
 });

@@ -1,4 +1,6 @@
 $desktop: "(min-width: 768px)";
+$dataItemHeight: 224px;
+$dataItemTopHeight: 40px;
  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 
 body	{
@@ -464,14 +466,15 @@ div > span > i.fa{
 	margin-right: 5px;
 }
 
-input[type=checkbox]:not(:checked) + label, input[type=checkbox]:not(:checked) + span.district {
-	color: gray;
-}
+.dropdown-menu {
+	input[type=checkbox]:not(:checked) + label, input[type=checkbox]:not(:checked) + span.district {
+		color: gray;
+	}
 
-input[type=checkbox]:checked + label, input[type=checkbox]:checked + span.district  {
-	color: blue;
+	input[type=checkbox]:checked + label, input[type=checkbox]:checked + span.district {
+		color: blue;
+	}
 }
-
 .dropdown-menu label:hover, .dropdown-menu span:hover, input[type=checkbox]:hover, label.map-legend-button:hover, a.filters-toggle, .desktop-none.filters-toggle span {
 	cursor: pointer;
 }
@@ -580,7 +583,7 @@ img.list-item{
 a.pointer-back {
 	display: inline-block;
 	width:100%;
-	background-size: 100% 100%;
+	background-size: 99% 100%;
 	background-repeat: no-repeat;
 	color: #000;
 }
@@ -606,6 +609,21 @@ a.next-notAv:hover{
 .reservation-item{
 	border: solid black 1px;
 	background-color: rgba(65, 64, 62, 0.13);
+}
+
+.reservation-payment-method{
+	position: relative;
+	border: solid #cfcecc 1px;
+	background-color: #f0efed;
+	:last-child{
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+
+label.reservation{
+	font-size: 10px;
 }
 
 .res-description{
@@ -636,6 +654,26 @@ a.next-notAv:hover{
 	input:not(.not-full-with){
 		width: 100%;
 	}
+}
+
+.data-item-top{
+	min-height: $dataItemTopHeight;
+	background-color: #b2b2b2;
+	margin-right: 5px;
+}
+
+.data-item{
+	min-height: $dataItemHeight;
+	background-color: #d0d0d0;
+	margin-right: 5px;
+	font-size: 12px;
+}
+
+#data-item-new{
+	min-height: $dataItemTopHeight + $dataItemHeight;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 @media (min-width: 768px) {

@@ -24,7 +24,7 @@
 	            </li>
 	        @else 
               <li class="nav-item">
-               <div class="nav-link">{{ Auth::user()->name }} </div> 
+               <a class="nav-link" href="{{ route('account') }}">{{ __('messages.My account') }} </a>
               </li>
                 <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();

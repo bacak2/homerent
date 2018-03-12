@@ -164,4 +164,7 @@ return [
 	'Repeat password' => 'Powtórz hasło',
 	'Book and pay online' => 'Rezerwuj i opłać online',
 	'First, choose the method of payment' => 'Najpierw wybierz sposób zapłaty',
+	'Method of payment' => 'Sposób zapłaty',
+	'Message for the owner' => 'Wiadomość dla właściciela',
+	'My account' => 'Moje konto',
 ];
