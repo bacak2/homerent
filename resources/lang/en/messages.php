@@ -170,4 +170,5 @@ return [
 	'My account' => 'My account',
 	'wantInvoice' => 'I want to receive an invoice',
 	'dontWantAccount' => 'I do not want to set up an account and be able to easily manage reservations after logging in',
+	'Password strength' => 'Password strength',
 ];

@@ -169,4 +169,5 @@ return [
 	'My account' => 'Moje konto',
 	'wantInvoice' => 'Chcę otrzymać fakturę',
 	'dontWantAccount' => 'Nie chcę zakładać konta i mieć możliwości łatwego zarządzania rezerwacjami po zalogowaniu',
+	'Password strength' => 'Siła hasła',
 ];

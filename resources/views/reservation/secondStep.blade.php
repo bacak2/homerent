@@ -8,9 +8,6 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-7 col-sm-12 pr-lg-5 form-full-width">
-            @if(Auth::guest())
-                {{ __('messages.Have you already your account') }}? <a href="{{ route('login') }}">{{ __('messages.Log in') }}</a> {{ __('messages.to make everything easier') }}.
-            @endif
             {!! Form::model($request, ['url' => '/foo']) !!}
             <div class="form-group row">
                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
@@ -27,7 +24,7 @@
             <div class="form-group row">
                 {!! Form::label('country', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::select('country', array('M' => __('Polska'), 'F' => __('Niemcy'))) !!}
+                    {!! Form::select('country', array('Polska' => __('Polska'), 'Niemcy' => __('Niemcy'))) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -72,18 +69,26 @@
                 </div>
                 {!! Form::label('dontWantAccount', __('messages.dontWantAccount'), ['style'=>'font-size: 10px']) !!}
             </div>
+            @guest
             <div class="form-group row">
                 {!! Form::label('password', __('messages.Password'), array('class' => 'col-sm-3 col-form-label')) !!}
-                <div class="col-sm-9">
+                <div class="col-sm-6">
                     {!! Form::password('password', ['class' => 'required']) !!}
+                </div>
+                <div class="col-sm-3">
+                    {{ __('messages.Password strength') }}: <div class="figure" id="strength_score">0%</div>
                 </div>
             </div>
             <div class="form-group row">
                 {!! Form::label('password2', __('messages.Repeat password'), array('class' => 'col-sm-3 col-form-label')) !!}
-                <div class="col-sm-9">
+                <div class="col-sm-6">
                     {!! Form::password('password2', ['class' => 'required']) !!}
                 </div>
             </div>
+            <div class="form-group row">
+                <div class="offset-sm-3" id="passNotSame">Wpisane hasła nie są takie same.</div>
+            </div>
+            @endguest
             {!! Form::close() !!}
         </div>
         <div class="col-lg-4 mobile-none mt-3">
@@ -139,45 +144,49 @@
     <div class="row mt-5">
         <div class="col-lg-7 col-sm-12 pb-3 mb-3" style="border-bottom: dashed">
             <h4><b>{{ __('messages.Method of payment') }}</b></h4>
-            <div class="row reservation-payment-method p-3 mb-3">
+            <div class="row reservation-payment-method pt-2 pb-3 mb-3">
                 <div class="col-lg-3 col-sm-9">
-                    Zaliczka
+                    <b>Zaliczka</b>
                 </div>
                 <div class="col-lg-3 col-sm-12">
                     <input id="zalNow" name="zalNow" type="checkbox">
-                    <label for="zalNow" class="reservation">opłata online - przelew</label>
+                    <label for="zalNow" class="reservation">opłata online - przelew lub karta (rezerwacja od razu)</label>
                 </div>
                 <div class="col-lg-3 col-sm-12">
                     <input id="zalNow2" name="zalNow2" type="checkbox">
-                    <label for="zalNow2" class="reservation">opłata online - przelew</label>
+                    <label for="zalNow2" class="reservation">opłata przelewem (rezerwacja wstępna)
+                    </label>
                 </div>
                 <div class="col-lg-3 col-sm-3 pt-2" align="right">
-                    100,00 PLN
+                    <b>100,00 PLN</b>
                 </div>
             </div>
-            <div class="row reservation-payment-method p-3">
+            <div class="row reservation-payment-method pt-2 pb-3">
                 <div class="col-lg-3 col-sm-9">
-                    Zaliczka
+                    <b>Całkowity koszt</b>
                 </div>
                 <div class="col-lg-3 col-sm-12">
-                    x
+                    <input id="allNow" name="allNow" type="checkbox">
+                    <label for="allNow" class="reservation">opłata online - przelew lub karta (rezerwacja od razu)</label>
                 </div>
                 <div class="col-lg-3 col-sm-12">
-                    x
+                    <input id="allNow2" name="allNow2" type="checkbox">
+                    <label for="allNow2" class="reservation">opłata przelewem (rezerwacja wstępna)
+                    </label>
                 </div>
                 <div class="col-lg-3 col-sm-3 pt-2" align="right">
-                    100,00 PLN
+                    <b>380,00 PLN</b>
                 </div>
             </div>
         </div>
         <div class="col-lg-7 col-sm-12 pb-3 mb-3">
-            <div class="row mb-3">
+            <div class="row mb-4">
                 <input id="accept1" name="accept1" type="checkbox">
-                <label for="accept1" class="reservation">Akceptuję regulamin serwisu Nazwa serwisu Lorem ipsum dolor sit amet</label>
+                <label for="accept1" class="inline-label">Akceptuję regulamin serwisu Nazwa serwisu Lorem ipsum dolor sit amet</label>
             </div>
-            <div class="row mb-3">
+            <div class="row mb-4">
                 <input id="accept2" name="accept2" type="checkbox">
-                <label for="accept2" class="reservation">Chcę otrzymywać na mój adres e-mail informacje o promocjach z Homerent</label>
+                <label for="accept2" class="inline-label">Chcę otrzymywać na mój adres e-mail informacje o promocjach z Homerent</label>
             </div>
         </div>
     </div>
@@ -251,6 +260,44 @@
 
                 $('.slider-time').val(hours1 + ':' + minutes1);
             }
+        });
+
+        function scorePassword(pass) {
+            var wynik = 0;
+            var warianty = {
+                cyfry: /\d/.test(pass),
+                male: /[a-z]/.test(pass),
+                duze: /[A-Z]/.test(pass),
+                specjalne: /\W/.test(pass),
+                dlugosc: pass.length > 7
+            };
+            for(var war in warianty)
+                if(warianty[war] == true) wynik += 100 / 5;
+
+            var color = '';
+
+            if(wynik < 50) color ='red';
+            else if(wynik > 50 && wynik < 100) color ='yellow';
+            else if(wynik == 100) color = 'green';
+            $("#strength_score").text(wynik + '%');
+            $("#strength_score").css('background-color', color);
+            return parseInt(wynik);
+        }
+
+        function checkSame(){
+            var pass = $("#password").val();
+            var pass2 = $("#password2").val();
+            if(pass !== pass2){
+                $("#passNotSame").show();
+            }
+            else $("#passNotSame").hide();
+        }
+
+        $(function() {
+            $("#password, #password2").on("keyup", function() {
+                scorePassword($(this).val());
+                checkSame();
+            });
         });
 </script>
 @endsection()
