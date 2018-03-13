@@ -115,7 +115,14 @@
             <h4><b>{{ __('messages.Message for the owner') }}</b></h4>
             <div class="row">
                 <div class="col-3">Spodziewana godzina przybycia do apartamentu:</div>
-                <div class="col-6 col-offset-3">range</div>
+                <div class="col-6 col-offset-3">
+                    <div id="time-range">
+                        <input class="slider-time" style="width: 60px; margin-bottom: 20px">
+                        <div class="sliders_step1">
+                            <div id="slider-range"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -191,12 +198,7 @@
         </div>
     </div>
 </div>
-<div id="time-range">
-    <p>Time Range: <span class="slider-time"></span></p>
-    <div class="sliders_step1">
-        <div id="slider-range"></div>
-    </div>
-</div>
+
 <script>
         $('input').change(function(e) {
             var isValid = true;
@@ -230,20 +232,15 @@
             min: 0,
             max: 1440,
             step: 15,
-            values: [540],
+            values: [720],
             slide: function (e, ui) {
                 var hours1 = Math.floor(ui.values[0] / 60);
                 var minutes1 = ui.values[0] - (hours1 * 60);
-
                 if (hours1.length == 1) hours1 = '0' + hours1;
                 if (minutes1.length == 1) minutes1 = '0' + minutes1;
                 if (minutes1 == 0) minutes1 = '00';
-                if (hours1 == 0) {
-                    hours1 = 12;
-                    minutes1 = minutes1;
-                }
 
-                $('.slider-time').html(hours1 + ':' + minutes1);
+                $('.slider-time').val(hours1 + ':' + minutes1);
             }
         });
 </script>
