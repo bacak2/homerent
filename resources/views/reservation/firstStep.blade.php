@@ -32,8 +32,8 @@
                     <hr class="desktop-none">
                 </div>
                 <div class="col-lg-7 col-sm-6">
-                    <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>sob, 26 kwiecień 2014 (po 15:00)</b></div></div>
-                    <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>sob, 26 kwiecień 2014 (po 15:00)</b></div></div>
+                    <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ $request->przyjazd }}</b></div></div>
+                    <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ $request->powrot }}</b></div></div>
                     <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">2</div></div>
                     <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">2</div></div>
                     <div class="res-description txt-blue mt-3">
@@ -68,7 +68,11 @@
                         {{ __('messages.Have you already your account') }}? <a href="{{ route('login') }}">{{ __('messages.log in') }}</a> {{ __('messages.to make everything easier') }}
                     @endif
                     <div class="form-full-width">
-                        {!! Form::model(Auth::user(), ['url' => '/foo']) !!}
+
+                        {!! Form::model(Auth::user(), ['route' => ['reservations.secondStep'], 'method' => 'POST']) !!}
+                        {!! Form::hidden('link', $apartament->descriptions[0]->apartament_link) !!}
+                        {!! Form::hidden('przyjazd', $request->przyjazd) !!}
+                        {!! Form::hidden('powrot', $request->powrot) !!}
                         <div class="form-group row">
                             {!! Form::label('name', __('messages.name'), array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
@@ -95,7 +99,7 @@
                                 <div class="offset-sm-4 col-sm-8"><a href="http://facebook.com"><img src="{{ asset('images/fb-log.png') }}"></a></div>
                             </div>
                         @endguest
-                        {!! Form::close() !!}
+
                     </div>
                 </div>
             </div>
@@ -121,7 +125,8 @@
                 <a href="{{ url()->previous() }}" class="btn btn-link ml-2" onclick="return confirm(' {{ __("messages.return confirmation") }} ')">{{ __('messages.Return') }}</a>
             </div>
             <div class="col-lg-3 col-sm-12">
-                <a href="/reservations-second-step/{{ $apartament->descriptions[0]->apartament_link }}" class="btn ml-2 pointer">{{ __('messages.next') }}</a>
+                <button class="btn ml-2 pointer" type="submit">{{ __('messages.next') }}</button>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

@@ -35,12 +35,12 @@ function()
 
 	Route::get('/autocomplete','Apartaments@apartamentAutoComplete');
 
-	Route::get('/reservations/{link}', [
+	Route::post('/reservations', [
 		'uses' => 'Reservations@firstStep',
 		'as' => 'reservations.firstStep'
 	]);
 
-	Route::get('/reservations-second-step/{link}', [
+	Route::post('/reservations-second-step', [
 		'uses' => 'Reservations@secondStep',
 		'as' => 'reservations.secondStep'
 	]);

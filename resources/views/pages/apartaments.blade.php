@@ -54,8 +54,8 @@
 								<p><b>{{ $priceFrom }} zł</b></p>
 							</div>
 						</div>
-
-						<form>
+						{!! Form::open(array('route' => 'reservations.firstStep')) !!}
+						{!! Form::hidden('link', $apartament->descriptions[0]->apartament_link) !!}
 							<div class="form-row">
 								<div class="pick-date form-row">
 									<div class="col-md-6 pb-2">
@@ -69,41 +69,42 @@
 									<div class="col-md-6 pb-2">
 										<div class="input-group mb-sm-0">
 											<div class="input-group-addon"><i class="fa fa-male" aria-hidden="true"></i></div>
-											<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="{{ __('messages.adults')}}">
+											<input type="text" class="form-control" id="dorosli" placeholder="{{ __('messages.adults')}}">
 										</div>
 									</div>
 									<div class="col-md-6 pb-2">
 										<div class="input-group mb-sm-0">
 											<div class="input-group-addon"><i class="fa fa-child" aria-hidden="true"></i></div>
-											<input type="text" class="form-control" id="inlineFormInputGroup" placeholder="{{ __('messages.kids')}}">
+											<input type="text" class="form-control" id="dzieci" placeholder="{{ __('messages.kids')}}">
 										</div>
 									</div>
 								</div>
 
 							</div>
-						</form>
-						<div class="res-info">
-							<div class="row">
-								<div class="col-8">
-									{{ __('messages.nights')}}
+
+							<div class="res-info">
+								<div class="row">
+									<div class="col-8">
+										{{ __('messages.nights')}}
+									</div>
+									<div class="col-4">
+										<p align="right"><b><input class="form-control" id="ilenocy" readonly style="width: 50px"></input></b></p>
+									</div>
 								</div>
-								<div class="col-4">
-									<p align="right"><b><span id="ilenocy"></span></b></p>
+								<div class="row">
+									<div class="col-6">
+										<h4>{{ __('messages.fprice') }}</h4>
+									</div>
+									<div class="col-6 text-right">
+										<h4><b><span id="price"></span></b></h4>
+									</div>
+									<div class="col-12 text-center font-weight-bold">
+										<p class="termin"></p>
+										<button class="btn btn-block btn-success res-btn" type="submit">{{ __('messages.reserve')}}</button>
+									</div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-6">
-									<h4>{{ __('messages.fprice') }}</h4>
-								</div>
-								<div class="col-6 text-right">
-									<h4><b><span id="price"></span></b></h4>
-								</div>
-								<div class="col-12 text-center font-weight-bold">
-									<p class="termin"></p>
-									<a class="btn btn-block btn-success res-btn" href="/reservations/{{ $apartament->descriptions[0]->apartament_link }}">{{ __('messages.reserve')}}</a>
-								</div>
-							</div>
-						</div>
+						{!! Form::close() !!}
 					</div>
 				</div>
 			</div>
@@ -278,7 +279,7 @@
 					success: function(data) {
 						//console.log(data);
 
-						$('#ilenocy').text(data.days_number);
+						$('#ilenocy').val(data.days_number);
 
 
 						if(data.is_available) {

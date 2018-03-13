@@ -5,11 +5,10 @@
     <div id="Rtitle"><h4><b>2. {{ __('messages.your data') }}</b></h4></div>
     <div id="Rpath"><span class="active">{{ __('messages.offer') }} - {{ __('messages.your data') }}</span> - {{ __('messages.payment') }} - {{ __('messages.confirmation') }}</div>
 </div>
-
 <div class="container">
     <div class="row">
         <div class="col-lg-7 col-sm-12 pr-lg-5 form-full-width">
-            {!! Form::open(array('url' => 'foo/bar')) !!}
+            {!! Form::model($request, ['url' => '/foo']) !!}
             <div class="form-group row">
                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
                 <div class="col-sm-9">
@@ -17,9 +16,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                {!! Form::label('name', __('messages.Name and surname'), array('class' => 'col-sm-3 col-form-label')) !!}
+                {!! Form::label('name and surname', __('messages.Name and surname'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('name', '', ['class' => 'required']) !!}
+                    {!! Form::text('name and surname', $request->name.' '.$request->surname, ['class' => 'required']) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -43,7 +42,7 @@
             <div class="form-group row">
                 {!! Form::label('place', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('place') !!}
+                    {!! Form::text('place', '', ['class' => 'required']) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -61,19 +60,19 @@
             <div class="form-group row">
                 {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('email') !!}
+                    {!! Form::text('email', $request->email, ['class' => 'required']) !!}
                 </div>
             </div>
             <div class="form-group row">
                 {!! Form::label('password', __('messages.Password'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::password('password', ['class' => '']) !!}
+                    {!! Form::password('password', ['class' => 'required']) !!}
                 </div>
             </div>
             <div class="form-group row">
                 {!! Form::label('password2', __('messages.Repeat password'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::password('password2', ['class' => '']) !!}
+                    {!! Form::password('password2', ['class' => 'required']) !!}
                 </div>
             </div>
             {!! Form::close() !!}
@@ -92,8 +91,8 @@
                     </div>
                 </div>
                 <div class="mb-3 pb-3" style="border-bottom: dashed;">
-                        <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>sob, 26 kwiecień 2014 (po 15:00)</b></div></div>
-                        <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>sob, 26 kwiecień 2014 (po 15:00)</b></div></div>
+                        <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ $request->przyjazd }}</b></div></div>
+                        <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ $request->powrot }}</b></div></div>
                         <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">2</div></div>
                         <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">2</div></div>
                         <div class="res-description txt-blue mt-3">
@@ -192,7 +191,12 @@
         </div>
     </div>
 </div>
-
+<div id="time-range">
+    <p>Time Range: <span class="slider-time"></span></p>
+    <div class="sliders_step1">
+        <div id="slider-range"></div>
+    </div>
+</div>
 <script>
         $('input').change(function(e) {
             var isValid = true;
@@ -218,6 +222,28 @@
                 $('#btn-next').addClass('next-notAv');
                 $('span#notAvDescription').show();
                 $('a#btn-next').attr("href", "#");
+            }
+        });
+
+        $("#slider-range").slider({
+            range: false,
+            min: 0,
+            max: 1440,
+            step: 15,
+            values: [540],
+            slide: function (e, ui) {
+                var hours1 = Math.floor(ui.values[0] / 60);
+                var minutes1 = ui.values[0] - (hours1 * 60);
+
+                if (hours1.length == 1) hours1 = '0' + hours1;
+                if (minutes1.length == 1) minutes1 = '0' + minutes1;
+                if (minutes1 == 0) minutes1 = '00';
+                if (hours1 == 0) {
+                    hours1 = 12;
+                    minutes1 = minutes1;
+                }
+
+                $('.slider-time').html(hours1 + ':' + minutes1);
             }
         });
 </script>

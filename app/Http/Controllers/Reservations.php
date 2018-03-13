@@ -26,7 +26,9 @@ class Reservations extends Controller
         $this->language = $language;
     }
     
-    public function firstStep($link){
+    public function firstStep(Request $request){
+        //dd($request);
+        $link = $request->link;
         //Find id of an apartment with $link passed to controller
         $linktoid = DB::table('apartament_descriptions')
             ->select('apartament_id')
@@ -58,11 +60,14 @@ class Reservations extends Controller
             'images' => $images,
             'priceFrom' => $priceFrom,
             'beds' => $beds,
+            'request' => $request,
         ]);
 
     }
 
-    public function secondStep($link){
+    public function secondStep(Request $request){
+        //dd($request);
+        $link = $request->link;
         //Find id of an apartment with $link passed to controller
         $linktoid = DB::table('apartament_descriptions')
             ->select('apartament_id')
@@ -92,7 +97,8 @@ class Reservations extends Controller
         return view('reservation.secondStep', ['apartament' => $apartament,
             'images' => $images,
             'priceFrom' => $priceFrom,
-            'beds' => $beds
+            'beds' => $beds,
+            'request' => $request,
         ]);
 
     }
