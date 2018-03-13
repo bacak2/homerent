@@ -8,6 +8,9 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-7 col-sm-12 pr-lg-5 form-full-width">
+            @if(Auth::guest())
+                {{ __('messages.Have you already your account') }}? <a href="{{ route('login') }}">{{ __('messages.Log in') }}</a> {{ __('messages.to make everything easier') }}.
+            @endif
             {!! Form::model($request, ['url' => '/foo']) !!}
             <div class="form-group row">
                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
@@ -46,10 +49,10 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="offset-sm-3">
-                    {!! Form::checkbox('name', 'value') !!}
-                </div>
-                {!! Form::label('name', __('messages.Place')) !!}
+                    <div class="offset-sm-3">
+                        {!! Form::checkbox('wantInvoice') !!}
+                    </div>
+                    {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 12px']) !!}
             </div>
             <div class="form-group row">
                 {!! Form::label('phone', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
@@ -62,6 +65,12 @@
                 <div class="col-sm-9">
                     {!! Form::text('email', $request->email, ['class' => 'required']) !!}
                 </div>
+            </div>
+            <div class="form-group row">
+                <div class="offset-sm-3">
+                    {!! Form::checkbox('dontWantAccount') !!}
+                </div>
+                {!! Form::label('dontWantAccount', __('messages.dontWantAccount'), ['style'=>'font-size: 10px']) !!}
             </div>
             <div class="form-group row">
                 {!! Form::label('password', __('messages.Password'), array('class' => 'col-sm-3 col-form-label')) !!}

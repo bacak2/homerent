@@ -65,11 +65,11 @@
                 <div class="col-12 mt-3">
                     <b>{{ __('messages.Contact details') }}</b>
                     @if(Auth::guest())
-                        {{ __('messages.Have you already your account') }}? <a href="{{ route('login') }}">{{ __('messages.log in') }}</a> {{ __('messages.to make everything easier') }}
+                        {{ __('messages.Have you already your account') }}? <a href="{{ route('login') }}">{{ __('messages.Log in') }}</a> {{ __('messages.to make everything easier') }}
                     @endif
                     <div class="form-full-width">
 
-                        {!! Form::model(Auth::user(), ['route' => ['reservations.secondStep'], 'method' => 'POST']) !!}
+                        {!! Form::model(Auth::user(), ['route' => ['reservations.secondStep'], 'method' => 'GET']) !!}
                         {!! Form::hidden('link', $apartament->descriptions[0]->apartament_link) !!}
                         {!! Form::hidden('przyjazd', $request->przyjazd) !!}
                         {!! Form::hidden('powrot', $request->powrot) !!}

@@ -141,7 +141,7 @@ return [
 	'Payment' => 'Opłaty',
 	'Contact details' => 'Dane kontaktowe',
 	'Have you already your account' => 'Masz już swoje konto',
-	'log in' => 'Zaloguj się',
+	'Log in' => 'Zaloguj się',
 	'to make everything easier' => 'aby wszystko ułatwić',
 	'name' => 'Imię',
 	'surname' => 'Nazwisko',
@@ -167,4 +167,6 @@ return [
 	'Method of payment' => 'Sposób zapłaty',
 	'Message for the owner' => 'Wiadomość dla właściciela',
 	'My account' => 'Moje konto',
+	'wantInvoice' => 'Chcę otrzymać fakturę',
+	'dontWantAccount' => 'Nie chcę zakładać konta i mieć możliwości łatwego zarządzania rezerwacjami po zalogowaniu',
 ];

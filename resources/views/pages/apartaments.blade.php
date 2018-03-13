@@ -54,7 +54,7 @@
 								<p><b>{{ $priceFrom }} zł</b></p>
 							</div>
 						</div>
-						{!! Form::open(array('route' => 'reservations.firstStep')) !!}
+						{!! Form::open(array('route' => 'reservations.firstStep', 'method' => 'get')) !!}
 						{!! Form::hidden('link', $apartament->descriptions[0]->apartament_link) !!}
 							<div class="form-row">
 								<div class="pick-date form-row">
