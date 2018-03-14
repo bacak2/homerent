@@ -170,4 +170,11 @@ return [
 	'wantInvoice' => 'Chcę otrzymać fakturę',
 	'dontWantAccount' => 'Nie chcę zakładać konta i mieć możliwości łatwego zarządzania rezerwacjami po zalogowaniu',
 	'Password strength' => 'Siła hasła',
+	'Expected time' => 'Spodziewana godzina przybycia do apartamentu',
+	'payment booking immediately' => 'opłata online - przelew lub karta (rezerwacja od razu)',
+	'payment booking initial' => 'opłata przelewem (rezerwacja wstępna)',
+	'Advance' => 'Zaliczka',
+	'Total cost' => 'Całkowity koszt',
+	'I accept the terms of use' => 'Akceptuję regulamin serwisu',
+	'I would like to receive information about promotions from' => 'Chcę otrzymywać na mój adres e-mail informacje o promocjach z',
 ];

@@ -24,7 +24,7 @@
             <div class="form-group row">
                 {!! Form::label('country', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::select('country', array('Polska' => __('Polska'), 'Niemcy' => __('Niemcy'))) !!}
+                    {!! Form::select('country', array('Polska' => __('Polska'), 'Niemcy' => __('Niemcy')), 'Polska', array('class' => 'col-sm-12 col-lg-3')) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -36,7 +36,7 @@
             <div class="form-group row">
                 {!! Form::label('postcode', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('postcode', '', array('class' => 'not-full-with')) !!}
+                    {!! Form::text('postcode', '', array('class' => 'not-full-with col-sm-12 col-lg-6')) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="offset-sm-3" id="passNotSame">Wpisane hasła nie są takie same.</div>
+                <div class="offset-sm-3" id="passNotSame" style="display: none;">Wpisane hasła nie są takie same.</div>
             </div>
             @endguest
             {!! Form::close() !!}
@@ -128,10 +128,12 @@
         <div class="col-lg-7 col-sm-12">
             <h4><b>{{ __('messages.Message for the owner') }}</b></h4>
             <div class="row">
-                <div class="col-3">Spodziewana godzina przybycia do apartamentu:</div>
-                <div class="col-6 col-offset-3">
+                <div class="col-lg-12 col-sm-3">
+                    {{ __('messages.Expected time') }}:
+                    <input class="slider-time" style="width: 60px; margin-bottom: 20px">
+                </div>
+                <div class="col-lg-8 col-sm-6 col-lg-offset-3">
                     <div id="time-range">
-                        <input class="slider-time" style="width: 60px; margin-bottom: 20px">
                         <div class="sliders_step1">
                             <div id="slider-range"></div>
                         </div>
@@ -144,35 +146,33 @@
     <div class="row mt-5">
         <div class="col-lg-7 col-sm-12 pb-3 mb-3" style="border-bottom: dashed">
             <h4><b>{{ __('messages.Method of payment') }}</b></h4>
-            <div class="row reservation-payment-method pt-2 pb-3 mb-3">
+            <div class="row reservation-payment-method pt-2 pb-4 mb-3">
                 <div class="col-lg-3 col-sm-9">
-                    <b>Zaliczka</b>
+                    <b>{{ __('messages.Advance') }}</b>
                 </div>
                 <div class="col-lg-3 col-sm-12">
-                    <input id="zalNow" name="zalNow" type="checkbox">
-                    <label for="zalNow" class="reservation">opłata online - przelew lub karta (rezerwacja od razu)</label>
+                    <input id="zalNow" name="zal" value="1" type="radio">
+                    <label for="zalNow" class="reservation">{{ __('messages.payment booking immediately') }}</label>
                 </div>
                 <div class="col-lg-3 col-sm-12">
-                    <input id="zalNow2" name="zalNow2" type="checkbox">
-                    <label for="zalNow2" class="reservation">opłata przelewem (rezerwacja wstępna)
-                    </label>
+                    <input id="zalNow2" name="zal" value="2" type="radio">
+                    <label for="zalNow2" class="reservation">{{ __('messages.payment booking initial') }}</label>
                 </div>
                 <div class="col-lg-3 col-sm-3 pt-2" align="right">
                     <b>100,00 PLN</b>
                 </div>
             </div>
-            <div class="row reservation-payment-method pt-2 pb-3">
+            <div class="row reservation-payment-method pt-2 pb-4">
                 <div class="col-lg-3 col-sm-9">
-                    <b>Całkowity koszt</b>
+                    <b>{{ __('messages.Total cost') }}</b>
                 </div>
                 <div class="col-lg-3 col-sm-12">
-                    <input id="allNow" name="allNow" type="checkbox">
-                    <label for="allNow" class="reservation">opłata online - przelew lub karta (rezerwacja od razu)</label>
+                    <input id="allNow" name="allNow" value="1" type="radio">
+                    <label for="allNow" class="reservation">{{ __('messages.payment booking immediately') }}</label>
                 </div>
                 <div class="col-lg-3 col-sm-12">
-                    <input id="allNow2" name="allNow2" type="checkbox">
-                    <label for="allNow2" class="reservation">opłata przelewem (rezerwacja wstępna)
-                    </label>
+                    <input id="allNow2" name="allNow" value="2" type="radio">
+                    <label for="allNow2" class="reservation">{{ __('messages.payment booking initial') }}</label>
                 </div>
                 <div class="col-lg-3 col-sm-3 pt-2" align="right">
                     <b>380,00 PLN</b>
@@ -182,11 +182,11 @@
         <div class="col-lg-7 col-sm-12 pb-3 mb-3">
             <div class="row mb-4">
                 <input id="accept1" name="accept1" type="checkbox">
-                <label for="accept1" class="inline-label">Akceptuję regulamin serwisu Nazwa serwisu Lorem ipsum dolor sit amet</label>
+                <label for="accept1" class="inline-label">{{ __('messages.I accept the terms of use') }} Homent</label>
             </div>
             <div class="row mb-4">
                 <input id="accept2" name="accept2" type="checkbox">
-                <label for="accept2" class="inline-label">Chcę otrzymywać na mój adres e-mail informacje o promocjach z Homerent</label>
+                <label for="accept2" class="inline-label">{{ __('messages.I would like to receive information about promotions from') }} Homent</label>
             </div>
         </div>
     </div>

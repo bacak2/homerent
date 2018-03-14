@@ -171,4 +171,11 @@ return [
 	'wantInvoice' => 'I want to receive an invoice',
 	'dontWantAccount' => 'I do not want to set up an account and be able to easily manage reservations after logging in',
 	'Password strength' => 'Password strength',
+	'Expected time' => 'Expected time of arrival at the apartment',
+	'payment booking immediately' => 'online payment - transfer or card (booking immediately)',
+	'payment booking initial' => 'payment by bank transfer (initial reservation)',
+	'Advance' => 'Advance',
+	'Total cost' => 'Total cost',
+	'I accept the terms of use' => 'I accept the terms of use',
+	'I would like to receive information about promotions from' => 'I would like to receive information about promotions from',
 ];

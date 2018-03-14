@@ -475,7 +475,7 @@ div > span > i.fa{
 		color: blue;
 	}
 }
-.dropdown-menu label:hover, .dropdown-menu span:hover, input[type=checkbox]:hover, label.map-legend-button:hover, a.filters-toggle, .desktop-none.filters-toggle span {
+.dropdown-menu label:hover, .dropdown-menu span:hover, input[type=checkbox]:hover, label.map-legend-button:hover, a.filters-toggle, .desktop-none.filters-toggle span, .btn-res4th {
 	cursor: pointer;
 }
 
@@ -656,7 +656,7 @@ label.inline-label{
 	left: 16px;
 }
 
-.form-group .col-sm-9{
+.form-group .col-sm-9, .form-group .col-sm-6{
 	padding-left: 0px !important;
 }
 
@@ -688,6 +688,38 @@ label.inline-label{
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+
+div.contact-item{
+	font-size: 12px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 5px;
+	border: solid 1px;
+	background-color: #bababa;
+	height: 40px;
+	width: 318px;
+	text-align: center;
+	display:table-cell;
+	vertical-align: middle;
+}
+
+.btn-res4th{
+	display: inline-block;
+	margin-left: 16px;
+}
+
+.fs12{
+	font-size: 12px;
+}
+
+.btn-more-info{
+	width: 100%;
+	color: #ffffff;
+	background-color: #000;
+	&:hover{
+		color: #e3e3e3;
+	}
 }
 
 @media (min-width: 768px) {
@@ -751,6 +783,12 @@ label.inline-label{
 		}
 		#Rpath{
 			order: 1;
+		}
+	}
+
+	.form-group.row{
+		label{
+			font-size: 12px;
 		}
 	}
 }
