@@ -722,6 +722,15 @@ div.contact-item{
 	}
 }
 
+.add-new-data{
+	position: fixed;
+	top: 5%;
+	left: 15%;
+	width: 1000px;
+	border: solid black 1px;
+	background-color: #fff;
+}
+
 @media (min-width: 768px) {
 	.desktop-hidden{
 		visibility: hidden !important;

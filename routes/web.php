@@ -60,5 +60,7 @@ function()
 			'uses' => 'Account@index',
 			'as' => 'account'
 		]);
+
+		Route::GET('/add','Account@add');
 	});
 });
