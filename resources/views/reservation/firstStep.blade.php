@@ -1,6 +1,9 @@
 @extends ('includes.reservations')
 
 @section('reservation.content')
+    <div class="container">
+        <h2><b>{{ __('messages.reservation') }}</b></h2>
+    </div>
 <div class="container flex-box">
     <div id="Rtitle"><h4><b>1. {{ __('messages.offer') }}</b></h4></div>
     <div id="Rpath"><span class="active">{{ __('messages.offer') }}</span> - {{ __('messages.your data') }} - {{ __('messages.payment') }} - {{ __('messages.confirmation') }}</div>

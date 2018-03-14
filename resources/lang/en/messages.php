@@ -178,4 +178,7 @@ return [
 	'Total cost' => 'Total cost',
 	'I accept the terms of use' => 'I accept the terms of use',
 	'I would like to receive information about promotions from' => 'I would like to receive information about promotions from',
+	'preliminary' => 'preliminary',
+	'Email address' => 'Adres e-mail',
+	'Data' => 'Data',
 ];

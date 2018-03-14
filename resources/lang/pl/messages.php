@@ -177,4 +177,7 @@ return [
 	'Total cost' => 'Całkowity koszt',
 	'I accept the terms of use' => 'Akceptuję regulamin serwisu',
 	'I would like to receive information about promotions from' => 'Chcę otrzymywać na mój adres e-mail informacje o promocjach z',
+	'preliminary' => 'wstępna',
+	'Email address' => 'Adres e-mail',
+	'Data' => 'Dane',
 ];

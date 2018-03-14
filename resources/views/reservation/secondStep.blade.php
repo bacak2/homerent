@@ -1,6 +1,9 @@
 @extends ('includes.reservations')
 
 @section('reservation.content')
+    <div class="container">
+        <h2><b>{{ __('messages.reservation') }}</b></h2>
+    </div>
 <div class="container flex-box">
     <div id="Rtitle"><h4><b>2. {{ __('messages.your data') }}</b></h4></div>
     <div id="Rpath"><span class="active">{{ __('messages.offer') }} - {{ __('messages.your data') }}</span> - {{ __('messages.payment') }} - {{ __('messages.confirmation') }}</div>
@@ -86,7 +89,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="offset-sm-3" id="passNotSame" style="display: none;">Wpisane hasła nie są takie same.</div>
+                <div class="offset-sm-3" id="passNotSame" style="display: none; color: red;"><i class="fa fa-2x fa-exclamation-triangle"></i>Wpisane hasła nie są takie same.</div>
             </div>
             @endguest
             {!! Form::close() !!}

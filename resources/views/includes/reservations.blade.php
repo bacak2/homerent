@@ -13,10 +13,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="container">
-				<h2><b>{{ __('messages.reservation') }}</b></h2>
-	</div>
-
 	@yield('reservation.content')
 
 @endsection
