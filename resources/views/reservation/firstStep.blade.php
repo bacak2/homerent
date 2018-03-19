@@ -37,8 +37,8 @@
                 <div class="col-lg-7 col-sm-6">
                     <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ $request->przyjazd }}</b></div></div>
                     <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ $request->powrot }}</b></div></div>
-                    <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">2</div></div>
-                    <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">2</div></div>
+                    <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">{{ $request->ilenocy }}</div></div>
+                    <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">{{ ($request->dorosli + $request->dzieci) }}</div></div>
                     <div class="res-description txt-blue mt-3">
                         {{ __('messages.change') }}
                     </div>
@@ -76,6 +76,9 @@
                         {!! Form::hidden('link', $apartament->descriptions[0]->apartament_link) !!}
                         {!! Form::hidden('przyjazd', $request->przyjazd) !!}
                         {!! Form::hidden('powrot', $request->powrot) !!}
+                        {!! Form::hidden('ilenocy', $request->ilenocy) !!}
+                        {!! Form::hidden('dorosli', $request->dorosli) !!}
+                        {!! Form::hidden('dzieci', $request->dzieci) !!}
                         <div class="form-group row">
                             {!! Form::label('name', __('messages.name'), array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">

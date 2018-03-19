@@ -11,7 +11,13 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-7 col-sm-12 pr-lg-5 form-full-width">
-            {!! Form::model($request, ['url' => '/foo']) !!}
+            {!! Form::model($request, ['route' => ['reservations.thirdStep'], 'method' => 'POST']) !!}
+            {!! Form::hidden('link', $apartament->descriptions[0]->apartament_link) !!}
+            {!! Form::hidden('przyjazd', $request->przyjazd) !!}
+            {!! Form::hidden('powrot', $request->powrot) !!}
+            {!! Form::hidden('ilenocy', $request->ilenocy) !!}
+            {!! Form::hidden('dorosli', $request->dorosli) !!}
+            {!! Form::hidden('dzieci', $request->dzieci) !!}
             <div class="form-group row">
                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
                 <div class="col-sm-9">
@@ -66,13 +72,13 @@
                     {!! Form::text('email', $request->email, ['class' => 'required']) !!}
                 </div>
             </div>
+            @guest
             <div class="form-group row">
                 <div class="offset-sm-3">
                     {!! Form::checkbox('dontWantAccount') !!}
                 </div>
                 {!! Form::label('dontWantAccount', __('messages.dontWantAccount'), ['style'=>'font-size: 10px']) !!}
             </div>
-            @guest
             <div class="form-group row">
                 {!! Form::label('password', __('messages.Password'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-6">
@@ -92,7 +98,6 @@
                 <div class="offset-sm-3" id="passNotSame" style="display: none; color: red;"><i class="fa fa-2x fa-exclamation-triangle"></i>Wpisane hasła nie są takie same.</div>
             </div>
             @endguest
-            {!! Form::close() !!}
         </div>
         <div class="col-lg-4 mobile-none mt-3">
             <div class="reservation-item p-3">
@@ -110,14 +115,14 @@
                 <div class="mb-3 pb-3" style="border-bottom: dashed;">
                         <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ $request->przyjazd }}</b></div></div>
                         <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ $request->powrot }}</b></div></div>
-                        <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">2</div></div>
-                        <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">2</div></div>
+                        <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">{{ $request->ilenocy }}</div></div>
+                        <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">{{ ($request->dorosli + $request->dzieci) }}</div></div>
                         <div class="res-description txt-blue mt-3">
                             {{ __('messages.change') }}
                         </div>
                 </div>
                 <div>
-                    <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for stay') }}:</div><div class="col-5"><span class="pull-right">200,00 PLN</span></div></div>
+                    <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for stay') }}:</div><div class="col-5"><span class="pull-right">{{ 200*$request->ilenocy }} PLN</span></div></div>
                     <div class="row mb-3"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">50,00 PLN</span></div></div>
                     <div class="row mb-3"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">50,00 PLN</span></div></div>
                     <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">50,00 PLN</span></div></div>
@@ -133,7 +138,7 @@
             <div class="row">
                 <div class="col-lg-12 col-sm-3">
                     {{ __('messages.Expected time') }}:
-                    <input class="slider-time" style="width: 60px; margin-bottom: 20px">
+                    <input id="godzinaPrzyjazdu" name="godzinaPrzyjazdu" class="slider-time" style="width: 60px; margin-bottom: 20px">
                 </div>
                 <div class="col-lg-8 col-sm-6 col-lg-offset-3">
                     <div id="time-range">
@@ -193,7 +198,8 @@
             </div>
         </div>
     </div>
-
+    <button class="btn ml-2 pointer" type="submit">{{ __('messages.next') }}</button>
+    {!! Form::close() !!}
 </div>
 
 

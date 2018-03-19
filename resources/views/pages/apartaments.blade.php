@@ -69,13 +69,13 @@
 									<div class="col-md-6 pb-2">
 										<div class="input-group mb-sm-0">
 											<div class="input-group-addon"><i class="fa fa-male" aria-hidden="true"></i></div>
-											<input type="text" class="form-control" id="dorosli" placeholder="{{ __('messages.adults')}}">
+											<input type="text" class="form-control" id="dorosli" name="dorosli" placeholder="{{ __('messages.adults')}}">
 										</div>
 									</div>
 									<div class="col-md-6 pb-2">
 										<div class="input-group mb-sm-0">
 											<div class="input-group-addon"><i class="fa fa-child" aria-hidden="true"></i></div>
-											<input type="text" class="form-control" id="dzieci" placeholder="{{ __('messages.kids')}}">
+											<input type="text" class="form-control" id="dzieci" name="dzieci" placeholder="{{ __('messages.kids')}}">
 										</div>
 									</div>
 								</div>
@@ -88,7 +88,7 @@
 										{{ __('messages.nights')}}
 									</div>
 									<div class="col-4">
-										<p align="right"><b><input class="form-control" id="ilenocy" readonly style="width: 50px"></input></b></p>
+										<p align="right"><b><input class="form-control" id="ilenocy" name="ilenocy" readonly style="width: 50px"></input></b></p>
 									</div>
 								</div>
 								<div class="row">

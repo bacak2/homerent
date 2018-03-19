@@ -45,9 +45,9 @@ function()
 		'as' => 'reservations.secondStep'
 	]);
 
-	Route::get('/reservations-fourth-step/{link}', [
-		'uses' => 'Reservations@fourthStep',
-		'as' => 'reservations.fourthStep'
+	Route::POST('/reservations-third-step', [
+		'uses' => 'Reservations@thirdStep',
+		'as' => 'reservations.thirdStep'
 	]);
 
 	Route::get('/reservations-fourth-step/{link}', [
@@ -62,5 +62,17 @@ function()
 		]);
 
 		Route::GET('/add','Account@add');
+		
+		Route::GET('/refreshView','Account@refreshView');
+		
+		Route::GET('/edit/{id}', [
+			'uses' => 'Account@editItem',
+			'as' => 'Account.edit'
+		]);
+		
+		Route::GET('/delete/{id}', [
+			'uses' => 'Account@deleteItem',
+			'as' => 'Account.delete'
+		]);
 	});
 });
