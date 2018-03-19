@@ -50,7 +50,7 @@ function()
 		'as' => 'reservations.thirdStep'
 	]);
 
-	Route::get('/reservations-fourth-step/{link}', [
+	Route::get('/reservations-fourth-step/{link}/{idReservation}', [
 		'uses' => 'Reservations@fourthStep',
 		'as' => 'reservations.fourthStep'
 	]);

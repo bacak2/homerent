@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\{Apartament, Apartament_description, Apartament_group, Reservation};
 use Auth;
-use Illuminate\Support\Facades\Redirect;
 
 
 class Reservations extends Controller
@@ -106,11 +105,18 @@ class Reservations extends Controller
 
     public function thirdStep(Request $request)
     {
-        dd($request);
-        return Redirect::route('reservations.fourthStep', ['link' =>'studio-mars-zakopane-centrum', 'req' => $request]);
+        if($request->zal == 2) {
+            return redirect()->action(
+                'Reservations@fourthStep', ['link' => 'studio-mars-zakopane-centrum', 'idReservation' => 20]
+            );
+        }
+
+        else if($request->zal == 1) {
+            dd($request);
+        }
     }
 
-    public function fourthStep($link, $req){
+    public function fourthStep($link, $idReservation){
         //Find id of an apartment with $link passed to controller
         $linktoid = DB::table('apartament_descriptions')
             ->select('apartament_id')
@@ -141,7 +147,6 @@ class Reservations extends Controller
             'images' => $images,
             'priceFrom' => $priceFrom,
             'beds' => $beds,
-            'req' => $req
         ]);
 
     }

@@ -18,6 +18,7 @@
             {!! Form::hidden('ilenocy', $request->ilenocy) !!}
             {!! Form::hidden('dorosli', $request->dorosli) !!}
             {!! Form::hidden('dzieci', $request->dzieci) !!}
+            {!! Form::hidden('wiadomoscDodatkowa', $request->wiadomoscDodatkowa) !!}
             <div class="form-group row">
                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
                 <div class="col-sm-9">
@@ -122,11 +123,11 @@
                         </div>
                 </div>
                 <div>
-                    <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for stay') }}:</div><div class="col-5"><span class="pull-right">{{ 200*$request->ilenocy }} PLN</span></div></div>
-                    <div class="row mb-3"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">50,00 PLN</span></div></div>
-                    <div class="row mb-3"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">50,00 PLN</span></div></div>
-                    <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">50,00 PLN</span></div></div>
-                    <div class="row mb-3"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>50,00 PLN</b></span></div></div>
+                    <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for stay') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(200*$request->ilenocy, 2, ',', ' ') }} PLN</span></div></div>
+                    <div class="row mb-3"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
+                    <div class="row mb-3"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }}  PLN</span></div></div>
+                    <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }}  PLN</span></div></div>
+                    <div class="row mb-3"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format(50, 2, ',', ' ') }}  PLN</b></span></div></div>
                 </div>
             </div>
         </div>
@@ -198,8 +199,7 @@
             </div>
         </div>
     </div>
-    <button class="btn ml-2 pointer" type="submit">{{ __('messages.next') }}</button>
-    {!! Form::close() !!}
+
 </div>
 
 
@@ -215,11 +215,13 @@
                 </a>
             </div>
             <div class="col-lg-4 offset-lg-5 col-sm-12">
-                <a id="btn-next" href="#" class="pointer-back next-notAv" style="background-image: url('{{ asset("images/reservations/btn-next-nAv.png") }}')">
+                <a id="nextNotAv" href="#" class="pointer-back next-notAv" style="background-image: url('{{ asset("images/reservations/btn-next-nAv.png") }}')">
                     <div  class="btn" style="width: 100%" >
                         <b>{{ __('messages.Book and pay online') }}</b>
                     </div>
                 </a>
+                <button id="nextAv" class="btn ml-2 pointer" type="submit" style="display: none;">{{ __('messages.next') }}</button>
+                {!! Form::close() !!}
                 <span id="notAvDescription" style="font-size: 11px">{{ __('messages.First, choose the method of payment') }}</span>
             </div>
         </div>
@@ -235,22 +237,24 @@
                     return false;
                 }
                 else {
-                    isValid = true;
+                    if (checkSame()) isValid = true;
+                    else {
+                        isValid = false;
+                        return false;
+                    }
                 }
             });
 
             if(isValid == true) {
-                $('#btn-next').css({"background-image": "url('http://127.0.0.1:8000/images/reservations/btn-next.png')", "color": "#fff"});
-                $('#btn-next').removeClass('next-notAv');
+                $('#nextNotAv').css({"display": "none"});
+                $('#nextAv').css({"display": "inline-block"});
                 $('span#notAvDescription').hide();
-                $('a#btn-next').attr("href", "{{ url()->previous() }}");
 
             }
             if(isValid == false){
-                $('#btn-next').css({"background-image": "url('http://127.0.0.1:8000/images/reservations/btn-next-nAv.png')", "color": "#acacac"});
-                $('#btn-next').addClass('next-notAv');
+                $('#nextNotAv').css({"display": "inline-block"});
+                $('#nextAv').css({"display": "none"});
                 $('span#notAvDescription').show();
-                $('a#btn-next').attr("href", "#");
             }
         });
 
@@ -298,8 +302,13 @@
             var pass2 = $("#password2").val();
             if(pass !== pass2){
                 $("#passNotSame").show();
+                return false;
             }
-            else $("#passNotSame").hide();
+            else {
+                $("#passNotSame").hide();
+                return true;
+            }
+
         }
 
         $(function() {
@@ -308,5 +317,6 @@
                 checkSame();
             });
         });
+
 </script>
 @endsection()
