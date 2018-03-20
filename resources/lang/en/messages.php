@@ -181,4 +181,6 @@ return [
 	'preliminary' => 'preliminary',
 	'Email address' => 'Adres e-mail',
 	'Data' => 'Data',
+	'My reservations' => 'Reservations',
+	'My favourites' => 'Favourites',
 ];

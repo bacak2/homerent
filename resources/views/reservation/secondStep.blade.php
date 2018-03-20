@@ -19,6 +19,7 @@
             {!! Form::hidden('dorosli', $request->dorosli) !!}
             {!! Form::hidden('dzieci', $request->dzieci) !!}
             {!! Form::hidden('wiadomoscDodatkowa', $request->wiadomoscDodatkowa) !!}
+            {!! Form::hidden('id', $request->id) !!}
             <div class="form-group row">
                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
                 <div class="col-sm-9">
@@ -61,6 +62,14 @@
                     </div>
                     {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 12px']) !!}
             </div>
+            <span id="invoiceFields">
+                <div class="form-group row">
+                    {!! Form::label('phone2', __('Telefon-faktura'), array('class' => 'col-sm-3 col-form-label')) !!}
+                    <div class="col-sm-9">
+                        {!! Form::text('phone2') !!}
+                    </div>
+                </div>
+            </span>
             <div class="form-group row">
                 {!! Form::label('phone', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
@@ -80,24 +89,26 @@
                 </div>
                 {!! Form::label('dontWantAccount', __('messages.dontWantAccount'), ['style'=>'font-size: 10px']) !!}
             </div>
-            <div class="form-group row">
-                {!! Form::label('password', __('messages.Password'), array('class' => 'col-sm-3 col-form-label')) !!}
-                <div class="col-sm-6">
-                    {!! Form::password('password', ['class' => 'required']) !!}
+            <span id="passwordFields">
+                <div class="form-group row">
+                    {!! Form::label('password', __('messages.Password'), array('class' => 'col-sm-3 col-form-label')) !!}
+                    <div class="col-sm-6">
+                        {!! Form::password('password', ['class' => 'required']) !!}
+                    </div>
+                    <div class="col-sm-3">
+                        {{ __('messages.Password strength') }}: <div class="figure" id="strength_score">0%</div>
+                    </div>
                 </div>
-                <div class="col-sm-3">
-                    {{ __('messages.Password strength') }}: <div class="figure" id="strength_score">0%</div>
+                <div class="form-group row">
+                    {!! Form::label('password2', __('messages.Repeat password'), array('class' => 'col-sm-3 col-form-label')) !!}
+                    <div class="col-sm-6">
+                        {!! Form::password('password2', ['class' => 'required']) !!}
+                    </div>
                 </div>
-            </div>
-            <div class="form-group row">
-                {!! Form::label('password2', __('messages.Repeat password'), array('class' => 'col-sm-3 col-form-label')) !!}
-                <div class="col-sm-6">
-                    {!! Form::password('password2', ['class' => 'required']) !!}
+                <div class="form-group row">
+                    <div class="offset-sm-3" id="passNotSame" style="display: none; color: red;"><i class="fa fa-2x fa-exclamation-triangle"></i>Wpisane hasła nie są takie same.</div>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="offset-sm-3" id="passNotSame" style="display: none; color: red;"><i class="fa fa-2x fa-exclamation-triangle"></i>Wpisane hasła nie są takie same.</div>
-            </div>
+            </span>
             @endguest
         </div>
         <div class="col-lg-4 mobile-none mt-3">
@@ -229,7 +240,25 @@
 </div>
 
 <script>
-        $('input').change(function(e) {
+        $("input[name='wantInvoice']").change(function(){
+            if($("input[name='wantInvoice']").is(":checked")){
+                $('#invoiceFields').css({'display':'inline'});
+            }
+            else{
+                $('#invoiceFields').css({'display':'none'});
+            }
+        });
+
+        $("input[name='dontWantAccount']").change(function(){
+            if($("input[name='dontWantAccount']").is(":checked")){
+                $('#passwordFields').css({'display':'none'});
+            }
+            else{
+                $('#passwordFields').css({'display':'inline'});
+            }
+        });
+
+        $('input').change(function() {
             var isValid = true;
             $('input.required').each(function() {
                 if ($(this).val() === '') {

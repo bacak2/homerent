@@ -56,6 +56,7 @@
 						</div>
 						{!! Form::open(array('route' => 'reservations.firstStep', 'method' => 'get')) !!}
 						{!! Form::hidden('link', $apartament->descriptions[0]->apartament_link) !!}
+						{!! Form::hidden('id', $apartament->id) !!}
 							<div class="form-row">
 								<div class="pick-date form-row">
 									<div class="col-md-6 pb-2">

@@ -23,9 +23,15 @@
 	              <a class="nav-link" href="{{ route('register') }}">{{ __('messages.register')}}</a>
 	            </li>
 	        @else 
-              <li class="nav-item">
-               <a class="nav-link" href="{{ route('account') }}">{{ __('messages.My account') }} </a>
-              </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('myFavourites') }}">{{ __('messages.My favourites') }} </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('myReservations') }}">{{ __('messages.My reservations') }} </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="{{ route('account') }}">{{ __('messages.My account') }} </a>
+                  </li>
                 <a href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">

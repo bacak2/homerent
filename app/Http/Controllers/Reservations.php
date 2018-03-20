@@ -105,9 +105,36 @@ class Reservations extends Controller
 
     public function thirdStep(Request $request)
     {
+        //dd($request);
+        $dataSet = array(
+            'apartament_id' => $request->id,
+            'user_id' => Auth::user()->id ?? 0,
+            'title' => $request->title,
+            'name_and_surname' => $request->name_and_surname,
+            'country' => $request->country,
+            'address' => $request->address,
+            'postcode' => $request->postcode,
+            'place' => $request->place,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'reservation_arrive_date' => $request->przyjazd,
+            'reservation_departure_date' => $request->powrot,
+            'reservation_persons' => $request->dorosli,
+            'reservation_kids' => $request->dzieci,
+            'reservation_nights' => $request->ilenocy,
+            'reservation_additional_message' => $request->wiadomoscDodatkowa,
+            'reservation_arrive_time' => $request->godzinaPrzyjazdu,
+            'reservation_advance' => $request->zal,
+            'reservation_payment' => $request->allNow,
+            'reservation_status' => 0
+        );
+
         if($request->zal == 2) {
+
+            $idReservation = DB::table('reservations')->insertGetId($dataSet);
+
             return redirect()->action(
-                'Reservations@fourthStep', ['link' => 'studio-mars-zakopane-centrum', 'idReservation' => 20]
+                'Reservations@fourthStep', ['idAparment' => $request->id, 'idReservation' => $idReservation]
             );
         }
 
@@ -116,37 +143,20 @@ class Reservations extends Controller
         }
     }
 
-    public function fourthStep($link, $idReservation){
-        //Find id of an apartment with $link passed to controller
-        $linktoid = DB::table('apartament_descriptions')
-            ->select('apartament_id')
-            ->where('apartament_link',$link)
-            ->get();
+    public function fourthStep($idAparment, $idReservation){
 
-
-        $id = $linktoid[0]->apartament_id;
+        $id = $idAparment;
 
         $apartament = Apartament::with(array('descriptions' => function($query)
         {
             $query->where('language_id', $this->language->id);
         }))->find($id);
 
-        //Generates an array of images gallery
-        $images = DB::table('apartaments')
-            ->select('apartament_photos.photo_link','apartaments.id')
-            ->join('apartament_photos','apartaments.id','=','apartament_photos.apartament_id')
-            ->where('apartament_id',$id)
-            ->get();
+        $reservation = DB::table('reservations')->where('id', $idReservation)->get();
 
-        $priceFrom = $this->getPriceFrom($id);
-
-        //suma wszystkich łóżek
-        $beds = $apartament->apartament_single_beds+$apartament->apartament_double_beds;
-
-        return view('reservation.fourthStep', ['apartament' => $apartament,
-            'images' => $images,
-            'priceFrom' => $priceFrom,
-            'beds' => $beds,
+        return view('reservation.fourthStep', [
+            'apartament' => $apartament,
+            'reservation' => $reservation,
         ]);
 
     }

@@ -79,6 +79,7 @@
                         {!! Form::hidden('ilenocy', $request->ilenocy) !!}
                         {!! Form::hidden('dorosli', $request->dorosli) !!}
                         {!! Form::hidden('dzieci', $request->dzieci) !!}
+                        {!! Form::hidden('id', $apartament->id) !!}
                         <div class="form-group row">
                             {!! Form::label('name', __('messages.name'), array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">

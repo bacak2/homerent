@@ -50,7 +50,7 @@ function()
 		'as' => 'reservations.thirdStep'
 	]);
 
-	Route::get('/reservations-fourth-step/{link}/{idReservation}', [
+	Route::get('/reservations-fourth-step/{idAparment}/{idReservation}', [
 		'uses' => 'Reservations@fourthStep',
 		'as' => 'reservations.fourthStep'
 	]);
@@ -59,6 +59,16 @@ function()
 		Route::GET('/data', [
 			'uses' => 'Account@index',
 			'as' => 'account'
+		]);
+
+		Route::GET('/my-favourites', [
+			'uses' => 'Account@index',
+			'as' => 'myFavourites'
+		]);
+
+		Route::GET('/my-reservations', [
+			'uses' => 'Account@index',
+			'as' => 'myReservations'
 		]);
 
 		Route::GET('/add','Account@add');

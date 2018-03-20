@@ -180,4 +180,6 @@ return [
 	'preliminary' => 'wstępna',
 	'Email address' => 'Adres e-mail',
 	'Data' => 'Dane',
+	'My reservations' => 'Rezerwacje',
+	'My favourites' => 'Ulubione',
 ];
