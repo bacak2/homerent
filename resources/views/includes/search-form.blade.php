@@ -20,26 +20,32 @@
       </div>
       <div class="col-md">
           <div class="input-group mb-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-lg fa-male" aria-hidden="true"></i></div>
-              <select class="form-control" placeholder="{{ __('messages.adults')}}" name='dorosli'>
+            <div class="input-group-addon"><i class="fa fa-lg fa-male" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}" placeholder="{{ __('messages.adults')}}"></i></div>
+              <select class="form-control" name='dorosli'>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
               </select>
           </div>
       </div>
       <div class="col-md">
         <div class="input-group mb-2 mb-sm-0">
-          <div class="input-group-addon"><i class="fa fa-child" aria-hidden="true"></i></div>
-              <select class="form-control" placeholder="{{ __('messages.kids')}}" name='dzieci'>
+          <div class="input-group-addon"><i class="fa fa-child" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Kids') }}" placeholder="{{ __('messages.kids')}}"></i></div>
+              <select class="form-control" name='dzieci'>
                 <option value="1">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
               </select>
         </div>
       </div>

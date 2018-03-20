@@ -25,7 +25,7 @@ function()
 
 	//Route::get('/home', 'HomeController@index')->name('home');
 
-	Route::get('/apartaments/{link}', 'Apartaments@showApartamentInfo');
+	Route::get('/apartaments/{link}', 'Apartaments@showApartamentInfo')->name('apartamentInfo');
 
 	Route::get('/search/{view}','Apartaments@searchApartaments');
 
@@ -62,13 +62,18 @@ function()
 		]);
 
 		Route::GET('/my-favourites', [
-			'uses' => 'Account@index',
+			'uses' => 'Account@favourites',
 			'as' => 'myFavourites'
 		]);
 
 		Route::GET('/my-reservations', [
-			'uses' => 'Account@index',
+			'uses' => 'Account@reservations',
 			'as' => 'myReservations'
+		]);
+
+		Route::GET('/my-reservations/{idAparment}/{idReservation}', [
+			'uses' => 'Account@reservationDetail',
+			'as' => 'account.reservationDetail'
 		]);
 
 		Route::GET('/add','Account@add');

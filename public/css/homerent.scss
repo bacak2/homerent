@@ -168,6 +168,7 @@ button {
 }
 
 .description-bottom-right{
+	background-color: rgba(255, 255, 255, 0.65);
 	font-size: 10px;
 	position: absolute;
 	right: 5px;
@@ -729,6 +730,11 @@ div.contact-item{
 	width: 1000px;
 	border: solid black 1px;
 	background-color: #fff;
+}
+
+.minH-90{
+	min-height: 90px;
+	border-top: solid #7DA0B1 1px ;
 }
 
 @media (min-width: 768px) {

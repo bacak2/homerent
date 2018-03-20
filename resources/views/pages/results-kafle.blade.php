@@ -59,7 +59,7 @@
                                      <a style=" display: inline-block; width: 100%; height: 100%" href="/apartaments/{{ $apartament->apartament_link }}"></a>
                                 </div>
                             </div>
-                            <div class="add-to-favourities"><a href="#"><img src='{{ asset("images/results/heart.png") }}'></a></div>
+                            <div class="add-to-favourities"><a href="#"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Add to favorites') }}" src='{{ asset("images/results/heart.png") }}'></a></div>
                             <div class="map-description-top">112 PLN</div> 
                             <div class="map-description-bottom">{{ __("messages.Breakfast included") }}</div>
                             <div class="description-bottom-right mobile-none">
@@ -73,14 +73,14 @@
                             <span style="font-size: 17px">{{ $apartament->apartament_name }}</span>
                             <br><span style="font-size: 11px">{{ $apartament->apartament_address }}</span>
                             <div>
-                                <div class="description-below-img" style="background-image: url('{{ asset("images/results/person.png") }}');"> <span>{{ $apartament->apartament_persons }}</span> </div>
-                                <div class="description-below-img" style="background-image: url('{{ asset("images/results/doubleBed.png") }}');"> <span>{{ $apartament->apartament_double_beds }}</span> </div>
-                                <div class="description-below-img" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>{{ $apartament->apartament_single_beds }}</span> </div>
+                                <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.people') }}" style="background-image: url('{{ asset("images/results/person.png") }}');"> <span>{{ $apartament->apartament_persons }}</span> </div>
+                                <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.single beds') }}" style="background-image: url('{{ asset("images/results/doubleBed.png") }}');"> <span>{{ $apartament->apartament_double_beds }}</span> </div>
+                                <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.double beds') }}" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>{{ $apartament->apartament_single_beds }}</span> </div>
                                 @if ( $apartament->apartament_wifi == 1)
-                                    <div class="description-below-img" style="background-image: url('{{ asset("images/results/wifi.png") }}');"> </div>
+                                    <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="Wifi" style="background-image: url('{{ asset("images/results/wifi.png") }}');"> </div>
                                 @endif
                                 @if ( $apartament->apartament_parking == 1)
-                                    <div class="description-below-img" style="background-image: url('{{ asset("images/results/parking.png") }}');"> </div>
+                                    <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="Parking" style="background-image: url('{{ asset("images/results/parking.png") }}');"> </div>
                                 @endif                                                            
                             </div>
                             <div class="description-map-bottom-right desktop-none">

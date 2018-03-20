@@ -182,4 +182,7 @@ return [
 	'Data' => 'Dane',
 	'My reservations' => 'Rezerwacje',
 	'My favourites' => 'Ulubione',
+	'Add to favorites' => 'Dodaj do lubionych',
+	'Adults' => 'dorosłych',
+	'Kids' => 'dzieci',
 ];

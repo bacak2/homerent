@@ -183,4 +183,7 @@ return [
 	'Data' => 'Data',
 	'My reservations' => 'Reservations',
 	'My favourites' => 'Favourites',
+	'Add to favorites' => 'Add to favorites',
+	'Adults' => 'adults',
+	'Kids' => 'children',
 ];
