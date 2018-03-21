@@ -23,7 +23,7 @@
             <div class="form-group row">
                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
                 <div class="col-sm-9">
-                    {!! Form::select('title', array('M' => __('messages.Mr'), 'F' => __('messages.Mrs'))) !!}
+                    {!! Form::select('title', array(__('messages.Mr') => __('messages.Mr'), __('messages.Mrs') => __('messages.Mrs'))) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -47,7 +47,7 @@
             <div class="form-group row">
                 {!! Form::label('postcode', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('postcode', '', array('class' => 'not-full-with col-sm-12 col-lg-6')) !!}
+                    {!! Form::text('postcode', '', array('class' => 'required not-full-with col-sm-12 col-lg-6')) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -62,7 +62,8 @@
                     </div>
                     {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 12px']) !!}
             </div>
-            <span id="invoiceFields">
+            <span id="invoiceFields" style="display: none">
+                <h4><b>Dane do faktury</b></h4>
                 <div class="form-group row">
                     {!! Form::label('phone2', __('Telefon-faktura'), array('class' => 'col-sm-3 col-form-label')) !!}
                     <div class="col-sm-9">
@@ -73,7 +74,7 @@
             <div class="form-group row">
                 {!! Form::label('phone', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('phone') !!}
+                    {!! Form::text('phone', '', ['class' => 'required']) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -120,6 +121,7 @@
                     </div>
                     <div class="col-8">
                                 <div class="txt-blue"><b>{{ $apartament->descriptions[0]->apartament_name}}</b></div>
+                                <div>{{ $apartament->apartament_district }}</div>
                                 <div class="mb-2">{{ $apartament->apartament_address }}</div>
                                 <hr class="desktop-none">
                     </div>
@@ -201,7 +203,7 @@
         </div>
         <div class="col-lg-7 col-sm-12 pb-3 mb-3">
             <div class="row mb-4">
-                <input id="accept1" name="accept1" type="checkbox">
+                <input id="accept1" name="accept1" type="checkbox" class="required">
                 <label for="accept1" class="inline-label">{{ __('messages.I accept the terms of use') }} Homent</label>
             </div>
             <div class="row mb-4">
@@ -266,7 +268,14 @@
                     return false;
                 }
                 else {
-                    if (checkSame()) isValid = true;
+                    if (checkSame()){
+                        if($('#accept1').is(":checked")) isValid = true;
+                        else
+                        {
+                            isValid = false;
+                            return false;
+                        }
+                    }
                     else {
                         isValid = false;
                         return false;

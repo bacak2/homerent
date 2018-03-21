@@ -129,7 +129,7 @@ class Reservations extends Controller
             'reservation_status' => 0
         );
 
-        if($request->zal == 2) {
+        if($request->zal == 2 || $request->allNow == 2) {
 
             $idReservation = DB::table('reservations')->insertGetId($dataSet);
 
@@ -138,8 +138,8 @@ class Reservations extends Controller
             );
         }
 
-        else if($request->zal == 1) {
-            dd($request);
+        else {
+            return view('reservation.thirdStep');
         }
     }
 

@@ -18,7 +18,8 @@
             <div class="row">
                 <div class="col-lg-5 col-sm-6">
                     <div class="txt-blue" style="font-size: 22px"><b>{{ $apartament->descriptions[0]->apartament_name}}</b></div>
-                    <div class="mb-2">{{ $apartament->apartament_address }}</div>
+                    <div>{{ $apartament->apartament_district }}</div>
+                    <div>{{ $apartament->apartament_address }}</div>
                     <div>
                     <span>
                         @for ($i = 0; $i < 5; $i++)

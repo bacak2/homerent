@@ -186,4 +186,7 @@ return [
 	'Adults' => 'dorosłych',
 	'Kids' => 'dzieci',
 	'Fireplace' => 'Kominek',
+	'Cancellation / prepayment' => 'Odwołanie rezerwacji / przedpłata',
+	'Animals' => 'Zwierzęta',
+	'Other' => 'Inne',
 ];

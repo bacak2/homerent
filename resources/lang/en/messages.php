@@ -187,4 +187,7 @@ return [
 	'Adults' => 'adults',
 	'Kids' => 'children',
 	'Fireplace' => 'Fireplace',
+	'Cancellation / prepayment' => 'Cancellation / prepayment',
+	'Animals' => 'Animals',
+	'Other' => 'Other',
 ];
