@@ -81,35 +81,16 @@
     });
 
     function restoreDefaultFilters(){
-        $("#1room").prop('checked', true);
-        $("#2rooms").prop('checked', true);
-        $("#3rooms").prop('checked', true);
-        $("#4rooms").prop('checked', true);
+        $("#1room").prop('checked', false);
+        $("#2rooms").prop('checked', false);
+        $("#3rooms").prop('checked', false);
+        $("#4rooms").prop('checked', false);
 
-        $("#doubleBed").prop('checked', true);
-        $("#1bed").prop('checked', true);
-        $("#2beds").prop('checked', true);
-        $("#3beds").prop('checked', true);
-
-        $("#apartment").prop('checked', true);
-        $("#house").prop('checked', true);
-        $("#agrotourism").prop('checked', true);
-
-        $("#klimatyzacja").prop('checked', false);
-        $("#wifi").prop('checked', false);
-        $("#garaz").prop('checked', false);
-        $("#winda").prop('checked', false);
-        $("#balkon").prop('checked', false);
-        $("#telewizor").prop('checked', false);
-        $("#odkurzacz").prop('checked', false);
-        $("#lozeczko").prop('checked', false);
+        $("#spa").prop('checked', false);
         $("#zwierzeta").prop('checked', false);
-        $("#palacy").prop('checked', false);
-        $("#niepelnosprawni").prop('checked', false);
-        $("#kuchenka").prop('checked', false);
-        $("#czajnik").prop('checked', false);
-        $("#zmywarka").prop('checked', false);
-        $("#mikrofalowka").prop('checked', false);
+        $("#garaz").prop('checked', false);
+        $("#kominek").prop('checked', false);
+        $("#balkon").prop('checked', false);
 
         rangeBar();
         MrangeBar();
@@ -117,10 +98,11 @@
 
     function rangeBar(){
         $( "#slider-range" ).slider({
+            step: 50,
             range: true,
             min: 0,
-            max: 500,
-            values: [ 0, 500 ],
+            max: 1000,
+            values: [ 0, 1000 ],
             slide: function( event, ui ) {
                 $( "#amount" ).val( ui.values[ 0 ] );
                 $( "#amount2" ).val( ui.values[ 1 ] );
@@ -132,10 +114,11 @@
 
     function MrangeBar(){
         $( "#Mslider-range" ).slider({
+            step: 50,
             range: true,
             min: 0,
-            max: 500,
-            values: [ 0, 500 ],
+            max: 1000,
+            values: [ 0, 1000 ],
             slide: function( event, ui ) {
                 $( "#Mamount" ).val( ui.values[ 0 ] );
                 $( "#Mamount2" ).val( ui.values[ 1 ] );

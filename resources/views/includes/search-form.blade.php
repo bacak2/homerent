@@ -20,7 +20,7 @@
       </div>
       <div class="col-md">
           <div class="input-group mb-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-lg fa-male" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}" placeholder="{{ __('messages.adults')}}"></i></div>
+            <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}"><i class="fa fa-lg fa-male" aria-hidden="true" placeholder="{{ __('messages.adults')}}"></i></div>
               <select class="form-control" name='dorosli'>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -35,7 +35,7 @@
       </div>
       <div class="col-md">
         <div class="input-group mb-2 mb-sm-0">
-          <div class="input-group-addon"><i class="fa fa-child" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Kids') }}" placeholder="{{ __('messages.kids')}}"></i></div>
+          <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Kids') }}"><i class="fa fa-child" aria-hidden="true" placeholder="{{ __('messages.kids')}}"></i></div>
               <select class="form-control" name='dzieci'>
                 <option value="1">0</option>
                 <option value="1">1</option>

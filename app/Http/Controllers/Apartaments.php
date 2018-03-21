@@ -166,22 +166,11 @@ class Apartaments extends Controller
         }
 
         $whereData = [];
-        if ($request->has('klimatyzacja')) array_push($whereData, ['apartament_air_conditioning', '1']);
-        if ($request->has('wifi')) array_push($whereData, ['apartament_wifi', '1']);
+        if ($request->has('spa')) array_push($whereData, ['apartament_spa', '1']);
         if ($request->has('garaz')) array_push($whereData, ['apartament_parking', '1']);
-        if ($request->has('winda')) array_push($whereData, ['apartament_elevator', '1']);
+        if ($request->has('kominek')) array_push($whereData, ['apartament_fireplace', '1']);
         if ($request->has('balkon')) array_push($whereData, ['apartament_balcony', '1']);
-        if ($request->has('telewizor')) array_push($whereData, ['apartament_tv', '1']);
-        if ($request->has('odkurzacz')) array_push($whereData, ['apartament_vacuum cleaner', '1']);
-        if ($request->has('lozeczko')) array_push($whereData, ['apartament_kids_bed', '1']);
         if ($request->has('zwierzeta')) array_push($whereData, ['apartament_animals', '1']);
-        if ($request->has('palacy')) array_push($whereData, ['apartament_smokers', '1']);
-        if ($request->has('niepelnosprawni')) array_push($whereData, ['apartament_disabled', '1']);
-        if ($request->has('kuchenka')) array_push($whereData, ['apartament_cooker', '1']);
-        if ($request->has('czajnik')) array_push($whereData, ['apartament_kettle', '1']);
-        if ($request->has('zmywarka')) array_push($whereData, ['apartament_washing_machine', '1']);
-        if ($request->has('mikrofalowka')) array_push($whereData, ['apartament_microwave', '1']);
-
 
         $finds = Apartament::select('*', 'apartaments.id')
             ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')

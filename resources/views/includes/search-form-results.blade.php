@@ -20,19 +20,22 @@
       </div>
       <div class="col-md">
           <div class="input-group mb-2 mb-sm-0">
-            <div class="input-group-addon"><i class="fa fa-lg fa-male" aria-hidden="true"></i></div>
+            <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}"><i class="fa fa-lg fa-male" aria-hidden="true"></i></div>
               <select class="form-control" placeholder="{{ __('messages.adults')}}" name='dorosli'>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
               </select>
           </div>
       </div>
       <div class="col-md">
         <div class="input-group mb-2 mb-sm-0">
-          <div class="input-group-addon"><i class="fa fa-child" aria-hidden="true"></i></div>
+          <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Kids') }}"><i class="fa fa-child" aria-hidden="true"></i></div>
               <select class="form-control" placeholder="{{ __('messages.kids')}}" name='dzieci'>
                 <option value="0">0</option>
                 <option value="1">1</option>
@@ -40,6 +43,9 @@
                 <option value="3">3</option>
                 <option value="4">4</option>
                 <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
               </select>
         </div>
       </div>
@@ -79,170 +85,40 @@
                                 <div class="filter-img more" style="background-image: url('{{ asset("images/results/houseNumber.png") }}');"> <span>4+</span> </div>
                             </label>                            
                         </div>
-                    </div>   
-                    <div class="col-3">
-                        <span class="lozka">{{ __('messages.Beds') }}<i class="fa fa-caret-down lozka"></i></span>
-                        <div class="lozka">
-                            {!! Form::checkbox('doubleBed', null, null, ['id' => 'doubleBed', 'style'=>'display:none']) !!}
-                            <label for="doubleBed">
-                                <div class="filter-img-align" style="background-image: url('{{ asset("images/results/doubleBedFilter.png") }}');"></div>
-                            </label>
-                            {!! Form::checkbox('1bed', null, null, ['id' => '1bed', 'style'=>'display:none']) !!}
-                            <label for="1bed">
-                                <div class="filter-img" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>1</span> </div>
-                            </label>
-                            {!! Form::checkbox('2beds', null, null, ['id' => '2beds', 'style'=>'display:none']) !!}
-                            <label for="2beds">
-                                <div class="filter-img" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>2</span> </div>
-                            </label>
-                            {!! Form::checkbox('3beds', null, null, ['id' => '3beds', 'style'=>'display:none']) !!}
-                            <label for="3beds">
-                                <div class="filter-img more" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>3+</span> </div>
-                            </label>                            
-                        </div>                        
-                    </div> 
-                    <div class="col-3">
-                        <span class="budynek">{{ __('messages.Building') }}<i class="fa fa-caret-down budynek"></i></span>
-                        <div class="budynek">
-                            {!! Form::checkbox('apartment', null, null, ['id' => 'apartment', 'style'=>'display:none']) !!}
-                            <label for="apartment">
-                                <div class="filter-img-align" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Apartment') }}" style="background-image: url('{{ asset("images/results/house.png") }}');"></div>
-                            </label>   
-                            {!! Form::checkbox('house', null, null, ['id' => 'house', 'style'=>'display:none']) !!}
-                            <label for="house">
-                                <div class="filter-img-align" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.House') }}" style="background-image: url('{{ asset("images/results/house.png") }}');"></div>
-                            </label>
-                            {!! Form::checkbox('agrotourism', null, null, ['id' => 'agrotourism', 'style'=>'display:none']) !!}
-                            <label for="agrotourism">
-                                <div class="filter-img-align" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Agrotourism') }}" style="background-image: url('{{ asset("images/results/house.png") }}');"></div>
-                            </label>                            
-                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
+                    <div class="col-3">
                         <span class="udogodnienia">{{ __('messages.Facilities') }}<i class="fa fa-caret-down udogodnienia"></i></span>
-                    </div>
-                    <div class="col-3 udogodnienia">
-                        <p>
-                            <label>{!! Form::checkbox('klimatyzacja', null, null, ['id' => 'klimatyzacja']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Air conditioning') }}</label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('wifi', null, null, ['id' => 'wifi']) !!}<img src='{{ asset("images/results/wifi.png") }}'">Internet/Wifi</label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('garaz', null, null, ['id' => 'garaz']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Garage/Parking') }}</label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('winda', null, null, ['id' => 'winda']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Elevator') }}</label>
-                        </p>                        
-                    </div> 
-                    <div class="col-3 udogodnienia">
-                        <p>
-                            <label>{!! Form::checkbox('balkon', null, null, ['id' => 'balkon']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Balcony/Terrace') }}</label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('telewizor', null, null, ['id' => 'telewizor']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Television set') }}</label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('odkurzacz', null, null, ['id' => 'odkurzacz']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Vacuum cleaner') }}</label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('lozeczko', null, null, ['id' => 'lozeczko']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Bed for a child') }}</label>
-                        </p>                        
-                    </div> 
-                    <div class="col-3 udogodnienia">
-                        <p>
-                            <label>{!! Form::checkbox('zwierzeta', null, null, ['id' => 'zwierzeta']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Acceptance of animals') }}</label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('palacy', null, null, ['id' => 'palacy']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.For smokers') }}</label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('niepelnosprawni', null, null, ['id' => 'niepelnosprawni']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.For the disabled') }}</label>
-                        </p>                       
-                    </div> 
-                    <div class="col-3 udogodnienia">
-                        <p>
-                            <label>{!! Form::checkbox('kuchenka', null, null, ['id' => 'kuchenka']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Cooker') }}</label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('czajnik', null, null, ['id' => 'czajnik']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Electric kettle') }}</label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('zmywarka', null, null, ['id' => 'zmywarka']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Washing machine') }}</label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('mikrofalowka', null, null, ['id' => 'mikrofalowka']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Microwave') }}</label>
-                        </p>                        
-                    </div>                    
-                </div>
-                
-                <div class="row">
-                    <div class="col-3">
-                        <span>{{ __('messages.Filter by opinion') }}</span>
-                        <p>
-                            <label>{!! Form::checkbox('all', 'on') !!}{{ __('messages.All') }}</label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('4stars', 'on') !!}                                 
-                                @for ($i = 0; $i < 4; $i++)
-                                    <img src="{{ asset("images/results/star.png") }}">
-                                @endfor
-                                <img src="{{ asset("images/results/star_empty.png") }}">
-                            </label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('3stars', 'on') !!}                                 
-                                @for ($i = 0; $i < 3; $i++)
-                                    <img src="{{ asset("images/results/star.png") }}">
-                                @endfor
-                                @for ($i = 0; $i < 2; $i++)
-                                    <img src="{{ asset("images/results/star_empty.png") }}">
-                                @endfor                                
-                            </label>
-                        </p>  
-                        <p>
-                            <label>{!! Form::checkbox('2stars', 'on') !!}                                 
-                                @for ($i = 0; $i < 2; $i++)
-                                    <img src="{{ asset("images/results/star.png") }}">
-                                @endfor
-                                @for ($i = 0; $i < 3; $i++)
-                                    <img src="{{ asset("images/results/star_empty.png") }}">
-                                @endfor                                
-                            </label>
-                        </p>
-                        <p>
-                            <label>{!! Form::checkbox('1star', 'on') !!}                                 
-                                @for ($i = 0; $i < 1; $i++)
-                                    <img src="{{ asset("images/results/star.png") }}">
-                                @endfor
-                                @for ($i = 0; $i < 4; $i++)
-                                    <img src="{{ asset("images/results/star_empty.png") }}">
-                                @endfor                                
-                            </label>
-                        </p>                         
-                    </div>
-                    <div class="col-9">
-                        <span class="dzielnica">{{ __('messages.District') }}<i class="fa fa-caret-up dzielnica"></i></span>
-                        <div class="row">
-                            
-
-                            <div class="dzielnica col-3" style="display: none;">
-
-                                <p>
-                                    <label>{!! Form::checkbox('distr1', null, null, ['id' => 'distr1', 'style'=>'display:none']) !!}<span class="district">Stare miasto</span></label>
-                                </p>
-                                <p>
-                                    <label>{!! Form::checkbox('distr2', null, null, ['id' => 'distr2', 'style'=>'display:none']) !!}<span class="district">Kazimierz</span></label>
-                                </p>
-
-                            </div>
-                            <div class="dzielnica col-9" style="display: none;">
-
-                            </div>
+                        <div class="udogodnienia">
+                            <p>
+                                <label>{!! Form::checkbox('SPA', null, null, ['id' => 'spa']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('SPA') }}</label>
+                            </p>
+                            <p>
+                                <label>{!! Form::checkbox('zwierzeta', null, null, ['id' => 'zwierzeta']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Acceptance of animals') }}</label>
+                            </p>
+                            <p>
+                                <label>{!! Form::checkbox('garaz', null, null, ['id' => 'garaz']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Garage/Parking') }}</label>
+                            </p>
+                            <p>
+                                <label>{!! Form::checkbox('kominek', null, null, ['id' => 'kominek']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Fireplace') }}</label>
+                            </p>
+                            <p>
+                                <label>{!! Form::checkbox('balkon', null, null, ['id' => 'balkon']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Balcony/Terrace') }}</label>
+                            </p>
                         </div>
-                    </div>    
+                    </div>
+                    <div class="col-3">
+                        <span class="dzielnica">{{ __('messages.District') }}<i class="fa fa-caret-up dzielnica"></i></span>
+                        <div class="dzielnica" style="display: none;">
+
+                            <p>
+                                <label>{!! Form::checkbox('distr1', null, null, ['id' => 'distr1', 'style'=>'display:none']) !!}<span class="district">Stare miasto</span></label>
+                            </p>
+                            <p>
+                                <label>{!! Form::checkbox('distr2', null, null, ['id' => 'distr2', 'style'=>'display:none']) !!}<span class="district">Kazimierz</span></label>
+                            </p>
+
+                        </div>
+                    </div>
                 </div>
                     <hr>
                     <button type="submit" class="btn btn-primary searchbtn">{{ __('messages.Apply filters') }}</button>

@@ -33,12 +33,14 @@
                             </div>
                         </div>
                         <div class="row list-item-address">
-                            <div class="container py-1">{{ $apartament->apartament_address }}
+                            <div class="container py-1">{{ $apartament->apartament_district }}
                                 <span class="pull-right">
                                     <span style="color: green; letter-spacing: -1px;"><b>8,3/10</b> <span style="font-size: 14px">{{ __("messages.Perfect") }}</span></span> <span style="color: blue; font-size: 10px">55 {{ __("messages.reviews_number") }}</span>
                                 </span>
                             </div>
-                            
+                        </div>
+                        <div class="row list-item-address">
+                            <div class="container py-1">{{ $apartament->apartament_address }}</div>
                         </div>
                         <div class="row list-item-description">
                             <div class="container py-1">{{ substr($apartament->apartament_description, 0, 220) }}...</div>

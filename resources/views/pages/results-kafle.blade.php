@@ -71,8 +71,9 @@
                         </div>
                         <div class="description-below">
                             <span style="font-size: 17px">{{ $apartament->apartament_name }}</span>
-                            <br><span style="font-size: 11px">{{ $apartament->apartament_address }}</span>
-                            <div>
+                            <span style="display:block; font-size: 11px">{{ $apartament->apartament_district }}</span>
+                            <span style="display:block; font-size: 11px">{{ $apartament->apartament_address }}</span>
+                            <div class="mt-2">
                                 <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.people') }}" style="background-image: url('{{ asset("images/results/person.png") }}');"> <span>{{ $apartament->apartament_persons }}</span> </div>
                                 <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.single beds') }}" style="background-image: url('{{ asset("images/results/doubleBed.png") }}');"> <span>{{ $apartament->apartament_double_beds }}</span> </div>
                                 <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.double beds') }}" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>{{ $apartament->apartament_single_beds }}</span> </div>
