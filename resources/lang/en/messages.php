@@ -190,4 +190,5 @@ return [
 	'Cancellation / prepayment' => 'Cancellation / prepayment',
 	'Animals' => 'Animals',
 	'Other' => 'Other',
+	'Company name' => 'Company name',
 ];

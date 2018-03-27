@@ -661,6 +661,22 @@ label.inline-label{
 	padding-left: 0px !important;
 }
 
+.form-group{
+	#postcode, #postcode_invoice{
+		padding-left: 0px !important;
+		padding-right: 0px !important;
+	}
+}
+
+#wskazowki
+{
+	font-family: Tahoma;
+	font-size: 11px;
+	height: 350px;
+	width: 300px;
+	overflow: auto;
+}
+
 .txt-blue{
 	color: #0056ff;
 }

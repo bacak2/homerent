@@ -189,4 +189,5 @@ return [
 	'Cancellation / prepayment' => 'Odwołanie rezerwacji / przedpłata',
 	'Animals' => 'Zwierzęta',
 	'Other' => 'Inne',
+	'Company name' => 'Nazwa firmy',
 ];

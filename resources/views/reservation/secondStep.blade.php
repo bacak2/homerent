@@ -15,6 +15,8 @@
             {!! Form::hidden('link', $apartament->descriptions[0]->apartament_link) !!}
             {!! Form::hidden('przyjazd', $request->przyjazd) !!}
             {!! Form::hidden('powrot', $request->powrot) !!}
+            {!! Form::hidden('przyjazdDb', $request->przyjazdDb) !!}
+            {!! Form::hidden('powrotDb', $request->powrotDb) !!}
             {!! Form::hidden('ilenocy', $request->ilenocy) !!}
             {!! Form::hidden('dorosli', $request->dorosli) !!}
             {!! Form::hidden('dzieci', $request->dzieci) !!}
@@ -57,21 +59,6 @@
                 </div>
             </div>
             <div class="form-group row">
-                    <div class="offset-sm-3">
-                        {!! Form::checkbox('wantInvoice') !!}
-                    </div>
-                    {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 12px']) !!}
-            </div>
-            <span id="invoiceFields" style="display: none">
-                <h4><b>Dane do faktury</b></h4>
-                <div class="form-group row">
-                    {!! Form::label('phone2', __('Telefon-faktura'), array('class' => 'col-sm-3 col-form-label')) !!}
-                    <div class="col-sm-9">
-                        {!! Form::text('phone2') !!}
-                    </div>
-                </div>
-            </span>
-            <div class="form-group row">
                 {!! Form::label('phone', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
                     {!! Form::text('phone', '', ['class' => 'required']) !!}
@@ -80,13 +67,52 @@
             <div class="form-group row">
                 {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('email', $request->email, ['class' => 'required']) !!}
+                    {!! Form::email('email', $request->email, ['class' => 'required']) !!}
                 </div>
             </div>
+            <div class="form-group row">
+                <div class="offset-sm-3">
+                    {!! Form::checkbox('wantInvoice') !!}
+                </div>
+                {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
+            </div>
+            <span id="invoiceFields" style="display: none">
+                <h4><b>Dane do faktury</b></h4>
+                <div class="form-group row">
+                    {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
+                    <div class="col-sm-9">
+                        {!! Form::text('address_invoice', '', ['class' => '']) !!}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {!! Form::label('postcode_invoice', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
+                    <div class="col-sm-9">
+                        {!! Form::text('postcode_invoice', '', array('class' => 'not-full-with col-sm-12 col-lg-6')) !!}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {!! Form::label('place_invoice', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
+                    <div class="col-sm-9">
+                        {!! Form::text('place_invoice', '', ['class' => '']) !!}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {!! Form::label('company_name', __('messages.Company name'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                    <div class="col-sm-9">
+                        {!! Form::text('company_name', '', ['class' => '']) !!}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {!! Form::label('nip', __('NIP'), array('class' => 'col-sm-3 col-form-label')) !!}
+                    <div class="col-sm-9">
+                        {!! Form::text('nip', '', ['class' => '']) !!}
+                    </div>
+                </div>
+            </span>
             @guest
             <div class="form-group row">
                 <div class="offset-sm-3">
-                    {!! Form::checkbox('dontWantAccount') !!}
+                    <input id="dontWantAccount" name="dontWantAccount" type="checkbox">
                 </div>
                 {!! Form::label('dontWantAccount', __('messages.dontWantAccount'), ['style'=>'font-size: 10px']) !!}
             </div>
@@ -132,7 +158,7 @@
                         <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">{{ $request->ilenocy }}</div></div>
                         <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">{{ ($request->dorosli + $request->dzieci) }}</div></div>
                         <div class="res-description txt-blue mt-3">
-                            {{ __('messages.change') }}
+                            <a href="apartaments/{{$apartament->descriptions[0]->apartament_link}}">{{ __('messages.change') }}</a>
                         </div>
                 </div>
                 <div>
@@ -254,9 +280,13 @@
         $("input[name='dontWantAccount']").change(function(){
             if($("input[name='dontWantAccount']").is(":checked")){
                 $('#passwordFields').css({'display':'none'});
+                $('#password').removeClass("required");
+                $('#password2').removeClass("required");
             }
             else{
                 $('#passwordFields').css({'display':'inline'});
+                $('#password').addClass("required");
+                $('#password2').addClass("required");
             }
         });
 
@@ -268,7 +298,7 @@
                     return false;
                 }
                 else {
-                    if (checkSame()){
+                    if (checkSame() || $("input[name='dontWantAccount']").is(":checked")){
                         if($('#accept1').is(":checked")) isValid = true;
                         else
                         {
