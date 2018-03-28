@@ -172,7 +172,9 @@ class Apartaments extends Controller
         if ($request->has('balkon')) array_push($whereData, ['apartament_balcony', '1']);
         if ($request->has('zwierzeta')) array_push($whereData, ['apartament_animals', '1']);
 
+        //$finds = Apartament::select('apartaments.id', 'apartament_geo_lat', 'apartament_geo_lan', 'apartament_address', 'apartament_address_2', 'apartament_city', 'apartament_district', 'apartament_persons', 'apartament_rooms_number', 'apartament_single_beds', 'apartament_double_beds', 'apartament_living_area', 'apartament_floors_number', 'apartament_spa', 'apartament_animals', 'apartament_wifi', 'apartament_parking', 'apartament_fireplace', 'apartament_balcony', 'apartament_registration_time', 'apartament_checkout_time', 'apartament_default_photo_id', 'group_id', 'owner_id', 'language_id', 'apartament_link', 'apartament_description')
         $finds = Apartament::select('*', 'apartaments.id')
+            ->whereIn('apartaments.id', Apartament::select('apartaments.id')
             ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
             ->join('languages', function($join) {
                 $join->on('apartament_descriptions.language_id','=','languages.id')
@@ -209,6 +211,8 @@ class Apartaments extends Controller
                     });
             })
             ->where($whereData)
+            ->where('language_id', $this->language->id)
+            ->distinct('apartaments.id'))
             ->paginate($paginate);
 
         $black = 0;

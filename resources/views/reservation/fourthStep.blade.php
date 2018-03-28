@@ -113,7 +113,7 @@
         </div>
         <div class="col-lg-8 col-sm-12">
             <form name="wskazowki" action="#" onsubmit="znajdz_wskazowki(); return false;" />
-            Wskazówki dojazdu: <input type="text" name="skad" size="40" id="skad" value="Szczecin, ul. Zawadzkiego 10" />
+            Wskazówki dojazdu: <input type="text" name="skad"  id="skad"/>
             <input type="submit" value="Pokaż" />
             </form>
             <div id="mapka" style="width: 100%; height: 500px; margin-bottom: 30px;"></div>
@@ -133,7 +133,7 @@
                     <div class="col-12">{{ $reservation[0]->address_invoice }}</div>
                     <div class="col-12">{{ $reservation[0]->postcode_invoice }}</div>
                     <div class="col-12">{{ $reservation[0]->place_invoice }}</div>
-                    <div class="col-12">NIP: {{ $reservation[0]->nip }}</div>
+                    @if($reservation[0]->nip != NULL)<div class="col-12">NIP: {{ $reservation[0]->nip }}</div>@endif
                 </div>
             </div>
         </div>
@@ -173,7 +173,7 @@
         mapa = new google.maps.Map(document.getElementById("mapka"), opcjeMapy);
         trasa_render.setMap(mapa);
         trasa_render.setPanel(document.getElementById('wskazowki'));
-        var marker1 = dodajZielonyMarker( {{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }},'<div class="map-img-wrapper greenIcon"><a class="desktop-none" href="/apartaments/{{ $apartament->apartament_link }}"><img style="width: 210px; height: 112px"src="{{ asset("images/apartaments/$apartament->id/1.jpg") }}"></a><img class="mobile-none" style="width: 300px; height: 169px"src="{{ asset("images/apartaments/$apartament->id/1.jpg") }}"><div class="map-see-more"><div class="container py-1"><a href="/apartaments/{{ $apartament->apartament_link }}" style="width: 100%" class="btn btn-primary mobile-none">{{ __("messages.book") }}</a></div><div class="container py-1"><a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-primary mobile-none" style="width: 100%">{{ __("messages.see details") }}</a></div></div><div class="map-description-top">112 PLN</div> <div class="map-description-bottom">{{ __("messages.Breakfast included") }}</div><div class="add-to-favourities" ><a data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Add to favorites') }}" href="#"><img src="{{ asset('images/results/heart.png') }}"></a></div></div><span class="map-description"><span style="font-size: 17px; display: inline-block">{{ $apartament->apartament_name }}</span><br> <span style="font-size: 11px; display: inline-block">{{ $apartament->apartament_district }}</span><br> <span style="font-size: 11px; display: inline-block">{{ $apartament->apartament_address }}</span><div><div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.people') }}" style="background-image: url({{ asset('images/results/person.png') }})"> <span>{{ $apartament->apartament_persons }}</span></div><div class="description-below-img desktop-none" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.kids') }}" style="background-image: url({{ asset('images/results/child.png') }})"> <span>{{ $apartament->apartament_persons }}</span></div><div class="description-below-img mobile-none" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.double beds') }}" style="background-image: url({{ asset("images/results/doubleBed.png") }});"><span>{{ $apartament->apartament_double_beds }}</span></div><div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.single beds') }}" style="background-image: url({{ asset("images/results/bed.png") }});"><span>{{ $apartament->apartament_single_beds }}</span></div><div class="description-below-img desktop-none note" style="background-color: green"><span>4,5</span></div><div class="desktop-none description-below-notes">(23 {{ __("messages.reviews") }})</div>@if ( $apartament->apartament_wifi == 1)<div class="description-below-img mobile-none" data-toggle="tooltip" data-placement="bottom" title="Wifi" style="background-image: url({{ asset("images/results/wifi.png") }});"></div>@endif @if ( $apartament->apartament_parking == 1) <div class="description-below-img mobile-none" data-toggle="tooltip" data-placement="bottom" title="Parking" style="background-image: url({{ asset("images/results/parking.png") }});"> </div> @endif</div><div class="description-map-bottom-right mobile-none">@for ($i = 0; $i < 5; $i++) <img src="{{ asset("images/results/star.png") }}">@endfor<br><span style="color: green; margin-right: 10px">{{ __("messages.Perfect") }}</span> <span style="color: blue">55 {{ __("messages.reviews_number") }}</span></div></span>', greenIcon);
+        var marker1 = dodajZielonyMarker( {{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }},'', greenIcon);
     }
 
     function znajdz_wskazowki()
@@ -186,6 +186,7 @@
         };
 
         trasa.route(dane_trasy, obsluga_wskazowek);
+        greenMarkers[0].setMap(null);
     }
 
     function obsluga_wskazowek(wynik, status)

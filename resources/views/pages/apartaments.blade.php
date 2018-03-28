@@ -180,7 +180,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="calendar"></div>
+				<!--div id="calendar"></div-->
 			</div>
 			<div class="col-md-4">
 				<div class="row">

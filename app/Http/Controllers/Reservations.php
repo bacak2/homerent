@@ -27,9 +27,13 @@ class Reservations extends Controller
     }
     
     public function firstStep(Request $request){
-
-        $przyjazdDb = date("Y-m-d", strtotime(substr($request->przyjazd, 5)));
-        $powrotDb = date("Y-m-d", strtotime(substr($request->powrot, 5)));
+        $przyjazdDb = explode(" ", $request->przyjazd);
+        //zmienić gdy kalendarz będzie wszędzie taki sam (z dniem tygodnia słownie)
+        $przyjazdDb = $przyjazdDb[1] ?? $przyjazdDb[0];
+        $przyjazdDb = date("Y-m-d", strtotime($przyjazdDb));
+        $powrotDb = explode(" ", $request->powrot);
+        $powrotDb = $powrotDb[1] ?? $powrotDb[0];
+        $powrotDb = date("Y-m-d", strtotime($powrotDb));
 
         $dprz = strtotime($przyjazdDb);
         $dpwr = strtotime($powrotDb);

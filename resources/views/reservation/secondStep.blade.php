@@ -166,7 +166,7 @@
                     <div class="row mb-3"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
                     <div class="row mb-3"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }}  PLN</span></div></div>
                     <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }}  PLN</span></div></div>
-                    <div class="row mb-3"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format(50, 2, ',', ' ') }}  PLN</b></span></div></div>
+                    <div class="row mb-3"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format(200*$request->ilenocy+150, 2, ',', ' ') }}  PLN</b></span></div></div>
                 </div>
             </div>
         </div>

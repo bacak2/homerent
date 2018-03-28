@@ -38,7 +38,7 @@
                 <div class="col-lg-7 col-sm-6">
                     <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ $request->przyjazd }}</b></div></div>
                     <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ $request->powrot }}</b></div></div>
-                    <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">{{ $request->ilenocy ?? $ileNocy}}</div></div>
+                    <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">{{ $ileNocy = $request->ilenocy ?? $ileNocy}}</div></div>
                     <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">{{ ($request->dorosli + $request->dzieci) }}</div></div>
                     <div class="res-description txt-blue mt-3">
                         <a href="apartaments/{{$apartament->descriptions[0]->apartament_link}}">{{ __('messages.change') }}</a>
@@ -59,11 +59,11 @@
                         {{ __('messages.res.paymentDescription') }}
                     </p>
                     <div class="pl-lg-4">
-                        <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for stay') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(200, 2, ',', ' ') }} PLN</span></div></div>
+                        <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for stay') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(200*$ileNocy, 2, ',', ' ') }} PLN</span></div></div>
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
-                        <div class="row mb-3"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format(50, 2, ',', ' ') }} PLN</b></span></div></div>
+                        <div class="row mb-3"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format(200*$ileNocy+150, 2, ',', ' ') }} PLN</b></span></div></div>
                     </div>
                 </div>
                 <div class="col-12 mt-3">
