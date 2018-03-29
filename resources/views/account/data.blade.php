@@ -6,25 +6,23 @@
     <div class="container">
         <div class="row mt-4"><h3><b>Moje dane</b></h3></div>
         <div class="row mt-2"><h4><b>Dane do rezerwacji</b></h4></div>
-        <div class="row">
-            @foreach(json_decode($users_account) as $item)
-            <div class="col-lg-3 col-sm-12 mb-4">
+
+        <div class="row" ng-app="AccountsList" ng-controller="myCtrl">
+            <div class="col-lg-3 col-sm-12 mb-4" ng-repeat="account in Accounts">
                 <div class="data-item-top p-2">
-                    {{ $item->name." ".$item->surname }}
-                    <div id="{{$item->id}}" class="pull-right ml-2 delete"><img src='{{ asset("images/account/trash.png") }}'></div>
-                    <div id="{{$item->id}}" class="pull-right edit"><img src='{{ asset("images/account/pencil.png") }}'></div>
+                    <% account.name %>
+                    <div id="<% account.id %>" class="pull-right ml-2 delete" ng-click="getItems()"><img src='{{ asset("images/account/trash.png") }}'></div>
+                    <div id="<% account.id %>" class="pull-right edit"><img src='{{ asset("images/account/pencil.png") }}'></div>
                 </div>
                 <div class="data-item p-2">
-                    item
+                        tem
                 </div>
             </div>
-            @endforeach
             <div class="col-lg-3 col-sm-12">
                 <div class="data-item" id="data-item-new">
                     <button id="addNew" style="font-size: 18px">+ dodaj nowe</button>
                 </div>
             </div>
-
         </div>
         <div class="row mt-4"><h4><b>Dane konta</b></h4></div>
         <div class="row">
@@ -66,7 +64,7 @@
                 {!! Form::text('surname', '', ['class' => 'required']) !!}
             </div>
         </div>
-        <!--div class="form-group row">
+        <div class="form-group row">
             {!! Form::label('country', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
             <div class="col-sm-9">
                 {!! Form::select('country', array('Polska' => __('Polska'), 'Niemcy' => __('Niemcy')), 'Polska', array('class' => 'col-sm-12 col-lg-3')) !!}
@@ -107,7 +105,7 @@
                 {!! Form::checkbox('wantInvoice') !!}
             </div>
             {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 12px']) !!}
-        </div-->
+        </div>
         <div class="form-group row">
             <div class="col-6">
                 <div id="cancel" style="font-size: 18px">Anuluj</div>
@@ -120,7 +118,36 @@
     </div>
 </div>
 
-</div>
+
+    <script>
+        users_account = '<?php echo $users_account ?>';
+        accounts = JSON.parse(users_account);
+
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script>
+        var app = angular.module("AccountsList", [], function($interpolateProvider) {
+            $interpolateProvider.startSymbol('<%');
+            $interpolateProvider.endSymbol('%>');
+        });
+
+        app.controller("myCtrl", function($scope, $http) {
+            $scope.Accounts = accounts
+
+            $scope.getItems = function() {
+                $http({
+                    url: '/account/data',
+                    method: "GET",
+                }).then(function successCallback(response) {
+                    console.log(response.data);
+                }, function errorCallback(response) {
+                    $scope.error = response.statusText;
+                });
+            }
+
+        });
+
+    </script>
 <script>
     $("#addNew").on('click', function(){
         $("div.add-new-data").css({'display': 'block'});

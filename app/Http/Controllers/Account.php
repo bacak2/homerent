@@ -23,7 +23,7 @@ class Account extends Controller
     {
         $this->middleware('auth');
         $temp = \App::getLocale();
-        $language = DB::table('languages')->select('id')->where('language_code',$temp)->first();
+        $language = DB::table('languages')->select('id', 'language_code')->where('language_code',$temp)->first();
         $this->language = $language;
     }
 
@@ -32,7 +32,7 @@ class Account extends Controller
         $users_account = DB::table('users_account')->where('user_email', Auth::user()->email)->get();
         
         return view('account.data', [
-            'users_account' => $users_account,
+            'users_account' => json_encode($users_account),
         ]);
     }
 
@@ -75,18 +75,32 @@ class Account extends Controller
 
     public function reservations()
     {
-        $users_reservations = DB::table('reservations')
+        $current_data = date("Y-m-d");
+
+        $users_reservations_future = DB::table('reservations')
+            ->select('reservations.*', 'apartaments.apartament_address', 'apartaments.apartament_address_2', 'apartaments.apartament_city', 'apartaments.apartament_district', 'apartament_descriptions.apartament_name', 'apartament_link')
+            ->distinct('id')
             ->leftjoin('apartaments', 'reservations.apartament_id', '=', 'apartaments.id')
             ->leftjoin('apartament_descriptions', 'reservations.apartament_id', '=', 'apartament_descriptions.apartament_id')
             ->where('user_id', Auth::user()->id)
-            ->select('reservations.*', 'apartaments.apartament_address', 'apartaments.apartament_address_2', 'apartaments.apartament_city', 'apartament_descriptions.apartament_name', 'apartament_link')
+            ->where('reservation_arrive_date', '>=', $current_data)
+            ->orderBy('reservation_arrive_date', 'ASC')
+            ->get();
+
+        $users_reservations_gone = DB::table('reservations')
+            ->select('reservations.*', 'apartaments.apartament_address', 'apartaments.apartament_address_2', 'apartaments.apartament_city', 'apartaments.apartament_district', 'apartament_descriptions.apartament_name', 'apartament_link')
             ->distinct('id')
+            ->leftjoin('apartaments', 'reservations.apartament_id', '=', 'apartaments.id')
+            ->leftjoin('apartament_descriptions', 'reservations.apartament_id', '=', 'apartament_descriptions.apartament_id')
+            ->where('user_id', Auth::user()->id)
+            ->where('reservation_arrive_date', '<', $current_data)
             ->orderBy('reservation_arrive_date', 'DESC')
             ->get();
 
-//dd($users_reservations);
         return view('account.myReservations', [
-            'users_reservations' => $users_reservations,
+            'users_reservations_future' => $users_reservations_future,
+            'users_reservations_gone' => $users_reservations_gone,
+            'current_data' => $current_data,
         ]);
     }
 
@@ -104,6 +118,7 @@ class Account extends Controller
         return view('reservation.fourthStep', [
             'apartament' => $apartament,
             'reservation' => $reservation,
+            'language' => $this->language->language_code,
         ]);
 
     }

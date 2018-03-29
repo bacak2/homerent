@@ -143,7 +143,8 @@ class Reservations extends Controller
             'reservation_arrive_time' => $request->godzinaPrzyjazdu,
             'reservation_advance' => $request->zal,
             'reservation_payment' => $request->allNow,
-            'reservation_status' => 0
+            'reservation_status' => 0,
+            'created_at' => date('Y-m-d')
         );
 
         if($request->zal == 2 || $request->allNow == 2) {

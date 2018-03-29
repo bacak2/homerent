@@ -378,6 +378,10 @@ img.active{
 	margin-bottom: -5px;
 }
 
+.btn-black{
+	background-color: black !important;
+}
+
 select {
 	height:20px;
 	font-size: 12px;
@@ -751,6 +755,44 @@ div.contact-item{
 .minH-90{
 	min-height: 90px;
 	border-top: solid #7DA0B1 1px ;
+}
+
+div.edit, div.delete{
+	cursor: pointer;
+}
+#search-reservation{
+	height: 32px;
+	margin-right: 10px;
+}
+
+.font-11{
+	font-size: 11px;
+}
+
+.date-div div{
+	border: black solid 1px;
+	width: 44px
+}
+
+.date-div div:nth-child(1){
+	padding: 5px;
+	color: black;
+	font-size: 22px;
+	font-weight: bold;
+	text-align: justify;
+	-moz-text-align-last: center;
+	text-align-last: center;
+	background-color: white;
+}
+
+.date-div div:nth-child(2){
+	padding: 1px;
+	color: white;
+	font-size: 14px;
+	text-align: justify;
+	-moz-text-align-last: center;
+	text-align-last: center;
+	background-color: black;
 }
 
 @media (min-width: 768px) {

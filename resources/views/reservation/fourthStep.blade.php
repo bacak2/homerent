@@ -146,7 +146,7 @@
             <div class="row mb-3 fs12"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>50,00 PLN</b></span></div></div>
         </div>
         <div class="col-lg-4 col-sm-12">
-            <h4 class="mb-3"><b>Usługi dodatkowe</b></h4>
+            <h4 class="mb-3"><b>Wskazówki dojazdu</b></h4>
             <div id="wskazowki"></div>
         </div>
     </div>
