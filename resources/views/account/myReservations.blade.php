@@ -68,10 +68,15 @@
             <div class="row">200PLN</div>
         </div>
         <div class="col-lg-2 col-12">
-            <a class="btn btn-black" href="tel:+48713333222"><img src="{{ asset("images/account/phone.png") }}"></a>
+            <a class="btn btn-black" href="tel:713333222"><img src="{{ asset("images/account/phone.png") }}"></a>
             <a class="btn btn-black" href="mailto:ja@ja.pl"><img src="{{ asset("images/account/envelope.png") }}"></a>
-            <a href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a>
-            <a href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
+            <div class="more row">
+                <div class="btn-toggle col-1" style="height: 100%"> <i style="font-size:16px; font-weight: bold" class="fa">&#xf100;</i></div>
+                <div class="col-1" style="display: none">
+                    <a href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a><br>
+                    <a href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -109,14 +114,31 @@
                 <div class="row font-11">Do zapłaty:</div>
                 <div class="row">200PLN</div>
             </div>
-            <div class="col-lg-1 col-4">
-                <a href="#">Oceń</a>
-            </div>
-            <div class="col-lg-1 col-4">
-                <a href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a>
-                <a href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
+            <div class="col-lg-2 col-4">
+                <button class="btn btn-black">Oceń</button>
+                <div class="more row">
+                    <div class="btn-toggle col-1" style="height: 100%"> <i style="font-size:16px; font-weight: bold" class="fa">&#xf100;</i></div>
+                    <div class="col-1" style="display: none">
+                        <a href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a><br>
+                        <a href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
+                    </div>
+                </div>
             </div>
         </div>
     @endforeach
 </div>
+
+<script>
+
+    $("div.btn-toggle").click(function() {
+        $(this).siblings().toggle();
+        if($(this).siblings().is(":visible")){
+            $(this).html('<i style="font-size:16px; font-weight: bold" class="fa">&#xf101;</i>');
+        }
+        else {
+            $(this).html('<i style="font-size:16px; font-weight: bold" class="fa">&#xf100;</i>');
+        }
+    });
+
+</script>
 @endsection
