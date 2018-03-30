@@ -76,7 +76,7 @@ function()
 			'as' => 'account.reservationDetail'
 		]);
 
-		Route::GET('/add','Account@add');
+		Route::GET('/save','Account@save');
 		
 		Route::GET('/refreshView','Account@refreshView');
 		

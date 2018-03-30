@@ -43,24 +43,34 @@ class Account extends Controller
         return response(json_encode($usersAccount));
     }
     
-    public function add(Request $request)
+    public function save(Request $request)
     {
-        $email = $request->input('email');
+        if ($request->input('id') != 0){
+            DB::table('users_account')
+                ->where('id', $request->input('id'))
+                ->where('user_email', $request->input('email'))
+                ->update([
+                    'name' => $request->input('name')
+                ]);
+        }
 
-        $dataSet[] = [
-            'name'  => $request->input('name'),
-            'user_email' => $request->input('email'),
-        ];
+        else {
+            $dataSet[] = [
+                'name'  => $request->input('name'),
+                'user_email' => $request->input('email'),
+            ];
 
-        DB::table('users_account')->insert($dataSet);
+            DB::table('users_account')->insert($dataSet);
+        }
+
 
         return response()->json([
-            'res' => $email,
+            'res' => $request->input('id'),
         ]);
     }
 
     public function editItem($id){
-        $userAccount = DB::table('users_account')->select('name', 'surname')->where('id', $id)->get();
+        $userAccount = DB::table('users_account')->select('id', 'name', 'surname')->where('id', $id)->get();
 
         return response(json_encode($userAccount));
     }    

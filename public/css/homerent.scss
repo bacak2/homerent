@@ -1,5 +1,5 @@
 $desktop: "(min-width: 768px)";
-$dataItemHeight: 224px;
+$dataItemHeight: 250px;
 $dataItemTopHeight: 40px;
  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 
@@ -403,6 +403,7 @@ select {
 
 .dropdown-menu{
 	font-size: 10pt;
+	z-index: 1100;
 }
 
 .dropdown-menu p{
@@ -744,15 +745,6 @@ div.contact-item{
 	}
 }
 
-.add-new-data{
-	position: fixed;
-	top: 5%;
-	left: 15%;
-	width: 1000px;
-	border: solid black 1px;
-	background-color: #fff;
-}
-
 .minH-90{
 	min-height: 90px;
 	border-top: solid #7DA0B1 1px ;
@@ -796,13 +788,18 @@ div.edit, div.delete{
 	background-color: black;
 }
 
-div.more{
+div.more.row{
 	height: 100%;
 	position: absolute;
 	top: 0;
 	right: 14px;
 	z-index: 1000;
 	background-color: #e8e8e8;
+	div{
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+	}
 }
 
 .btn-toggle{
@@ -813,6 +810,21 @@ div.more{
 		top: 40%;
 		left: 0;
 	}
+}
+
+div#cancel, div#save, div#cancel-data-added{
+	cursor: pointer;
+}
+
+#data-added{
+	position: fixed;
+	top: 5%;
+	left: 50%;
+	top: 30%;
+	transform: translate(-50%, -50%);
+	width: 320px;
+	border: solid black 1px;
+	background-color: #fff;
 }
 
 @media (min-width: 768px) {
@@ -844,6 +856,16 @@ div.more{
 		#Rpath{
 			order: 2;
 		}
+	}
+
+	.add-new-data{
+		position: fixed;
+		top: 5%;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 1000px;
+		border: solid black 1px;
+		background-color: #fff;
 	}
 }
 
@@ -883,6 +905,19 @@ div.more{
 		label{
 			font-size: 12px;
 		}
+	}
+
+	.add-new-data{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		border: solid black 1px;
+		background-color: #fff;
+	}
+
+	#data-added{
+		width: 100%;
 	}
 }
 
