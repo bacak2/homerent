@@ -8,8 +8,8 @@
         <div class="col-lg-3 col-12"><h3><b>Rezerwacje</b></h3></div>
         <div class="col-lg-3 col-12 inline-wrapper text-right">
             <div class="btn-group pull-left">
-                <a class="btn btn-mobile btn-selected" href="">{{__('Data przyjazdu')}}</a>
-                <a class="btn btn-mobile btn-info" href="{{url()->current()}}/sort">{{__('Data rezerwacji')}}</a>
+                <a class="btn btn-mobile btn-selected" href="{{ route('myReservations')}}">{{__('Data przyjazdu')}}</a>
+                <a class="btn btn-mobile btn-info" href="{{url()->current()}}?sort=reservation">{{__('Data rezerwacji')}}</a>
             </div></div>
         <div class="col-lg-5 col-12">
             <input class="col-lg-6 col-5" id="search-reservation" type="text" style="width: 100%; font-size: 10px" placeholder="np: nr rezerwacji, nazwa/adres obiektu">
@@ -115,7 +115,7 @@
                 <div class="row">200PLN</div>
             </div>
             <div class="col-lg-2 col-4">
-                <button class="btn btn-black">Oceń</button>
+                <a class="btn btn-black" href="{{ route('account.opinion',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Oceń</a>
                 <div class="more row">
                     <div class="btn-toggle col-1" style="height: 100%"> <i style="font-size:16px; font-weight: bold" class="fa">&#xf100;</i></div>
                     <div class="col-1" style="display: none;">

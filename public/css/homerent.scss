@@ -762,6 +762,10 @@ div.edit, div.delete{
 	font-size: 11px;
 }
 
+.font-12{
+	font-size: 12px;
+}
+
 .date-div div{
 	border: black solid 1px;
 	width: 44px
@@ -825,6 +829,22 @@ div#cancel, div#save, div#cancel-data-added{
 	width: 320px;
 	border: solid black 1px;
 	background-color: #fff;
+}
+
+#opinion-box{
+	border: black solid 1px;
+	padding: 20px;
+}
+
+rating-row{
+	input, label {
+		display:block;
+		margin-left: 18px;
+	}
+	div.rating-item{
+		float:left;
+		margin-right:10px;
+	}
 }
 
 @media (min-width: 768px) {

@@ -101,6 +101,17 @@
         </div>
     </div>
 
+@if(strtotime($reservation[0]->reservation_departure_date) < strtotime(date("Y-m-d")))
+    <h4 class="my-4"><b>Ocena</b></h4>
+    <div class="row mb-5">
+        <div class="col-2"><a class="btn btn-black" href="{{url()->current()}}/opinion" style="width: 100%">Oceń teraz</a></div>
+        <div class="col-10">
+            <div class="row mb-2 font-12">Twoja ocena i opinia pomogą wybierać innym w przyszłości.</div>
+            <div class="row font-12">A dodatkowo zyskujesz 5% rabatu lub 50 pln zniżki na kolejną rezerwację.</div>
+        </div>
+    </div>
+@endif
+
     <div class="row mt-4">
         <div class="col-lg-4 col-sm-12">
             <h4 class="mb-3"><b>Apartament</b></h4>

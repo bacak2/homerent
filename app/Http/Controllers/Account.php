@@ -85,6 +85,7 @@ class Account extends Controller
 
     public function reservations()
     {
+
         $current_data = date("Y-m-d");
 
         $users_reservations_future = DB::table('reservations')
@@ -131,6 +132,24 @@ class Account extends Controller
             'language' => $this->language->language_code,
         ]);
 
+    }
+
+    public function reservationOpinion($idAparment, $idReservation){
+
+        $id = $idAparment;
+
+        $apartament = Apartament::with(array('descriptions' => function($query)
+        {
+            $query->where('language_id', $this->language->id);
+        }))->find($id);
+
+        $reservation = DB::table('reservations')->where('id', $idReservation)->get();
+
+        return view('account.opinion', [
+            'apartament' => $apartament,
+            'reservation' => $reservation,
+            'language' => $this->language->language_code,
+            ]);
     }
 
     public function favourites()

@@ -76,6 +76,11 @@ function()
 			'as' => 'account.reservationDetail'
 		]);
 
+		Route::GET('/my-reservations/{idAparment}/{idReservation}/opinion', [
+			'uses' => 'Account@reservationOpinion',
+			'as' => 'account.opinion'
+		]);
+
 		Route::GET('/save','Account@save');
 		
 		Route::GET('/refreshView','Account@refreshView');
