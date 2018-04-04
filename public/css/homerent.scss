@@ -816,11 +816,11 @@ div.more.row{
 	}
 }
 
-div#cancel, div#save, div#cancel-data-added{
+div#cancel, div#save, div#cancel-data-added, div#confirm-delete, div#cancel-delete {
 	cursor: pointer;
 }
 
-#data-added{
+#data-added, #confirm-delete-pop{
 	position: fixed;
 	top: 5%;
 	left: 50%;

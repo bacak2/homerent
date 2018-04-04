@@ -160,6 +160,7 @@ return [
 	'Postcode' => 'Kod pocztowy',
 	'Place' => 'Miejscowość',
 	'Cellphone number' => 'Telefon komórkowy',
+	'Cellphone' => 'Telefon',
 	'Password' => 'Hasło',
 	'Repeat password' => 'Powtórz hasło',
 	'Book and pay online' => 'Rezerwuj i opłać online',
@@ -190,4 +191,6 @@ return [
 	'Animals' => 'Zwierzęta',
 	'Other' => 'Inne',
 	'Company name' => 'Nazwa firmy',
+    'Name' => 'Imię',
+    'Surname' => 'Nazwisko',
 ];

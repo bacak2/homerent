@@ -48,16 +48,28 @@ class Account extends Controller
         if ($request->input('id') != 0){
             DB::table('users_account')
                 ->where('id', $request->input('id'))
-                ->where('user_email', $request->input('email'))
+                ->where('user_email', $request->input('user_email'))
                 ->update([
-                    'name' => $request->input('name')
+                    'name' => $request->input('name'),
+                    'surname' => $request->input('surname'),
+                    'address' => $request->input('address'),
+                    'postcode' => $request->input('postcode'),
+                    'place' => $request->input('place'),
+                    'phone' => $request->input('phone'),
+                    'email' => $request->input('email'),
                 ]);
         }
 
         else {
             $dataSet[] = [
                 'name'  => $request->input('name'),
-                'user_email' => $request->input('email'),
+                'surname' => $request->input('surname'),
+                'address' => $request->input('address'),
+                'postcode' => $request->input('postcode'),
+                'place' => $request->input('place'),
+                'phone' => $request->input('phone'),
+                'email' => $request->input('email'),
+                'user_email' => $request->input('user_email'),
             ];
 
             DB::table('users_account')->insert($dataSet);

@@ -22,6 +22,28 @@
             {!! Form::hidden('dzieci', $request->dzieci) !!}
             {!! Form::hidden('wiadomoscDodatkowa', $request->wiadomoscDodatkowa) !!}
             {!! Form::hidden('id', $request->id) !!}
+            @auth
+            <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#1zakladka" role="tab" data-toggle="tab">Active</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#2zakladka" role="tab" data-toggle="tab">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#3zakladka" role="tab" data-toggle="tab">Link</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="#4zakladka" role="tab" data-toggle="tab">Disabled</a>
+                    </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="1zakladka">Zawartość pierwszej zakładki</div>
+                <div class="tab-pane" id="2zakladka">Zawartość drugiej zakładki</div>
+                <div class="tab-pane" id="3zakladka">Zawartość trzeciej zakładki</div>
+                <div class="tab-pane" id="4zakladka">Zawartość czwartej zakładki</div>
+            </div>
+            @endauth
             <div class="form-group row">
                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
                 <div class="col-sm-9">

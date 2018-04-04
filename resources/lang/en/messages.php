@@ -161,6 +161,7 @@ return [
 	'Postcode' => 'Postcode',
 	'Place' => 'Place',
 	'Cellphone number' => 'Cellphone number',
+	'Cellphone' => 'Cellphone',
 	'Password' => 'Password',
 	'Repeat password' => 'Repeat password',
 	'Book and pay online' => 'Book and pay online',
@@ -191,4 +192,6 @@ return [
 	'Animals' => 'Animals',
 	'Other' => 'Other',
 	'Company name' => 'Company name',
+    'Name' => 'Name',
+    'Surname' => 'Surname',
 ];
