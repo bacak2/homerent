@@ -192,6 +192,14 @@
         <div class="btn btn-black" id="cancel-data-added" style="width: 100%; font-size: 18px">Zamknij</div>
     </div>
 </div>
+<div id="confirm-delete-pop" style="display: none">
+    <h4 class="p-3"><b>Czy na pewno chcesz usunąć element?</b></h4>
+    <div class="px-3">Operacja jest nieodwracalna</div>
+    <div class="col-12 mb-4 mt-2">
+        <div class="btn btn-black" id="confirm-delete" style="width: 100%; font-size: 18px">Potwierdź usunięcie</div>
+        <div class="btn" id="cancel-delete" style="font-size: 18px">Anuluj</div>
+    </div>
+</div>
 </span>
 
 <script>
@@ -285,6 +293,7 @@
 <script>
     $("#addNew").on('click', function(){
         $("div.add-new-data").css({'display': 'block'});
+        $('input').val('');
     });
 
     $("#cancel").on('click', function(){

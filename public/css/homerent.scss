@@ -836,17 +836,49 @@ div#cancel, div#save, div#cancel-data-added{
 	padding: 20px;
 }
 
-rating-row{
+.rating-row{
+    width: 800px !important;
 	input, label {
 		display:block;
-		margin-left: 18px;
-	}
-	div.rating-item{
-		float:left;
-		margin-right:10px;
 	}
 }
 
+div.rating-item{
+	width: 40px;
+	float:left;
+	label{
+		margin-left: 14px;
+	}
+}
+
+div.rating-item-description{
+    position: relative;
+    span{
+      position: absolute;
+      bottom: 15%;
+    }
+}
+
+.opinion-rItem{
+	background-color: grey;
+	border: black solid 1px;
+}
+
+.input-none {
+	width: 900px;
+	img{
+		margin-right: 5px;
+	}
+	div.rItem{
+		margin-right: 5px;
+	}
+	label{
+		cursor: pointer;
+	}
+	input {
+		display: none;
+	}
+}
 @media (min-width: 768px) {
 	.desktop-hidden{
 		visibility: hidden !important;
