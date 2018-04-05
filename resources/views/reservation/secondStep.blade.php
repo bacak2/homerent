@@ -24,26 +24,43 @@
             {!! Form::hidden('id', $request->id) !!}
             @auth
             <ul class="nav nav-tabs">
+                @foreach($accountData as $data)
                     <li class="nav-item">
-                        <a class="nav-link active" href="#1zakladka" role="tab" data-toggle="tab">Active</a>
+                        <a class="nav-link @if ($loop->first) active @endif" href="#{{ $data->id }}" role="tab" data-toggle="tab"  onclick="loggedFormData()">{{ $data->label }}</a>
                     </li>
+                @endforeach
                     <li class="nav-item">
-                        <a class="nav-link" href="#2zakladka" role="tab" data-toggle="tab">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#3zakladka" role="tab" data-toggle="tab">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="#4zakladka" role="tab" data-toggle="tab">Disabled</a>
+                        <a class="nav-link" href="#addNew" role="tab" data-toggle="tab">+</a>
                     </li>
             </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="1zakladka">Zawartość pierwszej zakładki</div>
-                <div class="tab-pane" id="2zakladka">Zawartość drugiej zakładki</div>
-                <div class="tab-pane" id="3zakladka">Zawartość trzeciej zakładki</div>
-                <div class="tab-pane" id="4zakladka">Zawartość czwartej zakładki</div>
-            </div>
+                <div class="tab-content pt-4">
+                    @foreach($accountData as $data)
+                        <div class="tab-pane @if ($loop->first) active @endif" id="{{ $data->id }}">
+                            <div class="mb-2">{{ $data->title }} <span class="pull-right"><a href="#">Zmień</a>|<a href="#">Usuń dane</a></span></div>
+                            <div>{{ $data->name }} {{ $data->surname }}</div>
+                            <div>{{ $data->address }}</div>
+                            <div>{{ $data->postcode }} {{ $data->place }}</div>
+                            <div class="mb-2">{{ $data->country }}</div>
+                            <div>Faktura na:</div>
+                            <div>{{ $data->name }} {{ $data->surname }}</div>
+                            <div>{{ $data->address }}</div>
+                            <div>{{ $data->postcode }} {{ $data->place }}</div>
+                            <div class="mt-2">{{ $data->phone }}</div>
+                            <div>{{ $data->email }}</div>
+                            <div class="form-group row">
+                                {!! Form::label('address', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('address', $data->address, ['class' => 'required full-width']) !!}
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                        <div class="tab-pane" id="addNew">
+                            add new
+                        </div>
+                </div>
             @endauth
+            @guest
             <div class="form-group row">
                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
                 <div class="col-sm-9">
@@ -53,7 +70,7 @@
             <div class="form-group row">
                 {!! Form::label('name and surname', __('messages.Name and surname'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('name and surname', $request->name.' '.$request->surname, ['class' => 'required']) !!}
+                    {!! Form::text('name and surname', $request->name.' '.$request->surname, ['class' => 'required full-width']) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -65,31 +82,31 @@
             <div class="form-group row">
                 {!! Form::label('address', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('address', '', ['class' => 'required']) !!}
+                    {!! Form::text('address', '', ['class' => 'required full-width']) !!}
                 </div>
             </div>
             <div class="form-group row">
                 {!! Form::label('postcode', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('postcode', '', array('class' => 'required not-full-with col-sm-12 col-lg-6')) !!}
+                    {!! Form::text('postcode', '', array('class' => 'required not-full-width col-sm-12 col-lg-6')) !!}
                 </div>
             </div>
             <div class="form-group row">
                 {!! Form::label('place', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('place', '', ['class' => 'required']) !!}
+                    {!! Form::text('place', '', ['class' => 'required full-width']) !!}
                 </div>
             </div>
             <div class="form-group row">
                 {!! Form::label('phone', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('phone', '', ['class' => 'required']) !!}
+                    {!! Form::text('phone', '', ['class' => 'required full-width']) !!}
                 </div>
             </div>
             <div class="form-group row">
                 {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::email('email', $request->email, ['class' => 'required']) !!}
+                    {!! Form::email('email', $request->email, ['class' => 'required full-width']) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -103,35 +120,34 @@
                 <div class="form-group row">
                     {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
                     <div class="col-sm-9">
-                        {!! Form::text('address_invoice', '', ['class' => '']) !!}
+                        {!! Form::text('address_invoice', '', ['class' => 'full-width']) !!}
                     </div>
                 </div>
                 <div class="form-group row">
                     {!! Form::label('postcode_invoice', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
                     <div class="col-sm-9">
-                        {!! Form::text('postcode_invoice', '', array('class' => 'not-full-with col-sm-12 col-lg-6')) !!}
+                        {!! Form::text('postcode_invoice', '', array('class' => 'not-full-width col-sm-12 col-lg-6')) !!}
                     </div>
                 </div>
                 <div class="form-group row">
                     {!! Form::label('place_invoice', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
                     <div class="col-sm-9">
-                        {!! Form::text('place_invoice', '', ['class' => '']) !!}
+                        {!! Form::text('place_invoice', '', ['class' => 'full-width']) !!}
                     </div>
                 </div>
                 <div class="form-group row">
                     {!! Form::label('company_name', __('messages.Company name'), array('class' => 'col-sm-3 col-form-label')) !!}
                                     <div class="col-sm-9">
-                        {!! Form::text('company_name', '', ['class' => '']) !!}
+                        {!! Form::text('company_name', '', ['class' => 'full-width']) !!}
                     </div>
                 </div>
                 <div class="form-group row">
                     {!! Form::label('nip', __('NIP'), array('class' => 'col-sm-3 col-form-label')) !!}
                     <div class="col-sm-9">
-                        {!! Form::text('nip', '', ['class' => '']) !!}
+                        {!! Form::text('nip', '', ['class' => 'full-width']) !!}
                     </div>
                 </div>
             </span>
-            @guest
             <div class="form-group row">
                 <div class="offset-sm-3">
                     <input id="dontWantAccount" name="dontWantAccount" type="checkbox">
@@ -142,7 +158,7 @@
                 <div class="form-group row">
                     {!! Form::label('password', __('messages.Password'), array('class' => 'col-sm-3 col-form-label')) !!}
                     <div class="col-sm-6">
-                        {!! Form::password('password', ['class' => 'required']) !!}
+                        {!! Form::password('password', ['class' => 'required full-width']) !!}
                     </div>
                     <div class="col-sm-3">
                         {{ __('messages.Password strength') }}: <div class="figure" id="strength_score">0%</div>
@@ -151,7 +167,7 @@
                 <div class="form-group row">
                     {!! Form::label('password2', __('messages.Repeat password'), array('class' => 'col-sm-3 col-form-label')) !!}
                     <div class="col-sm-6">
-                        {!! Form::password('password2', ['class' => 'required']) !!}
+                        {!! Form::password('password2', ['class' => 'required full-width']) !!}
                     </div>
                 </div>
                 <div class="form-group row">
@@ -159,8 +175,74 @@
                 </div>
             </span>
             @endguest
+            <div class="row mt-5">
+                <div class="col-lg-12 col-sm-12">
+                    <h4><b>{{ __('messages.Message for the owner') }}</b></h4>
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-3">
+                            {{ __('messages.Expected time') }}:
+                            <input id="godzinaPrzyjazdu" name="godzinaPrzyjazdu" class="slider-time" style="width: 60px; margin-bottom: 20px">
+                        </div>
+                        <div class="col-lg-8 col-sm-6 col-lg-offset-3">
+                            <div id="time-range">
+                                <div class="sliders_step1">
+                                    <div id="slider-range"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 not-full-width">
+                <div class="col-lg-12 col-sm-12 pb-3 mb-3" style="border-bottom: dashed">
+                    <h4><b>{{ __('messages.Method of payment') }}</b></h4>
+                    <div class="row reservation-payment-method pt-2 pb-4 mb-3">
+                        <div class="col-lg-3 col-sm-9">
+                            <b>{{ __('messages.Advance') }}</b>
+                        </div>
+                        <div class="col-lg-3 col-sm-12">
+                            <input id="zalNow" name="zal" value="1" type="radio">
+                            <label for="zalNow" class="reservation">{{ __('messages.payment booking immediately') }}</label>
+                        </div>
+                        <div class="col-lg-3 col-sm-12">
+                            <input id="zalNow2" name="zal" value="2" type="radio">
+                            <label for="zalNow2" class="reservation">{{ __('messages.payment booking initial') }}</label>
+                        </div>
+                        <div class="col-lg-3 col-sm-3 pt-2" align="right">
+                            <b>100,00 PLN</b>
+                        </div>
+                    </div>
+                    <div class="row reservation-payment-method pt-2 pb-4">
+                        <div class="col-lg-3 col-sm-9">
+                            <b>{{ __('messages.Total cost') }}</b>
+                        </div>
+                        <div class="col-lg-3 col-sm-12">
+                            <input id="allNow" name="allNow" value="1" type="radio">
+                            <label for="allNow" class="reservation">{{ __('messages.payment booking immediately') }}</label>
+                        </div>
+                        <div class="col-lg-3 col-sm-12">
+                            <input id="allNow2" name="allNow" value="2" type="radio">
+                            <label for="allNow2" class="reservation">{{ __('messages.payment booking initial') }}</label>
+                        </div>
+                        <div class="col-lg-3 col-sm-3 pt-2" align="right">
+                            <b>380,00 PLN</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-sm-12 pb-3 mb-3">
+                    <div class="row mb-4">
+                        <input id="accept1" name="accept1" type="checkbox" class="required">
+                        <label for="accept1" class="inline-label">{{ __('messages.I accept the terms of use') }} Homent</label>
+                    </div>
+                    <div class="row mb-4">
+                        <input id="accept2" name="accept2" type="checkbox">
+                        <label for="accept2" class="inline-label">{{ __('messages.I would like to receive information about promotions from') }} Homent</label>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-4 mobile-none mt-3">
+        <div id="stickyheader" class="mobile-none mt-3">
             <div class="reservation-item p-3">
                 <div class="row ">
                     <div class="col-4">
@@ -194,72 +276,7 @@
         </div>
     </div>
 
-    <div class="row mt-5">
-        <div class="col-lg-7 col-sm-12">
-            <h4><b>{{ __('messages.Message for the owner') }}</b></h4>
-            <div class="row">
-                <div class="col-lg-12 col-sm-3">
-                    {{ __('messages.Expected time') }}:
-                    <input id="godzinaPrzyjazdu" name="godzinaPrzyjazdu" class="slider-time" style="width: 60px; margin-bottom: 20px">
-                </div>
-                <div class="col-lg-8 col-sm-6 col-lg-offset-3">
-                    <div id="time-range">
-                        <div class="sliders_step1">
-                            <div id="slider-range"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="row mt-5">
-        <div class="col-lg-7 col-sm-12 pb-3 mb-3" style="border-bottom: dashed">
-            <h4><b>{{ __('messages.Method of payment') }}</b></h4>
-            <div class="row reservation-payment-method pt-2 pb-4 mb-3">
-                <div class="col-lg-3 col-sm-9">
-                    <b>{{ __('messages.Advance') }}</b>
-                </div>
-                <div class="col-lg-3 col-sm-12">
-                    <input id="zalNow" name="zal" value="1" type="radio">
-                    <label for="zalNow" class="reservation">{{ __('messages.payment booking immediately') }}</label>
-                </div>
-                <div class="col-lg-3 col-sm-12">
-                    <input id="zalNow2" name="zal" value="2" type="radio">
-                    <label for="zalNow2" class="reservation">{{ __('messages.payment booking initial') }}</label>
-                </div>
-                <div class="col-lg-3 col-sm-3 pt-2" align="right">
-                    <b>100,00 PLN</b>
-                </div>
-            </div>
-            <div class="row reservation-payment-method pt-2 pb-4">
-                <div class="col-lg-3 col-sm-9">
-                    <b>{{ __('messages.Total cost') }}</b>
-                </div>
-                <div class="col-lg-3 col-sm-12">
-                    <input id="allNow" name="allNow" value="1" type="radio">
-                    <label for="allNow" class="reservation">{{ __('messages.payment booking immediately') }}</label>
-                </div>
-                <div class="col-lg-3 col-sm-12">
-                    <input id="allNow2" name="allNow" value="2" type="radio">
-                    <label for="allNow2" class="reservation">{{ __('messages.payment booking initial') }}</label>
-                </div>
-                <div class="col-lg-3 col-sm-3 pt-2" align="right">
-                    <b>380,00 PLN</b>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-7 col-sm-12 pb-3 mb-3">
-            <div class="row mb-4">
-                <input id="accept1" name="accept1" type="checkbox" class="required">
-                <label for="accept1" class="inline-label">{{ __('messages.I accept the terms of use') }} Homent</label>
-            </div>
-            <div class="row mb-4">
-                <input id="accept2" name="accept2" type="checkbox">
-                <label for="accept2" class="inline-label">{{ __('messages.I would like to receive information about promotions from') }} Homent</label>
-            </div>
-        </div>
-    </div>
 
 </div>
 
@@ -408,5 +425,29 @@
             });
         });
 
+        $(function(){
+            // Check the initial Poistion of the Sticky Header
+            var stickyHeaderTop = $('#stickyheader').offset().top;
+            var stickyHeaderRight = $('#stickyheader').offset().left;
+
+            $(window).scroll(function(){
+                if( $(window).scrollTop() > stickyHeaderTop ) {
+                    $('#stickyheader').css({position: 'fixed', top: '0px', left: stickyHeaderRight});
+                } else {
+                    $('#stickyheader').css({position: 'static', top: '0px', left: stickyHeaderRight});
+                }
+            });
+        });
+
+        /*$(function(){
+            $('li.nav-item:first-child a.nav-link').click();
+        });
+*/
+        function loggedFormData(){
+            $('div.tab-pane:not(.active) .form-group').css('display', 'block');
+            $('div.tab-pane:not(.active) input').attr("disabled", false);
+            $('div.tab-pane.active .form-group').css('display', 'none');
+            $('div.tab-pane.active input').attr("disabled", true);
+        }
 </script>
 @endsection()

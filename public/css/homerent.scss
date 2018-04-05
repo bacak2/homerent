@@ -614,8 +614,9 @@ a.next-notAv:hover{
 }
 
 .reservation-item{
+    z-index: 1000;
 	border: solid black 1px;
-	background-color: rgba(65, 64, 62, 0.13);
+	background-color: rgb(235, 234, 231);
 }
 
 .reservation-payment-method{
@@ -688,7 +689,7 @@ label.inline-label{
 }
 
 .form-full-width{
-	input:not(.not-full-with){
+	input.full-width{
 		width: 100%;
 	}
 }

@@ -61,70 +61,70 @@
             {!! Form::hidden('id', '0', ['id'=>'id', 'ng-model' => 'id']) !!}
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('name', '', ['id'=>'name', 'class' => 'required', 'ng-model' => "name", 'placeholder' => __('messages.Name')]) !!}
+                    {!! Form::text('name', '', ['id'=>'name', 'class' => 'required full-width ', 'ng-model' => "name", 'placeholder' => __('messages.Name')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('surname', '', ['id'=>'surname', 'class' => 'required', 'ng-model' => "surname", 'placeholder' => __('messages.Surname')]) !!}
+                    {!! Form::text('surname', '', ['id'=>'surname', 'class' => 'required full-width', 'ng-model' => "surname", 'placeholder' => __('messages.Surname')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('address', '', ['id'=>'address', 'class' => 'required', 'ng-model' => "address", 'placeholder' => __('messages.Address')]) !!}
+                    {!! Form::text('address', '', ['id'=>'address', 'class' => 'required full-width', 'ng-model' => "address", 'placeholder' => __('messages.Address')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('postcode', '', ['id'=>'postcode', 'class' => 'required', 'ng-model' => "postcode", 'placeholder' => __('messages.Postcode')]) !!}
+                    {!! Form::text('postcode', '', ['id'=>'postcode', 'class' => 'required full-width', 'ng-model' => "postcode", 'placeholder' => __('messages.Postcode')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('place', '', ['id'=>'place', 'class' => 'required', 'ng-model' => "place", 'placeholder' => __('messages.Place')]) !!}
+                    {!! Form::text('place', '', ['id'=>'place', 'class' => 'required full-width', 'ng-model' => "place", 'placeholder' => __('messages.Place')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('email', '', ['id'=>'email', 'class' => 'required', 'ng-model' => "email", 'placeholder' => __('Email')]) !!}
+                    {!! Form::text('email', '', ['id'=>'email', 'class' => 'required full-width', 'ng-model' => "email", 'placeholder' => __('Email')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('phone', '', ['id'=>'phone', 'class' => 'required', 'ng-model' => "phone", 'placeholder' => __('messages.Cellphone')]) !!}
+                    {!! Form::text('phone', '', ['id'=>'phone', 'class' => 'required full-width', 'ng-model' => "phone", 'placeholder' => __('messages.Cellphone')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="offset-sm-3">
-                    {!! Form::checkbox('wantInvoice') !!}
+                    {!! Form::checkbox('otherDataForInvoice', '', ['id'=>'otherDataForInvoice']) !!}
                 </div>
-                {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 12px']) !!}
+                {!! Form::label('otherDataForInvoice', __('messages.Other data for invoice'), ['style'=>'font-size: 12px']) !!}
             </div>
         </div>
         <div class="col-lg-6 col-sm-12 pr-lg-5 form-full-width">
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('name', '', ['class' => 'required', 'ng-model' => "name", 'placeholder' => __('messages.Name')]) !!}
+                    {!! Form::text('name', '', ['class' => 'required full-width', 'ng-model' => "name", 'placeholder' => __('messages.Name')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('surname', '', ['class' => 'required', 'ng-model' => "surname", 'placeholder' => __('messages.Surname')]) !!}
+                    {!! Form::text('surname', '', ['class' => 'required full-width', 'ng-model' => "surname", 'placeholder' => __('messages.Surname')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('address', '', ['class' => 'required', 'ng-model' => "surname", 'placeholder' => __('messages.Address')]) !!}
+                    {!! Form::text('address', '', ['class' => 'required full-width', 'ng-model' => "surname", 'placeholder' => __('messages.Address')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('postcode', '', ['class' => 'required', 'ng-model' => "surname", 'placeholder' => __('messages.Postcode')]) !!}
+                    {!! Form::text('postcode', '', ['class' => 'required full-width', 'ng-model' => "surname", 'placeholder' => __('messages.Postcode')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('place', '', ['class' => 'required', 'ng-model' => "surname", 'placeholder' => __('messages.Place')]) !!}
+                    {!! Form::text('place', '', ['class' => 'required full-width', 'ng-model' => "surname", 'placeholder' => __('messages.Place')]) !!}
                 </div>
             </div>
         </div>
@@ -152,7 +152,7 @@
 </div>
 
 <div id="confirm-delete-pop" style="display: none">
-    <h4 class="p-3"><b>Czy na pewno chcesz usunąć element?</b></h4>
+    <h4 class="p-3"><b>Czy na pewno chcesz usunąć dane?</b></h4>
     <div class="px-3">Operacja jest nieodwracalna</div>
     <div class="col-12 mb-4 mt-2">
         <div class="btn btn-black" id="confirm-delete" ng-click="deleteItem(toDelete)" style="width: 100%; font-size: 18px">Potwierdź</div>

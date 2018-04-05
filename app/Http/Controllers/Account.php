@@ -38,7 +38,7 @@ class Account extends Controller
 
     public function refreshView()
     {
-        $usersAccount = DB::table('users_account')->get();
+        $usersAccount = DB::table('users_account')->where('user_email', Auth::user()->email)->get();
 
         return response(json_encode($usersAccount));
     }

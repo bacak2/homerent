@@ -79,6 +79,13 @@ class Reservations extends Controller
 
     public function secondStep(Request $request){
 
+        if(Auth::user()){
+            $accountData = DB::table('users_account')->where('user_email', Auth::user()->email)->get();
+        }
+        else{
+            $accountData = 0;
+        }
+
         $link = $request->link;
         //Find id of an apartment with $link passed to controller
         $linktoid = DB::table('apartament_descriptions')
@@ -106,11 +113,13 @@ class Reservations extends Controller
         //suma wszystkich łóżek
         $beds = $apartament->apartament_single_beds+$apartament->apartament_double_beds;
 
-        return view('reservation.secondStep', ['apartament' => $apartament,
+        return view('reservation.secondStep', [
+            'apartament' => $apartament,
             'images' => $images,
             'priceFrom' => $priceFrom,
             'beds' => $beds,
             'request' => $request,
+            'accountData' => $accountData,
         ]);
 
     }

@@ -85,19 +85,19 @@
                         <div class="form-group row">
                             {!! Form::label('name', __('messages.name'), array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
-                                {!! Form::text('name') !!}
+                                {!! Form::text('name', '', array('class' => 'full-width')) !!}
                             </div>
                         </div>
                         <div class="form-group row">
                             {!! Form::label('surname', __('messages.surname'), array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
-                                {!! Form::text('surname') !!}
+                                {!! Form::text('surname', '', array('class' => 'full-width')) !!}
                             </div>
                         </div>
                         <div class="form-group row">
                             {!! Form::label('email', 'E-mail', array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
-                                {!! Form::text('email') !!}
+                                {!! Form::text('email', '', array('class' => 'full-width')) !!}
                             </div>
                         </div>
                         @guest
