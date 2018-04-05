@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\{Apartament, Apartament_description, Apartament_group, Reservation};
 use Auth;
+use Mail;
 
 
 class Reservations extends Controller
@@ -123,7 +124,14 @@ class Reservations extends Controller
         ]);
 
     }
-
+public function sendMail(){
+    $data = array('name'=>"Virat Gandhi");
+    Mail::send('includes.mail_pl', $data, function($message) {
+        $message->to('bacak2@o2.pl')
+                ->subject('Potwierdzenie rejestracji');
+        $message->from('kontakt@visitzakopane.pl','Homerent');
+    });
+}
     public function thirdStep(Request $request)
     {
         //dd($request);

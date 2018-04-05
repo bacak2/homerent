@@ -55,6 +55,8 @@ function()
 		'as' => 'reservations.fourthStep'
 	]);
 
+    Route::get('sendhtmlemail','Reservations@sendMail');
+
 	Route::prefix('/account')->group(function () {
 		Route::GET('/data', [
 			'uses' => 'Account@index',
