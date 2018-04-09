@@ -30,9 +30,9 @@
                         <a class="nav-link @if ($loop->first) active @endif" href="#{{ $data->id }}" role="tab" data-toggle="tab">{{ $data->label }}</a>
                     </li>
                 @endforeach
-                    <li class="nav-item">
+                    <!--li class="nav-item">
                         <a class="nav-link" href="#addNew" role="tab" data-toggle="tab">+</a>
-                    </li>
+                    </li-->
             </ul>
                 <div class="tab-content pt-4">
                     @foreach($accountData as $key => $data)
@@ -50,7 +50,7 @@
                             <div>{{ $data->email }}</div>
                         </div>
                     @endforeach
-                        <div class="tab-pane" id="addNew">
+                        <!--div class="tab-pane" id="addNew">
                             <div class="form-group row">
                                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
                                 <div class="col-sm-9">
@@ -138,7 +138,7 @@
                                     </div>
                                 </div>
                             </span>
-                        </div>
+                        </div-->
                 </div>
             @else
                     <ul class="nav nav-tabs">
@@ -156,9 +156,9 @@
                                 </li>
                             @endif
                         @endforeach
-                        <li class="nav-item">
+                        <!--li class="nav-item">
                             <a class="nav-link" href="#addNew" role="tab" data-toggle="tab">+</a>
-                        </li>
+                        </li-->
                     </ul>
                     <div class="tab-content pt-4">
                         @foreach($accountData as $key => $data)
@@ -270,7 +270,7 @@
                                 </div>
                             @endif
                         @endforeach
-                        <div class="tab-pane" id="addNew">
+                        <!--div class="tab-pane" id="addNew">
                             <div class="form-group row">
                                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
                                 <div class="col-sm-9">
@@ -358,7 +358,7 @@
                                     </div>
                                 </div>
                             </span>
-                        </div>
+                        </div-->
                     </div>
             @endif
             @endauth

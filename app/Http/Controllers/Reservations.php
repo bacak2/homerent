@@ -12,8 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\{Apartament, Apartament_description, Apartament_group, Reservation};
 use Auth;
-use Mail;
-
 
 class Reservations extends Controller
 {
@@ -124,24 +122,6 @@ class Reservations extends Controller
         ]);
 
     }
-public function sendMail($apartament_id, $reservations_id){
-
-    $apartamentsDescription = DB::table('reservations')
-        ->select('*')
-        ->join('apartaments','apartaments.id','=','reservations.apartament_id')
-        ->join('apartament_descriptions','apartaments.id','=','apartament_descriptions.apartament_id')
-        ->where('reservations.id', $reservations_id)
-        ->where('apartament_descriptions.apartament_id', $apartament_id)
-        ->where('language_id', $this->language->id)
-        ->get();
-    $apartamentsDescription = collect($apartamentsDescription)->map(function($x){ return (array) $x; })->toArray();
-    //dd($apartamentsDescription[0]['email']);
-    Mail::send('includes.mail_pl', $apartamentsDescription[0], function($message) use ($apartamentsDescription){
-        $message->to($apartamentsDescription[0]['email'])
-                ->subject('Potwierdzenie rejestracji');
-        $message->from('kontakt@visitzakopane.pl','Homerent');
-    });
-}
 
     public function thirdStep(Request $request)
     {
@@ -229,7 +209,8 @@ public function sendMail($apartament_id, $reservations_id){
 
         $reservation = DB::table('reservations')->where('id', $idReservation)->get();
 
-        $this->sendMail($idAparment, $idReservation);
+        $reservationModel = new Reservation();
+        $reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
 
         return view('reservation.fourthStep', [
             'apartament' => $apartament,

@@ -59,12 +59,19 @@
                         {{ __('messages.res.paymentDescription') }}
                     </p>
                     <div class="pl-lg-4">
-                        <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for stay') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(200*$ileNocy, 2, ',', ' ') }} PLN</span></div></div>
+                        <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for stay') }}: <span id="showPricePerNight" class="font-11" style="color: #007bff">Pokaż cenę za noc</span></div><div class="col-5"><span class="pull-right">{{ number_format(200*$ileNocy, 2, ',', ' ') }} PLN</span></div></div>
+                        <div class="row mb-3" id="pricePerNight" style="display: none">
+                            <div class="col-12 font-11 mb-3">Właściciel określił różne ceny za pobyt w zależności od terminu.</div>
+                            <div class="col-9 font-12 mb-3">sob, 26 kwiecień 2014</div><div class="col-3 font-12 mb-3" style="text-align: right;">120,00 PLN</div>
+                            <div class="col-9 font-12 mb-3">nie, 27 kwiecień 2014</div><div class="col-3 font-12 mb-3" style="text-align: right;">120,00 PLN</div>
+                        </div>
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
-                        <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
-                        <div class="row mb-3"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format(200*$ileNocy+150, 2, ',', ' ') }} PLN</b></span></div></div>
+                        <div class="row mb-3"><div class="col-8">{{ __('messages.Payment for service') }}: <img src='{{ asset("images/reservations/infoIcon.png") }}'></div><div class="col-4"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
+                        <div class="row mb-3" style="font-size: 22px"><div class="col-5"><b>{{ __('messages.fprice') }}</b></div><div class="col-7"><span class="pull-right"><b>{{ number_format(200*$ileNocy+150, 2, ',', ' ') }} PLN</b></span></div></div>
+                        <div class="row mb-2"><div class="col-12 font-11" id="cupon" style="color: #007bff">Posiadasz kupon rabatowy?</div></div>
                     </div>
+                    <a class="btn btn-at-least5 mobile-none" href="apartaments/{{$apartament->descriptions[0]->apartament_link}}">Zarezerwuj co namniej 5 nocy, a zapłacisz tylko <b>80 PLN za noc.</b></a>
                 </div>
                 <div class="col-12 mt-3">
                     <p><b>{{ __('messages.Contact details') }}</b></p>
@@ -83,21 +90,21 @@
                         {!! Form::hidden('dzieci', $request->dzieci) !!}
                         {!! Form::hidden('id', $apartament->id) !!}
                         <div class="form-group row">
-                            {!! Form::label('name', __('messages.name'), array('class' => 'col-sm-4 col-form-label')) !!}
+                            {!! Form::label('name', __('messages.name').':', array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
-                                {!! Form::text('name', '', array('class' => 'full-width')) !!}
+                                {!! Form::text('name', Auth::user()->name ?? '', array('class' => 'full-width')) !!}
                             </div>
                         </div>
                         <div class="form-group row">
-                            {!! Form::label('surname', __('messages.surname'), array('class' => 'col-sm-4 col-form-label')) !!}
+                            {!! Form::label('surname', __('messages.surname').':', array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
-                                {!! Form::text('surname', '', array('class' => 'full-width')) !!}
+                                {!! Form::text('surname', Auth::user()->surname ?? '', array('class' => 'full-width')) !!}
                             </div>
                         </div>
                         <div class="form-group row">
-                            {!! Form::label('email', 'E-mail', array('class' => 'col-sm-4 col-form-label')) !!}
+                            {!! Form::label('email', 'E-mail:', array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
-                                {!! Form::text('email', '', array('class' => 'full-width')) !!}
+                                {!! Form::text('email', Auth::user()->email ?? '', array('class' => 'full-width')) !!}
                             </div>
                         </div>
                         @guest
@@ -115,12 +122,18 @@
         </div>
         <div class="col-lg-6 col-sm-12">
             <div class="row">
-                <div class="col-12">
-                    <b>{{ __('messages.Additional services') }}</b>
+                <div class="col-11 ml-3">
+                    <div class="row"><b>{{ __('messages.Additional services') }}</b></div>
+                    <div class="row" style="border: 1px solid lightgray; padding: 10px">
+                        <div class="col-9"><input type="checkbox" id="additional-bed"><label for="additional-bed" style="margin-bottom: 0">łóżeczko dla dziecka</label></div><div class="col-3" style="text-align: right;">20 PLN</div>
+                    </div>
+                    <div class="row" style="border: 1px solid lightgray; padding: 10px">
+                        <div class="col-9"><input type="checkbox" id="additional-bed2"><label for="additional-bed2" style="margin-bottom: 0">łóżeczko dla dziecka</label></div><div class="col-3" style="text-align: right;">20 PLN</div>
+                    </div>
                 </div>
-                <div class="col-12 mt-3">
+                <div class="col-12 mt-3" id="messageForOwner" style="display: none">
                     <p><b>{{ __('messages.Message for the owner about services') }}</b></p>
-                    <label for="res-ph">{{ __('messages.Content') }}:</label><textarea id="res-ph" name="wiadomoscDodatkowa" class="ml-4" rows="4" cols="50" style="width: 80%" placeholder="{{ __('messages.res.Placeholder1') }}"></textarea>
+                    <label for="res-ph">{{ __('messages.Content') }}:</label><textarea id="res-ph" name="wiadomoscDodatkowa" class="ml-4 font-12" rows="4" cols="50" style="width: 80%" placeholder="{{ __('messages.res.Placeholder1') }}"></textarea>
                 </div>
             </div>
         </div>
@@ -131,7 +144,7 @@
     <div class="container py-3">
         <div class="row">
             <div class="col-lg-9 col-sm-12">
-                <a href="{{ url()->previous() }}" class="btn btn-link ml-2" onclick="return confirm(' {{ __("messages.return confirmation") }} ')">{{ __('messages.Return') }}</a>
+                <a href="{{ url()->previous() }}" class="btn btn-link ml-2" onclick="return confirm(' {{ __("messages.return confirmation") }} ')">{{ __('messages.return2') }}</a>
             </div>
             <div class="col-lg-3 col-sm-12">
                 <button class="btn ml-2 pointer" type="submit">{{ __('messages.next') }}</button>
@@ -143,9 +156,23 @@
 
 <script>
     $('.btn-reservation').click(function(){
-        $('.btn-reservation').toggleClass('selected');
-        $('#payment-description').toggle();
+        if (!$(this).hasClass("selected")) {
+            $('.btn-reservation').toggleClass('selected');
+            $('#payment-description').toggle();
+        }
     });
 
+    $('input[type="checkbox"]').change(function(){
+        if ($("input:checkbox:checked").length > 0) {
+            $("#messageForOwner").show();
+        }
+        else {
+            $("#messageForOwner").hide();
+        }
+    });
+
+    $("#showPricePerNight").click(function(){
+        $('#pricePerNight').toggle();
+    });
 </script>
 @endsection()

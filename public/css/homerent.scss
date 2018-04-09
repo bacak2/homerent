@@ -654,6 +654,17 @@ label.reservation{
 	font-weight: bold;
 }
 
+.btn-at-least5{
+	width: 100%;
+	padding-right: 18px !important;
+	padding-left: 18px !important;
+	font-size: 11px;
+	border-radius: 0;
+	border: 0.5px solid #000000;
+	color: #000000 !important;
+	background-color: #fffbc3 !important;
+}
+
 label.reservation{
 	position: absolute;
 }
@@ -848,7 +859,7 @@ div.rating-item{
 	width: 40px;
 	float:left;
 	label{
-		margin-left: 14px;
+		margin-left: 3px;
 	}
 }
 

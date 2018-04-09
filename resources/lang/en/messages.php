@@ -194,4 +194,5 @@ return [
 	'Company name' => 'Company name',
     'Name' => 'Name',
     'Surname' => 'Surname',
+    'return2' => 'Return',
 ];

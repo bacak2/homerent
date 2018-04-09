@@ -193,4 +193,5 @@ return [
 	'Company name' => 'Nazwa firmy',
     'Name' => 'Imię',
     'Surname' => 'Nazwisko',
+    'return2' => 'Cofnij',
 ];
