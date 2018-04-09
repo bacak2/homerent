@@ -239,7 +239,6 @@
             }
 
             $scope.deleteItem = function(id) {
-                console.log(id);
                 $http({
                     url: `/account/delete/${id}`,
                     method: "GET",

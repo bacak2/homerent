@@ -97,35 +97,57 @@
     }
 
     function rangeBar(){
-        $( "#slider-range" ).slider({
-            step: 50,
+
+        myData = [ 0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000 ];
+
+        slider_config = {
             range: true,
             min: 0,
-            max: 1000,
-            values: [ 0, 1000 ],
+            max: myData.length - 1,
+            step: 1,
             slide: function( event, ui ) {
-                $( "#amount" ).val( ui.values[ 0 ] );
-                $( "#amount2" ).val( ui.values[ 1 ] );
+                // Set the real value into the inputs
+                $('#amount').val( myData[ ui.values[0] ] );
+                $('#amount2').val( myData[ ui.values[1] ] );
+                if (myData[ ui.values[0] ] == 1000) $("#amount").val('1000+');
+                if (myData[ ui.values[1] ] == 1000) $("#amount2").val('1000+');
+            },
+            create: function() {
+                $(this).slider('values',0,0);
+                $(this).slider('values',1,myData.length - 1);
             }
-        });
-        $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) );
-        $( "#amount2" ).val( $( "#slider-range" ).slider( "values", 1 ) );
+        };
+
+        // Render Slider
+        $('#slider-range').slider(slider_config);
+
     }
 
     function MrangeBar(){
-        $( "#Mslider-range" ).slider({
-            step: 50,
+
+        myData = [ 0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000 ];
+
+        slider_config = {
             range: true,
             min: 0,
-            max: 1000,
-            values: [ 0, 1000 ],
+            max: myData.length - 1,
+            step: 1,
             slide: function( event, ui ) {
-                $( "#Mamount" ).val( ui.values[ 0 ] );
-                $( "#Mamount2" ).val( ui.values[ 1 ] );
+                // Set the real value into the inputs
+                $('#Mamount').val( myData[ ui.values[0] ] );
+                $('#Mamount2').val( myData[ ui.values[1] ] );
+                if (myData[ ui.values[0] ] == 1000) $("#Mamount").val('1000+');
+                if (myData[ ui.values[1] ] == 1000) $("#Mamount2").val('1000+');
+            },
+            create: function() {
+                $(this).slider('values',0,0);
+                $(this).slider('values',1,myData.length - 1);
             }
-        });
-        $( "#Mamount" ).val( $( "#Mslider-range" ).slider( "values", 0 ) );
-        $( "#Mamount2" ).val( $( "#Mslider-range" ).slider( "values", 1 ) );
+        };
+
+        // Render Slider
+        $('#Mslider-range').slider(slider_config);
+
     }
 
     $( "a#resetFilters" ).click(function( event ) {

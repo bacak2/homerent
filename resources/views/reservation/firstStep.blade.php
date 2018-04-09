@@ -67,10 +67,10 @@
                     </div>
                 </div>
                 <div class="col-12 mt-3">
-                    <b>{{ __('messages.Contact details') }}</b>
-                    @if(Auth::guest())
+                    <p><b>{{ __('messages.Contact details') }}</b></p>
+                    @guest
                         {{ __('messages.Have you already your account') }}? <a href="{{ route('login') }}">{{ __('messages.Log in') }}</a> {{ __('messages.to make everything easier') }}
-                    @endif
+                    @endguest
                     <div class="form-full-width">
                         {!! Form::model(Auth::user(), ['route' => ['reservations.secondStep'], 'method' => 'GET']) !!}
                         {!! Form::hidden('link', $apartament->descriptions[0]->apartament_link) !!}

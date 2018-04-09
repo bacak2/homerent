@@ -124,33 +124,30 @@ class Reservations extends Controller
         ]);
 
     }
-public function sendMail(){
-    $data = array('name'=>"Virat Gandhi");
-    Mail::send('includes.mail_pl', $data, function($message) {
-        $message->to('bacak2@o2.pl')
+public function sendMail($apartament_id, $reservations_id){
+
+    $apartamentsDescription = DB::table('reservations')
+        ->select('*')
+        ->join('apartaments','apartaments.id','=','reservations.apartament_id')
+        ->join('apartament_descriptions','apartaments.id','=','apartament_descriptions.apartament_id')
+        ->where('reservations.id', $reservations_id)
+        ->where('apartament_descriptions.apartament_id', $apartament_id)
+        ->where('language_id', $this->language->id)
+        ->get();
+    $apartamentsDescription = collect($apartamentsDescription)->map(function($x){ return (array) $x; })->toArray();
+    //dd($apartamentsDescription[0]['email']);
+    Mail::send('includes.mail_pl', $apartamentsDescription[0], function($message) use ($apartamentsDescription){
+        $message->to($apartamentsDescription[0]['email'])
                 ->subject('Potwierdzenie rejestracji');
         $message->from('kontakt@visitzakopane.pl','Homerent');
     });
 }
+
     public function thirdStep(Request $request)
     {
-        //dd($request);
-        $dataSet = array(
+        $reservationData =[
             'apartament_id' => $request->id,
             'user_id' => Auth::user()->id ?? 0,
-            'title' => $request->title,
-            'name_and_surname' => $request->name_and_surname,
-            'country' => $request->country,
-            'address' => $request->address,
-            'address_invoice' => $request->address_invoice ?? $request->address,
-            'postcode' => $request->postcode,
-            'postcode_invoice' => $request->postcode_invoice ?? $request->postcode,
-            'place' => $request->place,
-            'place_invoice' => $request->place_invoice ?? $request->place,
-            'company_name' => $request->company_name,
-            'nip' => $request->nip,
-            'phone' => $request->phone,
-            'email' => $request->email,
             'reservation_arrive_date' => $request->przyjazdDb,
             'reservation_departure_date' => $request->powrotDb,
             'reservation_persons' => $request->dorosli,
@@ -162,7 +159,50 @@ public function sendMail(){
             'reservation_payment' => $request->allNow,
             'reservation_status' => 0,
             'created_at' => date('Y-m-d')
-        );
+        ];
+
+        if(isset($request->idActive) && is_numeric($request->idActive)){
+            $userData = DB::table('users_account')->where('id', $request->idActive)->get();
+            $userData = collect($userData)->map(function($x){ return (array) $x; })->toArray();
+            $userData = $userData[0];
+            unset($userData['id']);
+            unset($userData['user_email']);
+            unset($userData['label']);
+        }
+        else {
+            $userData = array(
+                'title' => $request->title,
+                'name_and_surname' => $request->name_and_surname,
+                'country' => $request->country,
+                'address' => $request->address,
+                'address_invoice' => $request->address_invoice ?? $request->address,
+                'postcode' => $request->postcode,
+                'postcode_invoice' => $request->postcode_invoice ?? $request->postcode,
+                'place' => $request->place,
+                'place_invoice' => $request->place_invoice ?? $request->place,
+                'company_name' => $request->company_name,
+                'nip' => $request->nip,
+                'phone' => $request->phone,
+                'email' => $request->email,
+            );
+        }
+
+        if(isset($request->idActive)&& $request->idActive == 'addNew'){
+            $dataSet[] = [
+                'name'  => $request->input('name'),
+                'surname' => $request->input('surname'),
+                'address' => $request->input('address'),
+                'postcode' => $request->input('postcode'),
+                'place' => $request->input('place'),
+                'phone' => $request->input('phone'),
+                'email' => $request->input('email'),
+                'user_email' => Auth::user()->email,
+            ];
+
+            DB::table('users_account')->insert($dataSet);
+        }
+
+        $dataSet = $reservationData + $userData;
 
         if($request->zal == 2 || $request->allNow == 2) {
 
@@ -188,6 +228,8 @@ public function sendMail(){
         }))->find($id);
 
         $reservation = DB::table('reservations')->where('id', $idReservation)->get();
+
+        $this->sendMail($idAparment, $idReservation);
 
         return view('reservation.fourthStep', [
             'apartament' => $apartament,

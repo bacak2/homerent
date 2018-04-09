@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-7 col-sm-12 pr-lg-5 form-full-width">
-            {!! Form::model($request, ['route' => ['reservations.thirdStep'], 'method' => 'POST']) !!}
+            {!! Form::model($request, ['route' => ['reservations.thirdStep'], 'method' => 'POST', 'id' => 'main-form']) !!}
             {!! Form::hidden('link', $apartament->descriptions[0]->apartament_link) !!}
             {!! Form::hidden('przyjazd', $request->przyjazd) !!}
             {!! Form::hidden('powrot', $request->powrot) !!}
@@ -23,10 +23,11 @@
             {!! Form::hidden('wiadomoscDodatkowa', $request->wiadomoscDodatkowa) !!}
             {!! Form::hidden('id', $request->id) !!}
             @auth
+            @if($request->change === NULL)
             <ul class="nav nav-tabs">
                 @foreach($accountData as $data)
                     <li class="nav-item">
-                        <a class="nav-link @if ($loop->first) active @endif" href="#{{ $data->id }}" role="tab" data-toggle="tab"  onclick="loggedFormData()">{{ $data->label }}</a>
+                        <a class="nav-link @if ($loop->first) active @endif" href="#{{ $data->id }}" role="tab" data-toggle="tab">{{ $data->label }}</a>
                     </li>
                 @endforeach
                     <li class="nav-item">
@@ -34,9 +35,9 @@
                     </li>
             </ul>
                 <div class="tab-content pt-4">
-                    @foreach($accountData as $data)
+                    @foreach($accountData as $key => $data)
                         <div class="tab-pane @if ($loop->first) active @endif" id="{{ $data->id }}">
-                            <div class="mb-2">{{ $data->title }} <span class="pull-right"><a href="#">Zmień</a>|<a href="#">Usuń dane</a></span></div>
+                            <div class="mb-2">{{ $data->title }} <span class="pull-right"><a href="{{request()->fullUrlWithQuery(["change"=>"$key"])}}">Zmień</a>|<a href="#" onclick="confirmDelete({{$data->id}})">Usuń dane</a></span></div>
                             <div>{{ $data->name }} {{ $data->surname }}</div>
                             <div>{{ $data->address }}</div>
                             <div>{{ $data->postcode }} {{ $data->place }}</div>
@@ -47,20 +48,323 @@
                             <div>{{ $data->postcode }} {{ $data->place }}</div>
                             <div class="mt-2">{{ $data->phone }}</div>
                             <div>{{ $data->email }}</div>
-                            <div class="form-group row">
-                                {!! Form::label('address', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                <div class="col-sm-9">
-                                    {!! Form::text('address', $data->address, ['class' => 'required full-width']) !!}
-                                </div>
-                            </div>
                         </div>
                     @endforeach
                         <div class="tab-pane" id="addNew">
-                            add new
+                            <div class="form-group row">
+                                {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
+                                <div class="col-sm-9">
+                                    {!! Form::select('title', array(__('messages.Mr') => __('messages.Mr'), __('messages.Mrs') => __('messages.Mrs'))) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('name and surname', __('messages.Name and surname'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('name and surname', $request->name.' '.$request->surname, ['class' => 'required full-width']) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('country', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::select('country', array('Polska' => __('Polska'), 'Niemcy' => __('Niemcy')), 'Polska', array('class' => 'col-sm-12 col-lg-3')) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('address', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('address', '', ['class' => 'required full-width']) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('postcode', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('postcode', '', array('class' => 'required not-full-width col-sm-12 col-lg-6')) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('place', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('place', '', ['class' => 'required full-width']) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('phone', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('phone', '', ['class' => 'required full-width']) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::email('email', $request->email, ['class' => 'required full-width']) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-sm-3">
+                                    {!! Form::checkbox('wantInvoice') !!}
+                                </div>
+                                {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
+                            </div>
+                            <span id="invoiceFields" style="display: none">
+                                <h4><b>Dane do faktury</b></h4>
+                                <div class="form-group row">
+                                    {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                    <div class="col-sm-9">
+                                        {!! Form::text('address_invoice', '', ['class' => 'full-width']) !!}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    {!! Form::label('postcode_invoice', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                    <div class="col-sm-9">
+                                        {!! Form::text('postcode_invoice', '', array('class' => 'not-full-width col-sm-12 col-lg-6')) !!}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    {!! Form::label('place_invoice', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                    <div class="col-sm-9">
+                                        {!! Form::text('place_invoice', '', ['class' => 'full-width']) !!}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    {!! Form::label('company_name', __('messages.Company name'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                    <div class="col-sm-9">
+                                        {!! Form::text('company_name', '', ['class' => 'full-width']) !!}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    {!! Form::label('nip', __('NIP'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                    <div class="col-sm-9">
+                                        {!! Form::text('nip', '', ['class' => 'full-width']) !!}
+                                    </div>
+                                </div>
+                            </span>
                         </div>
                 </div>
+            @else
+                    <ul class="nav nav-tabs">
+                        @foreach($accountData as $data)
+                            @if ($loop->index == $request->change)
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#{{ $data->id }}" role="tab" data-toggle="tab">
+                                        Nazwa:
+                                        {!! Form::text('label', $accountData["$request->change"]->label, ['class' => '', 'style'=>'height: 24px; width: 200px; font-size:12px']) !!}
+                                    </a>
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#{{ $data->id }}" role="tab" data-toggle="tab">{{ $data->label }}</a>
+                                </li>
+                            @endif
+                        @endforeach
+                        <li class="nav-item">
+                            <a class="nav-link" href="#addNew" role="tab" data-toggle="tab">+</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content pt-4">
+                        @foreach($accountData as $key => $data)
+                            @if ($loop->index == $request->change || $loop->index == -1)
+                                <div class="tab-pane active" id="{{ $data->id }}">
+                                    <div id="auth-form">
+                                        <!--div class="form-group row">
+                                            {{-- Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
+                                            <div class="col-sm-9">
+                                                {!! Form::select('title', '', array(__('messages.Mr') => __('messages.Mr'), __('messages.Mrs') => __('messages.Mrs'))) !!--}}
+                                            </div>
+                                        </div-->
+                                        <div class="form-group row">
+                                            {!! Form::label('name and surname', __('messages.Name and surname'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                            <div class="col-sm-9">
+                                                {!! Form::text('name and surname', $data->name.' '.$data->surname, ['class' => 'required full-width']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            {!! Form::label('country', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                            <div class="col-sm-9">
+                                                {!! Form::select('country', array('Polska' => __('Polska'), 'Niemcy' => __('Niemcy')), 'Polska', array('class' => 'col-sm-12 col-lg-3')) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            {!! Form::label('address', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                            <div class="col-sm-9">
+                                                {!! Form::text('address', $data->address, ['class' => 'required full-width']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            {!! Form::label('postcode', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                            <div class="col-sm-9">
+                                                {!! Form::text('postcode', $data->postcode, array('class' => 'required not-full-width col-sm-12 col-lg-6')) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            {!! Form::label('place', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                            <div class="col-sm-9">
+                                                {!! Form::text('place', $data->place, ['class' => 'required full-width']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            {!! Form::label('phone', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                            <div class="col-sm-9">
+                                                {!! Form::text('phone', $data->phone, ['class' => 'required full-width']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
+                                            <div class="col-sm-9">
+                                                {!! Form::email('email', $data->email, ['class' => 'required full-width']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="offset-sm-3">
+                                                {!! Form::checkbox('wantInvoice') !!}
+                                            </div>
+                                            {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
+                                        </div>
+                                        <span id="invoiceFields" style="display: none">
+                                            <h4><b>Dane do faktury</b></h4>
+                                            <div class="form-group row">
+                                                {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                                <div class="col-sm-9">
+                                                    {!! Form::text('address_invoice', '', ['class' => 'full-width']) !!}
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                {!! Form::label('postcode_invoice', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                                <div class="col-sm-9">
+                                                    {!! Form::text('postcode_invoice', '', array('class' => 'not-full-width col-sm-12 col-lg-6')) !!}
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                {!! Form::label('place_invoice', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                                <div class="col-sm-9">
+                                                    {!! Form::text('place_invoice', '', ['class' => 'full-width']) !!}
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                {!! Form::label('company_name', __('messages.Company name'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                                <div class="col-sm-9">
+                                                    {!! Form::text('company_name', '', ['class' => 'full-width']) !!}
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                {!! Form::label('nip', __('NIP'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                                <div class="col-sm-9">
+                                                    {!! Form::text('nip', '', ['class' => 'full-width']) !!}
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="tab-pane" id="{{ $data->id }}">
+                                    <div class="mb-2">{{ $data->title }} <span class="pull-right"><a href="{{request()->fullUrlWithQuery(["change"=>"$key"])}}">Zmień</a>|<a href="#">Usuń dane</a></span></div>
+                                    <div>{{ $data->name }} {{ $data->surname }}</div>
+                                    <div>{{ $data->address }}</div>
+                                    <div>{{ $data->postcode }} {{ $data->place }}</div>
+                                    <div class="mb-2">{{ $data->country }}</div>
+                                    <div>Faktura na:</div>
+                                    <div>{{ $data->name }} {{ $data->surname }}</div>
+                                    <div>{{ $data->address }}</div>
+                                    <div>{{ $data->postcode }} {{ $data->place }}</div>
+                                    <div class="mt-2">{{ $data->phone }}</div>
+                                    <div>{{ $data->email }}</div>
+                                </div>
+                            @endif
+                        @endforeach
+                        <div class="tab-pane" id="addNew">
+                            <div class="form-group row">
+                                {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
+                                <div class="col-sm-9">
+                                    {!! Form::select('title', array(__('messages.Mr') => __('messages.Mr'), __('messages.Mrs') => __('messages.Mrs'))) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('name and surname', __('messages.Name and surname'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('name and surname', $request->name.' '.$request->surname, ['class' => 'required full-width']) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('country', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::select('country', array('Polska' => __('Polska'), 'Niemcy' => __('Niemcy')), 'Polska', array('class' => 'col-sm-12 col-lg-3')) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('address', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('address', '', ['class' => 'required full-width']) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('postcode', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('postcode', '', array('class' => 'required not-full-width col-sm-12 col-lg-6')) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('place', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('place', '', ['class' => 'required full-width']) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('phone', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('phone', '', ['class' => 'required full-width']) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::email('email', $request->email, ['class' => 'required full-width']) !!}
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="offset-sm-3">
+                                    {!! Form::checkbox('wantInvoice') !!}
+                                </div>
+                                {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
+                            </div>
+                            <span id="invoiceFields" style="display: none">
+                                <h4><b>Dane do faktury</b></h4>
+                                <div class="form-group row">
+                                    {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                    <div class="col-sm-9">
+                                        {!! Form::text('address_invoice', '', ['class' => 'full-width']) !!}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    {!! Form::label('postcode_invoice', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                    <div class="col-sm-9">
+                                        {!! Form::text('postcode_invoice', '', array('class' => 'not-full-width col-sm-12 col-lg-6')) !!}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    {!! Form::label('place_invoice', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                    <div class="col-sm-9">
+                                        {!! Form::text('place_invoice', '', ['class' => 'full-width']) !!}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    {!! Form::label('company_name', __('messages.Company name'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                    <div class="col-sm-9">
+                                        {!! Form::text('company_name', '', ['class' => 'full-width']) !!}
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    {!! Form::label('nip', __('NIP'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                    <div class="col-sm-9">
+                                        {!! Form::text('nip', '', ['class' => 'full-width']) !!}
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+            @endif
             @endauth
+
             @guest
+            <p>{{ __('messages.Have you already your account') }}? <b><a href="{{ route('login') }}">{{ __('messages.Log in') }}</a></b> {{ __('messages.to make everything easier') }}</p>
             <div class="form-group row">
                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
                 <div class="col-sm-9">
@@ -306,7 +610,39 @@
     </div>
 </div>
 
+    <div id="confirm-delete-pop" style="display: none">
+        <h4 class="p-3"><b>Czy na pewno chcesz usunąć dane?</b></h4>
+        <div class="col-12 mb-4 mt-2">
+            <div class="btn btn-black" id="confirm-delete" onclick="deleteItem()" style="width: 100%; font-size: 18px">Potwierdź</div>
+            <div class="btn" id="cancel-delete" style="width: 100%; font-size: 18px">Anuluj</div>
+        </div>
+    </div>
+
 <script>
+        var toDelete;
+
+        $("#cancel-delete").on('click', function(){
+            $("#confirm-delete-pop").css({'display': 'none'});
+        });
+
+        function confirmDelete(id){
+            toDelete = id;
+            $("#confirm-delete-pop").css({'display': 'block'});
+        }
+
+        function deleteItem(){
+            $.ajax({
+                type: "GET",
+                url: `/account/delete/${toDelete}`,
+                success: function(data) {
+                    location.reload();
+                },
+                error: function() {
+                    console.log("Error in connection with controller");
+                },
+            });
+        }
+
         $("input[name='wantInvoice']").change(function(){
             if($("input[name='wantInvoice']").is(":checked")){
                 $('#invoiceFields').css({'display':'inline'});
@@ -367,6 +703,7 @@
 
         $("#slider-range").slider({
             range: false,
+            value: 720,
             min: 0,
             max: 1440,
             step: 15,
@@ -439,15 +776,31 @@
             });
         });
 
-        /*$(function(){
-            $('li.nav-item:first-child a.nav-link').click();
+        $(function(){
+            $('input').bind('keypress', function(e) {
+                if(e.keyCode==13){
+                    e.preventDefault();
+                    return false;
+                }
+            });
         });
-*/
-        function loggedFormData(){
-            $('div.tab-pane:not(.active) .form-group').css('display', 'block');
-            $('div.tab-pane:not(.active) input').attr("disabled", false);
-            $('div.tab-pane.active .form-group').css('display', 'none');
-            $('div.tab-pane.active input').attr("disabled", true);
+
+        $('#main-form').submit(function() {
+            var idActive = $(".tab-pane.active").attr('id');
+            $(this).append('<input type="hidden" name="idActive" value='+idActive+'>');
+            return true;
+        });
+
+        //load site with no edit form
+        function loadPrevious(){
+            location.href = "{!! url()->previous() !!}";
+        }
+
+        //check if
+        function checkAddNew(){
+//check if #addNew has class active
+            //if true add class required to input fields
+            //if false remove that class
         }
 </script>
 @endsection()
