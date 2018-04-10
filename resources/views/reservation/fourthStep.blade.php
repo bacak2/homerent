@@ -1,8 +1,33 @@
 @extends ('includes.reservations')
 
 @section('reservation.content')
-<div class="container flex-box">
-    <div id="Rpath"><span class="active">{{ __('messages.offer') }} - {{ __('messages.your data') }} - {{ __('messages.payment') }} - {{ __('messages.confirmation') }}</span></div>
+<div class="container flex-box mb-2">
+    <div class="mobile-none font-12" id="Rpath">
+        <div class="reservation-path">
+            <img src='{{ asset("images/reservations/fullBlack.png") }}'>
+            <span class="active number">1</span>
+            <span class="activeBold ml-2">{{ __('messages.offer') }}</span>
+        </div>
+        <img class="mx-2" src='{{ asset("images/reservations/lineActive.png") }}'>
+        <div class="reservation-path">
+            <img src='{{ asset("images/reservations/fullBlack.png") }}'>
+            <span class="active number">2</span>
+            <span class="activeBold ml-2">{{ __('messages.your data') }}</span>
+        </div>
+        <img class="mx-2" src='{{ asset("images/reservations/lineActive.png") }}'>
+        <div class="reservation-path">
+            <img src='{{ asset("images/reservations/fullBlack.png") }}'>
+            <span class="active number">3</span>
+            <span class="activeBold ml-2">{{ __('messages.payment') }}</span>
+        </div>
+        <img class="mx-2" src='{{ asset("images/reservations/lineActive.png") }}'>
+        <div class="reservation-path">
+            <img src='{{ asset("images/reservations/thisStepBlack.png") }}'>
+            <span class="active number">4</span>
+            <span class="activeBold ml-2">{{ __('messages.confirmation') }}</span>
+        </div>
+    </div>
+    <div class="desktop-none" id="Rpath"><span class="activeBold">{{ __('messages.offer') }} - {{ __('messages.your data') }} - {{ __('messages.payment') }} - {{ __('messages.confirmation') }}</span></div>
 </div>
 <div class="container">
     @if($reservation[0]->reservation_status == 1)
@@ -123,9 +148,18 @@
                     <div class="row"><a class="btn btn-more-info" href="{{ route('apartamentInfo', ['link' => $apartament->descriptions[0]->apartament_link ]) }}">Więcej informacji o obiekcie</a></div>
         </div>
         <div class="col-lg-8 col-sm-12">
-            <form name="wskazowki" action="#" onsubmit="znajdz_wskazowki(); return false;" />
-            Wskazówki dojazdu: <input type="text" name="skad"  id="skad"/>
-            <input type="submit" value="Pokaż" />
+            <form class="ml-3 mb-3" name="wskazowki" action="#" onsubmit="znajdz_wskazowki(); return false;" class="ml-2">
+                <div class="row">
+                    Wskazówki dojazdu: <input type="text" name="skad"  id="skad" style="width:180px">
+                    <input class="btn btn-info btn-mobile btn-res4th" type="submit" value="Pokaż">
+                    <div class="col-2 font-12 ml-3" style="display: inline-block;">
+                        <div id="distance" class="row" style="font-weight: bold"></div>
+                        <div id="duration" class="row"></div>
+                    </div>
+                    <div class="col-3">
+                        <a class="btn btn-info btn-mobile btn-res4th pull-right">Drukuj wskazówki dojazdu</a>
+                    </div>
+                </div>
             </form>
             <div id="mapka" style="width: 100%; height: 500px; margin-bottom: 30px;"></div>
         </div>
@@ -209,7 +243,8 @@
         }
 
         trasa_render.setDirections(wynik);
-        //console.log($('span[jstcache="24"]').html());
+        $("#distance").text(wynik.routes[0].legs[0].distance.text);
+        $("#duration").text(wynik.routes[0].legs[0].duration.text);
     }
 
     function dodajZielonyMarker(lat,lng,txt, ikona)

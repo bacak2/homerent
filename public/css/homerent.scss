@@ -608,7 +608,7 @@ a.next-notAv:hover{
 	display: flex;
 	flex-wrap: wrap;
 
-	span.active{
+	span.activeBold{
 		font-weight: bold;
 	}
 }
@@ -891,6 +891,31 @@ div.rating-item-description{
 		display: none;
 	}
 }
+
+span#showPricePerNight, div#coupon, span#cancelCoupon, span#nameChange{
+	cursor: pointer;
+}
+
+div.reservation-path{
+	position: relative;
+	display: inline-block;
+
+	span.number{
+		position: absolute;
+		top: 6px;
+		left:11px;
+		font-size: 14px;
+		font-weight: bold;
+		color:gray;
+	}
+	span.active{
+		color:white;
+	}
+	span.not-active{
+		color:gray;
+	}
+}
+
 @media (min-width: 768px) {
 	.desktop-hidden{
 		visibility: hidden !important;

@@ -125,6 +125,7 @@ class Reservations extends Controller
 
     public function thirdStep(Request $request)
     {
+        $request->phone = "$request->prefix"." $request->phone";
         $reservationData =[
             'apartament_id' => $request->id,
             'user_id' => Auth::user()->id ?? 0,

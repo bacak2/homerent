@@ -4,9 +4,34 @@
     <div class="container">
         <h2><b>{{ __('messages.reservation') }}</b></h2>
     </div>
-<div class="container flex-box">
+<div class="container flex-box mb-2">
     <div id="Rtitle"><h4><b>1. {{ __('messages.offer') }}</b></h4></div>
-    <div id="Rpath"><span class="active">{{ __('messages.offer') }}</span> - {{ __('messages.your data') }} - {{ __('messages.payment') }} - {{ __('messages.confirmation') }}</div>
+    <div class="mobile-none font-12" id="Rpath">
+        <div class="reservation-path">
+            <img src='{{ asset("images/reservations/thisStepBlack.png") }}'>
+            <span class="active number">1</span>
+            <span class="activeBold ml-2">{{ __('messages.offer') }}</span>
+        </div>
+        <img class="mx-2" src='{{ asset("images/reservations/lineActive.png") }}'>
+        <div class="reservation-path">
+            <img src='{{ asset("images/reservations/fullLight.png") }}'>
+            <span class="number">2</span>
+            <span class="not-active ml-2">{{ __('messages.your data') }}</span>
+        </div>
+        <img class="mx-2" src='{{ asset("images/reservations/lineNotActive.png") }}'>
+        <div class="reservation-path">
+            <img src='{{ asset("images/reservations/fullLight.png") }}'>
+            <span class="number">3</span>
+            <span class="not-active ml-2">{{ __('messages.payment') }}</span>
+        </div>
+        <img class="mx-2" src='{{ asset("images/reservations/lineNotActive.png") }}'>
+        <div class="reservation-path">
+            <img src='{{ asset("images/reservations/fullLight.png") }}'>
+            <span class="number">4</span>
+            <span class="not-active ml-2">{{ __('messages.confirmation') }}</span>
+        </div>
+    </div>
+    <div class="desktop-none" id="Rpath"><span class="activeBold">{{ __('messages.offer') }}</span> - {{ __('messages.your data') }} - {{ __('messages.payment') }} - {{ __('messages.confirmation') }}</div>
 </div>
 <div class="container">
     <div class="row reservation-item py-2">
@@ -36,10 +61,10 @@
                     <hr class="desktop-none">
                 </div>
                 <div class="col-lg-7 col-sm-6">
-                    <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ $request->przyjazd }}</b></div></div>
-                    <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ $request->powrot }}</b></div></div>
+                    <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ $request->przyjazd }} (po 15:00)</b></div></div>
+                    <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ $request->powrot }} (przed 12:00)</b></div></div>
                     <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">{{ $ileNocy = $request->ilenocy ?? $ileNocy}}</div></div>
-                    <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">{{ ($request->dorosli + $request->dzieci) }}</div></div>
+                    <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">{{$request->dorosli}} {{trans_choice('messages.adult persons',$request->dorosli)}}, {{$request->dzieci}} dzieci</div></div>
                     <div class="res-description txt-blue mt-3">
                         <a href="apartaments/{{$apartament->descriptions[0]->apartament_link}}">{{ __('messages.change') }}</a>
                     </div>
@@ -55,21 +80,26 @@
                     <p><b>{{ __('messages.Payment') }}</b></p>
                     <button class="btn btn-reservation selected mr-2">{{ __('messages.Non-refundable offer') }}</button>
                     <button class="btn btn-reservation">{{ __('messages.Refundable offer') }}</button>
-                    <p id="payment-description" style="display: none">
+                    <p id="payment-description" class="pl-lg-4" style="display: none">
                         {{ __('messages.res.paymentDescription') }}
                     </p>
                     <div class="pl-lg-4">
-                        <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for stay') }}: <span id="showPricePerNight" class="font-11" style="color: #007bff">Pokaż cenę za noc</span></div><div class="col-5"><span class="pull-right">{{ number_format(200*$ileNocy, 2, ',', ' ') }} PLN</span></div></div>
+                        <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for stay') }} ({{$ileNocy}} {{trans_choice('messages.nights',$ileNocy)}}): <span id="showPricePerNight" class="font-11" style="color: #007bff">Pokaż cenę za noc</span></div><div class="col-5"><span class="pull-right">{{ number_format(200*$ileNocy, 2, ',', ' ') }} PLN</span></div></div>
                         <div class="row mb-3" id="pricePerNight" style="display: none">
+                            @if(0==1)
                             <div class="col-12 font-11 mb-3">Właściciel określił różne ceny za pobyt w zależności od terminu.</div>
                             <div class="col-9 font-12 mb-3">sob, 26 kwiecień 2014</div><div class="col-3 font-12 mb-3" style="text-align: right;">120,00 PLN</div>
                             <div class="col-9 font-12 mb-3">nie, 27 kwiecień 2014</div><div class="col-3 font-12 mb-3" style="text-align: right;">120,00 PLN</div>
+                            @else
+                            <div class="col-9 font-12 mb-3">{{ $request->przyjazd }} - {{ $request->powrot }}</div><div class="col-3 font-12 mb-3" style="text-align: right;">{{ number_format(120, 2, ',', ' ') }} PLN</div>
+                            @endif
                         </div>
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
                         <div class="row mb-3"><div class="col-8">{{ __('messages.Payment for service') }}: <img src='{{ asset("images/reservations/infoIcon.png") }}'></div><div class="col-4"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
-                        <div class="row mb-3" style="font-size: 22px"><div class="col-5"><b>{{ __('messages.fprice') }}</b></div><div class="col-7"><span class="pull-right"><b>{{ number_format(200*$ileNocy+150, 2, ',', ' ') }} PLN</b></span></div></div>
-                        <div class="row mb-2"><div class="col-12 font-11" id="cupon" style="color: #007bff">Posiadasz kupon rabatowy?</div></div>
+                        <div class="row mb-3 mr-3" id="couponDiv" style="display: none"><div class="col-4">Kupon rabatowy:</div><div class="col-4"><input type="text" style="width:100%; max-height: 30px" class="font-11"></div><div class="col-3"><button class="btn btn-mobile">Zrealizuj kupon</button></div><div class="col-1"><span id="cancelCoupon" class="font-11" style="color: #007bff">Anuluj</span></div></div>
+                        <div class="row mb-3" style="font-size: 22px"><div class="col-5"><b>{{ __('messages.fprice') }}</b></div><div class="col-7"><span class="pull-right"><b>{{ number_format(120*$ileNocy+150, 2, ',', ' ') }} PLN</b></span></div></div>
+                        <div class="row mb-2" id="couponQuestion"><div class="col-12 font-11" id="coupon" style="color: #007bff">Posiadasz kupon rabatowy?</div></div>
                     </div>
                     <a class="btn btn-at-least5 mobile-none" href="apartaments/{{$apartament->descriptions[0]->apartament_link}}">Zarezerwuj co namniej 5 nocy, a zapłacisz tylko <b>80 PLN za noc.</b></a>
                 </div>
@@ -92,13 +122,13 @@
                         <div class="form-group row">
                             {!! Form::label('name', __('messages.name').':', array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
-                                {!! Form::text('name', Auth::user()->name ?? '', array('class' => 'full-width')) !!}
+                                {!! Form::text('name', Auth::user()->name ?? '', array('class' => 'full-width', 'required' => 'required')) !!}
                             </div>
                         </div>
                         <div class="form-group row">
                             {!! Form::label('surname', __('messages.surname').':', array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
-                                {!! Form::text('surname', Auth::user()->surname ?? '', array('class' => 'full-width')) !!}
+                                {!! Form::text('surname', Auth::user()->surname ?? '', array('class' => 'full-width', 'required' => 'required')) !!}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -173,6 +203,16 @@
 
     $("#showPricePerNight").click(function(){
         $('#pricePerNight').toggle();
+    });
+
+    $("#couponQuestion").click(function(){
+        $('#couponQuestion').hide();
+        $('#couponDiv').show();
+    });
+
+    $("#cancelCoupon").click(function(){
+        $('#couponQuestion').show();
+        $('#couponDiv').hide();
     });
 </script>
 @endsection()
