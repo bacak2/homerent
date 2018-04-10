@@ -228,7 +228,7 @@
                                         </div>
                                             <div class="form-group row">
                                                 <div class="offset-sm-3">
-                                                    {!! Form::checkbox('wantInvoice') !!}
+                                                    <input id="wantInvoice" name="wantInvoice" type="checkbox">
                                                 </div>
                                                 {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
                                             </div>

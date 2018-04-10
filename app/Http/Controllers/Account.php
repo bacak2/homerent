@@ -50,26 +50,40 @@ class Account extends Controller
                 ->where('id', $request->input('id'))
                 ->where('user_email', $request->input('user_email'))
                 ->update([
+                    'label' => $request->input('label') ?? $request->input('name'),
                     'name' => $request->input('name'),
                     'surname' => $request->input('surname'),
                     'address' => $request->input('address'),
                     'postcode' => $request->input('postcode'),
                     'place' => $request->input('place'),
+                    'name_invoice' => $request->input('name_invoice'),
+                    'surname_invoice' => $request->input('surname_invoice'),
+                    'address_invoice' => $request->input('address_invoice'),
+                    'postcode_invoice' => $request->input('postcode_invoice'),
+                    'place_invoice' => $request->input('place_invoice'),
                     'phone' => $request->input('phone'),
                     'email' => $request->input('email'),
+                    'invoice' => $request->input('invoice'),
                 ]);
         }
 
         else {
             $dataSet[] = [
+                'label'  => $request->input('label') ?? $request->input('name'),
                 'name'  => $request->input('name'),
                 'surname' => $request->input('surname'),
                 'address' => $request->input('address'),
                 'postcode' => $request->input('postcode'),
                 'place' => $request->input('place'),
                 'phone' => $request->input('phone'),
+                'name_invoice'  => $request->input('name_invoice'),
+                'surname_invoice' => $request->input('surname_invoice'),
+                'address_invoice' => $request->input('address_invoice'),
+                'postcode_invoice' => $request->input('postcode_invoice'),
+                'place_invoice' => $request->input('place_invoice'),
                 'email' => $request->input('email'),
                 'user_email' => $request->input('user_email'),
+                'invoice' => $request->input('invoice'),
             ];
 
             DB::table('users_account')->insert($dataSet);

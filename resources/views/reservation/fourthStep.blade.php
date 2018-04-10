@@ -74,7 +74,7 @@
                     <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ $reservation[0]->reservation_arrive_date }}</b></div></div>
                     <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ $reservation[0]->reservation_departure_date }}</b></div></div>
                     <div class="row"><div class="col-4" style="font-size: 12px">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8" style="font-size: 12px">{{ $reservation[0]->reservation_nights }}</div></div>
-                    <div class="row"><div class="col-4" style="font-size: 12px">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8" style="font-size: 12px">{{ $reservation[0]->reservation_persons + $reservation[0]->reservation_kids }}</div></div>
+                    <div class="row"><div class="col-4" style="font-size: 12px">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8" style="font-size: 12px">{{$reservation[0]->reservation_persons}} {{trans_choice('messages.adult persons',$reservation[0]->reservation_persons)}}, {{$reservation[0]->reservation_kids}} dzieci</div></div>
                     <hr class="desktop-none">
                 </div>
                 @if(1==0)
@@ -165,34 +165,35 @@
         </div>
     </div>
 
-    <div class="row mt-4">
+    <div class="row mt-4 mb-5">
         <div class="col-lg-4 col-sm-12">
             <h4 class="mb-3"><b>Zarezerwował</b></h4>
-            <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Data') }}:</div><div class="col-8">{{ $reservation[0]->title }} {{ $reservation[0]->name_and_surname }}</div></div>
+            <div class="row fs12"><div class="col-4">{{ __('messages.Data') }}:</div><div class="col-8">{{ $reservation[0]->name }} {{ $reservation[0]->surname }}</div></div>
+            <div class="row fs12"><div class="col-8 offset-4">{{ $reservation[0]->address }}</div></div>
+            <div class="row fs12"><div class="col-8 offset-4">{{ $reservation[0]->postcode }} {{ $reservation[0]->place }}</div></div>
+            <div class="row mb-3 fs12"><div class="col-8 offset-4">{{ $reservation[0]->country }}</div></div>
             <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Cellphone number') }}:</div><div class="col-8">{{ $reservation[0]->phone }}</div></div>
             <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Email address') }}:</div><div class="col-8">{{ $reservation[0]->email }}</div></div>
-            <div class="row mb-3 fs12">
-                <div class="col-4">Faktura na dane:</div>
-                <div class="col-8">
-                    <div class="col-12">{{ $reservation[0]->company_name }}</div>
-                    <div class="col-12">{{ $reservation[0]->address_invoice }}</div>
-                    <div class="col-12">{{ $reservation[0]->postcode_invoice }}</div>
-                    <div class="col-12">{{ $reservation[0]->place_invoice }}</div>
-                    @if($reservation[0]->nip != NULL)<div class="col-12">NIP: {{ $reservation[0]->nip }}</div>@endif
-                </div>
-            </div>
+            @if($reservation[0]->invoice != NULL)
+            <div class="row fs12"><div class="col-4">Faktura na dane:</div><div class="col-8">{{ $reservation[0]->company_name }}</div></div>
+            <div class="row fs12"><div class="col-8 offset-4">{{ $reservation[0]->address_invoice }}</div></div>
+            <div class="row fs12"><div class="col-8 offset-4">{{ $reservation[0]->postcode_invoice }}</div></div>
+            <div class="row fs12"><div class="col-8 offset-4">{{ $reservation[0]->place_invoice }}</div></div>
+                @if($reservation[0]->nip != NULL)<div class="row fs12"><div class="col-8 offset-4">NIP: {{ $reservation[0]->nip }}</div></div>@endif
+            @endif
         </div>
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" style="font-weight: bold;">
             <h4 class="mb-3"><b>Koszt pobytu</b></h4>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Payment for stay') }}:</div><div class="col-5"><span class="pull-right">200,00 PLN</span></div></div>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">50,00 PLN</span></div></div>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">50,00 PLN</span></div></div>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">50,00 PLN</span></div></div>
-            <div class="row mb-3 fs12"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>50,00 PLN</b></span></div></div>
+            <div class="row mb-3 fs12" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>50,00 PLN</b></span></div></div>
         </div>
         <div class="col-lg-4 col-sm-12">
-            <h4 class="mb-3"><b>Wskazówki dojazdu</b></h4>
-            <div id="wskazowki"></div>
+            <h4 class="mb-3"><b>Usługi dodatkowe</b></h4>
+            <!--h4 class="mb-3"><b>Wskazówki dojazdu</b></h4>
+            <div id="wskazowki"></div-->
         </div>
     </div>
 </div>

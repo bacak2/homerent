@@ -16,15 +16,21 @@
                     <div class="pull-right edit" ng-click="editItem(account)"><img src='{{ asset("images/account/pencil.png") }}'></div>
                 </div>
                 <div class="data-item p-2">
-                        <div class="mb-2"><% account.title %></div>
+                        <div class="mb-2" style="color: gray"><% account.title %></div>
                         <div><% account.name %> <% account.surname %></div>
                         <div><% account.address %></div>
                         <div><% account.postcode %> <% account.place %></div>
                         <div class="mb-2"><% account.country %></div>
-                        <div>Faktura na:</div>
-                        <div><% account.name %> <% account.surname %></div>
-                        <div><% account.address %></div>
-                        <div><% account.postcode %> <% account.place %></div>
+
+                        <div ng-switch="account.invoice">
+                            <div ng-switch-when="1">
+                                <div>Faktura na:</div>
+                                <div><% account.name_invoice %></div>
+                                <div><% account.address_invoice %></div>
+                                <div><% account.postcode_invoice %> <% account.place_invoice %></div>
+                            </div>
+                        </div>
+
                         <div class="mt-2"><% account.phone %></div>
                         <div><% account.email %></div>
                 </div>
@@ -61,6 +67,11 @@
             {!! Form::hidden('id', '0', ['id'=>'id', 'ng-model' => 'id']) !!}
             <div class="form-group row">
                 <div class="col-sm-9">
+                    {!! Form::text('label', '', ['id'=>'label', 'class' => 'required full-width ', 'ng-model' => "label", 'placeholder' => __('Nazwa')]) !!}
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-9">
                     {!! Form::text('name', '', ['id'=>'name', 'class' => 'required full-width ', 'ng-model' => "name", 'placeholder' => __('messages.Name')]) !!}
                 </div>
             </div>
@@ -71,7 +82,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('address', '', ['id'=>'address', 'class' => 'required full-width', 'ng-model' => "address", 'placeholder' => __('messages.Address')]) !!}
+                    {!! Form::text('address', '', ['id'=>'address', 'class' => 'required full-width', 'ng-model' => "address", 'placeholder' => __('Ulica / numer')]) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -81,7 +92,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('place', '', ['id'=>'place', 'class' => 'required full-width', 'ng-model' => "place", 'placeholder' => __('messages.Place')]) !!}
+                    {!! Form::text('place', '', ['id'=>'place', 'class' => 'required full-width', 'ng-model' => "place", 'placeholder' => __('Miasto')]) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -96,7 +107,7 @@
             </div>
             <div class="form-group row">
                 <div class="offset-sm-3">
-                    {!! Form::checkbox('otherDataForInvoice', '', ['id'=>'otherDataForInvoice']) !!}
+                    <input type="checkbox" name="otherDataForInvoice" id="otherDataForInvoice">
                 </div>
                 {!! Form::label('otherDataForInvoice', __('messages.Other data for invoice'), ['style'=>'font-size: 12px']) !!}
             </div>
@@ -104,27 +115,27 @@
         <div class="col-lg-6 col-sm-12 pr-lg-5 form-full-width">
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('name', '', ['class' => 'required full-width', 'ng-model' => "name", 'placeholder' => __('messages.Name')]) !!}
+                    {!! Form::text('name_invoice', '', ['id'=>'name_invoice', 'class' => 'required full-width', 'ng-model' => "name_invoice", 'placeholder' => __('messages.Name')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('surname', '', ['class' => 'required full-width', 'ng-model' => "surname", 'placeholder' => __('messages.Surname')]) !!}
+                    {!! Form::text('surname_invoice', '', ['id'=>'surname_invoice', 'class' => 'required full-width', 'ng-model' => "surname_invoice", 'placeholder' => __('messages.Surname')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('address', '', ['class' => 'required full-width', 'ng-model' => "surname", 'placeholder' => __('messages.Address')]) !!}
+                    {!! Form::text('address_invoice', '', ['id'=>'address_invoice', 'class' => 'required full-width', 'ng-model' => "address_invoice", 'placeholder' => __('Ulica / numer')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('postcode', '', ['class' => 'required full-width', 'ng-model' => "surname", 'placeholder' => __('messages.Postcode')]) !!}
+                    {!! Form::text('postcode_invoice', '', ['id'=>'postcode_invoice', 'class' => 'required full-width', 'ng-model' => "postcode_invoice", 'placeholder' => __('messages.Postcode')]) !!}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-9">
-                    {!! Form::text('place', '', ['class' => 'required full-width', 'ng-model' => "surname", 'placeholder' => __('messages.Place')]) !!}
+                    {!! Form::text('place_invoice', '', ['id'=>'place_invoice', 'class' => 'required full-width', 'ng-model' => "place_invoice", 'placeholder' => __('Miasto')]) !!}
                 </div>
             </div>
         </div>
@@ -178,19 +189,28 @@
             $scope.Accounts = accounts
             $scope.toDelete = ''
             $scope.saveItem = function() {
+                if ($('#otherDataForInvoice:checkbox:checked').length > 0) invoice = 1;
+                else invoice = 0;
                 $.ajax({
                     type: "GET",
                     url: '/account/save',
                     dataType : 'json',
                     data: {
                         id: $("#id").val(),
+                        label: $("#label").val(),
                         name: $("#name").val(),
                         surname: $("#surname").val(),
                         address: $("#address").val(),
                         postcode: $("#postcode").val(),
                         place: $("#place").val(),
+                        name_invoice: $("#name_invoice").val(),
+                        surname_invoice: $("#surname_invoice").val(),
+                        address_invoice: $("#address_invoice").val(),
+                        postcode_invoice: $("#postcode_invoice").val(),
+                        place_invoice: $("#place_invoice").val(),
                         phone: $("#phone").val(),
                         email: $("#email").val(),
+                        invoice: invoice,
                         user_email: email,
                     },
                     success: function(data) {
@@ -209,11 +229,17 @@
 
             $scope.editItem = function(object) {
                 $('#id').val(object.id);
+                $('#label').val(object.label);
                 $('#name').val(object.name);
                 $('#surname').val(object.surname);
                 $('#address').val(object.address);
                 $('#postcode').val(object.postcode);
                 $('#place').val(object.place);
+                $('#name_invoice').val(object.name_invoice);
+                $('#surname_invoice').val(object.surname_invoice);
+                $('#address_invoice').val(object.address_invoice);
+                $('#postcode_invoice').val(object.postcode_invoice);
+                $('#place_invoice').val(object.place_invoice);
                 $('#email').val(object.email);
                 $('#phone').val(object.phone);
                 $("div.add-new-data").css({'display': 'block'});

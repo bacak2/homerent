@@ -125,6 +125,7 @@ class Reservations extends Controller
 
     public function thirdStep(Request $request)
     {
+        //dd($request);
         $request->phone = "$request->prefix"." $request->phone";
         $reservationData =[
             'apartament_id' => $request->id,
@@ -153,18 +154,20 @@ class Reservations extends Controller
         else {
             $userData = array(
                 'title' => $request->title,
-                'name_and_surname' => $request->name_and_surname,
+                'name' => $request->name,
+                'surname' => $request->surname,
                 'country' => $request->country,
                 'address' => $request->address,
-                'address_invoice' => $request->address_invoice ?? $request->address,
+                'address_invoice' => $request->address_invoice ?? 0,
                 'postcode' => $request->postcode,
-                'postcode_invoice' => $request->postcode_invoice ?? $request->postcode,
+                'postcode_invoice' => $request->postcode_invoice ?? 0,
                 'place' => $request->place,
-                'place_invoice' => $request->place_invoice ?? $request->place,
-                'company_name' => $request->company_name,
-                'nip' => $request->nip,
+                'place_invoice' => $request->place_invoice ?? 0,
+                'company_name' => $request->company_name ?? 0,
+                'nip' => $request->nip ?? 0,
                 'phone' => $request->phone,
                 'email' => $request->email,
+                'invoice' => $request->wantInvoice ?? 0,
             );
         }
 
@@ -211,7 +214,7 @@ class Reservations extends Controller
         $reservation = DB::table('reservations')->where('id', $idReservation)->get();
 
         $reservationModel = new Reservation();
-        $reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
+        //$reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
 
         return view('reservation.fourthStep', [
             'apartament' => $apartament,

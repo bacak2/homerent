@@ -196,4 +196,5 @@ return [
     'return2' => 'Cofnij',
     'nights' => '{0}nocy|{1}noc|[2,4]noce|[5,*]nocy',
     'adult persons' => '{0}osób dorosłych|{1}osoba dorosła|[2,4]osoby dorosłe|[5,*]osób dorosłych',
+    'Other data for invoice' => 'Inne dane do faktury',
 ];
