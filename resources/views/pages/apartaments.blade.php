@@ -105,7 +105,7 @@
 							<div class="res-info">
 								<div class="row">
 									<div class="col-8">
-										{{ __('messages.nights')}}
+										{{ __('messages.Chosen nights')}}
 									</div>
 									<div class="col-4">
 										<p align="right"><b><input class="form-control" id="ilenocy" name="ilenocy" readonly style="width: 50px"></input></b></p>

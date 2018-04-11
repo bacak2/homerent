@@ -112,7 +112,7 @@
                 {!! Form::label('otherDataForInvoice', __('messages.Other data for invoice'), ['style'=>'font-size: 12px']) !!}
             </div>
         </div>
-        <div class="col-lg-6 col-sm-12 pr-lg-5 form-full-width">
+        <div id="invoice-block" class="col-lg-6 col-sm-12 pr-lg-5 form-full-width">
             <div class="form-group row">
                 <div class="col-sm-9">
                     {!! Form::text('name_invoice', '', ['id'=>'name_invoice', 'class' => 'required full-width', 'ng-model' => "name_invoice", 'placeholder' => __('messages.Name')]) !!}
@@ -313,8 +313,27 @@
         $("#data-added").css({'display': 'none'});
     });
 
+    $("#otherDataForInvoice").on('click', function(){
+        if ($('#otherDataForInvoice:checkbox:checked').length > 0) {
+            $("#invoice-block").css({'display': 'block'});
+        }
+        else{
+
+            $("#invoice-block").css({'display': 'none'});
+        }
+    });
+
+
     $(document).ready(function(){
         $("#data-content").css('display', 'flex');
+
+        if ($('#otherDataForInvoice:checkbox:checked').length > 0) {
+            $("#invoice-block").css({'display': 'block'});
+        }
+        else{
+
+            $("#invoice-block").css({'display': 'none'});
+        }
     });
 
 </script>

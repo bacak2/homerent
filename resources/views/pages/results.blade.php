@@ -120,6 +120,10 @@
 
         // Render Slider
         $('#slider-range').slider(slider_config);
+        $("#slider-range").slider('values',0,0);
+        $("#slider-range").slider('values',1,1000);
+        $("#amount").val('0');
+        $("#amount2").val('1000+');
 
     }
 
@@ -147,6 +151,10 @@
 
         // Render Slider
         $('#Mslider-range').slider(slider_config);
+        $("#Mslider-range").slider('values',0,0);
+        $("#Mslider-range").slider('values',1,1000);
+        $("#Mamount").val('0');
+        $("#Mamount2").val('1000+');
 
     }
 

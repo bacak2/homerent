@@ -44,7 +44,7 @@ return [
 	'adults' => 'Adults',
 	'kids' => 'Kids',
 	'placeholder' => 'English placeholder text. We can add translation here.',
-	'nights' => 'Nights: ',
+	'Chosen nights' => 'Nights: ',
 	'reserve' => 'Reserve',
         'lowestpricepnight' => 'The lowest price per night: ',
         'Yes' => 'Yes',

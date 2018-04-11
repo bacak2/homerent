@@ -67,10 +67,12 @@
                             <div>{{ $data->address }}</div>
                             <div>{{ $data->postcode }} {{ $data->place }}</div>
                             <div class="mb-2">{{ $data->country }}</div>
-                            <div>Faktura na:</div>
-                            <div>{{ $data->name }} {{ $data->surname }}</div>
-                            <div>{{ $data->address }}</div>
-                            <div>{{ $data->postcode }} {{ $data->place }}</div>
+                            @if($data->invoice==1)
+                                <div>Faktura na:</div>
+                                <div>{{ $data->name_invoice }} {{ $data->surname_invoice }}</div>
+                                <div>{{ $data->address_invoice }}</div>
+                                <div>{{ $data->postcode_invoice }} {{ $data->place_invoice }}</div>
+                            @endif
                             <div class="mt-2">{{ $data->phone }}</div>
                             <div>{{ $data->email }}</div>
                         </div>
@@ -433,7 +435,7 @@
             <div class="form-group row">
                 {!! Form::label('postcode', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('postcode', '', array('class' => 'required not-full-width col-sm-12 col-lg-6')) !!}
+                    {!! Form::text('postcode', '', array('class' => 'required not-full-width col-sm-12 col-lg-6', 'pattern' => '[0-9]{2}-[0-9]{3}', 'oninvalid' => 'setCustomValidity("Wprowadź poprawny kod pocztowy")', ' oninput' => 'setCustomValidity("")')) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -496,7 +498,7 @@
             <div class="form-group row">
                 {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::email('email', $request->email, ['class' => 'required full-width']) !!}
+                    {!! Form::email('email', $request->email, ['class' => 'required full-width', 'oninvalid' => 'setCustomValidity("Wprowadź poprawny adres email")', ' oninput' => 'setCustomValidity("")']) !!}
                     <div class="font-11" style="color: gray">
                         Ten adres e-mail będzie służył do kontaktu z Tobą oraz do logowania (jeśli się zdecydujesz założyć konto).
                     </div>
@@ -535,7 +537,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-sm-3">
                             {{ __('messages.Expected time') }}:
-                            <input id="godzinaPrzyjazdu" name="godzinaPrzyjazdu" class="slider-time" style="width: 60px; margin-bottom: 20px">
+                            <input id="godzinaPrzyjazdu" value="12:00" name="godzinaPrzyjazdu" class="slider-time" style="width: 60px; margin-bottom: 20px">
                         </div>
                         <div class="col-lg-8 col-sm-6 col-lg-offset-3">
                             <div id="time-range">
@@ -656,9 +658,9 @@
                         <b>{{ __('messages.Book and pay online') }}</b>
                     </div>
                 </a>
-                <button id="nextAv" class="btn ml-2 pointer" type="submit" style="display: none;">{{ __('messages.next') }}</button>
+                <button id="nextAv" class="btn ml-2 pointer" type="submit" style="display: none;">{{ __('Rezerwuj i opłać online (380,00 PLN)') }}</button>
                 {!! Form::close() !!}
-                <span id="notAvDescription" style="font-size: 11px">{{ __('messages.First, choose the method of payment') }}</span>
+                <div id="notAvDescription" style="font-size: 11px; margin-left: 10px; margin-top: 8px">{{ __('messages.First, choose the method of payment') }}</div>
             </div>
         </div>
     </div>
@@ -728,7 +730,13 @@
                 }
                 else {
                     if (checkSame() || $("input[name='dontWantAccount']").is(":checked")){
-                        if($('#accept1').is(":checked")) isValid = true;
+                        if($('#accept1').is(":checked")){
+                            if($('input[type=radio]:checked').length > 0) isValid = true;
+                            else{
+                                isValid = false;
+                                return false;
+                            }
+                        }
                         else
                         {
                             isValid = false;
@@ -745,13 +753,25 @@
             if(isValid == true) {
                 $('#nextNotAv').css({"display": "none"});
                 $('#nextAv').css({"display": "inline-block"});
-                $('span#notAvDescription').hide();
+                //$('span#notAvDescription').hide();
+
+                if($('input[name=allNow]:checked').val() == 1){
+                    $('#nextAv').text('Rezerwuj i opłać online (380,00 PLN)');
+                    $('div#notAvDescription').html('<div>Zostaniesz przekierowany przekierowany do systemu płatności online (przelew lub karta kredytowa)</div>');
+                }
+
+                else {
+                    $('#nextAv').text('Rezerwuj wstępnie');
+                    $('div#notAvDescription').html('<div><div style="color: red;" class=""><div style="float: left;margin-top: 4px; margin-right: 6px"><i class="fa fa-2x fa-exclamation-triangle"></i></div><div><div><b>Czekamy na potwierdzenie wpłaty 90 min</b></div><div style="margin-top: -6px;">Na kolejnej stronie otrzymasz numer rachunku do wpłaty.</div></div></div></div>');
+                }
 
             }
             if(isValid == false){
                 $('#nextNotAv').css({"display": "inline-block"});
                 $('#nextAv').css({"display": "none"});
-                $('span#notAvDescription').show();
+
+                $('#nextAv').text('Rezerwuj i opłać online');
+                $('div#notAvDescription').html('<div>Najpierw wybierz sposób zapłaty</div>');
             }
         });
 
@@ -861,5 +881,6 @@
             $('#nameAndSurname').show();
             $('#nameAndSurnameText').hide();
         });
+
 </script>
 @endsection()

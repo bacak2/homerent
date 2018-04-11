@@ -122,13 +122,13 @@
                         <div class="form-group row">
                             {!! Form::label('name', __('messages.name').':', array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
-                                {!! Form::text('name', Auth::user()->name ?? '', array('class' => 'full-width', 'required' => 'required')) !!}
+                                {!! Form::text('name', Auth::user()->name ?? '', array('class' => 'full-width', 'required' => 'required', 'oninvalid' => 'setCustomValidity("Wprowadź imię")', ' oninput' => 'setCustomValidity("")')) !!}
                             </div>
                         </div>
                         <div class="form-group row">
                             {!! Form::label('surname', __('messages.surname').':', array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
-                                {!! Form::text('surname', Auth::user()->surname ?? '', array('class' => 'full-width', 'required' => 'required')) !!}
+                                {!! Form::text('surname', Auth::user()->surname ?? '', array('class' => 'full-width', 'required' => 'required', 'oninvalid' => 'setCustomValidity("Wprowadź nazwisko")', ' oninput' => 'setCustomValidity("")')) !!}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -156,9 +156,6 @@
                     <div class="row"><b>{{ __('messages.Additional services') }}</b></div>
                     <div class="row" style="border: 1px solid lightgray; padding: 10px">
                         <div class="col-9"><input type="checkbox" id="additional-bed"><label for="additional-bed" style="margin-bottom: 0">łóżeczko dla dziecka</label></div><div class="col-3" style="text-align: right;">20 PLN</div>
-                    </div>
-                    <div class="row" style="border: 1px solid lightgray; padding: 10px">
-                        <div class="col-9"><input type="checkbox" id="additional-bed2"><label for="additional-bed2" style="margin-bottom: 0">łóżeczko dla dziecka</label></div><div class="col-3" style="text-align: right;">20 PLN</div>
                     </div>
                 </div>
                 <div class="col-12 mt-3" id="messageForOwner" style="display: none">

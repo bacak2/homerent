@@ -188,7 +188,7 @@ class Reservations extends Controller
 
         $dataSet = $reservationData + $userData;
 
-        if($request->zal == 2 || $request->allNow == 2) {
+        if(1==1 || $request->zal == 2 || $request->allNow == 2) {
 
             $idReservation = DB::table('reservations')->insertGetId($dataSet);
 
@@ -214,7 +214,7 @@ class Reservations extends Controller
         $reservation = DB::table('reservations')->where('id', $idReservation)->get();
 
         $reservationModel = new Reservation();
-        //$reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
+        $reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
 
         return view('reservation.fourthStep', [
             'apartament' => $apartament,

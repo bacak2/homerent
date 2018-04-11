@@ -44,7 +44,7 @@ return [
 	'adults' => 'Dorośli',
 	'kids' => 'Dzieci',
 	'placeholder' => 'Przykładowy tekst w języku polskim. Ten tekst jest po polsku.',
-	'nights' => 'Wybrana ilość nocy: ',
+	'Chosen nights' => 'Wybrana ilość nocy: ',
 	'reserve' => 'Rezerwuj',
         'lowestpricepnight' => 'Najniższa cena za noc: ',
         'Yes' => 'Tak',
