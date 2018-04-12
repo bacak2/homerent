@@ -934,9 +934,15 @@ div.reservation-path{
 		border: solid black 1px;
 		background-color: #fff;
 		z-index: 1000;
+		padding: 20px;
 	}
 }
 
+#cancel-login-popup{
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
 @media (min-width: 768px) {
 	.desktop-hidden{
 		visibility: hidden !important;
