@@ -537,7 +537,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-sm-3">
                             {{ __('messages.Expected time') }}:
-                            <input id="godzinaPrzyjazdu" value="12:00" name="godzinaPrzyjazdu" class="slider-time" style="width: 60px; margin-bottom: 20px">
+                            <input id="godzinaPrzyjazdu" value="15:00" name="godzinaPrzyjazdu" class="slider-time" style="width: 60px; margin-bottom: 20px">
                         </div>
                         <div class="col-lg-8 col-sm-6 col-lg-offset-3">
                             <div id="time-range">
@@ -558,11 +558,11 @@
                             <b>{{ __('messages.Advance') }}</b>
                         </div>
                         <div class="col-lg-3 col-sm-12">
-                            <input id="zalNow" name="zal" value="1" type="radio">
+                            <input id="zalNow" name="allNow" value="3" type="radio">
                             <label for="zalNow" class="reservation">{{ __('messages.payment booking immediately') }}</label>
                         </div>
                         <div class="col-lg-3 col-sm-12">
-                            <input id="zalNow2" name="zal" value="2" type="radio">
+                            <input id="zalNow2" name="allNow" value="4" type="radio">
                             <label for="zalNow2" class="reservation">{{ __('messages.payment booking initial') }}</label>
                         </div>
                         <div class="col-lg-3 col-sm-3 pt-2" align="right">
@@ -582,7 +582,7 @@
                             <label for="allNow2" class="reservation">{{ __('messages.payment booking initial') }}</label>
                         </div>
                         <div class="col-lg-3 col-sm-3 pt-2" align="right">
-                            <b>380,00 PLN</b>
+                            <b><span>{{ number_format($request->totalPrice, 2, ',', ' ') }}</span> PLN</b>
                         </div>
                     </div>
                 </div>
@@ -611,7 +611,7 @@
                     </div>
                     <div class="col-8">
                                 <div class="txt-blue"><b>{{ $apartament->descriptions[0]->apartament_name}}</b></div>
-                                <div>{{ $apartament->apartament_district }}</div>
+                                <div>{{ $apartament->apartament_city}}({{ $apartament->apartament_district }})</div>
                                 <div class="mb-2">{{ $apartament->apartament_address }}</div>
                                 <hr class="desktop-none">
                     </div>
@@ -626,11 +626,11 @@
                         </div>
                 </div>
                 <div class="font-12" style="font-weight: bold">
-                    <div class="row mb-2"><div class="col-7">{{ __('messages.Payment for stay') }} ({{$request->ilenocy}} {{trans_choice('messages.nights',$request->ilenocy)}}):</div><div class="col-5"><span class="pull-right">{{ number_format(200*$request->ilenocy, 2, ',', ' ') }} PLN</span></div></div>
+                    <div class="row mb-2"><div class="col-7">{{ __('messages.Payment for stay') }} ({{$request->ilenocy}} {{trans_choice('messages.nights',$request->ilenocy)}}):</div><div class="col-5"><span class="pull-right">{{ number_format($nightsPrice, 2, ',', ' ') }} PLN</span></div></div>
                     <div class="row mb-2"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
                     <!--div class="row mb-2"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }}  PLN</span></div></div-->
                     <div class="row mb-2"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }}  PLN</span></div></div>
-                    <div class="row mb-2" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format(200*$request->ilenocy+100, 2, ',', ' ') }}  PLN</b></span></div></div>
+                    <div class="row mb-2" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format($request->totalPrice, 2, ',', ' ') }}  PLN</b></span></div></div>
                 </div>
             </div>
         </div>
@@ -730,7 +730,7 @@
                 }
                 else {
                     if (checkSame() || $("input[name='dontWantAccount']").is(":checked")){
-                        if($('#accept1').is(":checked")){
+                        if($('#accept0').is(":checked") && $('#accept1').is(":checked")){
                             if($('input[type=radio]:checked').length > 0) isValid = true;
                             else{
                                 isValid = false;
@@ -756,7 +756,12 @@
                 //$('span#notAvDescription').hide();
 
                 if($('input[name=allNow]:checked').val() == 1){
-                    $('#nextAv').text('Rezerwuj i opłać online (380,00 PLN)');
+                    $('#nextAv').text('Rezerwuj i opłać online ({{ number_format($request->totalPrice, 2, ',', ' ') }} PLN)');
+                    $('div#notAvDescription').html('<div>Zostaniesz przekierowany przekierowany do systemu płatności online (przelew lub karta kredytowa)</div>');
+                }
+
+                else if($('input[name=allNow]:checked').val() == 3){
+                    $('#nextAv').text('Rezerwuj i opłać online (100,00 PLN)');
                     $('div#notAvDescription').html('<div>Zostaniesz przekierowany przekierowany do systemu płatności online (przelew lub karta kredytowa)</div>');
                 }
 
@@ -777,11 +782,11 @@
 
         $("#slider-range").slider({
             range: false,
-            value: 720,
+            value: 900,
             min: 0,
             max: 1440,
-            step: 15,
-            values: [720],
+            step: 30,
+            values: [900],
             slide: function (e, ui) {
                 var hours1 = Math.floor(ui.values[0] / 60);
                 var minutes1 = ui.values[0] - (hours1 * 60);

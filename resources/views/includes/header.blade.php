@@ -17,7 +17,7 @@
           <ul class="navbar-nav ml-auto">
           	@guest
 	            <li class="nav-item">
-	              <a class="nav-link" href="{{ route('login') }}">{{ __('messages.login')}}</a>
+	              <a class="nav-link" id="log-in" href="#">{{ __('messages.login')}}</a>
 	            </li>
 	            <li class="nav-item">
 	              <a class="nav-link" href="{{ route('register') }}">{{ __('messages.register')}}</a>

@@ -177,6 +177,11 @@ class Apartaments extends Controller
             ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
             ->whereIn('apartaments.id', Apartament::select('apartaments.id')
             ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            /*->leftJoin('apartament_prices', function($join) {
+                $join->on('apartament_prices.apartament_id','=','apartaments.id')
+                    ->where('price_value', DB::raw("(select min(`price_value`) from apartament_prices where apartament_id = 1)"));
+            })
+            */
             ->join('languages', function($join) {
                 $join->on('apartament_descriptions.language_id','=','languages.id')
                     ->where('languages.id', $this->language->id);

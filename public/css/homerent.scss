@@ -916,6 +916,27 @@ div.reservation-path{
 	}
 }
 
+#login-popup{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width:100%;
+	height:100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 900;
+	#login-form {
+		position: fixed;
+		top: 5%;
+		left: 50%;
+		top: 30%;
+		transform: translate(-50%, -50%);
+		width: 320px;
+		border: solid black 1px;
+		background-color: #fff;
+		z-index: 1000;
+	}
+}
+
 @media (min-width: 768px) {
 	.desktop-hidden{
 		visibility: hidden !important;

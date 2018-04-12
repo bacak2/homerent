@@ -66,7 +66,7 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
                     <div class="txt-blue" style="font-size: 22px"><b>{{ $apartament->descriptions[0]->apartament_name }}</b></div>
-                    <div class="mb-2">{{ $apartament->apartament_district }}</div>
+                    <div class="mb-2">{{ $apartament->apartament_city}} ({{ $apartament->apartament_district }})</div>
                     <div class="mb-2">{{ $apartament->apartament_address }}</div>
                     <hr class="desktop-none">
                 </div>
@@ -150,7 +150,7 @@
         <div class="col-lg-8 col-sm-12">
             <form class="ml-3 mb-3" name="wskazowki" action="#" onsubmit="znajdz_wskazowki(); return false;" class="ml-2">
                 <div class="row">
-                    Wskazówki dojazdu: <input type="text" name="skad"  id="skad" style="width:180px">
+                    Wskazówki dojazdu: <input class="font-12" type="text" name="skad"  id="skad" style="width:180px" placeholder="Lokalizacja początkowa">
                     <input class="btn btn-info btn-mobile btn-res4th" type="submit" value="Pokaż">
                     <div class="col-2 font-12 ml-3" style="display: inline-block;">
                         <div id="distance" class="row" style="font-weight: bold"></div>

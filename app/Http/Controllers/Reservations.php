@@ -58,6 +58,13 @@ class Reservations extends Controller
             ->where('apartament_id',$id)
             ->get();
 
+        $totalPrice = DB::Table('apartament_prices')
+            ->selectRaw('sum(price_value) AS total_price')
+            ->where('apartament_id',$id)
+            ->where('date_of_price','>=',$przyjazdDb)
+            ->where('date_of_price','<',$powrotDb)
+            ->first();
+
         $priceFrom = $this->getPriceFrom($id);
 
         //suma wszystkich łóżek
@@ -72,6 +79,7 @@ class Reservations extends Controller
             'przyjazdDb' => $przyjazdDb,
             'powrotDb' => $powrotDb,
             'ileNocy' => $nightsCounter,
+            'totalPrice' => $totalPrice->total_price,
         ]);
 
     }
@@ -112,6 +120,8 @@ class Reservations extends Controller
         //suma wszystkich łóżek
         $beds = $apartament->apartament_single_beds+$apartament->apartament_double_beds;
 
+        $nightsPrice = $request->totalPrice;
+
         return view('reservation.secondStep', [
             'apartament' => $apartament,
             'images' => $images,
@@ -119,6 +129,7 @@ class Reservations extends Controller
             'beds' => $beds,
             'request' => $request,
             'accountData' => $accountData,
+            'nightsPrice' => $nightsPrice,
         ]);
 
     }
@@ -213,8 +224,8 @@ class Reservations extends Controller
 
         $reservation = DB::table('reservations')->where('id', $idReservation)->get();
 
-        $reservationModel = new Reservation();
-        $reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
+        //$reservationModel = new Reservation();
+        //$reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
 
         return view('reservation.fourthStep', [
             'apartament' => $apartament,

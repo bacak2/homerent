@@ -130,7 +130,7 @@ return [
 	'confirmation' => 'Potwierdzenie',
 	'res.firstStepDescription' => 'Dane kontaktowe właściciela zostaną podane po zakończeniu rezerwacji',
 	'arrival' => 'Przyjazd',
-	'departure' => 'Odjazd',
+	'departure' => 'Wyjazd',
 	'res.paymentDescription' => 'Możesz bezpłatnie odwołać rezerwację do',
 	'return confirmation' => 'Czy na pewno chcesz anulować rezerwację?',
 	'Payment for stay' => 'Opłata za pobyt',

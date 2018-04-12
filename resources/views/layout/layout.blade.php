@@ -40,6 +40,8 @@
 	@include('includes.footer')
 	{{-- PRIVACY POLICY--}}
 	@include('includes.privacy')
+	{{--Login popup--}}
+	@include('includes.login-popup')
 
 </body>
 </html>
