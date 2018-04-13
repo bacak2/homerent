@@ -1,5 +1,5 @@
 @extends ('layout.layout')
-@section('title', '- Wyszukiwarka')
+@section('title', 'Wyszukiwarka')
 @section('content')
 <div class="container pt-5 pb-5 results-search">
 <div class="col">

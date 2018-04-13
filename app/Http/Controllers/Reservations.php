@@ -26,6 +26,7 @@ class Reservations extends Controller
     }
     
     public function firstStep(Request $request){
+
         $przyjazdDb = explode(" ", $request->przyjazd);
         //zmienić gdy kalendarz będzie wszędzie taki sam (z dniem tygodnia słownie)
         $przyjazdDb = $przyjazdDb[1] ?? $przyjazdDb[0];
@@ -65,10 +66,21 @@ class Reservations extends Controller
             ->where('date_of_price','<',$powrotDb)
             ->first();
 
+        $prices = DB::Table('apartament_prices')
+            ->select('date_of_price', 'price_value')
+            ->where('apartament_id',$id)
+            ->where('date_of_price','>=',$przyjazdDb)
+            ->where('date_of_price','<',$powrotDb)
+            ->get();
+//dd($prices);
         $priceFrom = $this->getPriceFrom($id);
 
         //suma wszystkich łóżek
         $beds = $apartament->apartament_single_beds+$apartament->apartament_double_beds;
+
+        $cleaning = 50;
+        $basicService = 50;
+        $request->fullPrice = $totalPrice->total_price + $request->servicesPrice + $cleaning + $basicService;
 
         return view('reservation.firstStep', [
             'apartament' => $apartament,
@@ -80,11 +92,16 @@ class Reservations extends Controller
             'powrotDb' => $powrotDb,
             'ileNocy' => $nightsCounter,
             'totalPrice' => $totalPrice->total_price,
+            'prices' => $prices,
         ]);
 
     }
 
     public function secondStep(Request $request){
+
+        $cleaning = 50;
+        $basicService = 50;
+        $request->fullPrice = $request->totalPrice + $request->servicesPrice + $cleaning + $basicService;
 
         if(Auth::user()){
             $accountData = DB::table('users_account')->where('user_email', Auth::user()->email)->get();
@@ -136,11 +153,50 @@ class Reservations extends Controller
 
     public function thirdStep(Request $request)
     {
-        //dd($request);
         $request->phone = "$request->prefix"." $request->phone";
+
+        if(!$request->has('dontWantAccount')){
+
+            $emailExists = DB::table('users')->where('email', $request->email)->exists();
+            if($emailExists) {
+                return redirect()->back()->withInput()->withErrors('Dla podanego adresu email istnieje już konto');
+            }
+            else {
+                $usersDataSet = array(
+                    'name'  => $request->input('name'),
+                    'surname' => $request->input('surname'),
+                    'email' => $request->input('email'),
+                    'password' => bcrypt($request->input('password')),
+                );
+
+                $usersAccountDataSet = array(
+                    'title' => $request->title,
+                    'label' => $request->name,
+                    'name' => $request->name,
+                    'surname' => $request->surname,
+                    'country' => $request->country,
+                    'address' => $request->address,
+                    'address_invoice' => $request->address_invoice ?? '',
+                    'postcode' => $request->postcode,
+                    'postcode_invoice' => $request->postcode_invoice ?? '',
+                    'place' => $request->place,
+                    'place_invoice' => $request->place_invoice ?? '',
+                    'company_name' => $request->company_name ?? '',
+                    'nip' => $request->nip ?? '',
+                    'phone' => $request->phone,
+                    'user_email' => $request->email,
+                    'email' => $request->email,
+                    'invoice' => $request->wantInvoice ?? 0,
+                );
+
+                $insertedUserId = DB::table('users')->insertGetId($usersDataSet);
+                DB::table('users_account')->insert($usersAccountDataSet);
+            }
+        }
+
         $reservationData =[
             'apartament_id' => $request->id,
-            'user_id' => Auth::user()->id ?? 0,
+            'user_id' => Auth::user()->id ?? $insertedUserId ?? 0,
             'reservation_arrive_date' => $request->przyjazdDb,
             'reservation_departure_date' => $request->powrotDb,
             'reservation_persons' => $request->dorosli,
@@ -169,13 +225,13 @@ class Reservations extends Controller
                 'surname' => $request->surname,
                 'country' => $request->country,
                 'address' => $request->address,
-                'address_invoice' => $request->address_invoice ?? 0,
+                'address_invoice' => $request->address_invoice ?? '',
                 'postcode' => $request->postcode,
-                'postcode_invoice' => $request->postcode_invoice ?? 0,
+                'postcode_invoice' => $request->postcode_invoice ?? '',
                 'place' => $request->place,
-                'place_invoice' => $request->place_invoice ?? 0,
-                'company_name' => $request->company_name ?? 0,
-                'nip' => $request->nip ?? 0,
+                'place_invoice' => $request->place_invoice ?? '',
+                'company_name' => $request->company_name ?? '',
+                'nip' => $request->nip ?? '',
                 'phone' => $request->phone,
                 'email' => $request->email,
                 'invoice' => $request->wantInvoice ?? 0,

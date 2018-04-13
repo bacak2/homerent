@@ -183,6 +183,7 @@ return [
 	'Email address' => 'Adres e-mail',
 	'Data' => 'Data',
 	'My reservations' => 'Reservations',
+	'my reservations' => 'My reservations',
 	'My favourites' => 'Favourites',
 	'Add to favorites' => 'Add to favorites',
 	'Adults' => 'adults',

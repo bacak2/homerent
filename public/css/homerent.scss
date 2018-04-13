@@ -482,7 +482,7 @@ div > span > i.fa{
 		color: blue;
 	}
 }
-.dropdown-menu label:hover, .dropdown-menu span:hover, input[type=checkbox]:hover, label.map-legend-button:hover, a.filters-toggle, .desktop-none.filters-toggle span, .btn-res4th {
+.dropdown-menu label:hover, .dropdown-menu span:hover, input[type=checkbox]:hover, label.map-legend-button:hover, a.filters-toggle, .desktop-none.filters-toggle span, .btn-res4th, #cancel-login-popup, input#submit, span#log-in-inline {
 	cursor: pointer;
 }
 
@@ -943,6 +943,22 @@ div.reservation-path{
 	top: 20px;
 	right: 20px;
 }
+
+#form-account{
+	div.row{
+		margin-bottom: 10px;
+	}
+}
+span.error{
+	display: none;
+	color:red;
+	font-size: 12px;
+}
+
+span.error-show{
+	display: inline;
+}
+
 @media (min-width: 768px) {
 	.desktop-hidden{
 		visibility: hidden !important;
@@ -976,7 +992,7 @@ div.reservation-path{
 
 	.add-new-data{
 		position: fixed;
-		top: 5%;
+		top: 2%;
 		left: 50%;
 		transform: translateX(-50%);
 		width: 1000px;
@@ -1034,6 +1050,11 @@ div.reservation-path{
 
 	#data-added{
 		width: 100%;
+	}
+
+	#form-account{
+		padding-left: 20px;
+		padding-right: 20px;
 	}
 }
 

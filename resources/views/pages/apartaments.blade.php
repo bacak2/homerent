@@ -1,6 +1,6 @@
 @extends ('layout.layout')
 
-@section('title', '- '.$apartament->descriptions[0]->apartament_name )
+@section('title', $apartament->apartament_city.' - '.$apartament->descriptions[0]->apartament_name.' - Zarezerwuj już teraz' )
 
 @section('content')
 	<div class="row">

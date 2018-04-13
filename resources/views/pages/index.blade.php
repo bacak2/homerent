@@ -1,5 +1,5 @@
 @extends ('layout.layout')
-@section('title', '- Strona główna')
+@section('title', 'Strona główna')
 @section('content')
 	{{--SLIDER--}}
 	@include('includes.slider')

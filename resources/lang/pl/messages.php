@@ -182,6 +182,7 @@ return [
 	'Email address' => 'Adres e-mail',
 	'Data' => 'Dane',
 	'My reservations' => 'Rezerwacje',
+	'my reservations' => 'Moje rezerwacje',
 	'My favourites' => 'Ulubione',
 	'Add to favorites' => 'Dodaj do lubionych',
 	'Adults' => 'dorosłych',

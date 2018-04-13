@@ -1,6 +1,6 @@
 @extends ('layout.layout')
 
-@section('title', '- '.Auth::user()->name.'- '.__('messages.My account') )
+@section('title', Auth::user()->name.' - '.__('messages.My account') )
 
 @section('content')
 <span  ng-app="AccountsList" ng-controller="myCtrl">
@@ -61,51 +61,59 @@
     </div>
 <div class="add-new-data" style="display: none">
     <h4 class="p-3 mb-4"><b>Dodaj dane do rezerwacji</b></h4>
-    <div class="row mb-lg-3">
+    <div id="form-account" class="row mb-lg-3">
         <div class="col-lg-6 col-sm-12 pl-lg-5 form-full-width">
-            {!! Form::open(['url' => '/foo', 'name' => 'formName', 'class' => 'pl-5']) !!}
+            {!! Form::open(['url' => '/foo', 'name' => 'formName', 'class' => 'pl-lg-5']) !!}
             {!! Form::hidden('id', '0', ['id'=>'id', 'ng-model' => 'id']) !!}
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('label', '', ['id'=>'label', 'class' => 'required full-width ', 'ng-model' => "label", 'placeholder' => __('Nazwa')]) !!}
+                    <span id="errlabel" class="error">Proszę wypełnić pole</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('name', '', ['id'=>'name', 'class' => 'required full-width ', 'ng-model' => "name", 'placeholder' => __('messages.Name')]) !!}
+                    <span id="errname" class="error">Proszę wypełnić pole</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('surname', '', ['id'=>'surname', 'class' => 'required full-width', 'ng-model' => "surname", 'placeholder' => __('messages.Surname')]) !!}
+                    <span id="errsurname" class="error">Proszę wypełnić pole</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('address', '', ['id'=>'address', 'class' => 'required full-width', 'ng-model' => "address", 'placeholder' => __('Ulica / numer')]) !!}
+                    <span id="erraddress" class="error">Proszę wypełnić pole</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('postcode', '', ['id'=>'postcode', 'class' => 'required full-width', 'ng-model' => "postcode", 'placeholder' => __('messages.Postcode')]) !!}
+                    <span id="errpostcode" class="error">Proszę wprowadzić poprawny kod pocztowy</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('place', '', ['id'=>'place', 'class' => 'required full-width', 'ng-model' => "place", 'placeholder' => __('Miasto')]) !!}
+                    <span id="errplace" class="error">Proszę wypełnić pole</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('email', '', ['id'=>'email', 'class' => 'required full-width', 'ng-model' => "email", 'placeholder' => __('Email')]) !!}
+                    <span id="erremail" class="error">Proszę wprowadzić poprawny adres email</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('phone', '', ['id'=>'phone', 'class' => 'required full-width', 'ng-model' => "phone", 'placeholder' => __('messages.Cellphone')]) !!}
+                    <span id="errphone" class="error">Proszę wypełnić pole</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="offset-sm-3">
                     <input type="checkbox" name="otherDataForInvoice" id="otherDataForInvoice">
                 </div>
@@ -113,35 +121,40 @@
             </div>
         </div>
         <div id="invoice-block" class="col-lg-6 col-sm-12 pr-lg-5 form-full-width">
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('name_invoice', '', ['id'=>'name_invoice', 'class' => 'required full-width', 'ng-model' => "name_invoice", 'placeholder' => __('messages.Name')]) !!}
+                    <span id="errname_invoice" class="error">Proszę wypełnić pole</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('surname_invoice', '', ['id'=>'surname_invoice', 'class' => 'required full-width', 'ng-model' => "surname_invoice", 'placeholder' => __('messages.Surname')]) !!}
+                    <span id="errsurname_invoice" class="error">Proszę wypełnić pole</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('address_invoice', '', ['id'=>'address_invoice', 'class' => 'required full-width', 'ng-model' => "address_invoice", 'placeholder' => __('Ulica / numer')]) !!}
+                    <span id="erraddress_invoice" class="error">Proszę wypełnić pole</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('postcode_invoice', '', ['id'=>'postcode_invoice', 'class' => 'required full-width', 'ng-model' => "postcode_invoice", 'placeholder' => __('messages.Postcode')]) !!}
+                    <span id="errpostcodeInvoice" class="error">Proszę wprowadzić poprawny kod pocztowy</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('place_invoice', '', ['id'=>'place_invoice', 'class' => 'required full-width', 'ng-model' => "place_invoice", 'placeholder' => __('Miasto')]) !!}
+                    <span id="errplace_invoice" class="error">Proszę wypełnić pole</span>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-12">
-        <div class="form-group row">
+        <div class="row mb-3">
             <div class="col-2 col-lg-4"></div>
             <div class="col-4 col-lg-2">
                 <div class="btn" id="cancel" style="font-size: 18px">Anuluj</div>
@@ -191,6 +204,8 @@
             $scope.saveItem = function() {
                 if ($('#otherDataForInvoice:checkbox:checked').length > 0) invoice = 1;
                 else invoice = 0;
+
+                if(valid() == false) return false;
                 $.ajax({
                     type: "GET",
                     url: '/account/save',
@@ -294,6 +309,33 @@
 
         });
 
+        function valid(){
+            checkValidation();
+            if($('#otherDataForInvoice').is(":checked")) checkInvoiceValidation();
+            var name = $('#name');
+            var surname = $('#surname');
+            var address = $('#address');
+            var postcode = $('#postcode');
+            var place = $('#place');
+            var email = $('#email');
+            var phone = $('#phone');
+
+            var postcodeInvoice = $('#postcode_invoice');
+
+            if(name.hasClass('valid') && surname.hasClass('valid') && address.hasClass('valid') && postcode.hasClass('valid') && place.hasClass('valid') && email.hasClass('valid') && phone.hasClass('valid')){
+                if($('#otherDataForInvoice').is(":checked")){
+                    if(postcodeInvoice.hasClass('valid')){
+                        return true;
+                    }
+                    else return false;
+                }
+                else return true;
+            }
+            else {
+                return false;
+            }
+        }
+
     </script>
 <script>
     $("#addNew").on('click', function(){
@@ -336,5 +378,206 @@
         }
     });
 
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        //Walidacja pól, które nie mogą być puste
+        $('#label, #name, #surname, #address, #place, #phone, #name_invoice, #surname_invoice, #address_invoice, #place_invoice').on('blur', function() {
+            var name = $(this).attr('id');
+            if($(this).val().length > 0){
+                $(this).removeClass("invalid").addClass("valid");
+                $('#err'+name).removeClass("error-show");
+            }
+            else{
+                $(this).removeClass("valid").addClass("invalid");
+                $('#err'+name).addClass("error-show");
+            }
+        });
+
+        //Walidacja kodu pocztowego
+        $('#postcode').on('blur', function() {
+            var pattern = /^[0-9]{2}-[0-9]{3}$/i;
+            if(pattern.test($(this).val())){
+                $(this).removeClass("invalid").addClass("valid");
+                $('#errpostcode').removeClass("error-show");
+            }
+            else{
+                $(this).removeClass("valid").addClass("invalid");
+                $('#errpostcode').addClass("error-show");
+            }
+        });
+
+        //Walidacja email
+        $('#email').on('blur', function() {
+            var pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+            if(pattern.test($(this).val())){
+                $(this).removeClass("invalid").addClass("valid");
+                $('#erremail').removeClass("error-show");
+            }
+            else{
+                $(this).removeClass("valid").addClass("invalid");
+                $('#erremail').addClass("error-show");
+            }
+        });
+
+        //Walidacja kodu pocztowego w fakturze
+        $('#postcode_invoice').on('blur', function() {
+            var pattern = /^[0-9]{2}-[0-9]{3}$/i;
+            if(pattern.test($(this).val())){
+                $(this).removeClass("invalid").addClass("valid");
+                $('#errpostcodeInvoice').removeClass("error-show");
+            }
+            else{
+                $(this).removeClass("valid").addClass("invalid");
+                $('#errpostcodeInvoice').addClass("error-show");
+            }
+        });
+
+    });
+
+    function checkValidation(){
+
+        var label = $('#label');
+        var name = $('#name');
+        var surname = $('#surname');
+        var address = $('#address');
+        var place = $('#place');
+        var postcode = $('#postcode');
+        var email = $('#email');
+        var phone = $('#phone');
+
+        if(label.val().length > 0){
+            label.removeClass("invalid").addClass("valid");
+            $('#errlabel').removeClass("error-show");
+        }
+        else{
+            name.removeClass("valid").addClass("invalid");
+            $('#errlabel').addClass("error-show");
+        }
+
+        if(name.val().length > 0){
+            name.removeClass("invalid").addClass("valid");
+            $('#errname').removeClass("error-show");
+        }
+        else{
+            name.removeClass("valid").addClass("invalid");
+            $('#errname').addClass("error-show");
+        }
+
+        if(surname.val().length > 0){
+            surname.removeClass("invalid").addClass("valid");
+            $('#errsurname').removeClass("error-show");
+        }
+        else{
+            name.removeClass("valid").addClass("invalid");
+            $('#errsurname').addClass("error-show");
+        }
+
+        if(address.val().length > 0){
+            address.removeClass("invalid").addClass("valid");
+            $('#erraddress').removeClass("error-show");
+        }
+        else{
+            address.removeClass("valid").addClass("invalid");
+            $('#erraddress').addClass("error-show");
+        }
+
+        if(place.val().length > 0){
+            place.removeClass("invalid").addClass("valid");
+            $('#errplace').removeClass("error-show");
+        }
+        else{
+            place.removeClass("valid").addClass("invalid");
+            $('#errplace').addClass("error-show");
+        }
+
+        if(phone.val().length > 0){
+            phone.removeClass("invalid").addClass("valid");
+            $('#errphone').removeClass("error-show");
+        }
+        else{
+            phone.removeClass("valid").addClass("invalid");
+            $('#errphone').addClass("error-show");
+        }
+
+        var patternPostcode = /^[0-9]{2}-[0-9]{3}$/i;
+        if(patternPostcode.test(postcode.val())){
+            postcode.removeClass("invalid").addClass("valid");
+            $('#errpostcode').removeClass("error-show");
+        }
+        else{
+            email.removeClass("valid").addClass("invalid");
+            $('#errpostcode').addClass("error-show");
+        }
+
+        var patternEmail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        if(patternEmail.test(email.val())){
+            email.removeClass("invalid").addClass("valid");
+            $('#erremail').removeClass("error-show");
+        }
+        else{
+            email.removeClass("valid").addClass("invalid");
+            $('#erremail').addClass("error-show");
+        }
+    }
+
+    function checkInvoiceValidation(){
+
+        var name_invoice = $('#name_invoice');
+        var surname_invoice = $('#surname_invoice');
+        var address_invoice = $('#address_invoice');
+        var postcodeInvoice = $('#postcode_invoice');
+        var place_invoice = $('#place_invoice');
+
+        var patternPostcodeInvoice = /^[0-9]{2}-[0-9]{3}$/i;
+        if(patternPostcodeInvoice.test(postcodeInvoice.val())){
+            postcodeInvoice.removeClass("invalid").addClass("valid");
+            $('#errpostcodeInvoice').removeClass("error-show");
+        }
+        else{
+            postcodeInvoice.removeClass("valid").addClass("invalid");
+            $('#errpostcodeInvoice').addClass("error-show");
+        }
+
+        if(name_invoice.val().length > 0){
+            name_invoice.removeClass("invalid").addClass("valid");
+            $('#errname_invoice').removeClass("error-show");
+        }
+        else{
+            name_invoice.removeClass("valid").addClass("invalid");
+            $('#errname_invoice').addClass("error-show");
+        }
+
+        if(surname_invoice.val().length > 0){
+            surname_invoice.removeClass("invalid").addClass("valid");
+            $('#errsurname_invoice').removeClass("error-show");
+        }
+        else{
+            name_invoice.removeClass("valid").addClass("invalid");
+            $('#errsurname_invoice').addClass("error-show");
+        }
+
+        if(address_invoice.val().length > 0){
+            address_invoice.removeClass("invalid").addClass("valid");
+            $('#erraddress_invoice').removeClass("error-show");
+        }
+        else{
+            address_invoice.removeClass("valid").addClass("invalid");
+            $('#erraddress_invoice').addClass("error-show");
+        }
+
+        if(place_invoice.val().length > 0){
+            place_invoice.removeClass("invalid").addClass("valid");
+            $('#errplace_invoice').removeClass("error-show");
+        }
+        else{
+            place_invoice.removeClass("valid").addClass("invalid");
+            $('#errplace_invoice').addClass("error-show");
+        }
+
+
+    }
 </script>
 @endsection

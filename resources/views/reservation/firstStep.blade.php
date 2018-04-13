@@ -84,21 +84,30 @@
                         {{ __('messages.res.paymentDescription') }}
                     </p>
                     <div class="pl-lg-4">
-                        <div class="row mb-3"><div class="col-7">{{ __('messages.Payment for stay') }} ({{$ileNocy}} {{trans_choice('messages.nights',$ileNocy)}}): <span id="showPricePerNight" class="font-11" style="color: #007bff">Pokaż cenę za noc</span></div><div class="col-5"><span class="pull-right">{{ number_format($totalPrice, 2, '.', ' ') }} PLN</span></div></div>
+                        <div class="row mb-3">
+                            <div class="col-7">
+                                {{ __('messages.Payment for stay') }} ({{$ileNocy}} {{trans_choice('messages.nights',$ileNocy)}}):
+                                <span id="showPricePerNight" class="font-11" style="color: #007bff">Pokaż cenę za noc</span>
+                            </div>
+                            <div class="col-5">
+                                <span class="pull-right">{{ number_format($totalPrice, 2, '.', ' ') }} PLN</span>
+                            </div>
+                        </div>
                         <div class="row mb-3" id="pricePerNight" style="display: none">
-                            @if(0==1)
+                            @if(1==0)
                             <div class="col-12 font-11 mb-3">Właściciel określił różne ceny za pobyt w zależności od terminu.</div>
-                            <div class="col-9 font-12 mb-3">sob, 26 kwiecień 2014</div><div class="col-3 font-12 mb-3" style="text-align: right;">120,00 PLN</div>
-                            <div class="col-9 font-12 mb-3">nie, 27 kwiecień 2014</div><div class="col-3 font-12 mb-3" style="text-align: right;">120,00 PLN</div>
+                            @foreach($prices as $price)
+                                <div class="col-9 font-12 mb-3">{{ $price->date_of_price }}</div><div class="col-3 font-12 mb-3" style="text-align: right;">{{ number_format($price->price_value, 2, '.', ' ') }} PLN</div>
+                            @endforeach
                             @else
-                            <div class="col-9 font-12 mb-3">{{ $request->przyjazd }} - {{ $request->powrot }}</div><div class="col-3 font-12 mb-3" style="text-align: right;">{{ number_format(120, 2, '.', ' ') }} PLN</div>
+                            <div class="col-9 font-12 mb-3">{{ $request->przyjazd }} - {{ $request->powrot }}</div><div class="col-3 font-12 mb-3" style="text-align: right;">{{ number_format($totalPrice, 2, '.', ' ') }} PLN</div>
                             @endif
                         </div>
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, '.', ' ') }} PLN</span></div></div>
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right"><span id="additional-services">0.00</span> PLN</span></div></div>
                         <div class="row mb-3"><div class="col-8">{{ __('messages.Payment for service') }}: <img src='{{ asset("images/reservations/infoIcon.png") }}'></div><div class="col-4"><span class="pull-right">{{ number_format(50, 2, '.', ' ') }} PLN</span></div></div>
                         <div class="row mb-3 mr-3" id="couponDiv" style="display: none"><div class="col-4">Kupon rabatowy:</div><div class="col-4"><input type="text" style="width:100%; max-height: 30px" class="font-11"></div><div class="col-3"><button class="btn btn-mobile">Zrealizuj kupon</button></div><div class="col-1"><span id="cancelCoupon" class="font-11" style="color: #007bff">Anuluj</span></div></div>
-                        <div class="row mb-3" style="font-size: 22px"><div class="col-5"><b>{{ __('messages.fprice') }}</b></div><div class="col-7"><span class="pull-right"><b><span id="total-price">{{ number_format($totalPrice, 2, '.', ' ') }}</span> PLN</b></span></div></div>
+                        <div class="row mb-3" style="font-size: 22px"><div class="col-5"><b>{{ __('messages.fprice') }}</b></div><div class="col-7"><span class="pull-right"><b><span id="total-price">{{ number_format($request->fullPrice, 2, '.', ' ') }}</span> PLN</b></span></div></div>
                         <div class="row mb-2" id="couponQuestion"><div class="col-12 font-11" id="coupon" style="color: #007bff">Posiadasz kupon rabatowy?</div></div>
                     </div>
                     <a class="btn btn-at-least5 mobile-none" href="apartaments/{{$apartament->descriptions[0]->apartament_link}}">Zarezerwuj co namniej 5 nocy, a zapłacisz tylko <b>80 PLN za noc.</b></a>
@@ -106,7 +115,7 @@
                 <div class="col-12 mt-3">
                     <p><b>{{ __('messages.Contact details') }}</b></p>
                     @guest
-                        {{ __('messages.Have you already your account') }}? <a href="{{ route('login') }}">{{ __('messages.Log in') }}</a> {{ __('messages.to make everything easier') }}
+                        {{ __('messages.Have you already your account') }}? <span id="log-in-inline" style="font-weight: bold; color: #067eff">{{ __('messages.Log in') }}</span> {{ __('messages.to make everything easier') }}
                     @endguest
                     <div class="form-full-width">
                         {!! Form::model(Auth::user(), ['route' => ['reservations.secondStep'], 'method' => 'GET']) !!}
@@ -120,6 +129,7 @@
                         {!! Form::hidden('dzieci', $request->dzieci) !!}
                         {!! Form::hidden('id', $apartament->id) !!}
                         {!! Form::hidden('totalPrice', $totalPrice) !!}
+                        {!! Form::hidden('servicesPrice', 0) !!}
                         <div class="form-group row">
                             {!! Form::label('name', __('messages.name').':', array('class' => 'col-sm-4 col-form-label')) !!}
                             <div class="col-sm-8">
@@ -186,8 +196,8 @@
 </div>
 
 <script>
-    var servicesPrice = 0;
-    var totalPrice = {{$totalPrice}};
+    servicesPrice = 0;
+    var totalPrice = {{$request->fullPrice}};
 
     $('.btn-reservation').click(function(){
         if (!$(this).hasClass("selected")) {
@@ -213,6 +223,8 @@
         else {
             $("#messageForOwner").hide();
         }
+
+        $("input[name='servicesPrice']").val(servicesPrice);
     });
 
     $("#showPricePerNight").click(function(){
@@ -233,6 +245,9 @@
         $('input[type=checkbox]').prop('checked', false);
     });
 
-
+    $("#log-in-inline").click(function(){
+        console.log('click');
+        $('#login-popup').css('display', 'block');
+    });
 </script>
 @endsection()

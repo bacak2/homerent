@@ -391,7 +391,7 @@
             @endauth
 
             @guest
-            <p>{{ __('messages.Have you already your account') }}? <b><a href="{{ route('login') }}">{{ __('messages.Log in') }}</a></b> {{ __('messages.to make everything easier') }}</p>
+            <p>{{ __('messages.Have you already your account') }}? <span id="log-in-inline" style="font-weight: bold; color: #067eff">{{ __('messages.Log in') }}</span> {{ __('messages.to make everything easier') }}</p>
             <div class="form-group row">
                 {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
                 <div class="col-sm-9">
@@ -504,6 +504,11 @@
                     </div>
                 </div>
             </div>
+            @if($errors->any())
+                <div class="row">
+                     <div class="offset-sm-3" style="color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">{{$errors->first()}}</span></div>
+                </div>
+            @endif
             <div class="form-group row">
                 <div class="offset-sm-3">
                     <input id="dontWantAccount" name="dontWantAccount" type="checkbox">
@@ -526,8 +531,11 @@
                         {!! Form::password('password2', ['class' => 'required full-width']) !!}
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="row">
                     <div class="offset-sm-3" id="passNotSame" style="display: none; color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">Wpisane hasła nie są takie same.</span></div>
+                </div>
+                <div class="row">
+                    <div class="offset-sm-3" id="passAtLeast" style="display: none; color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">Hasło musi mieć co najmniej 6 znaków.</span></div>
                 </div>
             </span>
             @endguest
@@ -582,7 +590,7 @@
                             <label for="allNow2" class="reservation">{{ __('messages.payment booking initial') }}</label>
                         </div>
                         <div class="col-lg-3 col-sm-3 pt-2" align="right">
-                            <b><span>{{ number_format($request->totalPrice, 2, ',', ' ') }}</span> PLN</b>
+                            <b><span>{{ number_format($request->fullPrice, 2, ',', ' ') }}</span> PLN</b>
                         </div>
                     </div>
                 </div>
@@ -628,9 +636,9 @@
                 <div class="font-12" style="font-weight: bold">
                     <div class="row mb-2"><div class="col-7">{{ __('messages.Payment for stay') }} ({{$request->ilenocy}} {{trans_choice('messages.nights',$request->ilenocy)}}):</div><div class="col-5"><span class="pull-right">{{ number_format($nightsPrice, 2, ',', ' ') }} PLN</span></div></div>
                     <div class="row mb-2"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
-                    <!--div class="row mb-2"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }}  PLN</span></div></div-->
+                    <div class="row mb-2"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{ number_format($request->servicesPrice, 2, ',', ' ') }}  PLN</span></div></div>
                     <div class="row mb-2"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }}  PLN</span></div></div>
-                    <div class="row mb-2" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format($request->totalPrice, 2, ',', ' ') }}  PLN</b></span></div></div>
+                    <div class="row mb-2" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format($request->fullPrice, 2, ',', ' ') }}  PLN</b></span></div></div>
                 </div>
             </div>
         </div>
@@ -756,7 +764,7 @@
                 //$('span#notAvDescription').hide();
 
                 if($('input[name=allNow]:checked').val() == 1){
-                    $('#nextAv').text('Rezerwuj i opłać online ({{ number_format($request->totalPrice, 2, ',', ' ') }} PLN)');
+                    $('#nextAv').text('Rezerwuj i opłać online ({{ number_format($request->fullPrice, 2, ',', ' ') }} PLN)');
                     $('div#notAvDescription').html('<div>Zostaniesz przekierowany przekierowany do systemu płatności online (przelew lub karta kredytowa)</div>');
                 }
 
@@ -829,6 +837,11 @@
             }
             else {
                 $("#passNotSame").hide();
+                if(pass.length < 6){
+                    $("#passAtLeast").show();
+                    return false;
+                }
+                else $("#passAtLeast").hide();
                 return true;
             }
 
@@ -885,6 +898,11 @@
         $("#nameChange").click(function(){
             $('#nameAndSurname').show();
             $('#nameAndSurnameText').hide();
+        });
+
+        $("#log-in-inline").click(function(){
+            console.log('click');
+            $('#login-popup').css('display', 'block');
         });
 
 </script>
