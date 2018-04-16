@@ -106,7 +106,7 @@ class Reservations extends Controller
     }
 
     public function secondStep(Request $request){
-        
+
         $request->fullPrice = $request->payment_all_nights + $request->servicesPrice + $request->payment_basic_service + $request->payment_final_cleaning;
 
         if(Auth::user()){

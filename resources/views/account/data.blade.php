@@ -5,8 +5,8 @@
 @section('content')
 <span  ng-app="AccountsList" ng-controller="myCtrl">
     <div class="container">
-        <div class="row mt-4"><h3><b>Moje dane</b></h3></div>
-        <div class="row mt-2"><h4><b>Dane do rezerwacji</b></h4></div>
+        <div class="row mt-4"><h1 style="font-size: 28px"><b>Moje dane</b></h1></div>
+        <div class="row mt-2"><h2 style="font-size: 22px"><b>Dane do rezerwacji</b></h2></div>
 
         <div id="data-content" class="row" style="display: none">
             <div class="col-lg-3 col-sm-12 mb-4" ng-repeat="account in Accounts">
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-4"><h4><b>Dane konta</b></h4></div>
+        <div class="row mt-4"><h3><b>Dane konta</b></h3></div>
         <div class="row">
             <div class="col-4">
                 Adres e-mail/login:

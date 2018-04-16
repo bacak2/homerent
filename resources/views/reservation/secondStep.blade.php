@@ -2,10 +2,10 @@
 
 @section('reservation.content')
     <div class="container">
-        <h2><b>{{ __('messages.reservation') }}</b></h2>
+        <h1><b>{{ __('messages.reservation') }}</b></h1>
     </div>
     <div class="container flex-box mb-2">
-        <div id="Rtitle"><h4><b>2. {{ __('messages.your data') }}</b></h4></div>
+        <div id="Rtitle"><h2><b>2. {{ __('messages.your data') }}</b></h2></div>
         <div class="mobile-none font-12" id="Rpath">
             <div class="reservation-path">
                 <img src='{{ asset("images/reservations/fullBlack.png") }}'>
@@ -138,7 +138,7 @@
                                 {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
                             </div>
                             <span id="invoiceFields" style="display: none">
-                                <h4><b>Dane do faktury</b></h4>
+                                <h3><b>Dane do faktury</b></h3>
                                 <div class="form-group row">
                                     {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
                                     <div class="col-sm-9">
@@ -240,7 +240,7 @@
                                                 {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
                                             </div>
                                             <span id="invoiceFields" style="display: none">
-                                            <h4><b>Dane do faktury</b></h4>
+                                            <h3><b>Dane do faktury</b></h3>
                                             <div class="form-group row">
                                                 {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
                                                 <div class="col-sm-9">
@@ -358,7 +358,7 @@
                                 {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
                             </div>
                             <span id="invoiceFields" style="display: none">
-                                <h4><b>Dane do faktury</b></h4>
+                                <h3><b>Dane do faktury</b></h3>
                                 <div class="form-group row">
                                     {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
                                     <div class="col-sm-9">
@@ -456,7 +456,7 @@
                     {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
                 </div>
                 <span id="invoiceFields" style="display: none">
-                <h4><b>Dane do faktury</b></h4>
+                <h3><b>Dane do faktury</b></h3>
                 <div class="form-group row">
                     {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
                     <div class="col-sm-9">
@@ -546,7 +546,7 @@
             @endguest
             <div class="row mt-5">
                 <div class="col-lg-12 col-sm-12">
-                    <h4><b>{{ __('messages.Message for the owner') }}</b></h4>
+                    <h3><b>{{ __('messages.Message for the owner') }}</b></h3>
                     <div class="row">
                         <div class="col-lg-12 col-sm-3">
                             {{ __('messages.Expected time') }}:
@@ -565,7 +565,7 @@
 
             <div class="row mt-5 not-full-width">
                 <div class="col-lg-12 col-sm-12 pb-3 mb-3" style="border-bottom: dashed">
-                    <h4><b>{{ __('messages.Method of payment') }}</b></h4>
+                    <h3><b>{{ __('messages.Method of payment') }}</b></h3>
                     <div class="row reservation-payment-method pt-2 pb-4 mb-3">
                         <div class="col-lg-3 col-sm-9">
                             <b>{{ __('messages.Advance') }}</b>
@@ -680,7 +680,7 @@
 </div>
 
     <div id="confirm-delete-pop" style="display: none">
-        <h4 class="p-3"><b>Czy na pewno chcesz usunąć dane?</b></h4>
+        <h3 class="p-3"><b>Czy na pewno chcesz usunąć dane?</b></h3>
         <div class="col-12 mb-4 mt-2">
             <div class="btn btn-black" id="confirm-delete" onclick="deleteItem()" style="width: 100%; font-size: 18px">Potwierdź</div>
             <div class="btn" id="cancel-delete" style="width: 100%; font-size: 18px">Anuluj</div>

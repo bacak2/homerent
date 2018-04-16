@@ -1,7 +1,7 @@
 @extends ('pages.results')
 @section ('displayResults')
             <div class="row">
-                <div class="col-lg-6 col-md-12"><h3 class="pb-2">{{__('messages.found')}} {{ $counted }} {{trans_choice('messages.apartaments',$counted)}}</h3></div>
+                <div class="col-lg-6 col-md-12"><h1 class="pb-2" style="font-size: 28px">{{__('messages.found')}} {{ $counted }} {{trans_choice('messages.apartaments',$counted)}}</h1></div>
                 <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12">{{__('messages.Sort by')}}:
                     <select id="u1001_input" name="sort">
                         <option selected="" value="Najlepsze dopasowanie">{{__('messages.Best fit')}}</option>
@@ -24,7 +24,7 @@
                     
                     <div class="col-lg-7 col-md-12">
                         <div class="row list-item-name">
-                            <div class="container py-1 font-weight-bold"><span style='font-size: 24px'>{{ $apartament->apartament_name }}</span>
+                            <div class="container py-1 font-weight-bold"><h2 style='font-size: 24px; display: inline; font-weight: bold'>{{ $apartament->apartament_name }}</h2>
                                 <span class="pull-right">
                                 @for ($i = 0; $i < 5; $i++)
                                     <img class="list-item" src='{{ asset("images/results/star_list.png") }}'>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="col-lg-2 col-md-12">
                         <div class="row">
-                            <div class="container py-1 text-right font-weight-bold"><h3>{{__('messages.from')}} 122 zł</h3></div>
+                            <div class="container py-1 text-right font-weight-bold"><h3 style="font-size: 26px">{{__('messages.from')}} 122 zł</h3></div>
                         </div>
                         <div class="row">
                             <div class="container py-1" ><a href="/reservations?link={{ $apartament->apartament_link }}&id={{ $apartament->apartament_id }}&przyjazd={{ $request->przyjazd }}&powrot={{ $request->powrot }}&dorosli={{ $request->dorosli }}&dzieci={{ $request->dzieci }}"  class="btn btn-primary ml-2" style="width: 100%">{{ __('messages.book') }}</a></div>
@@ -79,7 +79,7 @@
 <div style="text-align: right">{{ $finds->appends(['dorosli' => $request->dorosli, 'dzieci' => $request->dzieci, 'powrot' => $request->powrot, 'przyjazd' => $request->przyjazd, 'region' => $request->region])->links() }}</div>
 <span class="mobile-none">
 @if($countedCookies > 0)
-    <h3 class="pb-2" style="margin-top: 40px">{{__('messages.lastSeen')}}</h3>
+    <h3 class="pb-2" style="margin-top: 40px; font-size: 26px">{{__('messages.lastSeen')}}</h3>
     @include('includes.last-seen')
 @endif
 </span>

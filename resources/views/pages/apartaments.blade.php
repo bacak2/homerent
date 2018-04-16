@@ -11,8 +11,8 @@
 			<div class="row apartament-info" >
 				<div class="col-md-8">
 					<div class="col transparent mt-2 mb-2 pb-1 pt-1 ">
-						<h4><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></h4>
-						<p>{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}, {{ $apartament->apartament_address_2 }}</p>
+						<h1 style="font-size: 26px"><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></h1>
+						<h2 style="font-size: 20px">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}, {{ $apartament->apartament_address_2 }}</h2>
 					</div>
 					<div class="col transparent mt-4 mb-2 pt-3 ">
 						<div class="container">
@@ -113,10 +113,10 @@
 								</div>
 								<div class="row">
 									<div class="col-6">
-										<h4>{{ __('messages.fprice') }}</h4>
+										<h3>{{ __('messages.fprice') }}</h3>
 									</div>
 									<div class="col-6 text-right">
-										<h4><b><span id="price"></span></b></h4>
+										<h3><b><span id="price"></span></b></h3>
 									</div>
 									<div class="col-12 text-center font-weight-bold">
 										<p class="termin"></p>
@@ -135,13 +135,13 @@
 			<div class="col-md-8">
 				<div class="row mt-3 mb-3">
 					<div class="col">
-						<h5><b>{{ __('messages.description') }}</b></h5>
+						<h4><b>{{ __('messages.description') }}</b></h4>
 						<p>{{ $apartament->descriptions[0]->apartament_description or '' }}</p>
 					</div>
 				</div>
 				<div class="row mb-3">
 					<div class="col-12">
-						<h5 class="mt-2 mt-md-0"><b>{{__('messages.General information')}}</b></h5>
+						<h4 class="mt-2 mt-md-0"><b>{{__('messages.General information')}}</b></h4>
 					</div>
 					<div class="col-md-4">
 						<div class="row">
@@ -188,7 +188,7 @@
 
 				<div class="row mb-3">
 					<div class="col">
-						<h5><b>{{ __('messages.photos') }}</b></h5>
+						<h4><b>{{ __('messages.photos') }}</b></h4>
 						<div class="fotorama" data-nav="thumbs" data-autoplay="true">
 
 							@forelse($images as $image)

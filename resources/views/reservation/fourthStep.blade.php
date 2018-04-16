@@ -31,13 +31,13 @@
 </div>
 <div class="container">
     @if($reservation[0]->reservation_status == 1)
-    <h2 class="mt-4"><b>{{ __('messages.reservation') }} (nr 2323)</b></h2>
+    <h1 class="mt-4"><b>{{ __('messages.reservation') }} (nr 2323)</b></h1>
     <div class="row reservation-item px-2 py-1 mb-4" id="reservation-confirmed">
         <i class="fa fa-3x fa-check-circle"></i>
         <span class="mt-2 ml-2">Zarezerwowano obiekt wg wybranych parametrów. Na adres e-mail aaa@aaa.pl wysłaliśmy potwierdzenie.</span>
     </div>
     @elseif($reservation[0]->reservation_status == 0)
-    <h2 class="mt-4"><b>{{ __('messages.reservation') }} {{ __('messages.preliminary') }} (nr 2323)</b></h2>
+    <h1 class="mt-4"><b>{{ __('messages.reservation') }} {{ __('messages.preliminary') }} (nr 2323)</b></h1>
     <div class="row reservation-item px-2 py-1 mb-4">
         <div class="col-1"><i class="fa fa-3x fa-exclamation-triangle"></i></div>
         <div class="col-11">
@@ -127,7 +127,7 @@
     </div>
 @auth
     @if(strtotime($reservation[0]->reservation_departure_date) < strtotime(date("Y-m-d")))
-        <h4 class="my-4"><b>Ocena</b></h4>
+        <h3 class="my-4"><b>Ocena</b></h3>
         <div class="row mb-5">
             <div class="col-2"><a class="btn btn-black" href="{{url()->current()}}/opinion" style="width: 100%">Oceń teraz</a></div>
             <div class="col-10">
@@ -139,7 +139,7 @@
 @endauth
     <div class="row mt-4">
         <div class="col-lg-4 col-sm-12">
-            <h4 class="mb-3"><b>Apartament</b></h4>
+            <h3 class="mb-3"><b>Apartament</b></h3>
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Check-in') }}:</div><div class="col-8">{{ $apartament->apartament_registration_time }}</div></div>
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Check-out') }}:</div><div class="col-8">{{ $apartament->apartament_checkout_time }}</div></div>
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Cancellation / prepayment') }}:</div><div class="col-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</div></div>
@@ -167,7 +167,7 @@
 
     <div class="row mt-4 mb-5">
         <div class="col-lg-4 col-sm-12">
-            <h4 class="mb-3"><b>Zarezerwował</b></h4>
+            <h3 class="mb-3"><b>Zarezerwował</b></h3>
             <div class="row fs12"><div class="col-4">{{ __('messages.Data') }}:</div><div class="col-8">{{ $reservation[0]->name }} {{ $reservation[0]->surname }}</div></div>
             <div class="row fs12"><div class="col-8 offset-4">{{ $reservation[0]->address }}</div></div>
             <div class="row fs12"><div class="col-8 offset-4">{{ $reservation[0]->postcode }} {{ $reservation[0]->place }}</div></div>
@@ -183,7 +183,7 @@
             @endif
         </div>
         <div class="col-lg-4 col-sm-12" style="font-weight: bold;">
-            <h4 class="mb-3" id="details"><b>Koszt pobytu</b></h4>
+            <h3 class="mb-3" id="details"><b>Koszt pobytu</b></h3>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Payment for stay') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_all_nights}} PLN</span></div></div>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_final_cleaning}} PLN</span></div></div>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_additional_services}} PLN</span></div></div>
@@ -191,8 +191,8 @@
             <div class="row mb-3 fs12" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{$reservation[0]->payment_to_pay}} PLN</b></span></div></div>
         </div>
         <div class="col-lg-4 col-sm-12">
-            <h4 class="mb-3"><b>Usługi dodatkowe</b></h4>
-            <!--h4 class="mb-3"><b>Wskazówki dojazdu</b></h4>
+            <h3 class="mb-3"><b>Usługi dodatkowe</b></h3>
+            <!--h3 class="mb-3"><b>Wskazówki dojazdu</b></h3>
             <div id="wskazowki"></div-->
         </div>
     </div>

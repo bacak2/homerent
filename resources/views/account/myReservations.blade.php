@@ -6,7 +6,7 @@
 <div class="container">
     @if(!($users_reservations_future->isEmpty() && $users_reservations_gone->isEmpty()))
     <div class="row mt-4 mb-2">
-        <div class="col-lg-3 col-12"><h3><b>Rezerwacje</b></h3></div>
+        <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>Rezerwacje</b></h1></div>
         <div class="col-lg-3 col-12 inline-wrapper text-right">
             <div class="btn-group pull-left">
                 <a class="btn btn-mobile btn-selected" href="{{ route('myReservations')}}">{{__('Data przyjazdu')}}</a>
@@ -37,7 +37,7 @@
     </div>
     @else
         <div class="row mt-4 mb-2">
-            <div class="col-lg-3 col-12"><h3><b>Rezerwacje</b></h3></div>
+            <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>Rezerwacje</b></h1></div>
         </div>
         <div class="row mt-4 mb-2">
             <div class="col-12">Nie masz jeszcze żadnych rezerwacji. </div>

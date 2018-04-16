@@ -3,7 +3,7 @@
 @section('content')
     <div class="form-logowanie container">
         <div class="log">
-            <h2 style="padding-bottom: 10px;">Zarejestruj się</h2>  
+            <h1 style="padding-bottom: 10px; font-size: 28px">Zarejestruj się</h1>
                     <form class="logowanie" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 

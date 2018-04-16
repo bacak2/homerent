@@ -13,7 +13,7 @@
                 
             </div>
             <div class="row desktop-none">
-                <div class="col-8"><h4 class="pb-2" style="display: inline">{{ $finds[0]->apartament_city}} <span class="desktop-none">({{ $counted }})</span></h4><span class="pb-2 mobile-none"> ({{ $counted }} {{trans_choice('messages.apartaments',$counted)}})</span></div>
+                <div class="col-8"><h1 class="pb-2" style="display: inline; font-size: 24px">{{ $finds[0]->apartament_city}} <span class="desktop-none">({{ $counted }})</span></h1><span class="pb-2 mobile-none"> ({{ $counted }} {{trans_choice('messages.apartaments',$counted)}})</span></div>
                 <div class="col-4 inline-wrapper text-right desktop-none"> <div style="position: absolute; right:10px;"   class="btn-group"><a class="btn btn-selected btn-mobile" href="/search/kafle?{{ http_build_query(Request::except('page')) }}">{{__('messages.Offers')}}</a><a class="btn btn-info btn-mobile" href="/search/mapa?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a></div></div>
             </div>
             <div style="margin-top: 15px; margin-bottom: 15px" class="desktop-none">{{__('messages.Sort by')}}:
@@ -27,7 +27,7 @@
             </div>
 
             <div class="row mobile-none">
-                <div class="col-lg-6 col-md-12"><h3 class="pb-2">{{__('messages.found')}} {{ $counted }} {{trans_choice('messages.apartaments',$counted)}}</h3></div>
+                <div class="col-lg-6 col-md-12"><h1 style="font-size: 28px" class="pb-2">{{__('messages.found')}} {{ $counted }} {{trans_choice('messages.apartaments',$counted)}}</h1></div>
                 <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12">{{__('messages.Sort by')}}:
                     <select id="u1001_input" name="sort" class="input-sm">
                         <option selected="" value="Najlepsze dopasowanie">{{__('messages.Best fit')}}</option>
@@ -102,7 +102,7 @@
 
 <span class="mobile-none">
 @if($countedCookies > 0)
-    <h3 class="pb-2" style="margin-top: 40px">{{__('messages.lastSeen')}}</h3>
+    <h2 class="pb-2" style="margin-top: 40px; font-size: 26px">{{__('messages.lastSeen')}}</h2>
     @include('includes.last-seen')
 @endif
 </span>

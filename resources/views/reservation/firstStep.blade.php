@@ -2,10 +2,10 @@
 
 @section('reservation.content')
     <div class="container">
-        <h2><b>{{ __('messages.reservation') }}</b></h2>
+        <h1><b>{{ __('messages.reservation') }}</b></h1>
     </div>
 <div class="container flex-box mb-2">
-    <div id="Rtitle"><h4><b>1. {{ __('messages.offer') }}</b></h4></div>
+    <div id="Rtitle"><h2><b>1. {{ __('messages.offer') }}</b></h2></div>
     <div class="mobile-none font-12" id="Rpath">
         <div class="reservation-path">
             <img src='{{ asset("images/reservations/thisStepBlack.png") }}'>
