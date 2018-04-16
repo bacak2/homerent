@@ -61,8 +61,8 @@
                     <hr class="desktop-none">
                 </div>
                 <div class="col-lg-7 col-sm-6">
-                    <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ $request->przyjazd }} (po 15:00)</b></div></div>
-                    <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ $request->powrot }} (przed 12:00)</b></div></div>
+                    <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($request->przyjazd))) }} (po 15:00)</b></div></div>
+                    <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($request->powrot))) }}  (przed 12:00)</b></div></div>
                     <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">{{ $ileNocy = $request->ilenocy ?? $ileNocy}}</div></div>
                     <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">{{$request->dorosli}} {{trans_choice('messages.adult persons',$request->dorosli)}}, {{$request->dzieci}} dzieci</div></div>
                     <div class="res-description txt-blue mt-3">
@@ -128,7 +128,9 @@
                         {!! Form::hidden('dorosli', $request->dorosli) !!}
                         {!! Form::hidden('dzieci', $request->dzieci) !!}
                         {!! Form::hidden('id', $apartament->id) !!}
-                        {!! Form::hidden('totalPrice', $totalPrice) !!}
+                        {!! Form::hidden('payment_final_cleaning', $cleaning) !!}
+                        {!! Form::hidden('payment_basic_service', $basicService) !!}
+                        {!! Form::hidden('payment_all_nights', $totalPrice) !!}
                         {!! Form::hidden('servicesPrice', 0) !!}
                         <div class="form-group row">
                             {!! Form::label('name', __('messages.name').':', array('class' => 'col-sm-4 col-form-label')) !!}
@@ -161,23 +163,28 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-sm-12">
-            <div class="row">
-                <div class="col-11 ml-3">
-                    <div class="row"><b>{{ __('messages.Additional services') }}</b></div>
-                    <div class="row" style="border: 1px solid lightgray; padding: 10px">
-                        <div class="col-9"><input type="checkbox" id="additional-bed" name="additional-bed"><label for="additional-bed" style="margin-bottom: 0">łóżeczko dla dziecka</label></div><div class="col-3" style="text-align: right;">20 PLN</div>
+        @if(!$additionalServices->isEmpty())
+            <div class="col-lg-6 col-sm-12">
+                <div class="row">
+                    <div class="col-11 ml-3">
+                        <div class="row"><b>{{ __('messages.Additional services') }}</b></div>
+                        @foreach($additionalServices as $additionalService)
+                            <div class="row additional-service">
+                                <div class="col-9">
+                                    <input type="checkbox" id="additional-{{$additionalService->id}}" name="additional-{{$additionalService->id}}" value="{{$additionalService->price}}">
+                                    <label for="additional-{{$additionalService->id}}" style="margin-bottom: 0">{{$additionalService->name}}</label>
+                                </div>
+                                <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
+                            </div>
+                        @endforeach
                     </div>
-                    <div class="row" style="border: 1px solid lightgray; padding: 10px">
-                        <div class="col-9"><input type="checkbox" id="additional-bed2" name="additional-bed2"><label for="additional-bed2" style="margin-bottom: 0">łóżeczko dla dziecka</label></div><div class="col-3" style="text-align: right;">20 PLN</div>
+                    <div class="col-12 mt-3" id="messageForOwner" style="display: none">
+                        <p><b>{{ __('messages.Message for the owner about services') }}</b></p>
+                        <label for="res-ph">{{ __('messages.Content') }}:</label><textarea id="res-ph" name="wiadomoscDodatkowa" class="ml-4 font-12" rows="4" cols="50" style="width: 80%" placeholder="{{ __('messages.res.Placeholder1') }}"></textarea>
                     </div>
-                </div>
-                <div class="col-12 mt-3" id="messageForOwner" style="display: none">
-                    <p><b>{{ __('messages.Message for the owner about services') }}</b></p>
-                    <label for="res-ph">{{ __('messages.Content') }}:</label><textarea id="res-ph" name="wiadomoscDodatkowa" class="ml-4 font-12" rows="4" cols="50" style="width: 80%" placeholder="{{ __('messages.res.Placeholder1') }}"></textarea>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 </div>
 
@@ -207,11 +214,13 @@
     });
 
     $('input[type="checkbox"]').change(function(){
+        servPrice = parseFloat($(this).val());
         if($(this).is(':checked')){
-            servicesPrice += 20;
+            servicesPrice += servPrice;
         }
-        else servicesPrice -= 20;
+        else servicesPrice -= servPrice;
 
+        if(servicesPrice < 0) servicesPrice == 0;
         $('#additional-services').text(servicesPrice.toFixed(2));
         $('#total-price').text((servicesPrice+totalPrice).toFixed(2));
     });

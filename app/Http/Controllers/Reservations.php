@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\{Apartament, Apartament_description, Apartament_group, Reservation};
 use Auth;
+use Crypt;
 
 class Reservations extends Controller
 {
@@ -30,11 +31,10 @@ class Reservations extends Controller
         $przyjazdDb = explode(" ", $request->przyjazd);
         //zmienić gdy kalendarz będzie wszędzie taki sam (z dniem tygodnia słownie)
         $przyjazdDb = $przyjazdDb[1] ?? $przyjazdDb[0];
-        $przyjazdDb = date("Y-m-d", strtotime($przyjazdDb));
+        $request->przyjazd = $przyjazdDb = date("Y-m-d", strtotime($przyjazdDb));
         $powrotDb = explode(" ", $request->powrot);
         $powrotDb = $powrotDb[1] ?? $powrotDb[0];
-        $powrotDb = date("Y-m-d", strtotime($powrotDb));
-
+        $request->powrot = $powrotDb = date("Y-m-d", strtotime($powrotDb));
         $dprz = strtotime($przyjazdDb);
         $dpwr = strtotime($powrotDb);
         $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
@@ -72,13 +72,18 @@ class Reservations extends Controller
             ->where('date_of_price','>=',$przyjazdDb)
             ->where('date_of_price','<',$powrotDb)
             ->get();
-//dd($prices);
+
         $priceFrom = $this->getPriceFrom($id);
+
+        //get avilable services
+        $additionalServices = DB::table('additional_services')
+            ->where('id_apartament',$id)
+            ->get();
 
         //suma wszystkich łóżek
         $beds = $apartament->apartament_single_beds+$apartament->apartament_double_beds;
 
-        $cleaning = 50;
+        $cleaning = 51;
         $basicService = 50;
         $request->fullPrice = $totalPrice->total_price + $request->servicesPrice + $cleaning + $basicService;
 
@@ -93,15 +98,16 @@ class Reservations extends Controller
             'ileNocy' => $nightsCounter,
             'totalPrice' => $totalPrice->total_price,
             'prices' => $prices,
+            'cleaning' => $cleaning,
+            'basicService' => $basicService,
+            'additionalServices' => $additionalServices,
         ]);
 
     }
 
     public function secondStep(Request $request){
-
-        $cleaning = 50;
-        $basicService = 50;
-        $request->fullPrice = $request->totalPrice + $request->servicesPrice + $cleaning + $basicService;
+        
+        $request->fullPrice = $request->payment_all_nights + $request->servicesPrice + $request->payment_basic_service + $request->payment_final_cleaning;
 
         if(Auth::user()){
             $accountData = DB::table('users_account')->where('user_email', Auth::user()->email)->get();
@@ -137,8 +143,6 @@ class Reservations extends Controller
         //suma wszystkich łóżek
         $beds = $apartament->apartament_single_beds+$apartament->apartament_double_beds;
 
-        $nightsPrice = $request->totalPrice;
-
         return view('reservation.secondStep', [
             'apartament' => $apartament,
             'images' => $images,
@@ -146,7 +150,6 @@ class Reservations extends Controller
             'beds' => $beds,
             'request' => $request,
             'accountData' => $accountData,
-            'nightsPrice' => $nightsPrice,
         ]);
 
     }
@@ -154,8 +157,9 @@ class Reservations extends Controller
     public function thirdStep(Request $request)
     {
         $request->phone = "$request->prefix"." $request->phone";
+        $request->fullPrice = Crypt::decrypt($request->fullPrice);
 
-        if(!$request->has('dontWantAccount')){
+        if(!(Auth::user() || $request->has('dontWantAccount'))){
 
             $emailExists = DB::table('users')->where('email', $request->email)->exists();
             if($emailExists) {
@@ -194,6 +198,9 @@ class Reservations extends Controller
             }
         }
 
+        if($request->payment_method == 2 || $request->payment_method == 4) $reservation_status = 0;
+        else if($request->payment_method == 1 || $request->payment_method == 3) $reservation_status = 1;
+
         $reservationData =[
             'apartament_id' => $request->id,
             'user_id' => Auth::user()->id ?? $insertedUserId ?? 0,
@@ -205,8 +212,14 @@ class Reservations extends Controller
             'reservation_additional_message' => $request->wiadomoscDodatkowa,
             'reservation_arrive_time' => $request->godzinaPrzyjazdu,
             'reservation_advance' => $request->zal,
-            'reservation_payment' => $request->allNow,
-            'reservation_status' => 0,
+            'reservation_payment' => $request->payment_method,
+            'payment_full_amount' => $request->fullPrice,
+            'payment_to_pay' => $request->fullPrice,
+            'payment_all_nights' => $request->payment_all_nights,
+            'payment_final_cleaning' => $request->payment_final_cleaning,
+            'payment_additional_services' => $request->payment_additional_services,
+            'payment_basic_service' => $request->payment_basic_service,
+            'reservation_status' => $reservation_status,
             'created_at' => date('Y-m-d')
         ];
 
@@ -254,18 +267,22 @@ class Reservations extends Controller
         }
 
         $dataSet = $reservationData + $userData;
+        $idReservation = DB::table('reservations')->insertGetId($dataSet);
 
-        if(1==1 || $request->zal == 2 || $request->allNow == 2) {
-
-            $idReservation = DB::table('reservations')->insertGetId($dataSet);
-
+        if(1==1 || $request->payment_method == 2 || $request->payment_method == 4) {
             return redirect()->action(
                 'Reservations@fourthStep', ['idAparment' => $request->id, 'idReservation' => $idReservation]
             );
         }
 
+        //online payment
         else {
-            return view('reservation.thirdStep');
+            if ($request->payment_method == 1) $toPay = $request->fullPrice;
+            else $toPay = $request->fullPrice;
+
+            return redirect()->action(
+                'Reservations@OnlinePayment', ['idAparment' => $request->id, 'idReservation' => $idReservation]
+            );
         }
     }
 
@@ -287,6 +304,19 @@ class Reservations extends Controller
             'apartament' => $apartament,
             'reservation' => $reservation,
             'language' => $this->language->language_code,
+        ]);
+
+    }
+
+    public function OnlinePayment($idApartment, $idReservation){
+
+        $toPay = DB::table('reservations')->select('payment_to_pay')->where('id', $idReservation)->where('apartament_id', $idApartment)->first();
+
+        return view('reservation.thirdStep', [
+            'apartament' => $idApartment,
+            'reservation' => $idReservation,
+            'language' => $this->language->language_code,
+            'toPay' => $toPay,
         ]);
 
     }

@@ -21,6 +21,8 @@ class Apartaments extends Controller
         $temp = \App::getLocale();
         $language = DB::table('languages')->select('id')->where('language_code',$temp)->first();
         $this->language = $language;
+        if ($this->language->id == 1) setlocale(LC_TIME, "pl_PL");
+        else setlocale(LC_TIME, "en_EN");
     }
 
     //Generates homepage view

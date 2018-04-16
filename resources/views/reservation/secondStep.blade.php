@@ -47,6 +47,11 @@
             {!! Form::hidden('dzieci', $request->dzieci) !!}
             {!! Form::hidden('wiadomoscDodatkowa', $request->wiadomoscDodatkowa) !!}
             {!! Form::hidden('id', $request->id) !!}
+            {!! Form::hidden('payment_all_nights', $request->nightsPrice) !!}
+            {!! Form::hidden('payment_final_cleaning', $request->cleaning) !!}
+            {!! Form::hidden('payment_additional_services', $request->servicesPrice) !!}
+            {!! Form::hidden('payment_basic_service', $request->basicService) !!}
+            {!! Form::hidden('fullPrice', Crypt::encrypt($request->fullPrice)) !!}
             @auth
             @if($request->change === NULL)
             <ul class="nav nav-tabs">
@@ -566,11 +571,11 @@
                             <b>{{ __('messages.Advance') }}</b>
                         </div>
                         <div class="col-lg-3 col-sm-12">
-                            <input id="zalNow" name="allNow" value="3" type="radio">
+                            <input id="zalNow" name="payment_method" value="3" type="radio">
                             <label for="zalNow" class="reservation">{{ __('messages.payment booking immediately') }}</label>
                         </div>
                         <div class="col-lg-3 col-sm-12">
-                            <input id="zalNow2" name="allNow" value="4" type="radio">
+                            <input id="zalNow2" name="payment_method" value="4" type="radio">
                             <label for="zalNow2" class="reservation">{{ __('messages.payment booking initial') }}</label>
                         </div>
                         <div class="col-lg-3 col-sm-3 pt-2" align="right">
@@ -582,12 +587,12 @@
                             <b>{{ __('messages.Total cost') }}</b>
                         </div>
                         <div class="col-lg-3 col-sm-12">
-                            <input id="allNow" name="allNow" value="1" type="radio">
-                            <label for="allNow" class="reservation">{{ __('messages.payment booking immediately') }}</label>
+                            <input id="payment_method" name="payment_method" value="1" type="radio">
+                            <label for="payment_method" class="reservation">{{ __('messages.payment booking immediately') }}</label>
                         </div>
                         <div class="col-lg-3 col-sm-12">
-                            <input id="allNow2" name="allNow" value="2" type="radio">
-                            <label for="allNow2" class="reservation">{{ __('messages.payment booking initial') }}</label>
+                            <input id="payment_method2" name="payment_method" value="2" type="radio">
+                            <label for="payment_method2" class="reservation">{{ __('messages.payment booking initial') }}</label>
                         </div>
                         <div class="col-lg-3 col-sm-3 pt-2" align="right">
                             <b><span>{{ number_format($request->fullPrice, 2, ',', ' ') }}</span> PLN</b>
@@ -625,8 +630,8 @@
                     </div>
                 </div>
                 <div class="mb-3 pb-3 font-12" style="border-bottom: dashed;">
-                        <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ $request->przyjazd }}</b> (po 15:00)</div></div>
-                        <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ $request->powrot }}</b> (przed 12:00)</div></div>
+                        <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($request->przyjazdDb))) }}</b> (po 15:00)</div></div>
+                        <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($request->powrotDb))) }}</b> (przed 12:00)</div></div>
                         <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">{{ $request->ilenocy }}</div></div>
                         <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">{{$request->dorosli}} {{trans_choice('messages.adult persons',$request->dorosli)}}, {{$request->dzieci}} dzieci</div></div>
                         <div class="res-description txt-blue mt-3">
@@ -634,10 +639,10 @@
                         </div>
                 </div>
                 <div class="font-12" style="font-weight: bold">
-                    <div class="row mb-2"><div class="col-7">{{ __('messages.Payment for stay') }} ({{$request->ilenocy}} {{trans_choice('messages.nights',$request->ilenocy)}}):</div><div class="col-5"><span class="pull-right">{{ number_format($nightsPrice, 2, ',', ' ') }} PLN</span></div></div>
-                    <div class="row mb-2"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }} PLN</span></div></div>
+                    <div class="row mb-2"><div class="col-7">{{ __('messages.Payment for stay') }} ({{$request->ilenocy}} {{trans_choice('messages.nights',$request->ilenocy)}}):</div><div class="col-5"><span class="pull-right">{{ number_format($request->payment_all_nights, 2, ',', ' ') }} PLN</span></div></div>
+                    <div class="row mb-2"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format($request->payment_final_cleaning, 2, ',', ' ') }} PLN</span></div></div>
                     <div class="row mb-2"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{ number_format($request->servicesPrice, 2, ',', ' ') }}  PLN</span></div></div>
-                    <div class="row mb-2"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{ number_format(50, 2, ',', ' ') }}  PLN</span></div></div>
+                    <div class="row mb-2"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{ number_format($request->payment_basic_service, 2, ',', ' ') }}  PLN</span></div></div>
                     <div class="row mb-2" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format($request->fullPrice, 2, ',', ' ') }}  PLN</b></span></div></div>
                 </div>
             </div>
@@ -737,7 +742,7 @@
                     return false;
                 }
                 else {
-                    if (checkSame() || $("input[name='dontWantAccount']").is(":checked")){
+                    if (checkSame() || $("input[name='dontWantAccount']").is(":checked") @auth|| 1==1 @endauth ){
                         if($('#accept0').is(":checked") && $('#accept1').is(":checked")){
                             if($('input[type=radio]:checked').length > 0) isValid = true;
                             else{
@@ -763,12 +768,12 @@
                 $('#nextAv').css({"display": "inline-block"});
                 //$('span#notAvDescription').hide();
 
-                if($('input[name=allNow]:checked').val() == 1){
+                if($('input[name=payment_method]:checked').val() == 1){
                     $('#nextAv').text('Rezerwuj i opłać online ({{ number_format($request->fullPrice, 2, ',', ' ') }} PLN)');
                     $('div#notAvDescription').html('<div>Zostaniesz przekierowany przekierowany do systemu płatności online (przelew lub karta kredytowa)</div>');
                 }
 
-                else if($('input[name=allNow]:checked').val() == 3){
+                else if($('input[name=payment_method]:checked').val() == 3){
                     $('#nextAv').text('Rezerwuj i opłać online (100,00 PLN)');
                     $('div#notAvDescription').html('<div>Zostaniesz przekierowany przekierowany do systemu płatności online (przelew lub karta kredytowa)</div>');
                 }
@@ -786,6 +791,8 @@
                 $('#nextAv').text('Rezerwuj i opłać online');
                 $('div#notAvDescription').html('<div>Najpierw wybierz sposób zapłaty</div>');
             }
+
+            console.log(isValid);
         });
 
         $("#slider-range").slider({

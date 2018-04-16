@@ -959,6 +959,15 @@ span.error-show{
 	display: inline;
 }
 
+#reservation-confirmed{
+	background: #daffff;
+}
+
+.additional-service{
+	border: 1px solid lightgray;
+	padding: 10px;
+}
+
 @media (min-width: 768px) {
 	.desktop-hidden{
 		visibility: hidden !important;

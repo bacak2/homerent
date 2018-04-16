@@ -45,7 +45,7 @@
     @endif
     @foreach($users_reservations_future as $reservation)
     <div class="row minH-90 py-3">
-        <div class="col-lg-1 col-4"  style="background-image: url('{{ asset("images/apartaments/$reservation->apartament_id/1.jpg") }}'); background-size: cover;"></div>
+        <div class="col-lg-2 col-4"><img src='{{ asset("images/apartaments/$reservation->apartament_id/1.jpg") }}') style="width: 100%"></div>
         <div class="col-lg-2 col-8">
             {{ $reservation->apartament_name }}<br>
             <b>{{ $reservation->apartament_city }}</b> ({{ $reservation->apartament_district }})<br>
@@ -55,7 +55,7 @@
             <div class="row">
                 <div class="col-6 date-div">
                     <div style="">{{ date("j", strtotime($reservation->reservation_arrive_date)) }}</div>
-                    <div style="">{{ lcfirst(date("M", strtotime($reservation->reservation_arrive_date))) }}</div>
+                    <div style="">{{ lcfirst(strftime("%b", strtotime($reservation->reservation_arrive_date))) }}</div>
                 </div>
                 <div class="col-6">
                     <div class="row font-11">Przyjazd:</div>
@@ -64,17 +64,17 @@
             </div>
         </div>
         <div class="col-lg-1 col-4"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.number of nights') }}" src="{{ asset("images/account/moon.png") }}"> {{ $reservation->reservation_nights }}</div>
-        <div class="col-lg-2 col-12">
+        <div class="col-lg-1 col-12">
             <div class="row font-11">Rezerwacja:</div>
-            <div class="row">{{ strtolower(date("j M Y", strtotime($reservation->created_at))) }}</div>
+            <div class="row">{{ strtolower(strftime("%d %b %Y", strtotime($reservation->created_at))) }}</div>
         </div>
         <div class="col-lg-1 col-6">
             <div class="row font-11">Opłata za pobyt:</div>
-            <div class="row">200PLN</div>
+            <div class="row">{{$reservation->payment_full_amount}} PLN</div>
         </div>
         <div class="col-lg-1 col-6">
             <div class="row font-11">Do zapłaty:</div>
-            <div class="row">200PLN</div>
+            <div class="row">{{$reservation->payment_to_pay}} PLN</div>
         </div>
         <div class="col-lg-2 col-12">
             <a class="btn btn-black" href="tel:713333222"><img src="{{ asset("images/account/phone.png") }}"></a>
@@ -92,7 +92,7 @@
     @endforeach
     @foreach($users_reservations_gone as $reservation)
         <div class="row minH-90 py-3">
-            <div class="col-lg-1 col-4"  style="background-image: url('{{ asset("images/apartaments/$reservation->apartament_id/1.jpg") }}'); background-size: cover; opacity : 0.30;"></div>
+            <div class="col-lg-2 col-4"><img src='{{ asset("images/apartaments/$reservation->apartament_id/1.jpg") }}') style="width: 100%; opacity : 0.30;"></div>
             <div class="col-lg-2 col-8">
                 {{ $reservation->apartament_name }}<br>
                 <b>{{ $reservation->apartament_city }}</b> ({{ $reservation->apartament_district }})<br>
@@ -102,7 +102,7 @@
                 <div class="row">
                     <div class="col-6 date-div">
                         <div style="">{{ date("j", strtotime($reservation->reservation_arrive_date)) }}</div>
-                        <div style="">{{ lcfirst(date("M", strtotime($reservation->reservation_arrive_date))) }}</div>
+                        <div style="">{{ lcfirst(strftime("%b", strtotime($reservation->reservation_arrive_date))) }}</div>
                     </div>
                     <div class="col-6">
                         <div class="row font-11">Przyjazd:</div>
@@ -111,17 +111,17 @@
                 </div>
             </div>
             <div class="col-lg-1 col-4"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.number of nights') }}" src="{{ asset("images/account/moon.png") }}"> {{ $reservation->reservation_nights }}</div>
-            <div class="col-lg-2 col-4">
+            <div class="col-lg-1 col-4">
                 <div class="row font-11">Rezerwacja:</div>
-                <div class="row">{{ strtolower(date("j M Y", strtotime($reservation->created_at))) }}</div>
+                <div class="row">{{ strtolower(strftime("%d %b %Y", strtotime($reservation->created_at))) }}</div>
             </div>
             <div class="col-lg-1 col-6">
                 <div class="row font-11">Opłata za pobyt:</div>
-                <div class="row">200PLN</div>
+                <div class="row">{{$reservation->payment_full_amount}} PLN</div>
             </div>
             <div class="col-lg-1 col-6">
                 <div class="row font-11">Do zapłaty:</div>
-                <div class="row">200PLN</div>
+                <div class="row">{{$reservation->payment_to_pay}} PLN</div>
             </div>
             <div class="col-lg-2 col-4">
                 <a class="btn btn-black" href="{{ route('account.opinion',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Oceń</a>

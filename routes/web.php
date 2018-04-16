@@ -50,6 +50,11 @@ function()
 		'as' => 'reservations.thirdStep'
 	]);
 
+	Route::get('/reservations-payment/{idAparment}/{idReservation}', [
+		'uses' => 'Reservations@OnlinePayment',
+		'as' => 'reservations.onlinePayment'
+	]);
+
 	Route::get('/reservations-fourth-step/{idAparment}/{idReservation}', [
 		'uses' => 'Reservations@fourthStep',
 		'as' => 'reservations.fourthStep'
