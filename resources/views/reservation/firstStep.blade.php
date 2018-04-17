@@ -170,11 +170,39 @@
                         <div class="row"><b>{{ __('messages.Additional services') }}</b></div>
                         @foreach($additionalServices as $additionalService)
                             <div class="row additional-service">
-                                <div class="col-9">
-                                    <input type="checkbox" id="additional-{{$additionalService->id}}" name="additional-{{$additionalService->id}}" value="{{$additionalService->price}}">
-                                    <label for="additional-{{$additionalService->id}}" style="margin-bottom: 0">{{$additionalService->name}}</label>
-                                </div>
-                                <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
+                                @if($additionalService->with_options == NULL)
+                                    <div class="col-9">
+                                        <input type="checkbox" id="additional-{{$additionalService->id}}" name="additional-{{$additionalService->id}}" value="{{$additionalService->price}}">
+                                        <label for="additional-{{$additionalService->id}}" style="margin-bottom: 0">{{$additionalService->name}}</label>
+                                    </div>
+                                    <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
+                                @else
+                                    <div class="col-9">
+                                        <input type="checkbox" checked="" class="additional-multiple-choice" id="additional-{{$additionalService->id}}" name="additional-{{$additionalService->id}}" value="{{$additionalService->price}}">
+                                        <label for="additional-{{$additionalService->id}}" style="margin-bottom: 0">
+                                        </label>
+                                        {{$additionalService->name}}
+                                            dla
+                                            <?php $persons = $request->dorosli+$request->dzieci; ?>
+                                            <select name="persons-{{$additionalService->id}}">
+                                                @for ($i = 1; $i <= $persons; $i++)
+                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                            na
+                                            <select name="days-{{$additionalService->id}}">
+                                                @for ($i = 1; $i <= $ileNocy; $i++)
+                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                            dni
+
+                                    </div>
+                                    <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
+                                @endif
+                                @if($additionalService->description != NULL)
+                                    <div class="col-12 font-11 ml-3">{{$additionalService->description}}</div>
+                                @endif
                             </div>
                         @endforeach
                     </div>
@@ -214,15 +242,29 @@
     });
 
     $('input[type="checkbox"]').change(function(){
-        servPrice = parseFloat($(this).val());
-        if($(this).is(':checked')){
-            servicesPrice += servPrice;
+
+        if($(this).hasClass('additional-multiple-choice')){
+            valArray = $(this).siblings().find("select").find(":selected").get();
+            console.log(valArray[0].value*valArray[1].value);
         }
-        else servicesPrice -= servPrice;
+        else{
+            servPrice = parseFloat($(this).val());
+            if($(this).is(':checked')){
+                servicesPrice += servPrice;
+            }
+            else servicesPrice -= servPrice;
+        }
 
         if(servicesPrice < 0) servicesPrice == 0;
         $('#additional-services').text(servicesPrice.toFixed(2));
         $('#total-price').text((servicesPrice+totalPrice).toFixed(2));
+
+    });
+
+    $('select').change(function(){
+        checkboxToSelect = $(this).siblings().find('input[type="checkbox"]');
+        console.log(checkboxToSelect);
+        checkboxToSelect.prop('checked', true);
     });
 
     $('input[type="checkbox"]').change(function(){
