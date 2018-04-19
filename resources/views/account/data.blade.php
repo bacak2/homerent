@@ -1,6 +1,6 @@
 @extends ('layout.layout')
 
-@section('title', Auth::user()->name.' - '.__('messages.My account') )
+@section('title', __('messages.My account') )
 
 @section('content')
 <span  ng-app="AccountsList" ng-controller="myCtrl">
@@ -341,6 +341,9 @@
     $("#addNew").on('click', function(){
         $("div.add-new-data").css({'display': 'block'});
         $('input').val('');
+        $('input#name').val('{{Auth::user()->name}}');
+        $('input#surname').val('{{Auth::user()->surname}}');
+        $('input#email').val('{{Auth::user()->email}}');
     });
 
     $("#cancel").on('click', function(){

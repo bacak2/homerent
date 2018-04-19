@@ -53,7 +53,7 @@
             {!! Form::hidden('payment_basic_service', $request->basicService) !!}
             {!! Form::hidden('fullPrice', Crypt::encrypt($request->fullPrice)) !!}
             @auth
-            @if($request->change === NULL)
+            @if($request->change === NULL ){{--&& !($accountData->first()->contains('address', $accountData->first()) == NULL))--}}
             <ul class="nav nav-tabs">
                 @foreach($accountData as $data)
                     <li class="nav-item">
@@ -652,7 +652,6 @@
 
 
 </div>
-
 
 
 <div class="bg-gray">

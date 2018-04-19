@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\{Apartament, Apartament_description, Apartament_group, Reservation};
 use Auth;
 use Crypt;
+use GuzzleHttp\Client;
 
 class Reservations extends Controller
 {
@@ -156,6 +157,10 @@ class Reservations extends Controller
 
     public function thirdStep(Request $request)
     {
+        //umieść $idReservation w roucie
+        echo '<form style="display:none" id="DotpayForm" name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/"> <input type="hidden" name="id" value="734129" /> <input type="hidden" name="opis" value="Opłata za pobyt w '.$request->link.'" /> <input type="hidden" name="control" value="" /> <input type="hidden" name="amount" value="100" /> <input type="hidden" name="typ" value="3" /> <input type="hidden" name="URL" value="'.route('reservations.onlinePaymentSuccess', ['idAparment' => 1, 'idReservation' => 1]).'" /> <input type="hidden" name="URLC" value="'.route('reservations.thirdStep').'" /> <input type="submit" name="dalej" value="zapłać teraz" /> </form><script>document.getElementById("DotpayForm").submit();</script>';
+        exit();
+
         $request->phone = "$request->prefix"." $request->phone";
         $request->fullPrice = Crypt::decrypt($request->fullPrice);
 
@@ -280,9 +285,7 @@ class Reservations extends Controller
             if ($request->payment_method == 1) $toPay = $request->fullPrice;
             else $toPay = $request->fullPrice;
 
-            return redirect()->action(
-                'Reservations@OnlinePayment', ['idAparment' => $request->id, 'idReservation' => $idReservation]
-            );
+            return false;
         }
     }
 
@@ -308,16 +311,13 @@ class Reservations extends Controller
 
     }
 
-    public function OnlinePayment($idApartment, $idReservation){
+    public function OnlinePaymentSuccess($idAparment, $idReservation){
 
-        $toPay = DB::table('reservations')->select('payment_to_pay')->where('id', $idReservation)->where('apartament_id', $idApartment)->first();
+        DB::table('reservations')->where('id', $idReservation)->update(['reservation_status' => 1, 'updated_at' => date("Y-m-d H:i:s")]);
 
-        return view('reservation.thirdStep', [
-            'apartament' => $idApartment,
-            'reservation' => $idReservation,
-            'language' => $this->language->language_code,
-            'toPay' => $toPay,
-        ]);
+        return redirect()->action(
+            'Reservations@fourthStep', ['idAparment' => $idAparment, 'idReservation' => $idReservation]
+        );
 
     }
 

@@ -14,7 +14,7 @@
                 <div class="col-12 col-lg-3 col-md-5 col-sm-12 col-xs-12 inline-wrapper text-right"> <a class="btn btn-default" href="/search/kafle?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/kafle.png") }}'></a> <a class="btn btn-default" href="/search/lista?{{ http_build_query(Request::except('page')) }}"><img class="active" src='{{ asset("images/results/lista.png") }}'></a> <a class="btn btn-default" href="/search/mapa?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/mapa.png") }}'></a></div>
             </div>
             @foreach ($finds as $apartament)
-		<div class="row list-item">
+		<div class="row list-item" itemscope itemtype="http://schema.org/Hotel">
                     <div class="col-lg-3 col-md-12 col-sm-6 col-xl-3">
                         <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; max-width: 285px; max-height: 149px;">
                             <div class="list-item-description-bottom">{{ __("messages.Breakfast included") }}</div>
@@ -24,7 +24,7 @@
                     
                     <div class="col-lg-7 col-md-12">
                         <div class="row list-item-name">
-                            <div class="container py-1 font-weight-bold"><h2 style='font-size: 24px; display: inline; font-weight: bold'>{{ $apartament->apartament_name }}</h2>
+                            <div class="container py-1 font-weight-bold"><h2 style='font-size: 24px; display: inline; font-weight: bold' itemprop="name">{{ $apartament->apartament_name }}</h2>
                                 <span class="pull-right">
                                 @for ($i = 0; $i < 5; $i++)
                                     <img class="list-item" src='{{ asset("images/results/star_list.png") }}'>
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                         <div class="row list-item-address">
-                            <div class="container py-1">{{ $apartament->apartament_address }}</div>
+                            <div class="container py-1" itemprop="streetAddress">{{ $apartament->apartament_address }}</div>
                         </div>
                         <div class="row list-item-description">
                             <div class="container py-1">{{ substr($apartament->apartament_description, 0, 220) }}...</div>

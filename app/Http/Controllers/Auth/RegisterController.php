@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use DB;
+use Illuminate\Http\Request;
+use Session;
 
 class RegisterController extends Controller
 {
@@ -35,9 +37,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->middleware('guest');
+        Session::put('auth_attempt', $request->auth_attempt);
     }
 
     /**

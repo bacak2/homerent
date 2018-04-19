@@ -51,8 +51,8 @@ function()
 	]);
 
 	Route::get('/reservations-payment/{idAparment}/{idReservation}', [
-		'uses' => 'Reservations@OnlinePayment',
-		'as' => 'reservations.onlinePayment'
+		'uses' => 'Reservations@OnlinePaymentSuccess',
+		'as' => 'reservations.onlinePaymentSuccess'
 	]);
 
 	Route::get('/reservations-fourth-step/{idAparment}/{idReservation}', [

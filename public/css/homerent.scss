@@ -482,7 +482,7 @@ div > span > i.fa{
 		color: blue;
 	}
 }
-.dropdown-menu label:hover, .dropdown-menu span:hover, input[type=checkbox]:hover, label.map-legend-button:hover, a.filters-toggle, .desktop-none.filters-toggle span, .btn-res4th, #cancel-login-popup, input#submit, span#log-in-inline {
+.dropdown-menu label:hover, .dropdown-menu span:hover, input[type=checkbox]:hover, label.map-legend-button:hover, a.filters-toggle, .desktop-none.filters-toggle span, .btn-res4th, #cancel-login-popup, #cancel-registration-popup, input#submit, span#log-in-inline {
 	cursor: pointer;
 }
 
@@ -916,7 +916,7 @@ div.reservation-path{
 	}
 }
 
-#login-popup{
+#login-popup, #registration-popup{
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -924,21 +924,31 @@ div.reservation-path{
 	height:100%;
 	background-color: rgba(0, 0, 0, 0.8);
 	z-index: 900;
-	#login-form {
+	#login-form, #registration-form {
 		position: fixed;
-		top: 5%;
-		left: 50%;
-		top: 30%;
-		transform: translate(-50%, -50%);
 		width: 320px;
 		border: solid black 1px;
 		background-color: #fff;
 		z-index: 1000;
 		padding: 20px;
 	}
+
+    #login-form{
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #registration-form{
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, 10%);
+    }
 }
 
-#cancel-login-popup{
+
+
+#cancel-login-popup, #cancel-registration-popup{
 	position: absolute;
 	top: 20px;
 	right: 20px;

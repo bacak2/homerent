@@ -42,6 +42,8 @@
 	@include('includes.privacy')
 	{{--Login popup--}}
 	@include('includes.login-popup')
+	{{--Sign-up popup--}}
+	@include('includes.registration-popup')
 
 </body>
 </html>

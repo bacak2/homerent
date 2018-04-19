@@ -71,14 +71,9 @@
 										<div class="input-group mb-sm-0">
 											<div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}"><i class="fa fa-lg fa-male" aria-hidden="true" placeholder="{{ __('messages.adults')}}"></i></div>
 											<select class="form-control" name='dorosli' style="width: 120px; height: 38px">
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												<option value="8">8</option>
+												@for($i=1; $i <= $apartament->apartament_persons; $i++)
+													<option value="{{$i}}">{{$i}}</option>
+												@endfor
 											</select>
 										</div>
 									</div>

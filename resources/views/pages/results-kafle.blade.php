@@ -1,6 +1,7 @@
 @extends ('pages.results')
 @section ('displayResults')
 
+    {{--dd(Session::get('auth_attempt'))--}}
             <div class="row desktop-none" style="margin-bottom: 20px">
                 <div class="col-9 text-mobile-search">
                     <a href="{{ route('index') }}" style="color: #00afea">Start > </a><b>{{ $finds[0]->apartament_city}}</b>, {{__('messages.from')}} {{ $_GET['przyjazd'] }}, {{__('messages.number of nights')}}: {{ $nightsCounter }}, {{__('messages.Persons')}}: {{ $_GET['dorosli']+$_GET['dzieci'] }}, {{__('messages.Filters')}}: 
@@ -8,14 +9,15 @@
                 <div class="col-3">
                     <div  style="position: absolute; right:10px;"><a  class="btn btn-info btn-mobile filters-toggle">{{__('messages.change')}} </a></div>
                 </div>
-           
+
                 @include('includes.filters-mobile')
-                
+
             </div>
             <div class="row desktop-none">
                 <div class="col-8"><h1 class="pb-2" style="display: inline; font-size: 24px">{{ $finds[0]->apartament_city}} <span class="desktop-none">({{ $counted }})</span></h1><span class="pb-2 mobile-none"> ({{ $counted }} {{trans_choice('messages.apartaments',$counted)}})</span></div>
                 <div class="col-4 inline-wrapper text-right desktop-none"> <div style="position: absolute; right:10px;"   class="btn-group"><a class="btn btn-selected btn-mobile" href="/search/kafle?{{ http_build_query(Request::except('page')) }}">{{__('messages.Offers')}}</a><a class="btn btn-info btn-mobile" href="/search/mapa?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a></div></div>
             </div>
+
             <div style="margin-top: 15px; margin-bottom: 15px" class="desktop-none">{{__('messages.Sort by')}}:
                     <select id="u1001_input" name="sort" class="input-sm">
                         <option selected="" value="Najlepsze dopasowanie">{{__('messages.Best fit')}}</option>
@@ -43,7 +45,7 @@
 <div class="infinite-scroll">
 		<div class="row">  
                     @foreach ($finds as $apartament)                        
-                    <div style="overflow: auto;" class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+                    <div style="overflow: auto;" class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" itemscope itemtype="http://schema.org/Hotel">
                         <div class="map-img-wrapper">
 
                             <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
@@ -61,7 +63,8 @@
                                 </div>
                             </div>
                             <div class="add-to-favourities"><a href="#"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Add to favorites') }}" src='{{ asset("images/results/heart.png") }}'></a></div>
-                            <div class="map-description-top">112 PLN</div> 
+
+                            <div class="map-description-top">{{ $apartament->min_price }} PLN</div>
                             <div class="map-description-bottom">{{ __("messages.Breakfast included") }}</div>
                             <div class="description-bottom-right mobile-none">
                                 @for ($i = 0; $i < 5; $i++)
@@ -70,10 +73,10 @@
                                 <br><span style="color: green; margin-right: 10px;">{{ __("messages.Perfect") }}</span> <span style="color: blue;">55 {{ __("messages.reviews_number") }}</span>
                             </div>
                         </div>
-                        <div class="description-below">
-                            <span style="font-size: 17px">{{ $apartament->apartament_name }}</span>
+                        <div class="description-below" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                            <span style="font-size: 17px" itemprop="name">{{ $apartament->apartament_name }}</span>
                             <span style="display:block; font-size: 11px">{{ $apartament->apartament_district }}</span>
-                            <span style="display:block; font-size: 11px">{{ $apartament->apartament_address }}</span>
+                            <span style="display:block; font-size: 11px" itemprop="streetAddress">{{ $apartament->apartament_address }}</span>
                             <div class="mt-2">
                                 <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.people') }}" style="background-image: url('{{ asset("images/results/person.png") }}');"> <span>{{ $apartament->apartament_persons }}</span> </div>
                                 <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.single beds') }}" style="background-image: url('{{ asset("images/results/doubleBed.png") }}');"> <span>{{ $apartament->apartament_double_beds }}</span> </div>

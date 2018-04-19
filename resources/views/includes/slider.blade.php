@@ -14,8 +14,8 @@
       </div>
       <div id="topSearch" style="background-image: url('images/slider/1.png');">
         <div class="container searchCont">
-              <h4 class="d-block d-sm-none">Szukaj wśród 34 678<br>
-              noclegów w Polsce</h4>
+              <h1 class="d-block d-sm-none">Szukaj wśród 34 678<br>
+              noclegów w Polsce</h1>
               @include('includes.search-form')
         </div>
       </div>

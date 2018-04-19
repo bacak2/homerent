@@ -142,15 +142,19 @@ class Apartaments extends Controller
     public function searchApartaments(Request $request, $view) {
 
         $region = $request->input('region');
-
         $aDate = $request->input('przyjazd');
         $rDate = $request->input('powrot');
         $dprz = strtotime($aDate);
         $dpwr = strtotime($rDate);
         $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
         //Date Parsing
-        $arriveDate = date("d-m-Y", strtotime($aDate));
-        $returnDate = date("d-m-Y", strtotime($rDate));
+        $arriveToChange = explode(' ', $aDate);
+        $arriveToChange = str_replace('.', '-', $arriveToChange[1]);
+        $departureToChange = explode(' ', $rDate);
+        $departureToChange = str_replace('.', '-', $departureToChange[1]);
+
+        $arriveDate = date("Y-m-d", strtotime($arriveToChange));
+        $returnDate = date("Y-m-d", strtotime($departureToChange));
 
         switch($view) {
             case 'kafle':
@@ -175,32 +179,29 @@ class Apartaments extends Controller
         if ($request->has('zwierzeta')) array_push($whereData, ['apartament_animals', '1']);
 
         //$finds = Apartament::select('apartaments.id', 'apartament_geo_lat', 'apartament_geo_lan', 'apartament_address', 'apartament_address_2', 'apartament_city', 'apartament_district', 'apartament_persons', 'apartament_rooms_number', 'apartament_single_beds', 'apartament_double_beds', 'apartament_living_area', 'apartament_floors_number', 'apartament_spa', 'apartament_animals', 'apartament_wifi', 'apartament_parking', 'apartament_fireplace', 'apartament_balcony', 'apartament_registration_time', 'apartament_checkout_time', 'apartament_default_photo_id', 'group_id', 'owner_id', 'language_id', 'apartament_link', 'apartament_description')
-        $finds = Apartament::select('*', 'apartaments.id')
-            ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
-            ->whereIn('apartaments.id', Apartament::select('apartaments.id')
+        $finds = Apartament::selectRaw('*, apartaments.id, MIN(price_value) AS min_price')
+            ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+            ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
+            ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+            ->whereNotIn('apartaments.id', Apartament::select('apartaments.id')
             ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
             /*->leftJoin('apartament_prices', function($join) {
                 $join->on('apartament_prices.apartament_id','=','apartaments.id')
                     ->where('price_value', DB::raw("(select min(`price_value`) from apartament_prices where apartament_id = 1)"));
             })
             */
-            ->join('languages', function($join) {
-                $join->on('apartament_descriptions.language_id','=','languages.id')
-                    ->where('languages.id', $this->language->id);
+            ->leftJoin('languages', function($join) {
+                $join->on('apartament_descriptions.language_id','=','languages.id');
             })
+
             ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
             ->where(function($query) use ($region){
                 $query->where('apartament_descriptions.apartament_name',$region)
                     ->orWhere('apartaments.apartament_city',$region);
             })
             ->where(function($query) use ($arriveDate,$returnDate) {
-                $query->where(function($query) {
-                    $query->WhereNull('reservation_arrive_date')
-                        ->WhereNull('reservation_departure_date');
-                })
-                    ->orWhere(function($query) use($arriveDate,$returnDate){
-                        $query->whereRaw('? not between reservation_arrive_date and reservation_departure_date AND ? not between reservation_arrive_date and reservation_departure_date',[$arriveDate,$returnDate]);
-                    });
+                $query->whereRaw('(? between reservation_arrive_date and reservation_departure_date) OR (? between reservation_arrive_date and reservation_departure_date)',[$arriveDate,$returnDate]);
             })
             ->where(function($query) use ($request){
                 if ($request->has('1room')) $query->where('apartament_rooms_number', '1');
@@ -218,12 +219,18 @@ class Apartaments extends Controller
                         if ($request->has('3beds')) $query->orWhere('apartament_single_beds', '>', '2');
                     });
             })
-            ->where($whereData)
-            ->where('language_id', $this->language->id)
             ->distinct('apartaments.id'))
             ->where('language_id', $this->language->id)
-            ->paginate($paginate);
-
+            ->where('date_of_price', [$arriveDate, $returnDate])
+            ->where($whereData)
+            ->where(function($query) use ($region){
+                $query->where('apartament_descriptions.apartament_name',$region)
+                    ->orWhere('apartaments.apartament_city',$region);
+            })
+            //->whereRaw('(? not between reservation_arrive_date and reservation_departure_date) or (? not between reservation_arrive_date and reservation_departure_date)',[$arriveDate,$returnDate])
+            ->groupBy('apartaments.id')
+            ->paginate($paginate, ['apartaments.id']);
+//dd($finds);
         $black = 0;
         $gray = 0;
 
@@ -299,15 +306,14 @@ class Apartaments extends Controller
         //Checks availabity for each apartment in date (AJAX + JS)
         $availabity = DB::Table('apartaments')
             ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+            ->where('apartaments.id','=',$id)
+            ->whereNotIn('apartaments.id', function($query) use($przyjazd,$powrot){
+                $query->select('apartaments.id')
+                    ->from('apartaments')
+                    ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                    ->whereRaw('((? between reservation_arrive_date and reservation_departure_date) or (? between reservation_arrive_date and reservation_departure_date))',[$przyjazd, $powrot]);
+            })
 
-            ->where(function($query) use($id) {
-                $query->WhereNull('reservation_arrive_date')
-                    ->WhereNull('reservation_departure_date')
-                    ->Where('apartaments.id','=',$id);
-            })
-            ->orWhere(function($query) use($przyjazd,$powrot,$id){
-                $query->whereRaw('apartaments.id = ? AND ( ? not between reservation_arrive_date and reservation_departure_date AND ? not between reservation_arrive_date and reservation_departure_date)',[$id,$przyjazd,$powrot]);
-            })
             ->get();
 
         $totalPrice = DB::Table('apartament_prices')
@@ -319,7 +325,7 @@ class Apartaments extends Controller
 
         $is_available= TRUE;
 
-        if(count($availabity) == 1) {
+        if(count($availabity) > 0) {
             $is_available = TRUE;
 
         }

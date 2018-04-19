@@ -1,6 +1,6 @@
 @extends ('layout.layout')
 
-@section('title', Auth::user()->name.' - '.__('messages.my reservations') )
+@section('title', __('messages.my reservations') )
 
 @section('content')
 <div class="container">

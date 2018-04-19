@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Http\Request;
+use Session;
 
 class LoginController extends Controller
 {
@@ -33,10 +35,11 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
         $this->redirectTo = url()->previous();
         $this->middleware('guest')->except('logout');
+        Session::put('auth_attempt', $request->auth_attempt);
     }
 
     public function showLoginForm()
