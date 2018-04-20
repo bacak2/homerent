@@ -77,32 +77,37 @@
                     <hr class="desktop-none">
                 </div>
                 <div class="col-lg-4 col-sm-6">
-                    <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($reservation[0]->reservation_arrive_date))) }}</b></div></div>
-                    <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($reservation[0]->reservation_departure_date))) }}</b></div></div>
+                    <div class="row"><div class="col-3">{{ __('messages.arrival') }}:</div><div class="col-9"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($reservation[0]->reservation_arrive_date))) }}</b> (po {{$reservation[0]->reservation_arrive_time}})</div></div>
+                    <div class="row"><div class="col-3">{{ __('messages.departure') }}:</div><div class="col-9"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($reservation[0]->reservation_departure_date))) }}</b> (przed 12:00)</div></div>
                     <div class="row"><div class="col-4" style="font-size: 12px">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8" style="font-size: 12px">{{ $reservation[0]->reservation_nights }}</div></div>
                     <div class="row"><div class="col-4" style="font-size: 12px">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8" style="font-size: 12px">{{$reservation[0]->reservation_persons}} {{trans_choice('messages.adult persons',$reservation[0]->reservation_persons)}}, {{$reservation[0]->reservation_kids}} dzieci</div></div>
                     <hr class="desktop-none">
                 </div>
-                @if(1==1)
+                {{--wstępna--}}
+                @if($reservation[0]->reservation_status == 0)
                 <div class="col-lg-5 col-sm-6">
-                    <div class="row"><div class="col-4"><b>Do zapłaty:</b></div><div class="col-4"><b>{{$reservation[0]->payment_to_pay}} PLN</b></div><div class="col-4"><span style="font-size: 12px; display: block;">Można zapłacić online lub przy odbiorze kluczy.</span></div></div>
-                    <div class="row" style="font-size: 12px;"><div class="col-4">{{ __('messages.Advance') }}:</div><div class="col-4">100,00 PLN</div><div class="col-4">zapłacono, {{$reservation[0]->updated_at}}</div></div>
-                    <div class="row" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">400,00 PLN</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
-                    <div class="row"><a class="btn btn-info btn-mobile btn-res4th">Zapłać</a><a class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
-                </div>
-                @elseif(1==0)
-                <div class="col-lg-5 col-sm-6">
-                    <div class="row mb-2"><div class="col-4"><b>Zapłacono:</b></div><div class="col-4"><b>300,00 PLN</b></div></div>
-                    <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">400,00 PLN</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
+                    <div class="row mb-2"><div class="col-4"><b>Do zapłaty:</b></div><div class="col-4"><b>{{$reservation[0]->payment_to_pay}} PLN</b></div></div>
+                    <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
+                    <div class="row mb-2"><a class="btn btn-to-pay">Zapłać całość<br>{{$reservation[0]->payment_full_amount}} PLN</a><a class="btn btn-to-pay">Zapłać zaliczkę<br>100 PLN</a></div>
                     <div class="row"><a class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
                 </div>
-                @elseif(1==0)
+
+                {{--zapłacono zaliczkę--}}
+                @elseif($reservation[0]->payment_to_pay > 0 && $reservation[0]->reservation_status == 1)
                 <div class="col-lg-5 col-sm-6">
-                    <div class="row mb-2"><div class="col-4"><b>Do zapłaty:</b></div><div class="col-4"><b>{{$reservation[0]->payment_to_pay}} PLN</b> Zapłacono: {{$reservation[0]->updated_at}}</div></div>
-                    <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
-                    <div class="row mb-2"><a class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
-                    <div class="row"><a class="btn btn-info btn-mobile btn-res4th">Zapłać całość</a><a class="btn btn-info btn-mobile btn-res4th">Zapłać zaliczkę</a></div>
+                    <div class="row mb-2"><div class="col-4"><b>Do zapłaty:</b></div><div class="col-4"><b>{{$reservation[0]->payment_to_pay}} PLN</b></div><div class="col-4"><span class="font-11" style="display: block;">Można zapłacić online lub przy odbiorze kluczy.</span></div></div>
+                    <div class="row mb-2 font-12"><div class="col-4">{{ __('messages.Advance') }}:</div><div class="col-4">100.00 PLN</div><div class="col-4 font-11">zapłacono, {{date("d.m.Y", strtotime($reservation[0]->updated_at))}}</div></div>
+                    <div class="row mb-2 font-12"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
+                    <div class="row"><a class="btn btn-to-pay">Zapłać</a><a class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
                 </div>
+
+                {{--zapłacono całość--}}
+                @elseif($reservation[0]->reservation_status == 1)
+                    <div class="col-lg-5 col-sm-6">
+                        <div class="row mb-2"><div class="col-4"><b>Zapłacono:</b></div><div class="col-8"><b>{{$reservation[0]->payment_full_amount}} PLN </b><span class="font-12">({{date("d.m.Y", strtotime($reservation[0]->updated_at))}})</span></div></div>
+                        <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
+                        <div class="row"><a class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
+                    </div>
                 @endif
             </div>
         </div>
@@ -124,8 +129,8 @@
                     <div class="contact-item"><i class="fa fa-lg fa-envelope" style="margin-right: 10px"></i>justyna.mroczek@gmail.com</div>
                 </div>
                 <div class="col-lg-3 col-sm-12 mb-2">
-                    <span style="font-size: 12px; display: block;">
-                        * Właściciel może pobrać na miejscu dodatkowe opłaty - np: opłatę klimatyczną, parking itd  (sprawdź opis oferty).
+                    <span style="font-size: 11px; display: block;">
+                        * Właściciel może pobrać na miejscu dodatkowe opłaty - np: opłatę klimatyczną, parking itd  (sprawdź <a href="{{ route('apartamentInfo', ['link' => $apartament->descriptions[0]->apartament_link ]) }}">opis oferty</a>).
                     </span>
                 </div>
             </div>
@@ -194,7 +199,7 @@
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_final_cleaning}} PLN</span></div></div>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_additional_services}} PLN</span></div></div>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_basic_service}} PLN</span></div></div>
-            <div class="row mb-3 fs12" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{$reservation[0]->payment_to_pay}} PLN</b></span></div></div>
+            <div class="row mb-3 fs12" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{$reservation[0]->payment_full_amount}} PLN</b></span></div></div>
         </div>
         <div class="col-lg-4 col-sm-12">
             <h3 class="mb-3"><b>Usługi dodatkowe</b></h3>

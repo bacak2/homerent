@@ -55,6 +55,11 @@ function()
 		'as' => 'reservations.onlinePaymentSuccess'
 	]);
 
+	Route::get('/reservations-payment-failure/{idAparment}/{idReservation}', [
+		'uses' => 'Reservations@OnlinePaymentFailure',
+		'as' => 'reservations.onlinePaymentFailure'
+	]);
+
 	Route::get('/reservations-fourth-step/{idAparment}/{idReservation}', [
 		'uses' => 'Reservations@fourthStep',
 		'as' => 'reservations.fourthStep'

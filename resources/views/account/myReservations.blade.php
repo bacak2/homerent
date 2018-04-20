@@ -65,16 +65,34 @@
         </div>
         <div class="col-lg-1 col-4"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.number of nights') }}" src="{{ asset("images/account/moon.png") }}"> {{ $reservation->reservation_nights }}</div>
         <div class="col-lg-1 col-12">
-            <div class="row font-11">Rezerwacja:</div>
-            <div class="row">{{ strtolower(strftime("%d %b %Y", strtotime($reservation->created_at))) }}</div>
+            @if($reservation->reservation_status == 0)
+                <div class="row font-11">Rezerwacja wstępna:</div>
+                <div class="row">{{ strtolower(strftime("%d %b %Y", strtotime($reservation->created_at))) }}</div>
+                <!--wygasa za -->
+            @else
+                <div class="row font-11">Rezerwacja:</div>
+                <div class="row">{{ strtolower(strftime("%d %b %Y", strtotime($reservation->created_at))) }}</div>
+            @endif
         </div>
         <div class="col-lg-1 col-6">
             <div class="row font-11">Opłata za pobyt:</div>
             <div class="row">{{$reservation->payment_full_amount}} PLN</div>
         </div>
         <div class="col-lg-1 col-6">
-            <div class="row font-11">Do zapłaty:</div>
-            <div class="row">{{$reservation->payment_to_pay}} PLN</div>
+            @if($reservation->reservation_status == 0)
+                <div class="row font-11">Zaliczka:</div>
+                <div class="row">100,00 PLN</div>
+                <div class="row font-11">Do zapłaty:</div>
+                <div class="row">{{$reservation->payment_to_pay}} PLN</div>
+            @elseif($reservation->reservation_status == 1 && $reservation->payment_to_pay > 0)
+                <div class="row font-11">Zaliczka:</div>
+                <div class="row">{{$reservation->payment_full_amount - $reservation->payment_to_pay}} PLN</div>
+                <div class="row font-11">Na miejscu:</div>
+                <div class="row">{{$reservation->payment_to_pay}} PLN</div>
+            @else
+                <div class="row font-11">Do zapłaty:</div>
+                <div class="row">{{$reservation->payment_to_pay}} PLN</div>
+            @endif
         </div>
         <div class="col-lg-2 col-12">
             <a class="btn btn-black" href="tel:713333222"><img src="{{ asset("images/account/phone.png") }}"></a>

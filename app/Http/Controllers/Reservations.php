@@ -157,10 +157,6 @@ class Reservations extends Controller
 
     public function thirdStep(Request $request)
     {
-        //umieść $idReservation w roucie
-        echo '<form style="display:none" id="DotpayForm" name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/"> <input type="hidden" name="id" value="734129" /> <input type="hidden" name="opis" value="Opłata za pobyt w '.$request->link.'" /> <input type="hidden" name="control" value="" /> <input type="hidden" name="amount" value="100" /> <input type="hidden" name="typ" value="3" /> <input type="hidden" name="URL" value="'.route('reservations.onlinePaymentSuccess', ['idAparment' => 1, 'idReservation' => 1]).'" /> <input type="hidden" name="URLC" value="'.route('reservations.thirdStep').'" /> <input type="submit" name="dalej" value="zapłać teraz" /> </form><script>document.getElementById("DotpayForm").submit();</script>';
-        exit();
-
         $request->phone = "$request->prefix"." $request->phone";
         $request->fullPrice = Crypt::decrypt($request->fullPrice);
 
@@ -203,9 +199,6 @@ class Reservations extends Controller
             }
         }
 
-        if($request->payment_method == 2 || $request->payment_method == 4) $reservation_status = 0;
-        else if($request->payment_method == 1 || $request->payment_method == 3) $reservation_status = 1;
-
         $reservationData =[
             'apartament_id' => $request->id,
             'user_id' => Auth::user()->id ?? $insertedUserId ?? 0,
@@ -224,7 +217,7 @@ class Reservations extends Controller
             'payment_final_cleaning' => $request->payment_final_cleaning,
             'payment_additional_services' => $request->payment_additional_services,
             'payment_basic_service' => $request->payment_basic_service,
-            'reservation_status' => $reservation_status,
+            'reservation_status' => 0,
             'created_at' => date('Y-m-d')
         ];
 
@@ -274,7 +267,7 @@ class Reservations extends Controller
         $dataSet = $reservationData + $userData;
         $idReservation = DB::table('reservations')->insertGetId($dataSet);
 
-        if(1==1 || $request->payment_method == 2 || $request->payment_method == 4) {
+        if($request->payment_method == 2 || $request->payment_method == 4) {
             return redirect()->action(
                 'Reservations@fourthStep', ['idAparment' => $request->id, 'idReservation' => $idReservation]
             );
@@ -283,9 +276,10 @@ class Reservations extends Controller
         //online payment
         else {
             if ($request->payment_method == 1) $toPay = $request->fullPrice;
-            else $toPay = $request->fullPrice;
+            else $toPay = 100;
 
-            return false;
+            echo '<form style="display:none" id="DotpayForm" name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/"> <input type="hidden" name="id" value="734129" /> <input type="hidden" name="opis" value="Opłata za pobyt w '.$request->link.'" /> <input type="hidden" name="control" value="" /> <input type="hidden" name="amount" value="'.$toPay.'" /> <input type="hidden" name="typ" value="3" /> <input type="hidden" name="URL" value="'.route('reservations.onlinePaymentSuccess', ['idAparment' => $request->id, 'idReservation' => $idReservation]).'" /> <input type="hidden" name="URLC" value="'.route('reservations.onlinePaymentFailure', ['idAparment' => $request->id, 'idReservation' => $idReservation]).'"/> <input type="submit" name="dalej" value="zapłać teraz" /> </form><script>document.getElementById("DotpayForm").submit();</script>';
+            exit();
         }
     }
 

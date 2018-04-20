@@ -311,7 +311,7 @@ class Apartaments extends Controller
                 $query->select('apartaments.id')
                     ->from('apartaments')
                     ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
-                    ->whereRaw('((? between reservation_arrive_date and reservation_departure_date) or (? between reservation_arrive_date and reservation_departure_date))',[$przyjazd, $powrot]);
+                    ->whereRaw('((reservation_arrive_date + INTERVAL 1 DAY between ? and ?) or (reservation_departure_date - INTERVAL 1 DAY between ? and ?))',[$przyjazd, $powrot, $przyjazd, $powrot]);
             })
 
             ->get();
