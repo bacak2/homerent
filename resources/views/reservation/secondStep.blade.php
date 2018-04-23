@@ -53,7 +53,7 @@
             {!! Form::hidden('payment_basic_service', $request->basicService) !!}
             {!! Form::hidden('fullPrice', Crypt::encrypt($request->fullPrice)) !!}
             @auth
-            @if($request->change === NULL ){{--&& !($accountData->first()->contains('address', $accountData->first()) == NULL))--}}
+            @if($request->change === NULL && !($accountData->first()->name == NULL || $accountData->first()->surname == NULL || $accountData->first()->address == NULL || $accountData->first()->postcode == NULL || $accountData->first()->place == NULL || $accountData->first()->phone == NULL))
             <ul class="nav nav-tabs">
                 @foreach($accountData as $data)
                     <li class="nav-item">
@@ -179,7 +179,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#{{ $data->id }}" role="tab" data-toggle="tab">
                                         Nazwa:
-                                        {!! Form::text('label', $accountData["$request->change"]->label, ['class' => '', 'style'=>'height: 24px; width: 200px; font-size:12px']) !!}
+                                        {!! Form::text('label', $accountData["$request->change"]->label ?? $accountData->first()->label, ['class' => '', 'style'=>'height: 24px; width: 200px; font-size:12px']) !!}
                                     </a>
                                 </li>
                             @else
@@ -204,9 +204,15 @@
                                             </div>
                                         </div-->
                                         <div class="form-group row">
-                                            {!! Form::label('name and surname', __('messages.Name and surname'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                            {!! Form::label('name', __('messages.Name'), array('class' => 'col-sm-3 col-form-label')) !!}
                                             <div class="col-sm-9">
-                                                {!! Form::text('name and surname', $data->name.' '.$data->surname, ['class' => 'required full-width']) !!}
+                                                {!! Form::text('name', $data->name, ['class' => 'required full-width']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            {!! Form::label('surname', __('messages.Surname'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                            <div class="col-sm-9">
+                                                {!! Form::text('surname', $data->surname, ['class' => 'required full-width']) !!}
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -224,7 +230,7 @@
                                         <div class="form-group row">
                                             {!! Form::label('postcode', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
                                             <div class="col-sm-9">
-                                                {!! Form::text('postcode', $data->postcode, array('class' => 'required not-full-width col-sm-12 col-lg-6')) !!}
+                                                {!! Form::text('postcode', $data->postcode, array('class' => 'required not-full-width col-sm-12 col-lg-6', 'pattern' => '[0-9]{2}-[0-9]{3}', 'oninvalid' => 'setCustomValidity("Wprowadź poprawny kod pocztowy")', ' oninput' => 'setCustomValidity("")')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -273,16 +279,25 @@
                                             </div>
                                         </span>
                                         <div class="form-group row">
-                                            {!! Form::label('phone', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                            <div class="col-sm-9">
-                                                {!! Form::text('phone', $data->phone, ['class' => 'required full-width']) !!}
-                                            </div>
+                                                {!! Form::label('phone', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <div class="col-sm-2">{!! Form::select('prefix', array('+48'=> '+48', '+44' => '+44')) !!}</div>
+                                                        <div class="col-sm-10">{!! Form::text('phone', $data->phone, ['class' => 'full-width required ']) !!}</div>
+                                                    </div>
+                                                    <div class="font-11" style="color: gray">
+                                                        Ten numer telefonu jest potrzebny właścicielowi do kontaktu z Tobą.
+                                                    </div>
+                                                </div>
                                         </div>
                                         <div class="form-group row">
-                                            {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
-                                            <div class="col-sm-9">
-                                                {!! Form::email('email', $data->email, ['class' => 'required full-width']) !!}
-                                            </div>
+                                                {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
+                                                <div class="col-sm-9">
+                                                    {!! Form::email('email', $request->email, ['class' => 'required full-width', 'oninvalid' => 'setCustomValidity("Wprowadź poprawny adres email")', ' oninput' => 'setCustomValidity("")']) !!}
+                                                    <div class="font-11" style="color: gray">
+                                                        Ten adres e-mail będzie służył do kontaktu z Tobą oraz do logowania (jeśli się zdecydujesz założyć konto).
+                                                    </div>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>

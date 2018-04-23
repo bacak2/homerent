@@ -12,6 +12,7 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+        '*/after-online-payment/*',
+        '*/reservations-fourth-step/*'
     ];
 }

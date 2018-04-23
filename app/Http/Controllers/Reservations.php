@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\{Apartament, Apartament_description, Apartament_group, Reservation};
 use Auth;
 use Crypt;
-use GuzzleHttp\Client;
+use Illuminate\Contracts\Session\Session;
 
 class Reservations extends Controller
 {
@@ -26,7 +26,7 @@ class Reservations extends Controller
         $language = DB::table('languages')->select('id', 'language_code')->where('language_code',$temp)->first();
         $this->language = $language;
     }
-    
+
     public function firstStep(Request $request){
 
         $przyjazdDb = explode(" ", $request->przyjazd);
@@ -48,7 +48,7 @@ class Reservations extends Controller
             ->get();
 
         $id = $linktoid[0]->apartament_id;
-      $apartament = Apartament::with(array('descriptions' => function($query)
+        $apartament = Apartament::with(array('descriptions' => function($query)
         {
             $query->where('language_id', $this->language->id);
         }))->find($id);
@@ -277,13 +277,12 @@ class Reservations extends Controller
         else {
             if ($request->payment_method == 1) $toPay = $request->fullPrice;
             else $toPay = 100;
-
-            echo '<form style="display:none" id="DotpayForm" name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/"> <input type="hidden" name="id" value="734129" /> <input type="hidden" name="opis" value="Opłata za pobyt w '.$request->link.'" /> <input type="hidden" name="control" value="" /> <input type="hidden" name="amount" value="'.$toPay.'" /> <input type="hidden" name="typ" value="3" /> <input type="hidden" name="URL" value="'.route('reservations.onlinePaymentSuccess', ['idAparment' => $request->id, 'idReservation' => $idReservation]).'" /> <input type="hidden" name="URLC" value="'.route('reservations.onlinePaymentFailure', ['idAparment' => $request->id, 'idReservation' => $idReservation]).'"/> <input type="submit" name="dalej" value="zapłać teraz" /> </form><script>document.getElementById("DotpayForm").submit();</script>';
+            echo '<form style="display:none" id="DotpayForm" name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/"> <input type="hidden" name="id" value="734129" /> <input type="hidden" name="opis" value="Opłata za pobyt w '.$request->link.'" /> <input type="hidden" name="control" value="'.$idReservation.'" /> <input type="hidden" name="amount" value="'.$toPay.'" /> <input type="hidden" name="typ" value="3" /> <input type="hidden" name="URL" value="'.route('reservations.fourthStepAfterDotpay', ['idAparment' => $request->id, 'idReservation' => $idReservation, 'status' => 'OK']).'"/> <input type="hidden" name="URLC" value="'.route('reservations.afterOnlinePaymentPOST').'"/></form><script>document.getElementById("DotpayForm").submit();</script>';
             exit();
         }
     }
 
-    public function fourthStep($idAparment, $idReservation){
+    public function fourthStep($idAparment, $idReservation, $status = 1){
 
         $id = $idAparment;
 
@@ -305,14 +304,49 @@ class Reservations extends Controller
 
     }
 
-    public function OnlinePaymentSuccess($idAparment, $idReservation){
+    public function fourthStepDotpay(Request $request){
 
-        DB::table('reservations')->where('id', $idReservation)->update(['reservation_status' => 1, 'updated_at' => date("Y-m-d H:i:s")]);
+        $id = $_GET['idAparment'];
+
+        $apartament = Apartament::with(array('descriptions' => function($query)
+        {
+            $query->where('language_id', $this->language->id);
+        }))->find($id);
+
+        $reservation = DB::table('reservations')->where('id', $_GET['idReservation'])->get();
+
+        //$reservationModel = new Reservation();
+        //$reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
+
+        return view('reservation.fourthStep', [
+            'apartament' => $apartament,
+            'reservation' => $reservation,
+            'language' => $this->language->language_code,
+        ]);
+
+    }
+
+    public function AfterOnlinePayment (Request $request){
+        echo "OK";
+        DB::table('reservations')->where('id', $request->control)->update(['payment_to_pay' => DB::raw("payment_to_pay - $request->operation_amount"), 'updated_at' => date("Y-m-d H:i:s")]);
+        //operation_amount -zaksięgowana wpłata
+
+        //if success $request->operation_status
+        //operation_status completed-wykonana, rejected-odrzucona
+
+        /*if($request->get('status') == 'OK' && $request->session()->get('toPayAfterPayment') > 0){
+            $reservation_status = 0;
+        }
+        else $reservation_status = 1;
+
+        DB::table('reservations')->where('id', $idReservation)->update(['reservation_status' => $reservation_status, 'payment_to_pay' =>$request->session()->get('toPayAfterPayment'), 'updated_at' => date("Y-m-d H:i:s")]);
+
+        //$request->session()->forget('toPayAfterPayment');
 
         return redirect()->action(
             'Reservations@fourthStep', ['idAparment' => $idAparment, 'idReservation' => $idReservation]
         );
-
+*/
     }
 
     //Gets min apartament price

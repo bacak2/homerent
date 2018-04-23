@@ -2,7 +2,7 @@
 @section ('displayResults')
             <div class="row">
                 <div class="col-lg-6 col-md-12"><h1 class="pb-2" style="font-size: 28px">{{__('messages.found')}} {{ $counted }} {{trans_choice('messages.apartaments',$counted)}}</h1></div>
-                <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12">{{__('messages.Sort by')}}:
+                <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12 sort-by">{{__('messages.Sort by')}}:
                     <select id="u1001_input" name="sort">
                         <option selected="" value="Najlepsze dopasowanie">{{__('messages.Best fit')}}</option>
                         <option value="Najniższa cena">{{__('messages.Lowest price')}}</option>

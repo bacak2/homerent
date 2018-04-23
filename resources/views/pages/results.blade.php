@@ -10,6 +10,7 @@
 	<div class="container" id="apartamentsforyou">
 
                 @yield('displayResults')
+
 	</div>
 <div id="lang" style="display: none;">
         {{ App::getLocale() }}
@@ -100,6 +101,46 @@
 
         myData = [ 0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000 ];
 
+        switch({{$request->amount ?? 0}}) {
+            case 50: amountStep = 1; break;
+            case 100: amountStep = 2; break;
+            case 150: amountStep = 3; break;
+            case 200: amountStep = 4; break;
+            case 250: amountStep = 5; break;
+            case 300: amountStep = 6; break;
+            case 350: amountStep = 7; break;
+            case 400: amountStep = 8; break;
+            case 450: amountStep = 9; break;
+            case 500: amountStep = 10; break;
+            case 600: amountStep = 11; break;
+            case 700: amountStep = 12; break;
+            case 800: amountStep = 13; break;
+            case 900: amountStep = 14; break;
+            case 1000: amountStep = 15; break;
+            default:
+                amountStep = 0;
+        }
+
+        switch({{$request->amount2 ?? 1000}}) {
+            case 0: amountStep2 = 0; break;
+            case 50: amountStep2 = 1; break;
+            case 100: amountStep2 = 2; break;
+            case 150: amountStep2 = 3; break;
+            case 200: amountStep2 = 4; break;
+            case 250: amountStep2 = 5; break;
+            case 300: amountStep2 = 6; break;
+            case 350: amountStep2 = 7; break;
+            case 400: amountStep2 = 8; break;
+            case 450: amountStep2 = 9; break;
+            case 500: amountStep2 = 10; break;
+            case 600: amountStep2 = 11; break;
+            case 700: amountStep2 = 12; break;
+            case 800: amountStep2 = 13; break;
+            case 900: amountStep2 = 14; break;
+            default:
+                amountStep2 = 15;
+        }
+
         slider_config = {
             range: true,
             min: 0,
@@ -109,27 +150,66 @@
                 // Set the real value into the inputs
                 $('#amount').val( myData[ ui.values[0] ] );
                 $('#amount2').val( myData[ ui.values[1] ] );
+
                 if (myData[ ui.values[0] ] == 1000) $("#amount").val('1000+');
                 if (myData[ ui.values[1] ] == 1000) $("#amount2").val('1000+');
             },
             create: function() {
-                $(this).slider('values',0,0);
-                $(this).slider('values',1,myData.length - 1);
+                $(this).slider('values', 0, amountStep);
+                $(this).slider('values', 1, amountStep2);
             }
         };
 
         // Render Slider
         $('#slider-range').slider(slider_config);
-        $("#slider-range").slider('values',0,0);
-        $("#slider-range").slider('values',1,1000);
-        $("#amount").val('0');
-        $("#amount2").val('1000+');
+        $("#amount").val('{{$request->amount ?? 0}}');
+        $("#amount2").val('{{$request->amount2 ?? '1000+'}}');
 
     }
 
     function MrangeBar(){
 
         myData = [ 0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000 ];
+
+        switch({{$request->amount ?? 0}}) {
+            case 50: amountStep = 1; break;
+            case 100: amountStep = 2; break;
+            case 150: amountStep = 3; break;
+            case 200: amountStep = 4; break;
+            case 250: amountStep = 5; break;
+            case 300: amountStep = 6; break;
+            case 350: amountStep = 7; break;
+            case 400: amountStep = 8; break;
+            case 450: amountStep = 9; break;
+            case 500: amountStep = 10; break;
+            case 600: amountStep = 11; break;
+            case 700: amountStep = 12; break;
+            case 800: amountStep = 13; break;
+            case 900: amountStep = 14; break;
+            case 1000: amountStep = 15; break;
+            default:
+                amountStep = 0;
+        }
+
+        switch({{$request->amount2 ?? 1000}}) {
+            case 0: amountStep2 = 0; break;
+            case 50: amountStep2 = 1; break;
+            case 100: amountStep2 = 2; break;
+            case 150: amountStep2 = 3; break;
+            case 200: amountStep2 = 4; break;
+            case 250: amountStep2 = 5; break;
+            case 300: amountStep2 = 6; break;
+            case 350: amountStep2 = 7; break;
+            case 400: amountStep2 = 8; break;
+            case 450: amountStep2 = 9; break;
+            case 500: amountStep2 = 10; break;
+            case 600: amountStep2 = 11; break;
+            case 700: amountStep2 = 12; break;
+            case 800: amountStep2 = 13; break;
+            case 900: amountStep2 = 14; break;
+            default:
+                amountStep2 = 15;
+        }
 
         slider_config = {
             range: true,
@@ -144,17 +224,15 @@
                 if (myData[ ui.values[1] ] == 1000) $("#Mamount2").val('1000+');
             },
             create: function() {
-                $(this).slider('values',0,0);
-                $(this).slider('values',1,myData.length - 1);
+                $(this).slider('values', 0, amountStep);
+                $(this).slider('values', 1, amountStep2);
             }
         };
 
         // Render Slider
         $('#Mslider-range').slider(slider_config);
-        $("#Mslider-range").slider('values',0,0);
-        $("#Mslider-range").slider('values',1,1000);
-        $("#Mamount").val('0');
-        $("#Mamount2").val('1000+');
+        $("#Mamount").val('{{$request->amount ?? 0}}');
+        $("#Mamount2").val('{{$request->amount2 ?? '1000+'}}');
 
     }
 

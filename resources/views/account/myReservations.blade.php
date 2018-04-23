@@ -7,6 +7,7 @@
     @if(!($users_reservations_future->isEmpty() && $users_reservations_gone->isEmpty()))
     <div class="row mt-4 mb-2">
         <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>Rezerwacje</b></h1></div>
+        <span id="my-reservation-filters">
         <div class="col-lg-3 col-12 inline-wrapper text-right">
             <div class="btn-group pull-left">
                 <a class="btn btn-mobile btn-selected" href="{{ route('myReservations')}}">{{__('Data przyjazdu')}}</a>
@@ -31,6 +32,7 @@
 
             </div>
         </div>
+        </span>
     </div>
     <div class="row mb-4">
         <span class="font-11">* Właściciel może pobrać na miejscu dodatkowe opłaty - np: opłatę klimatyczną, parking itd  (sprawdź opis oferty).</span>
@@ -142,7 +144,7 @@
                 <div class="row">{{$reservation->payment_to_pay}} PLN</div>
             </div>
             <div class="col-lg-2 col-4">
-                <a class="btn btn-black" href="{{ route('account.opinion',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Oceń</a>
+                <a class="btn btn-black" id="opinion-in-account" href="{{ route('account.opinion',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Oceń</a>
                 <div class="more row">
                     <div class="btn-toggle col-1" style="height: 100%"> <i style="font-size:16px; font-weight: bold" class="fa">&#xf100;</i></div>
                     <div class="col-1" style="display: none;">

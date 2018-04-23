@@ -20,11 +20,11 @@
 	              <a class="nav-link" id="log-in" href="#">{{ __('messages.login')}}</a>
 	            </li>
 	            <li class="nav-item">
-	              <a class="nav-link" id="sign-up" href="#{{-- route('register') --}}">{{ __('messages.register')}}</a>
+	              <a class="nav-link" id="sign-up" href="#">{{ __('messages.register')}}</a>
 	            </li>
 	        @else 
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('myFavourites') }}">{{ __('messages.My favourites') }} </a>
+                    <a class="nav-link" id="my-favouriteies" href="{{ route('myFavourites') }}">{{ __('messages.My favourites') }} </a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ route('myReservations') }}">{{ __('messages.My reservations') }} </a>

@@ -47,5 +47,5 @@
                             <label>{!! Form::checkbox('balkon', null, null, ['id' => 'balkon']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Balcony/Terrace') }}</label>
                         </p>
                     </div>
-
+                    
                 </div>

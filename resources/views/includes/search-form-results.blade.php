@@ -60,9 +60,9 @@
                     <div class="col-3">
                         <span class="cenaRange">{{ __('messages.Price per stay') }} (PLN)<i class="fa fa-caret-down cenaRange"></i></span>
                         <div class="cenaRange">
-                            <input type="text" id="amount" readonly>
+                            <input type="text" id="amount" name="amount" readonly>
                             <div id="slider-range"></div>
-                            <input type="text" id="amount2" readonly>
+                            <input type="text" id="amount2" name="amount2" readonly>
                         </div>
                     </div> 
                     <div class="col-3">
@@ -123,10 +123,8 @@
                     <hr>
                     <button type="submit" class="btn btn-primary searchbtn">{{ __('messages.Apply filters') }}</button>
                     <a id="resetFilters" href="#">{{ __('messages.Restore default') }}</a>
-                {!! Form::close() !!}
-
             </div>
         </div>
     </div>
-
+    </form>
 </div>

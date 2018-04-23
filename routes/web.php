@@ -13,98 +13,127 @@
 
 
 Route::group(
-[
-	'prefix' => LaravelLocalization::setLocale(),
-	'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-],
-function()
-{
-	Route::get('/', 'Apartaments@showIndex')->name('index');
+    [
+        //'prefix' => LaravelLocalization::setLocale(),
+        'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+    ],
 
-	Auth::routes();
+    function()
+    {
+        Route::get('/', 'Apartaments@showIndex')->name('index');
 
-	Route::get('/home', 'HomeController@index')->name('home');
+        Route::post('logout', 'Auth\LoginController@logout');
 
-	Route::get('/apartaments/{link}', 'Apartaments@showApartamentInfo')->name('apartamentInfo');
+        Auth::routes();
 
-	Route::get('/search/{view}','Apartaments@searchApartaments');
+        Route::get('/home', 'HomeController@index')->name('home');
 
-	Route::get('/test','Apartaments@showTotalApartamentPrice');
-        
-    Route::get('/map','Apartaments@showApartamentsOnMap');
+        Route::get('/apartaments/{link}', 'Apartaments@showApartamentInfo')->name('apartamentInfo');
 
-	Route::get('/autocomplete','Apartaments@apartamentAutoComplete');
+        Route::get('/search/{view}','Apartaments@searchApartaments');
 
-	Route::get('/reservations', [
-		'uses' => 'Reservations@firstStep',
-		'as' => 'reservations.firstStep'
-	]);
+        Route::get('/test','Apartaments@showTotalApartamentPrice');
 
-	Route::get('/reservations-second-step', [
-		'uses' => 'Reservations@secondStep',
-		'as' => 'reservations.secondStep'
-	]);
+        Route::get('/map','Apartaments@showApartamentsOnMap');
 
-	Route::POST('/reservations-third-step', [
-		'uses' => 'Reservations@thirdStep',
-		'as' => 'reservations.thirdStep'
-	]);
+        Route::get('/autocomplete','Apartaments@apartamentAutoComplete');
 
-	Route::get('/reservations-payment/{idAparment}/{idReservation}', [
-		'uses' => 'Reservations@OnlinePaymentSuccess',
-		'as' => 'reservations.onlinePaymentSuccess'
-	]);
+        Route::get('/reservations', [
+            'uses' => 'Reservations@firstStep',
+            'as' => 'reservations.firstStep'
+        ]);
 
-	Route::get('/reservations-payment-failure/{idAparment}/{idReservation}', [
-		'uses' => 'Reservations@OnlinePaymentFailure',
-		'as' => 'reservations.onlinePaymentFailure'
-	]);
+        Route::get('/reservations-second-step', [
+            'uses' => 'Reservations@secondStep',
+            'as' => 'reservations.secondStep'
+        ]);
 
-	Route::get('/reservations-fourth-step/{idAparment}/{idReservation}', [
-		'uses' => 'Reservations@fourthStep',
-		'as' => 'reservations.fourthStep'
-	]);
+        Route::POST('/reservations-third-step', [
+            'uses' => 'Reservations@thirdStep',
+            'as' => 'reservations.thirdStep'
+        ]);
 
-    Route::get('sendhtmlemail','Reservations@sendMail');
+        Route::GET('/after-online-payment/{idAparment}/{idReservation}', [
+            'uses' => 'Reservations@AfterOnlinePayment',
+            'as' => 'reservations.afterOnlinePayment'
+        ]);
 
-	Route::prefix('/account')->group(function () {
-		Route::GET('/data', [
-			'uses' => 'Account@index',
-			'as' => 'account'
-		]);
+        Route::POST('/after-online-payment/{idAparment}/{idReservation}', [
+            'uses' => 'Reservations@AfterOnlinePayment',
+            'as' => 'reservations.afterOnlinePayment'
+        ]);
 
-		Route::GET('/my-favourites', [
-			'uses' => 'Account@favourites',
-			'as' => 'myFavourites'
-		]);
+        Route::POST('/after-online-payment', [
+            'uses' => 'Reservations@AfterOnlinePayment',
+            'as' => 'reservations.afterOnlinePaymentPOST'
+        ]);
 
-		Route::GET('/my-reservations', [
-			'uses' => 'Account@reservations',
-			'as' => 'myReservations'
-		]);
+        Route::GET('/after-online-payment', [
+            'uses' => 'Reservations@AfterOnlinePayment',
+            'as' => 'reservations.afterOnlinePayment'
+        ]);
 
-		Route::GET('/my-reservations/{idAparment}/{idReservation}', [
-			'uses' => 'Account@reservationDetail',
-			'as' => 'account.reservationDetail'
-		]);
+        Route::GET('/reservations-fourth-step/{idAparment}/{idReservation}/{status}', [
+            'uses' => 'Reservations@fourthStep',
+            'as' => 'reservations.fourthStepAfterDotpay'
+        ]);
 
-		Route::GET('/my-reservations/{idAparment}/{idReservation}/opinion', [
-			'uses' => 'Account@reservationOpinion',
-			'as' => 'account.opinion'
-		]);
+        Route::GET('/reservations-fourth-step/{idAparment}/{idReservation}', [
+            'uses' => 'Reservations@fourthStep',
+            'as' => 'reservations.fourthStep'
+        ]);
 
-		Route::GET('/save','Account@save');
-		
-		Route::GET('/refreshView','Account@refreshView');
-		
-		Route::GET('/edit/{id}', [
-			'uses' => 'Account@editItem',
-			'as' => 'Account.edit'
-		]);
-		
-		Route::GET('/delete/{id}', [
-			'uses' => 'Account@deleteItem',
-			'as' => 'Account.delete'
-		]);
-	});
-});
+        Route::GET('/reservations-fourth-step/{idAparment}', [
+            'uses' => 'Reservations@fourthStep',
+            'as' => 'reservations.fourthStep'
+        ]);
+
+        Route::POST('/reservations-fourth-step', [
+            'uses' => 'Reservations@fourthStepDotpay',
+            'as' => 'reservations.fourthStepDotpay'
+        ]);
+
+        Route::get('sendhtmlemail','Reservations@sendMail');
+
+        Route::prefix('/account')->group(function () {
+            Route::GET('/data', [
+                'uses' => 'Account@index',
+                'as' => 'account'
+            ]);
+
+            Route::GET('/my-favourites', [
+                'uses' => 'Account@favourites',
+                'as' => 'myFavourites'
+            ]);
+
+            Route::GET('/my-reservations', [
+                'uses' => 'Account@reservations',
+                'as' => 'myReservations'
+            ]);
+
+            Route::GET('/my-reservations/{idAparment}/{idReservation}', [
+                'uses' => 'Account@reservationDetail',
+                'as' => 'account.reservationDetail'
+            ]);
+
+            Route::GET('/my-reservations/{idAparment}/{idReservation}/opinion', [
+                'uses' => 'Account@reservationOpinion',
+                'as' => 'account.opinion'
+            ]);
+
+            Route::GET('/save','Account@save');
+
+            Route::GET('/refreshView','Account@refreshView');
+
+            Route::GET('/edit/{id}', [
+                'uses' => 'Account@editItem',
+                'as' => 'Account.edit'
+            ]);
+
+            Route::GET('/delete/{id}', [
+                'uses' => 'Account@deleteItem',
+                'as' => 'Account.delete'
+            ]);
+        });
+    });

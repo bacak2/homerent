@@ -141,20 +141,20 @@ class Apartaments extends Controller
     //Apartments search engine
     public function searchApartaments(Request $request, $view) {
 
+        if($request->amount2 == "1000+") $request->amount2 = 10000;
         $region = $request->input('region');
-        $aDate = $request->input('przyjazd');
-        $rDate = $request->input('powrot');
-        $dprz = strtotime($aDate);
-        $dpwr = strtotime($rDate);
-        $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
+
         //Date Parsing
-        $arriveToChange = explode(' ', $aDate);
+        $arriveToChange = explode(' ', $request->input('przyjazd'));
         $arriveToChange = str_replace('.', '-', $arriveToChange[1]);
-        $departureToChange = explode(' ', $rDate);
+        $departureToChange = explode(' ', $request->input('powrot'));
         $departureToChange = str_replace('.', '-', $departureToChange[1]);
 
         $arriveDate = date("Y-m-d", strtotime($arriveToChange));
         $returnDate = date("Y-m-d", strtotime($departureToChange));
+        $dprz = strtotime($arriveDate);
+        $dpwr = strtotime($returnDate);
+        $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
 
         switch($view) {
             case 'kafle':
@@ -201,7 +201,8 @@ class Apartaments extends Controller
                     ->orWhere('apartaments.apartament_city',$region);
             })
             ->where(function($query) use ($arriveDate,$returnDate) {
-                $query->whereRaw('(? between reservation_arrive_date and reservation_departure_date) OR (? between reservation_arrive_date and reservation_departure_date)',[$arriveDate,$returnDate]);
+                $query->whereRaw('((reservation_arrive_date + INTERVAL 1 DAY between ? and ?) or (reservation_departure_date - INTERVAL 1 DAY between ? and ?))',[$arriveDate,$returnDate,$arriveDate,$returnDate]);
+                //$query->whereRaw('(? between reservation_arrive_date and reservation_departure_date) OR (? between reservation_arrive_date and reservation_departure_date)',[$arriveDate,$returnDate]);
             })
             ->where(function($query) use ($request){
                 if ($request->has('1room')) $query->where('apartament_rooms_number', '1');
@@ -221,8 +222,14 @@ class Apartaments extends Controller
             })
             ->distinct('apartaments.id'))
             ->where('language_id', $this->language->id)
+            ->whereBetween('price_value', array($request->amount, $request->amount2))
             ->where('date_of_price', [$arriveDate, $returnDate])
-            ->where($whereData)
+            /*->where(function($query) use ($request) {
+                if($request->amount2 == "+1000") $query->where('price_value', '>', $request->amount);
+                else $query->whereBetween('price_value', array($request->amount, $request->amount2));
+            })
+            */
+
             ->where(function($query) use ($region){
                 $query->where('apartament_descriptions.apartament_name',$region)
                     ->orWhere('apartaments.apartament_city',$region);

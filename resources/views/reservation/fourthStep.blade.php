@@ -89,7 +89,7 @@
                     <div class="row mb-2"><div class="col-4"><b>Do zapłaty:</b></div><div class="col-4"><b>{{$reservation[0]->payment_to_pay}} PLN</b></div></div>
                     <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
                     <div class="row mb-2"><a class="btn btn-to-pay">Zapłać całość<br>{{$reservation[0]->payment_full_amount}} PLN</a><a class="btn btn-to-pay">Zapłać zaliczkę<br>100 PLN</a></div>
-                    <div class="row"><a class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
+                    <div class="row"><a id="add-new-services" class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
                 </div>
 
                 {{--zapłacono zaliczkę--}}
@@ -98,7 +98,7 @@
                     <div class="row mb-2"><div class="col-4"><b>Do zapłaty:</b></div><div class="col-4"><b>{{$reservation[0]->payment_to_pay}} PLN</b></div><div class="col-4"><span class="font-11" style="display: block;">Można zapłacić online lub przy odbiorze kluczy.</span></div></div>
                     <div class="row mb-2 font-12"><div class="col-4">{{ __('messages.Advance') }}:</div><div class="col-4">100.00 PLN</div><div class="col-4 font-11">zapłacono, {{date("d.m.Y", strtotime($reservation[0]->updated_at))}}</div></div>
                     <div class="row mb-2 font-12"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
-                    <div class="row"><a class="btn btn-to-pay">Zapłać</a><a class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
+                    <div class="row"><a class="btn btn-to-pay">Zapłać</a><a id="add-new-services" class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
                 </div>
 
                 {{--zapłacono całość--}}
@@ -106,7 +106,7 @@
                     <div class="col-lg-5 col-sm-6">
                         <div class="row mb-2"><div class="col-4"><b>Zapłacono:</b></div><div class="col-8"><b>{{$reservation[0]->payment_full_amount}} PLN </b><span class="font-12">({{date("d.m.Y", strtotime($reservation[0]->updated_at))}})</span></div></div>
                         <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
-                        <div class="row"><a class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
+                        <div class="row"><a id="add-new-services"  class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
                     </div>
                 @endif
             </div>
@@ -138,14 +138,16 @@
     </div>
 @auth
     @if(strtotime($reservation[0]->reservation_departure_date) < strtotime(date("Y-m-d")))
-        <h3 class="my-4"><b>Ocena</b></h3>
-        <div class="row mb-5">
-            <div class="col-2"><a class="btn btn-black" href="{{url()->current()}}/opinion" style="width: 100%">Oceń teraz</a></div>
-            <div class="col-10">
-                <div class="row mb-2 font-12">Twoja ocena i opinia pomogą wybierać innym w przyszłości.</div>
-                <div class="row font-12">A dodatkowo zyskujesz 5% rabatu lub 50 pln zniżki na kolejną rezerwację.</div>
+        <span id="opinion">
+            <h3 class="my-4"><b>Ocena</b></h3>
+            <div class="row mb-5">
+                <div class="col-2"><a class="btn btn-black" href="{{url()->current()}}/opinion" style="width: 100%">Oceń teraz</a></div>
+                <div class="col-10">
+                    <div class="row mb-2 font-12">Twoja ocena i opinia pomogą wybierać innym w przyszłości.</div>
+                    <div class="row font-12">A dodatkowo zyskujesz 5% rabatu lub 50 pln zniżki na kolejną rezerwację.</div>
+                </div>
             </div>
-        </div>
+        </span>
     @endif
 @endauth
     <div class="row mt-4">

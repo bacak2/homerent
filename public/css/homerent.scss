@@ -3,6 +3,18 @@ $dataItemHeight: 250px;
 $dataItemTopHeight: 40px;
  @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
 
+/* hide not working modules */
+
+div.description-map-bottom-right, div.description-bottom-right, div.add-to-favourities, .sort-by, #add-new-services, #opinion-in-account, a[hreflang='en'] {
+	visibility:hidden !important;
+}
+
+#navMenuTop #my-favouriteies, a.btn.btn-info.btn-mobile.btn-res4th.pull-right, #opinion, #my-reservation-filters{
+	display: none !important;
+}
+
+/* end hide not working modules */
+
 body	{
     font-family: 'Open Sans', sans-serif;
 }
