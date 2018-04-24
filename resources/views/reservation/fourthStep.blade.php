@@ -34,13 +34,13 @@
 <div class="container">
     @if(!(Request::is('*/my-reservations*')))
         @if($reservation[0]->reservation_status == 1)
-        <h1 class="mt-4"><b>{{ __('messages.reservation') }} (nr 2323)</b></h1>
+        <h1 class="mt-4"><b>{{ __('messages.reservation') }} (nr {{$reservation[0]->id}})</b></h1>
         <div class="row reservation-item px-2 py-1 mb-4" id="reservation-confirmed">
             <i class="fa fa-3x fa-check-circle"></i>
-            <span class="mt-2 ml-2">Zarezerwowano obiekt wg wybranych parametrów. Na adres e-mail aaa@aaa.pl wysłaliśmy potwierdzenie.</span>
+            <span class="mt-2 ml-2">Zarezerwowano obiekt wg wybranych parametrów. Na adres e-mail {{$reservation[0]->email}} wysłaliśmy potwierdzenie.</span>
         </div>
         @elseif($reservation[0]->reservation_status == 0)
-        <h1 class="mt-4"><b>{{ __('messages.reservation') }} {{ __('messages.preliminary') }} (nr 2323)</b></h1>
+        <h1 class="mt-4"><b>{{ __('messages.reservation') }} {{ __('messages.preliminary') }} (nr {{$reservation[0]->id}})</b></h1>
         <div class="row reservation-item px-2 py-1 mb-4">
             <div class="col-1"><i class="fa fa-3x fa-exclamation-triangle"></i></div>
             <div class="col-11">
@@ -51,17 +51,17 @@
                     <div class="row">Prosimy o przesłanie dowodu wpłaty na adres email: rezerwacje@visitzakopane.pl.</div>
                 </span>
                 <div class="row mt-2">
-                    <b>Nr konta do wpłaty:</b> PL 20 1050 1038 1000 0090 6587 9562
-                    <span style="margin-left: 60px"></span><b>Kod SWIFT:</b> INGBPLPW
+                    <b>Nr konta do wpłaty: </b> PL 20 1050 1038 1000 0090 6587 9562
+                    <span style="margin-left: 60px"></span><b>Kod SWIFT: </b> INGBPLPW
                 </div>
-                <div class="row"><b>Dane:</b> VISITzakopane.pl, ul. Tetmajera 35 lok. 12, 34-500 Zakopane, Poland</div>
-                <div class="row"><b>Tytuł przelewu:</b> Rezerwacja nr 234523452</div>
-                <div class="row"><b>Kwota:</b> całość 400,00 PLN lub zaliczka 100,00 PLN</div>
+                <div class="row"><b>Dane: </b> VISITzakopane.pl, ul. Tetmajera 35 lok. 12, 34-500 Zakopane, Poland</div>
+                <div class="row"><b>Tytuł przelewu: </b> Rezerwacja nr {{$reservation[0]->id}}</div>
+                <div class="row"><b>Kwota: </b> całość {{$reservation[0]->payment_to_pay}} PLN lub zaliczka 100,00 PLN</div>
             </div>
         </div>
         @endif
     @else()
-        <h1 class="mt-4"><b>{{ __('messages.reservation') }} (nr 2323)</b></h1>
+        <h1 class="mt-4"><b>{{ __('messages.reservation') }} (nr {{$reservation[0]->id}})</b></h1>
     @endif
     <div class="row reservation-item py-2">
         <div class="col-lg-2 mobile-none">
@@ -88,17 +88,44 @@
                 <div class="col-lg-5 col-sm-6">
                     <div class="row mb-2"><div class="col-4"><b>Do zapłaty:</b></div><div class="col-4"><b>{{$reservation[0]->payment_to_pay}} PLN</b></div></div>
                     <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
-                    <div class="row mb-2"><a class="btn btn-to-pay">Zapłać całość<br>{{$reservation[0]->payment_full_amount}} PLN</a><a class="btn btn-to-pay">Zapłać zaliczkę<br>100 PLN</a></div>
+                    <div class="row mb-2">
+                        <form name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/">
+                            <input type="hidden" name="id" value="734129" /> <input type="hidden" name="opis" value="Opłata za pobyt w {{ $apartament->descriptions[0]->apartament_name }}" />
+                            <input type="hidden" name="control" value="{{$reservation[0]->id}}" /> <input type="hidden" name="amount" value="{{$reservation[0]->payment_full_amount}}" />
+                            <input type="hidden" name="typ" value="3" />
+                            <input type="hidden" name="URL" value="{{route('reservations.fourthStepAfterDotpay', ['idAparment' => $reservation[0]->apartament_id, 'idReservation' => $reservation[0]->id, 'status' => 'OK'])}}"/>
+                            <input type="hidden" name="URLC" value="{{route('reservations.afterOnlinePaymentPOST')}}"/>
+                            <input type="submit" class="btn btn-to-pay" value="Zapłać całość {{$reservation[0]->payment_full_amount}} PLN">
+                        </form>
+                        <form id="DotpayForm" name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/">
+                            <input type="hidden" name="id" value="734129" /> <input type="hidden" name="opis" value="Opłata za pobyt w {{ $apartament->descriptions[0]->apartament_name }}" />
+                            <input type="hidden" name="control" value="{{$reservation[0]->id}}" /> <input type="hidden" name="amount" value="100" />
+                            <input type="hidden" name="typ" value="3" />
+                            <input type="hidden" name="URL" value="{{route('reservations.fourthStepAfterDotpay', ['idAparment' => $reservation[0]->apartament_id, 'idReservation' => $reservation[0]->id, 'status' => 'OK'])}}"/>
+                            <input type="hidden" name="URLC" value="{{route('reservations.afterOnlinePaymentPOST')}}"/>
+                            <input type="submit" class="btn btn-to-pay" value="Zapłać zaliczkę 100 PLN">
+                        </form>
+                    </div>
                     <div class="row"><a id="add-new-services" class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
                 </div>
 
                 {{--zapłacono zaliczkę--}}
-                @elseif($reservation[0]->payment_to_pay > 0 && $reservation[0]->reservation_status == 1)
+                @elseif($reservation[0]->payment_to_pay > 0)
                 <div class="col-lg-5 col-sm-6">
                     <div class="row mb-2"><div class="col-4"><b>Do zapłaty:</b></div><div class="col-4"><b>{{$reservation[0]->payment_to_pay}} PLN</b></div><div class="col-4"><span class="font-11" style="display: block;">Można zapłacić online lub przy odbiorze kluczy.</span></div></div>
-                    <div class="row mb-2 font-12"><div class="col-4">{{ __('messages.Advance') }}:</div><div class="col-4">100.00 PLN</div><div class="col-4 font-11">zapłacono, {{date("d.m.Y", strtotime($reservation[0]->updated_at))}}</div></div>
+                    <div class="row mb-2 font-12"><div class="col-4">{{ __('messages.Advance') }}:</div><div class="col-4">{{$reservation[0]->payment_full_amount - $reservation[0]->payment_to_pay}} PLN</div><div class="col-4 font-11">zapłacono, {{date("d.m.Y", strtotime($reservation[0]->updated_at))}}</div></div>
                     <div class="row mb-2 font-12"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
-                    <div class="row"><a class="btn btn-to-pay">Zapłać</a><a id="add-new-services" class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
+                    <div class="row">
+                        <form name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/">
+                            <input type="hidden" name="id" value="734129" /> <input type="hidden" name="opis" value="Opłata za pobyt w {{ $apartament->descriptions[0]->apartament_name }}" />
+                            <input type="hidden" name="control" value="{{$reservation[0]->id}}" /> <input type="hidden" name="amount" value="{{$reservation[0]->payment_to_pay}}" />
+                            <input type="hidden" name="typ" value="3" />
+                            <input type="hidden" name="URL" value="{{route('reservations.fourthStepAfterDotpay', ['idAparment' => $reservation[0]->apartament_id, 'idReservation' => $reservation[0]->id, 'status' => 'OK'])}}"/>
+                            <input type="hidden" name="URLC" value="{{route('reservations.afterOnlinePaymentPOST')}}"/>
+                            <input type="submit" class="btn btn-to-pay" value="Zapłać">
+                        </form>
+                        <a id="add-new-services" class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a>
+                    </div>
                 </div>
 
                 {{--zapłacono całość--}}
@@ -278,6 +305,24 @@
 
     $(document).ready(function(){
         mapaStart();
+    });
+
+    $(document).ready(function(){
+            var reservationId = {{$reservation[0]->id}};
+            $.ajax({
+                type: "GET",
+                url: '/sendemail',
+                dataType : 'json',
+                data: {
+                    reservationId: reservationId,
+                },
+                success: function() {
+                    console.log( "Success");
+                },
+                error: function(data) {
+                    console.log(data);
+                },
+            });
     });
 </script>
 

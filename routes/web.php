@@ -54,16 +54,9 @@ Route::group(
             'as' => 'reservations.thirdStep'
         ]);
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-
-        Route::GET('/after-online-payment/{idAparment}/{idReservation}', [
-            'uses' => 'Reservations@AfterOnlinePayment',
-            'as' => 'reservations.afterOnlinePayment'
-        ]);
-
-        Route::POST('/after-online-payment/{idAparment}/{idReservation}', [
-            'uses' => 'Reservations@AfterOnlinePayment',
-            'as' => 'reservations.afterOnlinePayment'
+        Route::GET('/reservations-fourth-step/{idAparment}/{idReservation}', [
+            'uses' => 'Reservations@fourthStep',
+            'as' => 'reservations.fourthStep'
         ]);
 
         Route::POST('/after-online-payment', [
@@ -71,44 +64,15 @@ Route::group(
             'as' => 'reservations.afterOnlinePaymentPOST'
         ]);
 
-        Route::GET('/after-online-payment', [
-            'uses' => 'Reservations@AfterOnlinePayment',
-            'as' => 'reservations.afterOnlinePayment'
-        ]);
-
-        Route::GET('/reservations-fourth-step/{idAparment}/{idReservation}', [
-            'uses' => 'Reservations@fourthStep',
-            'as' => 'reservations.fourthStepAfterDotpay'
-        ]);
-
-        Route::POST('/reservations-fourth-step/{idAparment}/{idReservation}/{status}', [
-            'uses' => 'Reservations@fourthStep',
-            'as' => 'reservations.fourthStepAfterDotpay'
-        ]);
-
         Route::POST('/reservations-fourth-step/{idAparment}/{idReservation}', [
             'uses' => 'Reservations@fourthStep',
             'as' => 'reservations.fourthStepAfterDotpay'
         ]);
 
-        Route::GET('/reservations-fourth-step/{idAparment}/{idReservation}', [
-            'uses' => 'Reservations@fourthStep',
-            'as' => 'reservations.fourthStep'
+        Route::GET('/sendemail', [
+            'uses' => 'Reservations@SendMail',
+            'as' => 'reservations.SendMail'
         ]);
-
-        Route::GET('/reservations-fourth-step/{idAparment}', [
-            'uses' => 'Reservations@fourthStep',
-            'as' => 'reservations.fourthStep'
-        ]);
-
-        Route::POST('/reservations-fourth-step', [
-            'uses' => 'Reservations@fourthStepDotpay',
-            'as' => 'reservations.fourthStepDotpay'
-        ]);
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-
-        Route::get('sendhtmlemail','Reservations@sendMail');
 
         Route::prefix('/account')->group(function () {
             Route::GET('/data', [

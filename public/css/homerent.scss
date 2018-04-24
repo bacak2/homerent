@@ -1000,6 +1000,8 @@ span.error-show{
 	font-size: 12px;
 	display: inline-block;
 	margin-left: 16px;
+	max-width: 120px;
+	white-space: pre-line;
 }
 
 @media (min-width: 768px) {

@@ -330,9 +330,23 @@ class Reservations extends Controller
         echo "OK";
 
         if($request->operation_status == 'completed'){
-            DB::table('reservations')->where('id', $request->control)->update(['payment_to_pay' => DB::raw("payment_to_pay - $request->operation_amount"), 'reservation_status' => DB::raw("IF (payment_to_pay - $request->operation_amount < 0, 1, 0)"), 'updated_at' => date("Y-m-d H:i:s")]);
+            //DB::table('reservations')->where('id', $request->control)->update(['payment_to_pay' => DB::raw("payment_to_pay - $request->operation_amount"), 'reservation_status' => DB::raw("IF (payment_to_pay - $request->operation_amount < 0, 1, 0)"), 'updated_at' => date("Y-m-d H:i:s")]);
+            DB::table('reservations')->where('id', $request->control)->update(['payment_to_pay' => DB::raw("payment_to_pay - $request->operation_amount"), 'reservation_status' => 1, 'updated_at' => date("Y-m-d H:i:s")]);
         }
 
+        //$reservation = DB::table('reservations')->where('id', $request->control)->get();
+
+        //$reservationModel = new Reservation();
+        //$reservationModel->sendMail($reservation[0]->apartament_id, $reservation[0]->id, $this->language->id);
+
+    }
+
+    //Async send mail
+    public function SendMail(Request $request){
+        $request->reservationId;
+        $reservationModel = new Reservation();
+        $reservationModel->sendMail($request->reservationId, $this->language->id);
+        return response()->json(['res' => 'done']);
     }
 
     //Gets min apartament price
