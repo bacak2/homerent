@@ -328,25 +328,11 @@ class Reservations extends Controller
 
     public function AfterOnlinePayment (Request $request){
         echo "OK";
-        DB::table('reservations')->where('id', $request->control)->update(['payment_to_pay' => DB::raw("payment_to_pay - $request->operation_amount"), 'updated_at' => date("Y-m-d H:i:s")]);
-        //operation_amount -zaksięgowana wpłata
 
-        //if success $request->operation_status
-        //operation_status completed-wykonana, rejected-odrzucona
-
-        /*if($request->get('status') == 'OK' && $request->session()->get('toPayAfterPayment') > 0){
-            $reservation_status = 0;
+        if($request->operation_status == 'completed'){
+            DB::table('reservations')->where('id', $request->control)->update(['payment_to_pay' => DB::raw("payment_to_pay - $request->operation_amount"), 'reservation_status' => DB::raw("IF (payment_to_pay - $request->operation_amount < 0, 1, 0)"), 'updated_at' => date("Y-m-d H:i:s")]);
         }
-        else $reservation_status = 1;
 
-        DB::table('reservations')->where('id', $idReservation)->update(['reservation_status' => $reservation_status, 'payment_to_pay' =>$request->session()->get('toPayAfterPayment'), 'updated_at' => date("Y-m-d H:i:s")]);
-
-        //$request->session()->forget('toPayAfterPayment');
-
-        return redirect()->action(
-            'Reservations@fourthStep', ['idAparment' => $idAparment, 'idReservation' => $idReservation]
-        );
-*/
     }
 
     //Gets min apartament price

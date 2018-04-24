@@ -54,6 +54,8 @@ Route::group(
             'as' => 'reservations.thirdStep'
         ]);
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+
         Route::GET('/after-online-payment/{idAparment}/{idReservation}', [
             'uses' => 'Reservations@AfterOnlinePayment',
             'as' => 'reservations.afterOnlinePayment'
@@ -74,7 +76,17 @@ Route::group(
             'as' => 'reservations.afterOnlinePayment'
         ]);
 
-        Route::GET('/reservations-fourth-step/{idAparment}/{idReservation}/{status}', [
+        Route::GET('/reservations-fourth-step/{idAparment}/{idReservation}', [
+            'uses' => 'Reservations@fourthStep',
+            'as' => 'reservations.fourthStepAfterDotpay'
+        ]);
+
+        Route::POST('/reservations-fourth-step/{idAparment}/{idReservation}/{status}', [
+            'uses' => 'Reservations@fourthStep',
+            'as' => 'reservations.fourthStepAfterDotpay'
+        ]);
+
+        Route::POST('/reservations-fourth-step/{idAparment}/{idReservation}', [
             'uses' => 'Reservations@fourthStep',
             'as' => 'reservations.fourthStepAfterDotpay'
         ]);
@@ -93,6 +105,8 @@ Route::group(
             'uses' => 'Reservations@fourthStepDotpay',
             'as' => 'reservations.fourthStepDotpay'
         ]);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////
 
         Route::get('sendhtmlemail','Reservations@sendMail');
 
