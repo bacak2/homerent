@@ -1101,6 +1101,20 @@ span.error-show{
 		padding-left: 20px;
 		padding-right: 20px;
 	}
+
+	#login-popup, #registration-popup{
+		#login-form{
+			top: 10px;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
+		#registration-form{
+			top: 10px;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+	}
 }
 
 @media (max-width: 316px){

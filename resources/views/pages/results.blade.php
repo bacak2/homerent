@@ -93,8 +93,8 @@
         $("#kominek").prop('checked', false);
         $("#balkon").prop('checked', false);
 
-        rangeBar();
-        MrangeBar();
+        restoreRangeBar();
+        //MrangeBar();
     }
 
     function rangeBar(){
@@ -162,9 +162,44 @@
 
         // Render Slider
         $('#slider-range').slider(slider_config);
-        $("#amount").val('{{$request->amount ?? 0}}');
-        $("#amount2").val('{{$request->amount2 ?? '1000+'}}');
+        $("#amount").val('<?php
+            if($request->amount > 900) echo '1000+';
+            else echo $request->amount ?? '0';
+            ?>');
+        $("#amount2").val('<?php
+            if($request->amount2 > 900) echo '1000+';
+            else echo $request->amount2 ?? '1000+';
+            ?>');
 
+    }
+
+    function restoreRangeBar(){
+        console.log('res1');
+
+        myData = [ 0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 600, 700, 800, 900, 1000 ];
+
+        slider_config = {
+            range: true,
+            min: 0,
+            max: myData.length - 1,
+            step: 1,
+            slide: function( event, ui ) {
+                // Set the real value into the inputs
+                $('#amount').val( myData[ ui.values[0] ] );
+                $('#amount2').val( myData[ ui.values[1] ] );
+
+            },
+            create: function() {
+                $(this).slider('values', 0, 0);
+                $(this).slider('values', 1, 15);
+            }
+        };
+
+        // Render Slider
+        $('#slider-range').slider(slider_config);
+        $('#amount').val(0);
+        $("#amount2").val('1000+');
+        console.log('res2');
     }
 
     function MrangeBar(){

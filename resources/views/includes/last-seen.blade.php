@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="add-to-favourities" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Add to favorites') }}"><a href="#"><img src='{{ asset("images/results/heart.png") }}'></a></div>
-                    <div class="map-description-top">112 PLN</div>
+                    <div class="map-description-top">{{ $apartament->min_price }} PLN</div>
                     <div class="map-description-bottom">{{ __("messages.Breakfast included") }}</div>
                     <div class="description-bottom-right mobile-none">
                         @for ($i = 0; $i < 5; $i++)
