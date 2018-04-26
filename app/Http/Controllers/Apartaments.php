@@ -140,7 +140,8 @@ class Apartaments extends Controller
 
     //Apartments search engine
     public function searchApartaments(Request $request, $view) {
-
+        $request->amount = $request->Mamount ?? $request->amount;
+        $request->amount2 = $request->Mamount2 ?? $request->amount2;
         if($request->amount == "1000+") $request->amount = 10000;
         if($request->amount2 == "1000+") $request->amount2 = 10000;
         $region = $request->input('region');
@@ -198,8 +199,13 @@ class Apartaments extends Controller
 
             ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
             ->where(function($query) use ($region){
-                $query->where('apartament_descriptions.apartament_name',$region)
-                    ->orWhere('apartaments.apartament_city',$region);
+                if($region == NULL){
+                    //
+                }
+                else{
+                    $query->where('apartament_descriptions.apartament_name',$region)
+                        ->orWhere('apartaments.apartament_city',$region);
+                }
             })
             ->where(function($query) use ($arriveDate,$returnDate) {
                 $query->whereRaw('((reservation_arrive_date + INTERVAL 1 DAY between ? and ?) or (reservation_departure_date - INTERVAL 1 DAY between ? and ?))',[$arriveDate, $returnDate, $arriveDate, $returnDate]);
@@ -223,7 +229,7 @@ class Apartaments extends Controller
             })
             ->distinct('apartaments.id'))
             ->where('language_id', $this->language->id)
-            ->whereBetween('price_value', array($request->amount, $request->amount2))
+            ->whereBetween('price_value', array($request->amount ?? 0, $request->amount2 ?? 10000))
             ->whereBetween('date_of_price', array($arriveDate, $returnDate))
             ->where($whereData)
             /*->where(function($query) use ($request) {
@@ -232,8 +238,13 @@ class Apartaments extends Controller
             })
             */
             ->where(function($query) use ($region){
-                $query->where('apartament_descriptions.apartament_name',$region)
-                    ->orWhere('apartaments.apartament_city',$region);
+                if($region == NULL){
+                    //
+                }
+                else{
+                    $query->where('apartament_descriptions.apartament_name',$region)
+                        ->orWhere('apartaments.apartament_city',$region);
+                }
             })
             //->whereRaw('(? not between reservation_arrive_date and reservation_departure_date) or (? not between reservation_arrive_date and reservation_departure_date)',[$arriveDate,$returnDate])
 

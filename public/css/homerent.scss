@@ -5,7 +5,7 @@ $dataItemTopHeight: 40px;
 
 /* hide not working modules */
 
-div.description-map-bottom-right, div.description-bottom-right, div.add-to-favourities, .sort-by, #add-new-services, #opinion-in-account, a[hreflang='en'] {
+div.description-map-bottom-right, div.description-bottom-right, div.add-to-favourities, .sort-by, #add-new-services, #opinion-in-account, a[hreflang='en'], div#final-additional-services {
 	visibility:hidden !important;
 }
 
@@ -17,6 +17,24 @@ div.description-map-bottom-right, div.description-bottom-right, div.add-to-favou
 
 body	{
     font-family: 'Open Sans', sans-serif;
+}
+
+#stickyAnchor{
+	z-index: 10000;
+	div{
+		padding: 8px 20px 8px 20px;
+		background-color: #fff;
+		display: inline-block;
+	}
+}
+
+.anchor-destination{
+	padding-top: 70px;
+	margin-top: -70px;
+}
+
+.anchor{
+	margin-right: 3px;
 }
 
 .results-search {
@@ -79,6 +97,13 @@ button {
 
 	.search {
 		padding-top: 20px;
+	}
+
+	h1 {
+		font-size: 24px;
+		color: white;
+		padding-top: 20px;
+		padding-bottom: 20px;
 	}
 
 	h4 {

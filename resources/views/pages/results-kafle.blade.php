@@ -9,10 +9,13 @@
                 <div class="col-3">
                     <div  style="position: absolute; right:10px;"><a  class="btn btn-info btn-mobile filters-toggle">{{__('messages.change')}} </a></div>
                 </div>
-
-                @include('includes.filters-mobile')
-
+                @mobile
+                    @include('includes.filters-mobile')
+                @endmobile
             </div>
+
+        </form>
+
             <div class="row desktop-none">
                 <div class="col-8"><h1 class="pb-2" style="display: inline; font-size: 24px">{{ $finds[0]->apartament_city}} <span class="desktop-none">({{ $counted }})</span></h1><span class="pb-2 mobile-none"> ({{ $counted }} {{trans_choice('messages.apartaments',$counted)}})</span></div>
                 <div class="col-4 inline-wrapper text-right desktop-none"> <div style="position: absolute; right:10px;"   class="btn-group"><a class="btn btn-selected btn-mobile" href="/search/kafle?{{ http_build_query(Request::except('page')) }}">{{__('messages.Offers')}}</a><a class="btn btn-info btn-mobile" href="/search/mapa?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a></div></div>

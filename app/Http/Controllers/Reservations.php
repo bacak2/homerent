@@ -84,7 +84,7 @@ class Reservations extends Controller
         //suma wszystkich łóżek
         $beds = $apartament->apartament_single_beds+$apartament->apartament_double_beds;
 
-        $cleaning = 51;
+        $cleaning = 50;
         $basicService = 50;
         $request->fullPrice = $totalPrice->total_price + $request->servicesPrice + $cleaning + $basicService;
 

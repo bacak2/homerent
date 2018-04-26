@@ -230,7 +230,7 @@
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_basic_service}} PLN</span></div></div>
             <div class="row mb-3 fs12" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{$reservation[0]->payment_full_amount}} PLN</b></span></div></div>
         </div>
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-lg-4 col-sm-12" id="final-additional-services">
             <h3 class="mb-3"><b>Usługi dodatkowe</b></h3>
             <!--h3 class="mb-3"><b>Wskazówki dojazdu</b></h3>
             <div id="wskazowki"></div-->

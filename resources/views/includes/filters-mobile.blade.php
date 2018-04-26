@@ -2,9 +2,9 @@
                     <div class="col-12">
                         <span class="cenaRange">{{ __('messages.Price per stay') }} (PLN)<i class="fa fa-caret-up cenaRange"></i></span>
                         <div class="cenaRange" style="display: none">
-                            <input type="text" id="Mamount" readonly>
+                            <input type="text" id="Mamount" name="Mamount" readonly>
                             <div id="Mslider-range"></div>
-                            <input type="text" id="Mamount2" readonly>
+                            <input type="text" id="Mamount2" name="Mamount2" readonly>
                         </div>
                     </div> 
                     <div class="col-12">
@@ -47,5 +47,8 @@
                             <label>{!! Form::checkbox('balkon', null, null, ['id' => 'balkon']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Balcony/Terrace') }}</label>
                         </p>
                     </div>
-                    
+
+                    <div class="col-12">
+                        <input class="btn btn-info btn-mobile filters-toggle" type="submit" value="zapisz">
+                    </div>
                 </div>

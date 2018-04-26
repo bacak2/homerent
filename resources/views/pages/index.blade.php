@@ -13,12 +13,12 @@
 		    <div class="row">
 				@foreach ($apartaments as $apartament)
 			      <a class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" href="/apartaments/{{ $apartament->apartament_link }}">
-			        <div style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}');" class="apartament" itemscope itemtype="http://schema.org/Hotel">
+			        <div style="background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}');" class="apartament" itemscope itemtype="http://schema.org/Hotel">
     					<div class="col-8 semi-transparent">
     						<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
     						<p class="p-0 m-0 price">{{ __('messages.from') }} {{$apartament->price_value}} PLN{{ __('messages.pernight') }}</p>
     					</div>
-                                </div>
+                    </div>
 			      </a>
 				@endforeach
 		    </div>
