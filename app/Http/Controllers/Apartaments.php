@@ -116,11 +116,15 @@ class Apartaments extends Controller
 
         setcookie('lastSeenApartments', serialize($lastSeenApartments), time() + (86400 * 30), '/');
 
+        // Generate calendar
+        $calendar = Apartament::generateCalendar($id);
+
         return view('pages.apartaments', ['apartament' => $apartament,
             'groups' => $groups,
             'images' => $images,
             'priceFrom' => $priceFrom,
-            'beds' => $beds
+            'beds' => $beds,
+            'calendar' => $calendar,
         ]);
 
     }

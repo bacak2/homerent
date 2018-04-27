@@ -20,6 +20,7 @@ body	{
 }
 
 #stickyAnchor{
+	visibility: visible !important;
 	z-index: 10000;
 	div{
 		padding: 8px 20px 8px 20px;
@@ -28,13 +29,27 @@ body	{
 	}
 }
 
+#stickyAnchor-wrapper{
+	visibility: hidden;
+	background-color: rgba(0, 0, 0, 0.73);
+	padding: 10px;
+	margin-left: -10px;
+	margin-top: -40px;
+	z-index: 10000;
+}
+
 .anchor-destination{
-	padding-top: 70px;
-	margin-top: -70px;
+	padding-top: 100px;
+	margin-top: -100px;
 }
 
 .anchor{
-	margin-right: 3px;
+	margin-right: 2px;
+}
+
+#stickyReservationPanel{
+	width: 380px !important;
+	z-index: 100000 !important;
 }
 
 .results-search {
@@ -725,11 +740,15 @@ label.inline-label{
 
 #wskazowki
 {
+	display: none;
 	font-family: Tahoma;
 	font-size: 11px;
-	height: 350px;
-	width: 300px;
+	height: 140px;
 	overflow: auto;
+}
+
+.adp-directions{
+	width: 100%;
 }
 
 .txt-blue{

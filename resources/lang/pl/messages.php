@@ -198,4 +198,11 @@ return [
     'nights' => '{0}nocy|{1}noc|[2,4]noce|[5,*]nocy',
     'adult persons' => '{0}osób dorosłych|{1}osoba dorosła|[2,4]osoby dorosłe|[5,*]osób dorosłych',
     'Other data for invoice' => 'Inne dane do faktury',
+    'nrPersons' => '{0}osób|{1}osoba|[2,4]osoby|[5,*]osób',
+    'nrDouble beds' => '{0}łóżek podwójnych|{1}łóżko podwójne|[2,4]łóżka podwójne|[5,*]łóżek podwójnych',
+    'nrSingle beds' => '{0}łóżek pojedynczych|{1}łóżko pojedyncze|[2,4]łóżka pojedyncze|[5,*]łóżek pojedynczych',
+    'nrBathrooms' => '{0}łazienek|{1}łazienka|[2,4]łazienki|[5,*]łazienek',
+    'nrLevels' => '{0}poziomów|{1}poziom|[2,4]poziomy|[5,*]poziomów',
+    'nrFloors' => '{0}pięter|{1}piętro|[2,4]piętra|[5,*]pięter',
+    'nrBedrooms' => '{0}sypialni|{1}sypialnia|[2,4]sypialnie|[5,*]sypialni',
 ];
