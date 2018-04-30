@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use DB;
+use DateTime;
 
 class Apartament extends Model
 {
@@ -25,16 +27,42 @@ class Apartament extends Model
 
     public static function generateCalendar($apartament_id){
 
+        $reserveds = DB::table('reservations')->select('reservation_arrive_date', 'reservation_departure_date')->where('apartament_id', $apartament_id)->where('reservation_status', 1)->get();
+        $preBookings = DB::table('reservations')->select('reservation_arrive_date', 'reservation_departure_date')->where('apartament_id', $apartament_id)->where('reservation_status', 0)->get();
 
+        $reservedDates = array();
+
+        for($i = 0; count($reserveds) > $i; $i++) {
+
+            $arriveDate = new DateTime($reserveds[$i]->reservation_arrive_date);
+            $departureDate = new DateTime($reserveds[$i]->reservation_departure_date);
+
+            for ($arriveDate; $arriveDate <= $departureDate; $arriveDate = $arriveDate->modify("+1 days")) {
+                array_push($reservedDates, $arriveDate->format('Y-m-j'));
+            }
+        }
+
+        $preBookingDates = array();
+
+        for($i = 0; count($preBookings) > $i; $i++) {
+
+            $arriveDate = new DateTime($preBookings[$i]->reservation_arrive_date);
+            $departureDate = new DateTime($preBookings[$i]->reservation_departure_date);
+
+            for ($arriveDate; $arriveDate <= $departureDate; $arriveDate = $arriveDate->modify("+1 days")) {
+                array_push($preBookingDates, $arriveDate->format('Y-m-j'));
+            }
+
+        }
 
         //date_default_timezonde_set('Europe/Warsaw');
 
         //get prev & next month
         $calendar = Collection::make([]);
 
-        for($i = 0; $i < 1; $i++) {
+        for($i = 0; $i < 3; $i++) {
             $ym = date('Y-m', strtotime("+$i months", strtotime(date('Y-m'))));
-            $timestamp = strtotime($ym, "-01");
+            $timestamp = strtotime($ym, "-1001");
             if ($timestamp === false) {
                 $timestamp = time();
             }
@@ -66,11 +94,15 @@ class Apartament extends Model
 
             for ($day = 1; $day <= $day_count; $day++, $str++) {
                 $date = $ym . '-' . $day;
-
-                if ($today == $date) {
-                    $week .= '<td class="today">' . $day;
-                } else {
-                    $week .= '<td>' . $day;
+//dd($date);
+                if(in_array($date, $reservedDates)) {
+                    $week .= '<td class="reserved">' . $day;
+                }
+                elseif(in_array($date, $preBookingDates)){
+                    $week .= '<td class="pre-booking">' . $day;
+                }
+                else {
+                    $week .= '<td class="available">' . $day;
                 }
                 $week .= '</td>';
 
@@ -82,7 +114,7 @@ class Apartament extends Model
                         $week .= str_repeat('<td></td>', 6 - ($str % 7));
                     }
 
-                    $weeks[] = '<tr>' . $week . '</tr>';
+                    $weeks[] = '<tr class="calendar-tbody">' . $week . '</tr>';
 
                     //Prepare for new week
                     $week = '';

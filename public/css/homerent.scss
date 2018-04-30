@@ -751,6 +751,77 @@ label.inline-label{
 	width: 100%;
 }
 
+.calendar-month{
+	text-align: center;
+	td{
+		width: 30px;
+		height: 30px;
+	}
+	.calendar-tbody{
+		font-weight: bold;
+		.available{
+			background-color: rgba(162, 255, 142, 0.41);
+			color: rgba(26, 128, 50, 0.74);
+		}
+		.reserved{
+			background-color: rgba(232, 232, 232, 0.34);
+			color: #bfbfbf;
+		}
+		.pre-booking{
+			background-color: rgba(232, 231, 51, 0.34);
+			color: #bfbf2e;
+		}
+	}
+}
+
+.calendar-thead{
+	font-size: 9px;
+	td {
+		border: 0px;
+	}
+}
+
+#calendar-bar{
+	width: 100%;
+	border: 1px solid #e9ecef;
+	position: relative;
+}
+
+.calendar-bar-arrays{
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 40px;
+	background-color: rgba(204, 204, 204, 0.698039215686274);
+}
+
+#calendar-bar-prev{
+	left: 0;
+}
+
+#calendar-bar-next{
+	right: 0;
+}
+
+.detail-legend{
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	border-color: rgba(121, 121, 121, 1);
+}
+
+#detail-legend-av{
+	background-color: rgba(102, 204, 0, 1);
+}
+
+#detail-legend-booked{
+	background-color: rgba(204, 204, 204, 1);
+}
+
+#detail-legend-pre-booked{
+	background-color: rgba(255, 255, 0, 1);
+}
+
 .txt-blue{
 	color: #0056ff;
 }
