@@ -37,6 +37,7 @@ return [
 	'adultskids' => 'Dorośli, dzieci',
 	'fprice' => 'Razem:',
 	'aval' => 'Ten termin jest dostępny',
+	'objects' => '{0}obiektach|{1}obiekcie|[2,*]obiektach',
 	'apartaments' => '{0}apartamentów|{1}apartament|[2,4]apartamenty|[5,*]apartamentów',
 	'found' => 'Znaleziono',
 	'inclbreakfast' => 'Śniadanie wliczone',
@@ -68,6 +69,7 @@ return [
         'Return' => 'Powrót',
         'book' => 'Zarezerwuj',
         'see details' => 'Zobacz szczegóły',
+        'see apartments' => 'Zobacz apartamenty',
         'not found apartaments' => 'Nie znaleziono obiektów spełniających kryteria wyszukiwania',
         'not found change criteria' => 'Zmień kryteria wyszukiwania lub wybierz inny termin',
         'not found see others' => 'Inne obiekty dostępne w tym terminie',
@@ -205,4 +207,5 @@ return [
     'nrLevels' => '{0}poziomów|{1}poziom|[2,4]poziomy|[5,*]poziomów',
     'nrFloors' => '{0}pięter|{1}piętro|[2,4]piętra|[5,*]pięter',
     'nrBedrooms' => '{0}sypialni|{1}sypialnia|[2,4]sypialnie|[5,*]sypialni',
+    'nrApartmentsInKomplex' => '{0}apartamentów|{1}apartament|[2,4]apartamenty|[5,*]apartamentów',
 ];

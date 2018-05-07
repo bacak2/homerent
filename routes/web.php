@@ -25,11 +25,15 @@ Route::group(
 
         Route::post('logout', 'Auth\LoginController@logout');
 
+        Route::view('/regulations', 'pages.regulations');
+
         Auth::routes();
 
         Route::get('/home', 'HomeController@index')->name('home');
 
         Route::get('/apartaments/{link}', 'Apartaments@showApartamentInfo')->name('apartamentInfo');
+
+        Route::get('/apartaments-group/{link}', 'Apartaments@showApartamentGroup')->name('apartamentGroup');
 
         Route::get('/search/{view}','Apartaments@searchApartaments');
 

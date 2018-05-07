@@ -60,7 +60,7 @@ class Apartament extends Model
         //get prev & next month
         $calendar = Collection::make([]);
 
-        for($i = 0; $i < 3; $i++) {
+        for($i = 0; $i < 12; $i++) {
             $ym = date('Y-m', strtotime("+$i months", strtotime(date('Y-m'))));
             $timestamp = strtotime($ym, "-1001");
             if ($timestamp === false) {
@@ -94,7 +94,7 @@ class Apartament extends Model
 
             for ($day = 1; $day <= $day_count; $day++, $str++) {
                 $date = $ym . '-' . $day;
-//dd($date);
+
                 if(in_array($date, $reservedDates)) {
                     $week .= '<td class="reserved">' . $day;
                 }
