@@ -383,6 +383,7 @@ class Apartaments extends Controller
             ->orderBy('apartaments.group_id', 'DESC')
             ->unionAll($withoutGroup)
             ->get();
+
             //->paginate($paginate, ['apartaments.id']);
 
         $countedObjects = count($finds->all());
@@ -400,6 +401,7 @@ class Apartaments extends Controller
         $gray = 0;
 
         if($view == 'mapa'){
+
             $black = DB::Table('apartaments')
                 ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                 ->join('languages', function($join) {

@@ -67,6 +67,15 @@ body	{
 	z-index: 1000 !important;
 }
 
+#stickyReservationPanelMobile{
+	display: none;
+	position: fixed;
+	width: 100%;
+	left: 0px;
+	top: 6px;
+	z-index: 2000;
+}
+
 .results-search {
 	background-color: grey;
 	border-radius: 20px;
@@ -1213,6 +1222,10 @@ span.error-show{
 }
 
 @media (max-width: 767px){
+	#stickyReservationPanel{
+		margin-left: 6px;
+		margin-right: 6px;
+	}
 
 	.sm-facilities-mb-3 div:not(:last-child), .sm-facilities{
 		margin-bottom: 16px;
