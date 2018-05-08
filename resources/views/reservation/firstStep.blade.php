@@ -172,31 +172,54 @@
                             <div class="row additional-service">
                                 @if($additionalService->with_options == NULL)
                                     <div class="col-9">
-                                        <input type="checkbox" id="additional-{{$additionalService->id}}" name="additional-{{$additionalService->id}}" value="{{$additionalService->price}}">
-                                        <label for="additional-{{$additionalService->id}}" style="margin-bottom: 0">{{$additionalService->name}}</label>
+                                        <input type="checkbox" id="additional{{$additionalService->id}}" name="additional{{$additionalService->id}}" value="{{$additionalService->price}}">
+                                        <label for="additional{{$additionalService->id}}" style="margin-bottom: 0">{{$additionalService->name}}</label>
                                     </div>
                                     <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
-                                @else
+                                @elseif($additionalService->with_options == 2)
                                     <div class="col-9">
-                                        <input type="checkbox" checked="" class="additional-multiple-choice" id="additional-{{$additionalService->id}}" name="additional-{{$additionalService->id}}" value="{{$additionalService->price}}">
-                                        <label for="additional-{{$additionalService->id}}" style="margin-bottom: 0">
+                                        <input type="checkbox" checked="" class="additional-multiple-choice" id="additional{{$additionalService->id}}" name="additional{{$additionalService->id}}" value="{{$additionalService->price}}">
+                                        <input type="hidden" class="additional{{$additionalService->id}} part-amount" value="0">
+                                        <label for="additional{{$additionalService->id}}" style="margin-bottom: 0">
                                         </label>
                                         {{$additionalService->name}}
                                             dla
                                             <?php $persons = $request->dorosli+$request->dzieci; ?>
-                                            <select name="persons-{{$additionalService->id}}">
+                                            <select name="persons-{{$additionalService->id}}" class="additional{{$additionalService->id}} persons additional-select">
                                                 @for ($i = 1; $i <= $persons; $i++)
                                                     <option value="{{ $i }}">{{ $i }}</option>
                                                 @endfor
                                             </select>
                                             na
-                                            <select name="days-{{$additionalService->id}}">
+                                            <select name="days-{{$additionalService->id}}" class="additional{{$additionalService->id}} days additional-select">
                                                 @for ($i = 1; $i <= $ileNocy; $i++)
                                                     <option value="{{ $i }}">{{ $i }}</option>
                                                 @endfor
                                             </select>
                                             dni
-
+                                    </div>
+                                    <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
+                                @elseif($additionalService->with_options == 3)
+                                    <div class="col-9">
+                                        <input type="checkbox" checked="" class="additional-multiple-choice" id="additional{{$additionalService->id}}" name="additional{{$additionalService->id}}" value="{{$additionalService->price}}">
+                                        <input type="hidden" class="additional{{$additionalService->id}} part-amount" value="0">
+                                        <label for="additional{{$additionalService->id}}" style="margin-bottom: 0">
+                                        </label>
+                                        {{$additionalService->name}}
+                                            dla
+                                            <?php $persons = $request->dorosli+$request->dzieci; ?>
+                                            <select name="persons-{{$additionalService->id}}" class="additional{{$additionalService->id}} persons additional-select">
+                                                @for ($i = 1; $i <= $persons; $i++)
+                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                            na
+                                            <select name="days-{{$additionalService->id}}" class="additional{{$additionalService->id}} days additional-select">
+                                                @for ($i = 1; $i <= $ileNocy; $i++)
+                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                            dni
                                     </div>
                                     <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
                                 @endif
@@ -234,6 +257,7 @@
     servicesPrice = 0;
     var totalPrice = {{$request->fullPrice}};
 
+
     $('.btn-reservation').click(function(){
         if (!$(this).hasClass("selected")) {
             $('.btn-reservation').toggleClass('selected');
@@ -241,29 +265,64 @@
         }
     });
 
-    $('input[type="checkbox"]').change(function(){
+    $('select.additional-select').change(function(){
+        var checkboxId = $(this).attr('class').split(" ")[0];
+        var checkbox = $("#"+checkboxId);
+            var id = checkbox.attr('id');
+            var price = checkbox.val();
+            var days = $(".days."+id).val();
+            var persons = $(".persons."+id).val();
+            var servPrice = days*persons*price;
+            var partAmount = $(".part-amount."+id).val();
+            partAmount = parseFloat(partAmount);
 
-        if($(this).hasClass('additional-multiple-choice')){
-            valArray = $(this).siblings().find("select").find(":selected").get();
-            console.log(valArray[0].value*valArray[1].value);
-        }
-        else{
-            servPrice = parseFloat($(this).val());
-            if($(this).is(':checked')){
+            if(checkbox.is(':checked')){
+                servicesPrice -= partAmount;
                 servicesPrice += servPrice;
+                $(".part-amount."+id).val(servPrice);
             }
-            else servicesPrice -= servPrice;
-        }
-
+            else {
+                $(".part-amount."+id).val(servPrice);
+            }
         if(servicesPrice < 0) servicesPrice == 0;
         $('#additional-services').text(servicesPrice.toFixed(2));
         $('#total-price').text((servicesPrice+totalPrice).toFixed(2));
-
     });
+
+    $('input[type="checkbox"]').change(function(){
+            if($(this).hasClass('additional-multiple-choice')){
+                var id = $(this).attr('id');
+                var price = $(this).val();
+                var days = $(".days."+id).val();
+                var persons = $(".persons."+id).val();
+                var servPrice = days*persons*price;
+                var partAmount = $(".part-amount."+id).val();
+                if($(this).is(':checked')){
+                    servicesPrice += servPrice;
+                    partAmount = servPrice;
+                }
+                else {
+                    servicesPrice -= partAmount;
+                    partAmount = servPrice;
+                }
+                $(".part-amount."+id).val(partAmount);
+            }
+            else{
+                servPrice = parseFloat($(this).val());
+                if($(this).is(':checked')){
+                    servicesPrice += servPrice;
+                }
+                else servicesPrice -= servPrice;
+            }
+
+            if(servicesPrice < 0) servicesPrice == 0;
+            $('#additional-services').text(servicesPrice.toFixed(2));
+            $('#total-price').text((servicesPrice+totalPrice).toFixed(2));
+
+        });
 
     $('select').change(function(){
         checkboxToSelect = $(this).siblings().find('input[type="checkbox"]');
-        console.log(checkboxToSelect);
         checkboxToSelect.prop('checked', true);
     });
 
@@ -297,7 +356,6 @@
     });
 
     $("#log-in-inline").click(function(){
-        console.log('click');
         $('#login-popup').css('display', 'block');
     });
 </script>

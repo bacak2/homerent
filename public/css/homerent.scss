@@ -1345,6 +1345,22 @@ span.error-show{
 	}
 }
 
+@media (min-width: 768px) and (max-width: 1200px){
+	.tablet-none{
+		display: none !important;
+	}
+
+	#stickyReservationPanelMobile{
+		margin-left: 1rem;
+	}
+}
+
+@media (min-width: 1200px){
+	.else-handheld-none{
+		display: none !important;
+	}
+}
+
 @media (min-width: 991px) and (max-width: 1200px){
 	.dropdown-menu.show{
 		width: 875px;
