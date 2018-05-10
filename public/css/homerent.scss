@@ -5,11 +5,11 @@ $dataItemTopHeight: 40px;
 
 /* hide not working modules */
 
-div.description-map-bottom-right, div.description-bottom-right, div.add-to-favourities, .sort-by, #add-new-services, #opinion-in-account, a[hreflang='en'], a[hreflang='pl'], div#final-additional-services {
+div.description-map-bottom-right, div.description-bottom-right, div.add-to-favourities, .sort-by, #opinion-in-account, a[hreflang='en'], a[hreflang='pl'], div#final-additional-services {
 	visibility:hidden !important;
 }
 
-#navMenuTop #my-favouriteies, a.btn.btn-info.btn-mobile.btn-res4th.pull-right, #opinion, #my-reservation-filters{
+#navMenuTop #my-favouriteies, a.btn.btn-info.btn-mobile.btn-res4th.pull-right, #my-reservation-filters{
 	display: none !important;
 }
 
@@ -74,6 +74,21 @@ body	{
 	left: 0px;
 	top: 6px;
 	z-index: 2000;
+}
+
+.sticky-panel-right, .additional-service-list{
+	div{
+		font-weight: bold;
+	}
+	ul{
+		margin-bottom: .5rem;
+		padding-left: 20px;
+	}
+}
+
+.additional-service-list-av{
+	margin-bottom: .5rem;
+	padding-left: 15px;
 }
 
 .results-search {
@@ -961,6 +976,14 @@ div.edit, div.delete{
 	font-size: 12px;
 }
 
+.font-14{
+	font-size: 14px;
+}
+
+.font-16{
+	font-size: 16px;
+}
+
 .date-div div{
 	border: black solid 1px;
 	width: 44px
@@ -1180,6 +1203,10 @@ span.error-show{
 		visibility: hidden !important;
 	}
 
+    .img-group-detail{
+      height: 220px;
+    }
+
 	#calendar-bar{
 		width: 95%;
 	}
@@ -1227,6 +1254,13 @@ span.error-show{
 		margin-right: 6px;
 	}
 
+	#mobileReservation{
+		width: 95%;
+	}
+
+    .img-group-detail{
+      height: 176px;
+    }
 	.sm-facilities-mb-3 div:not(:last-child), .sm-facilities{
 		margin-bottom: 16px;
 	}
@@ -1351,7 +1385,11 @@ span.error-show{
 	}
 
 	#stickyReservationPanelMobile{
-		margin-left: 1rem;
+		margin-left: 2rem;
+	}
+
+	#mobileReservation{
+		width: 100%;
 	}
 }
 

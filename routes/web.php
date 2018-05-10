@@ -39,6 +39,8 @@ Route::group(
 
         Route::get('/test','Apartaments@showTotalApartamentPrice');
 
+        Route::get('/checkGroup','Apartaments@checkGroupAvailability');
+
         Route::get('/map','Apartaments@showApartamentsOnMap');
 
         Route::get('/autocomplete','Apartaments@apartamentAutoComplete');
@@ -73,9 +75,39 @@ Route::group(
             'as' => 'reservations.fourthStepAfterDotpay'
         ]);
 
+        Route::get('/services/{idAparment}/{idReservation}/{idService}', [
+            'uses' => 'Services@firstStep',
+            'as' => 'services.firstStep'
+        ]);
+
+        Route::get('/services-second-step', [
+            'uses' => 'Services@secondStep',
+            'as' => 'services.secondStep'
+        ]);
+
+        Route::POST('/services-third-step', [
+            'uses' => 'Services@thirdStep',
+            'as' => 'services.thirdStep'
+        ]);
+
+        Route::GET('/services-fourth-step/{idAparment}/{idReservation}', [
+            'uses' => 'Services@fourthStep',
+            'as' => 'services.fourthStep'
+        ]);
+
+        Route::POST('/services-fourth-step/{idAparment}/{idReservation}', [
+            'uses' => 'Services@fourthStep',
+            'as' => 'services.fourthStepAfterDotpay'
+        ]);
+
+        Route::POST('/opinion-added', [
+            'uses' => 'Opinions@addOpinion',
+            'as' => 'opinions.addOpinion'
+        ]);
+
         Route::GET('/sendemail', [
-            'uses' => 'Reservations@SendMail',
-            'as' => 'reservations.SendMail'
+            'uses' => 'Services@SendMail',
+            'as' => 'services.SendMail'
         ]);
 
         Route::prefix('/account')->group(function () {

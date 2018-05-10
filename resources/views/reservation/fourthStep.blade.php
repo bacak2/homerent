@@ -222,18 +222,62 @@
                 @if($reservation[0]->nip != NULL)<div class="row fs12"><div class="col-8 offset-4">NIP: {{ $reservation[0]->nip }}</div></div>@endif
             @endif
         </div>
-        <div class="col-lg-4 col-sm-12" style="font-weight: bold;">
+        <div class="col-lg-4 col-sm-12 font-12 additional-service-list">
             <h3 class="mb-3" id="details"><b>Koszt pobytu</b></h3>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Payment for stay') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_all_nights}} PLN</span></div></div>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_final_cleaning}} PLN</span></div></div>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_additional_services}} PLN</span></div></div>
+            @foreach($servicesDetails as $servicesDetail)
+                <ul>
+                    @if($servicesDetail->with_options == 0)
+                        <li>{{$servicesDetail->name}}<span class="pull-right">{{ number_format($servicesDetail->price, 2, ',', ' ') }} PLN</span></li>
+                    @elseif($servicesDetail->with_options == 2)
+                        <li>{{$servicesDetail->name}} dla {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} na {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} <span class="pull-right">{{ number_format($servicesDetail->price, 2, ',', ' ') }} PLN</span></li>
+                    @elseif($servicesDetail->with_options == 3)
+                        <li>{{$servicesDetail->name}} <br>dla {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} na {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} <span class="pull-right">{{ number_format($servicesDetail->price, 2, ',', ' ') }} PLN</span></li>
+                    @endif
+                    {{--trans_choice('messages.adult persons',$request->dorosli)}}, {{$request->dzieci}} dzieci--}}
+                </ul>
+            @endforeach
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_basic_service}} PLN</span></div></div>
             <div class="row mb-3 fs12" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{$reservation[0]->payment_full_amount}} PLN</b></span></div></div>
         </div>
-        <div class="col-lg-4 col-sm-12" id="final-additional-services">
-            <h3 class="mb-3"><b>Usługi dodatkowe</b></h3>
-            <!--h3 class="mb-3"><b>Wskazówki dojazdu</b></h3>
-            <div id="wskazowki"></div-->
+        <div class="col-lg-4 col-sm-12">
+            @if($availableServices != NULL && $servicesDetails != NULL)
+                <h3 class="mb-3"><b>Usługi dodatkowe</b></h3>
+                @if($availableServices != NULL)
+                    <h4 style="font-size: 20px; font-weight: bold">Dostępne</h4>
+                    @foreach($availableServices as $availableService)
+                        <div class="row mb-3 fs12">
+                            <div class="col-7 row">
+                                <div class="col-12 font-14">{{$availableService->name}}</div>
+                                <div class="col-12 font-11">{{$availableService->description}}</div>
+                            </div>
+                            <div class="col-5"><span class="pull-right"><button class="btn btn-info btn-mobile btn-res4th">Zamów</button></span></div>
+                        </div>
+                    @endforeach
+                @endif
+
+                @if($servicesDetails != NULL)
+                    <h4 class="" style="font-size: 20px; font-weight: bold">Zamówione</h4>
+                    @foreach($servicesDetails as $servicesDetail)
+                        <ul class="font-14 additional-service-list-av">
+                            @if($servicesDetail->with_options == 0)
+                                <li>{{$servicesDetail->name}} ({{ number_format($servicesDetail->price, 2, ',', ' ') }} zł)</li>
+                            @elseif($servicesDetail->with_options == 2)
+                                <li>{{$servicesDetail->name}} dla {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} na {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} ({{ number_format($servicesDetail->price, 2, ',', ' ') }} zł)</li>
+                            @elseif($servicesDetail->with_options == 3)
+                                <li>{{$servicesDetail->name}} dla {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} na {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} ({{ number_format($servicesDetail->price, 2, ',', ' ') }} zł)</li>
+                            @endif
+                            {{--trans_choice('messages.adult persons',$request->dorosli)}}, {{$request->dzieci}} dzieci--}}
+                        </ul>
+                    @endforeach
+                @endif
+                @if($reservation[0]->reservation_additional_message != NULL)
+                    <span class="font-14">Wiadomość dotycząca usług:<br></span>
+                    <span class="font-12">{{$reservation[0]->reservation_additional_message}}</span>
+                @endif
+            @endif
         </div>
     </div>
 </div>

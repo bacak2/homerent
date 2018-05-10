@@ -176,6 +176,9 @@
                                         <label for="additional{{$additionalService->id}}" style="margin-bottom: 0">{{$additionalService->name}}</label>
                                     </div>
                                     <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
+                                    @if($additionalService->description != NULL)
+                                        <div class="col-12 font-11 ml-3">{{$additionalService->description}}</div>
+                                    @endif
                                 @elseif($additionalService->with_options == 2)
                                     <div class="col-9">
                                         <input type="checkbox" checked="" class="additional-multiple-choice" id="additional{{$additionalService->id}}" name="additional{{$additionalService->id}}" value="{{$additionalService->price}}">
@@ -199,6 +202,9 @@
                                             dni
                                     </div>
                                     <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
+                                    @if($additionalService->description != NULL)
+                                        <div class="col-12 font-11 ml-3">{{$additionalService->description}}</div>
+                                    @endif
                                 @elseif($additionalService->with_options == 3)
                                     <div class="col-9">
                                         <input type="checkbox" checked="" class="additional-multiple-choice" id="additional{{$additionalService->id}}" name="additional{{$additionalService->id}}" value="{{$additionalService->price}}">
@@ -206,25 +212,25 @@
                                         <label for="additional{{$additionalService->id}}" style="margin-bottom: 0">
                                         </label>
                                         {{$additionalService->name}}
-                                            dla
-                                            <?php $persons = $request->dorosli+$request->dzieci; ?>
+                                        @if($additionalService->description != NULL)
+                                            <div class="col-12 font-11 ml-3">{{$additionalService->description}}</div>
+                                        @endif
+                                            <?php $persons = $request->dorosli; ?>
                                             <select name="persons-{{$additionalService->id}}" class="additional{{$additionalService->id}} persons additional-select">
-                                                @for ($i = 1; $i <= $persons; $i++)
+                                                @for ($i = 0; $i <= $persons; $i++)
                                                     <option value="{{ $i }}">{{ $i }}</option>
                                                 @endfor
                                             </select>
-                                            na
+                                            osoby dorosłe
+                                            <?php $kids = $request->dzieci; ?>
                                             <select name="days-{{$additionalService->id}}" class="additional{{$additionalService->id}} days additional-select">
-                                                @for ($i = 1; $i <= $ileNocy; $i++)
+                                                @for ($i = 0; $i <= $kids; $i++)
                                                     <option value="{{ $i }}">{{ $i }}</option>
                                                 @endfor
                                             </select>
-                                            dni
+                                            dzieci
                                     </div>
                                     <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
-                                @endif
-                                @if($additionalService->description != NULL)
-                                    <div class="col-12 font-11 ml-3">{{$additionalService->description}}</div>
                                 @endif
                             </div>
                         @endforeach
@@ -285,6 +291,7 @@
                 $(".part-amount."+id).val(servPrice);
             }
         if(servicesPrice < 0) servicesPrice == 0;
+        $("input[name='servicesPrice']").val(servicesPrice);
         $('#additional-services').text(servicesPrice.toFixed(2));
         $('#total-price').text((servicesPrice+totalPrice).toFixed(2));
     });

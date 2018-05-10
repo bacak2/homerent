@@ -198,6 +198,7 @@ return [
     'Surname' => 'Nazwisko',
     'return2' => 'Cofnij',
     'nights' => '{0}nocy|{1}noc|[2,4]noce|[5,*]nocy',
+    'days' => '{0}dni|{1}dzień|[2,*]dni',
     'adult persons' => '{0}osób dorosłych|{1}osoba dorosła|[2,4]osoby dorosłe|[5,*]osób dorosłych',
     'Other data for invoice' => 'Inne dane do faktury',
     'nrPersons' => '{0}osób|{1}osoba|[2,4]osoby|[5,*]osób',

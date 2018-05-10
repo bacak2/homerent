@@ -14,6 +14,7 @@ use App\{Apartament, Apartament_description, Apartament_group, Reservation};
 use Auth;
 use Crypt;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Collection;
 
 class Reservations extends Controller
 {
@@ -107,7 +108,67 @@ class Reservations extends Controller
     }
 
     public function secondStep(Request $request){
-//dd($request);
+        //dd($request->request);
+        $filtered = array();
+        $collectionOfServices = Collection::make([]);
+
+        foreach($request->request as $key => $value){
+            if(preg_match('/additional\d/', $key)) {
+                //dd($key);
+                $collection = array(array());
+                $id = substr($key, 10);
+                $filtered[] = $id;
+                $found = 0;
+                foreach ($request->request as $key => $value) {
+                    if (preg_match("/persons-$id/", $key)) {
+                        //$persons[] = [substr($key, 8) => $value];
+                        $collection[$id][$key+1] = $value;
+                    }
+                    if (preg_match("/days-$id/", $key)) {
+                        //$days[] = [substr($key, 5) => $value];
+                        $collection[$id][$key+2] = $value;
+                        $collectionOfServices->push($collection);
+                        $found = 1;
+                    }
+                }
+                if($found == 0){
+                    $collection[$id][1] = '1';
+                    $collection[$id][2] = '1';
+                    $collectionOfServices->push($collection);
+                }
+            }
+        }
+
+        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', session()->getId())->get();
+        if($servicesDetails->count() > 0) DB::table('reservation_additional_services')->where('id_reservation', session()->getId())->delete();
+
+        foreach($collectionOfServices as $service){
+            foreach($service as $key => $value){
+                if ($key == 0) continue;
+                $serviceDetails = DB::table('additional_services')->select('name', 'price', 'with_options')->where('id', $key)->first();
+                $withOptions = $serviceDetails->with_options;
+                if($withOptions == 0){
+                    $price = $serviceDetails->price;
+                }
+                elseif($withOptions == 2){
+                    $price = $serviceDetails->price*$service[$key][1]*$service[$key][2];
+                }
+
+                $servicesData = array(
+                    'id_reservation' => session()->getId(),
+                    'id_service' => $key,
+                    'name' => $serviceDetails->name,
+                    'price' => $price,
+                    'nights' => $service[$key][2] ?? 0,
+                    'adults' => $service[$key][1] ?? 0,
+                    'with_options' => $withOptions,
+                );
+                DB::table('reservation_additional_services')->insert($servicesData);
+            }
+        }
+
+        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', session()->getId())->get();
+
         $request->fullPrice = $request->payment_all_nights + $request->servicesPrice + $request->payment_basic_service + $request->payment_final_cleaning;
 
         if(Auth::user()){
@@ -151,6 +212,7 @@ class Reservations extends Controller
             'beds' => $beds,
             'request' => $request,
             'accountData' => $accountData,
+            'servicesDetails' => $servicesDetails,
         ]);
 
     }
@@ -267,9 +329,15 @@ class Reservations extends Controller
         $dataSet = $reservationData + $userData;
         $idReservation = DB::table('reservations')->insertGetId($dataSet);
 
+        //change reservation_id of additional services to real id
+        DB::table('reservation_additional_services')->where('id_reservation', session()->getId())->update(['id_reservation' => $idReservation]);
+
         if($request->payment_method == 2 || $request->payment_method == 4) {
             return redirect()->action(
-                'Reservations@fourthStep', ['idAparment' => $request->id, 'idReservation' => $idReservation]
+                'Reservations@fourthStep', [
+                    'idAparment' => $request->id,
+                    'idReservation' => $idReservation,
+                ]
             );
         }
 
@@ -296,10 +364,18 @@ class Reservations extends Controller
         //$reservationModel = new Reservation();
         //$reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
 
+        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $idReservation)->get();
+
+        $availableServices = DB::table('additional_services')->where('id_apartament', $id)
+            ->whereNotIn('id', DB::table('reservation_additional_services')->select('id_service')->where('id_reservation', $idReservation))
+            ->get();
+
         return view('reservation.fourthStep', [
             'apartament' => $apartament,
             'reservation' => $reservation,
             'language' => $this->language->language_code,
+            'servicesDetails' => $servicesDetails ?? 0,
+            'availableServices' => $availableServices ?? 0,
         ]);
 
     }
@@ -318,10 +394,13 @@ class Reservations extends Controller
         //$reservationModel = new Reservation();
         //$reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
 
+        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $_GET['idReservation'])->get();
+
         return view('reservation.fourthStep', [
             'apartament' => $apartament,
             'reservation' => $reservation,
             'language' => $this->language->language_code,
+            'servicesDetails' => $servicesDetails,
         ]);
 
     }

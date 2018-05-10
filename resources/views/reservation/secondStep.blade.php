@@ -653,10 +653,22 @@
                             <a href="apartaments/{{$apartament->descriptions[0]->apartament_link}}">{{ __('messages.change') }}</a>
                         </div>
                 </div>
-                <div class="font-12" style="font-weight: bold">
+                <div class="font-12 sticky-panel-right">
                     <div class="row mb-2"><div class="col-7">{{ __('messages.Payment for stay') }} ({{$request->ilenocy}} {{trans_choice('messages.nights',$request->ilenocy)}}):</div><div class="col-5"><span class="pull-right">{{ number_format($request->payment_all_nights, 2, ',', ' ') }} PLN</span></div></div>
                     <div class="row mb-2"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format($request->payment_final_cleaning, 2, ',', ' ') }} PLN</span></div></div>
                     <div class="row mb-2"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{ number_format($request->servicesPrice, 2, ',', ' ') }}  PLN</span></div></div>
+                    @foreach($servicesDetails as $servicesDetail)
+                        <ul>
+                            @if($servicesDetail->with_options == 0)
+                                <li>{{$servicesDetail->name}}<span class="pull-right">{{ number_format($servicesDetail->price, 2, ',', ' ') }} PLN</span></li>
+                            @elseif($servicesDetail->with_options == 2)
+                                <li>{{$servicesDetail->name}} dla {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} na {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} <span class="pull-right">{{ number_format($servicesDetail->price, 2, ',', ' ') }} PLN</span></li>
+                            @elseif($servicesDetail->with_options == 3)
+                                <li>{{$servicesDetail->name}} <br>dla {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} na {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} <span class="pull-right">{{ number_format($servicesDetail->price, 2, ',', ' ') }} PLN</span></li>
+                            @endif
+                            {{--trans_choice('messages.adult persons',$request->dorosli)}}, {{$request->dzieci}} dzieci--}}
+                        </ul>
+                    @endforeach
                     <div class="row mb-2"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{ number_format($request->payment_basic_service, 2, ',', ' ') }}  PLN</span></div></div>
                     <div class="row mb-2" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format($request->fullPrice, 2, ',', ' ') }}  PLN</b></span></div></div>
                 </div>
