@@ -19,6 +19,21 @@ body	{
     font-family: 'Open Sans', sans-serif;
 }
 
+.rating-green{
+	background-color: #1c7430;
+	color: #ffffff;
+}
+
+.rating-yellow{
+	background-color: #ddc100;
+	color: #000;
+}
+
+.rating-red{
+	background-color: #ff2620;
+	color: #ffffff;
+}
+
 #stickyAnchor{
 	visibility: visible !important;
 	z-index: 10000;
