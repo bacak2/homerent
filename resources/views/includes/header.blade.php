@@ -27,6 +27,9 @@
                     <a class="nav-link" id="my-favouriteies" href="{{ route('myFavourites') }}">{{ __('messages.My favourites') }} </a>
                   </li>
                   <li class="nav-item">
+                      <a class="nav-link" href="{{ route('myOpinions') }}">{{ __('messages.My opinions') }} </a>
+                  </li>
+                  <li class="nav-item">
                       <a class="nav-link" href="{{ route('myReservations') }}">{{ __('messages.My reservations') }} </a>
                   </li>
                   <li class="nav-item">

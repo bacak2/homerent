@@ -141,6 +141,30 @@ class Account extends Controller
         ]);
     }
 
+    public function opinions()
+    {
+
+        $current_data = date("Y-m-d");
+
+        $users_opinions = DB::table('reservations')
+            ->selectRaw('apartament_opinions.*, reservations.*, apartament_opinions.created_at AS opinionCreateDate, apartaments.apartament_address, apartaments.apartament_address_2, apartaments.apartament_city, apartaments.apartament_district, apartament_descriptions.apartament_name, apartament_link')
+            ->leftjoin('apartaments', 'reservations.apartament_id', '=', 'apartaments.id')
+            ->leftjoin('apartament_opinions', 'reservations.id', '=', 'apartament_opinions.id_reservation')
+            ->leftjoin('apartament_descriptions', 'reservations.apartament_id', '=', 'apartament_descriptions.apartament_id')
+            ->where('user_id', Auth::user()->id)
+            ->where('reservation_arrive_date', '<', $current_data)
+            ->groupBy('reservations.id')
+            ->orderBy('reservation_arrive_date', 'DESC')
+            ->get();
+
+//dd($users_opinions);
+
+        return view('account.myOpinions', [
+            'users_opinions' => $users_opinions,
+            'current_data' => $current_data,
+        ]);
+    }
+
     public function reservationDetail($idAparment, $idReservation){
 
         $id = $idAparment;

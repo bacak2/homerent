@@ -80,7 +80,7 @@ Route::group(
             'as' => 'services.firstStep'
         ]);
 
-        Route::get('/services-second-step', [
+        Route::POST('/services-second-step', [
             'uses' => 'Services@secondStep',
             'as' => 'services.secondStep'
         ]);
@@ -124,6 +124,11 @@ Route::group(
             Route::GET('/my-reservations', [
                 'uses' => 'Account@reservations',
                 'as' => 'myReservations'
+            ]);
+
+            Route::GET('/my-opinons', [
+                'uses' => 'Account@opinions',
+                'as' => 'myOpinions'
             ]);
 
             Route::GET('/my-reservations/{idAparment}/{idReservation}', [

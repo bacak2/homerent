@@ -34,6 +34,36 @@ body	{
 	color: #ffffff;
 }
 
+.overall-rating-box{
+	width: 49px;
+	height: 49px;
+}
+
+.center-h-v{
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.comment-background{
+	background-repeat: no-repeat;
+	background-position: left top;
+	margin-left: 0px;
+	padding-left: 2rem !important
+}
+
+.under-journey-type{
+	color: gray;
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+.trash-my-opinions{
+	background-color: #e7e7e7;
+	padding: 10px 15px;
+}
+
 #stickyAnchor{
 	visibility: visible !important;
 	z-index: 10000;
@@ -611,6 +641,17 @@ div > span > i.fa{
 		color: blue;
 	}
 }
+
+.journey-type {
+	input[type=radio]:not(:checked) + label{
+		color: black;
+	}
+
+	input[type=radio]:checked + label{
+		color: blue;
+	}
+}
+
 .dropdown-menu label:hover, .dropdown-menu span:hover, input[type=checkbox]:hover, label.map-legend-button:hover, a.filters-toggle, .desktop-none.filters-toggle span, .btn-res4th, #cancel-login-popup, #cancel-registration-popup, input#submit, span#log-in-inline {
 	cursor: pointer;
 }
@@ -1412,6 +1453,11 @@ span.error-show{
 	.else-handheld-none{
 		display: none !important;
 	}
+
+	.price-per-quality{
+		margin-bottom: -10px;
+		max-width: 95px;
+	}
 }
 
 @media (min-width: 991px) and (max-width: 1200px){
@@ -1434,5 +1480,6 @@ span.error-show{
 		display: inline-block;
 		width: 40px;
 	}
+
 }
 /*# sourceMappingURL=homerent.css.map */

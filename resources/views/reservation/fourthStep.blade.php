@@ -106,7 +106,10 @@
                             <input type="submit" class="btn btn-to-pay" value="Zapłać zaliczkę 100 PLN">
                         </form>
                     </div>
-                    <div class="row"><a id="add-new-services" class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
+                    <div class="row">
+                        <a href="{{route('services.firstStep', [$reservation[0]->apartament_id, $reservation[0]->id, 0])}}" id="add-new-services" class="btn btn-info btn-mobile btn-res4th" @if($availableServices->count() == 0) style="visibility: hidden" @endif>Dokup usługi</a>
+                        <a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a>
+                    </div>
                 </div>
 
                 {{--zapłacono zaliczkę--}}
@@ -201,6 +204,7 @@
                     </div>
                 </div>
             </form>
+            <div id="wskazowki"></div>
             <div id="mapka" style="width: 100%; height: 500px; margin-bottom: 30px;"></div>
         </div>
     </div>
@@ -243,9 +247,9 @@
             <div class="row mb-3 fs12" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{$reservation[0]->payment_full_amount}} PLN</b></span></div></div>
         </div>
         <div class="col-lg-4 col-sm-12">
-            @if($availableServices != NULL && $servicesDetails != NULL)
+            @if($availableServices->count() != 0 || $servicesDetails->count() != 0)
                 <h3 class="mb-3"><b>Usługi dodatkowe</b></h3>
-                @if($availableServices != NULL)
+                @if($availableServices->count() != 0)
                     <h4 style="font-size: 20px; font-weight: bold">Dostępne</h4>
                     @foreach($availableServices as $availableService)
                         <div class="row mb-3 fs12">
@@ -253,12 +257,12 @@
                                 <div class="col-12 font-14">{{$availableService->name}}</div>
                                 <div class="col-12 font-11">{{$availableService->description}}</div>
                             </div>
-                            <div class="col-5"><span class="pull-right"><button class="btn btn-info btn-mobile btn-res4th">Zamów</button></span></div>
+                            <div class="col-5"><span class="pull-right"><a href="{{route('services.firstStep', [$availableService->id_apartament, $reservation[0]->id, $availableService->id])}}" class="btn btn-info btn-mobile btn-res4th">Zamów</a></span></div>
                         </div>
                     @endforeach
                 @endif
 
-                @if($servicesDetails != NULL)
+                @if($servicesDetails->count() != 0)
                     <h4 class="" style="font-size: 20px; font-weight: bold">Zamówione</h4>
                     @foreach($servicesDetails as $servicesDetail)
                         <ul class="font-14 additional-service-list-av">
@@ -330,6 +334,7 @@
         trasa_render.setDirections(wynik);
         $("#distance").text(wynik.routes[0].legs[0].distance.text);
         $("#duration").text(wynik.routes[0].legs[0].duration.text);
+        $('#wskazowki').css({display: 'block'});
     }
 
     function dodajZielonyMarker(lat,lng,txt, ikona)
