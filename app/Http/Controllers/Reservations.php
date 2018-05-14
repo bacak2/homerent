@@ -375,7 +375,7 @@ class Reservations extends Controller
             'reservation' => $reservation,
             'language' => $this->language->language_code,
             'servicesDetails' => $servicesDetails ?? 0,
-            'availableServices' => $availableServices ?? 0,
+            'availableServicesavailableServices' => $availableServices ?? 0,
         ]);
 
     }

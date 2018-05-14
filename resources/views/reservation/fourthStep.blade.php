@@ -366,7 +366,7 @@
                     reservationId: reservationId,
                 },
                 success: function() {
-                    console.log( "Success");
+                    console.log("Mail sended");
                 },
                 error: function(data) {
                     console.log(data);

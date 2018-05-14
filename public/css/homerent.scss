@@ -52,6 +52,14 @@ body	{
 	padding-left: 2rem !important
 }
 
+.comment-row{
+	margin-left: -10px;
+
+	div{
+		padding-left: 0px;
+	}
+}
+
 .under-journey-type{
 	color: gray;
 	width: 100%;
@@ -62,6 +70,23 @@ body	{
 .trash-my-opinions{
 	background-color: #e7e7e7;
 	padding: 10px 15px;
+}
+
+.instead-trash{
+	background-color: #e7e7e7;
+	padding: 5px;
+
+	div{
+		padding: 0px;
+	}
+
+	a{
+		padding: 10px 25px;
+	}
+
+	a:hover{
+		color: white;
+	}
 }
 
 #stickyAnchor{
@@ -1178,7 +1203,7 @@ div.reservation-path{
 	}
 }
 
-#login-popup, #registration-popup{
+#login-popup, #registration-popup, #opinion-detail-popup{
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -1186,7 +1211,7 @@ div.reservation-path{
 	height:100%;
 	background-color: rgba(0, 0, 0, 0.8);
 	z-index: 2000;
-	#login-form, #registration-form {
+	#login-form, #registration-form, #opinion-detail {
 		position: fixed;
 		width: 320px;
 		border: solid black 1px;
@@ -1206,9 +1231,19 @@ div.reservation-path{
       left: 50%;
       transform: translate(-50%, 10%);
     }
+
+	#opinion-detail{
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, 10%);
+	  width: 710px;
+
+		div.col-12{
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+    }
 }
-
-
 
 #cancel-login-popup, #cancel-registration-popup{
 	position: absolute;

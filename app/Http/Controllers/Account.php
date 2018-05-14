@@ -165,6 +165,23 @@ class Account extends Controller
         ]);
     }
 
+    public function getOpinionDetails($apartamentId)
+    {
+        $opinionDetails = DB::table('apartament_opinions')
+            ->selectRaw('
+                        round(avg(total_rating), 1) as totalAvg,
+                        round(avg(cleanliness), 1) as cleanlinessAvg,
+                        round(avg(location), 1) as locationAvg,
+                        round(avg(facilities), 1) as facilitiesAvg,
+                        round(avg(staff), 1) staffAvg,
+                        round(avg(quality_per_price), 1) quality_per_priceAvg
+                        ')
+            ->where('id_apartament', $apartamentId)
+            ->first();
+
+        return response()->json($opinionDetails);
+    }
+
     public function reservationDetail($idAparment, $idReservation){
 
         $id = $idAparment;

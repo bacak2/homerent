@@ -106,8 +106,8 @@ Route::group(
         ]);
 
         Route::GET('/sendemail', [
-            'uses' => 'Services@SendMail',
-            'as' => 'services.SendMail'
+            'uses' => 'Reservations@SendMail',
+            'as' => 'reservations.SendMail'
         ]);
 
         Route::prefix('/account')->group(function () {
@@ -130,6 +130,8 @@ Route::group(
                 'uses' => 'Account@opinions',
                 'as' => 'myOpinions'
             ]);
+
+            Route::GET('/getOpinionDetails/{idAparment}','Account@getOpinionDetails');
 
             Route::GET('/my-reservations/{idAparment}/{idReservation}', [
                 'uses' => 'Account@reservationDetail',
