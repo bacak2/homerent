@@ -165,10 +165,11 @@ class Account extends Controller
         ]);
     }
 
-    public function getOpinionDetails($apartamentId)
+    public function getOpinionDetails($apartamentId, $reservationId)
     {
-        $opinionDetails = DB::table('apartament_opinions')
+        $allOpinions = DB::table('apartament_opinions')
             ->selectRaw('
+                        count(*) as opinionsAmount,
                         round(avg(total_rating), 1) as totalAvg,
                         round(avg(cleanliness), 1) as cleanlinessAvg,
                         round(avg(location), 1) as locationAvg,
@@ -179,7 +180,25 @@ class Account extends Controller
             ->where('id_apartament', $apartamentId)
             ->first();
 
-        return response()->json($opinionDetails);
+        $userOpinion = DB::table('apartament_opinions')
+            ->select('*')
+            ->where('id_reservation', $reservationId)
+            ->first();
+
+        $familyOpinions = DB::table('apartament_opinions')
+            ->selectRaw('
+                        count(*) as opinionsAmount,
+                        round(avg(total_rating), 1) as totalAvg,
+                        round(avg(cleanliness), 1) as cleanlinessAvg,
+                        round(avg(location), 1) as locationAvg,
+                        round(avg(facilities), 1) as facilitiesAvg,
+                        round(avg(staff), 1) staffAvg,
+                        round(avg(quality_per_price), 1) quality_per_priceAvg
+                        ')
+            ->where('id_apartament', $apartamentId)
+            ->where('journey_type', 0)
+            ->first();
+        return response()->json([$allOpinions, $userOpinion, $familyOpinions]);
     }
 
     public function reservationDetail($idAparment, $idReservation){

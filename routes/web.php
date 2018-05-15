@@ -131,7 +131,7 @@ Route::group(
                 'as' => 'myOpinions'
             ]);
 
-            Route::GET('/getOpinionDetails/{idAparment}','Account@getOpinionDetails');
+            Route::GET('/getOpinionDetails/{idAparment}/{reservationId}','Account@getOpinionDetails');
 
             Route::GET('/my-reservations/{idAparment}/{idReservation}', [
                 'uses' => 'Account@reservationDetail',
