@@ -351,7 +351,6 @@ class Reservations extends Controller
     }
 
     public function fourthStep($idAparment, $idReservation, $status = 1){
-
         $id = $idAparment;
 
         $apartament = Apartament::with(array('descriptions' => function($query)
@@ -375,7 +374,7 @@ class Reservations extends Controller
             'reservation' => $reservation,
             'language' => $this->language->language_code,
             'servicesDetails' => $servicesDetails ?? 0,
-            'availableServicesavailableServices' => $availableServices ?? 0,
+            'availableServices' => $availableServices ?? 0,
         ]);
 
     }

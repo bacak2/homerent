@@ -34,6 +34,24 @@ body	{
 	color: #ffffff;
 }
 
+#opinion-choice{
+	div{
+		padding: 10px 10px;
+		background-color: darkgray;
+		display: inline-block;
+		margin-right: 5px;
+		margin-bottom: 5px;
+		border: solid 1px black;
+	}
+	div.clicked{
+		background-color: #707070;
+		font-weight: bold;
+	}
+	div:hover{
+		cursor: pointer;
+	}
+}
+
 .avgBars{
 	/* Three column layout */
 	.side {
@@ -71,6 +89,7 @@ body	{
 	.bar-container {
 		div{
 			height: 12px;
+			border-right: 1px solid gray;
 		}
 		border: 1px solid #828282;
 		width: 100px;
@@ -1335,7 +1354,7 @@ span.error-show{
 	display: inline;
 }
 
-#reservation-confirmed{
+#reservation-confirmed, #services-confirmed{
 	background: #daffff;
 }
 

@@ -33,6 +33,12 @@
     @endif
 <div class="container">
     @if(!(Request::is('*/my-reservations*')))
+        @if(Request::has('servicesAdded') || $_GET['status'] == 2)
+            <div class="row reservation-item px-2 py-1 mb-4" id="services-confirmed">
+                <i class="fa fa-3x fa-check-circle"></i>
+                <span class="mt-2 ml-2">Zamówione usługi dodatkowe zostały dodane do rezerwacji. <a href="#details">Zobacz szczegóły ↓</a></span>
+            </div>
+        @endif
         @if($reservation[0]->reservation_status == 1)
         <h1 class="mt-4"><b>{{ __('messages.reservation') }} (nr {{$reservation[0]->id}})</b></h1>
         <div class="row reservation-item px-2 py-1 mb-4" id="reservation-confirmed">
@@ -87,7 +93,7 @@
                 @if($reservation[0]->reservation_status == 0)
                 <div class="col-lg-5 col-sm-6">
                     <div class="row mb-2"><div class="col-4"><b>Do zapłaty:</b></div><div class="col-4"><b>{{$reservation[0]->payment_to_pay}} PLN</b></div></div>
-                    <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
+                    <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły ↓</a></div></div>
                     <div class="row mb-2">
                         <form name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/">
                             <input type="hidden" name="id" value="734129" /> <input type="hidden" name="opis" value="Opłata za pobyt w {{ $apartament->descriptions[0]->apartament_name }}" />
@@ -117,7 +123,7 @@
                 <div class="col-lg-5 col-sm-6">
                     <div class="row mb-2"><div class="col-4"><b>Do zapłaty:</b></div><div class="col-4"><b>{{$reservation[0]->payment_to_pay}} PLN</b></div><div class="col-4"><span class="font-11" style="display: block;">Można zapłacić online lub przy odbiorze kluczy.</span></div></div>
                     <div class="row mb-2 font-12"><div class="col-4">{{ __('messages.Advance') }}:</div><div class="col-4">{{$reservation[0]->payment_full_amount - $reservation[0]->payment_to_pay}} PLN</div><div class="col-4 font-11">zapłacono, {{date("d.m.Y", strtotime($reservation[0]->updated_at))}}</div></div>
-                    <div class="row mb-2 font-12"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
+                    <div class="row mb-2 font-12"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły ↓</a></div></div>
                     <div class="row">
                         <form name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/">
                             <input type="hidden" name="id" value="734129" /> <input type="hidden" name="opis" value="Opłata za pobyt w {{ $apartament->descriptions[0]->apartament_name }}" />
@@ -135,7 +141,7 @@
                 @elseif($reservation[0]->reservation_status == 1)
                     <div class="col-lg-5 col-sm-6">
                         <div class="row mb-2"><div class="col-4"><b>Zapłacono:</b></div><div class="col-8"><b>{{$reservation[0]->payment_full_amount}} PLN </b><span class="font-12">({{date("d.m.Y", strtotime($reservation[0]->updated_at))}})</span></div></div>
-                        <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły</a></div></div>
+                        <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły ↓</a></div></div>
                         <div class="row"><a id="add-new-services"  class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
                     </div>
                 @endif

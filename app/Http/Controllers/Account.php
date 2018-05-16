@@ -180,6 +180,39 @@ class Account extends Controller
             ->where('id_apartament', $apartamentId)
             ->first();
 
+        $fiveStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '>=', 9);
+
+        $fourStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 9)
+            ->where('total_rating', '>=', 7);
+
+        $threeStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 7)
+            ->where('total_rating', '>=', 5);
+
+        $twoStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 5)
+            ->where('total_rating', '>=', 3);
+
+        $allStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 3)
+            ->unionAll($fiveStars)
+            ->unionAll($fourStars)
+            ->unionAll($threeStars)
+            ->unionAll($twoStars)
+            ->get();
+
         $userOpinion = DB::table('apartament_opinions')
             ->select('*')
             ->where('id_reservation', $reservationId)
@@ -198,7 +231,254 @@ class Account extends Controller
             ->where('id_apartament', $apartamentId)
             ->where('journey_type', 0)
             ->first();
-        return response()->json([$allOpinions, $userOpinion, $familyOpinions]);
+
+        $fiveStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '>=', 9)
+            ->where('journey_type', 0);
+
+        $fourStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 9)
+            ->where('total_rating', '>=', 7)
+            ->where('journey_type', 0);
+
+        $threeStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 7)
+            ->where('total_rating', '>=', 5)
+            ->where('journey_type', 0);
+
+        $twoStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 5)
+            ->where('total_rating', '>=', 3)
+            ->where('journey_type', 0);
+
+        $familyStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 3)
+            ->where('journey_type', 0)
+            ->unionAll($fiveStars)
+            ->unionAll($fourStars)
+            ->unionAll($threeStars)
+            ->unionAll($twoStars)
+            ->get();
+
+        $couplesOpinions = DB::table('apartament_opinions')
+            ->selectRaw('
+                        count(*) as opinionsAmount,
+                        round(avg(total_rating), 1) as totalAvg,
+                        round(avg(cleanliness), 1) as cleanlinessAvg,
+                        round(avg(location), 1) as locationAvg,
+                        round(avg(facilities), 1) as facilitiesAvg,
+                        round(avg(staff), 1) staffAvg,
+                        round(avg(quality_per_price), 1) quality_per_priceAvg
+                        ')
+            ->where('id_apartament', $apartamentId)
+            ->where('journey_type', 1)
+            ->first();
+
+        $fiveStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '>=', 9)
+            ->where('journey_type', 1);
+
+        $fourStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 9)
+            ->where('total_rating', '>=', 7)
+            ->where('journey_type', 1);
+
+        $threeStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 7)
+            ->where('total_rating', '>=', 5)
+            ->where('journey_type', 1);
+
+        $twoStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 5)
+            ->where('total_rating', '>=', 3)
+            ->where('journey_type', 1);
+
+        $couplesStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 3)
+            ->where('journey_type', 1)
+            ->unionAll($fiveStars)
+            ->unionAll($fourStars)
+            ->unionAll($threeStars)
+            ->unionAll($twoStars)
+            ->get();
+
+        $businessOpinions = DB::table('apartament_opinions')
+            ->selectRaw('
+                        count(*) as opinionsAmount,
+                        round(avg(total_rating), 1) as totalAvg,
+                        round(avg(cleanliness), 1) as cleanlinessAvg,
+                        round(avg(location), 1) as locationAvg,
+                        round(avg(facilities), 1) as facilitiesAvg,
+                        round(avg(staff), 1) staffAvg,
+                        round(avg(quality_per_price), 1) quality_per_priceAvg
+                        ')
+            ->where('id_apartament', $apartamentId)
+            ->where('journey_type', 2)
+            ->first();
+
+        $fiveStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '>=', 9)
+            ->where('journey_type', 2);
+
+        $fourStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 9)
+            ->where('total_rating', '>=', 7)
+            ->where('journey_type', 2);
+
+        $threeStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 7)
+            ->where('total_rating', '>=', 5)
+            ->where('journey_type', 2);
+
+        $twoStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 5)
+            ->where('total_rating', '>=', 3)
+            ->where('journey_type', 2);
+
+        $businessStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 3)
+            ->where('journey_type', 2)
+            ->unionAll($fiveStars)
+            ->unionAll($fourStars)
+            ->unionAll($threeStars)
+            ->unionAll($twoStars)
+            ->get();
+
+        $withFriendsOpinions = DB::table('apartament_opinions')
+            ->selectRaw('
+                        count(*) as opinionsAmount,
+                        round(avg(total_rating), 1) as totalAvg,
+                        round(avg(cleanliness), 1) as cleanlinessAvg,
+                        round(avg(location), 1) as locationAvg,
+                        round(avg(facilities), 1) as facilitiesAvg,
+                        round(avg(staff), 1) staffAvg,
+                        round(avg(quality_per_price), 1) quality_per_priceAvg
+                        ')
+            ->where('id_apartament', $apartamentId)
+            ->where('journey_type', 3)
+            ->first();
+
+        $fiveStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '>=', 9)
+            ->where('journey_type', 3);
+
+        $fourStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 9)
+            ->where('total_rating', '>=', 7)
+            ->where('journey_type', 3);
+
+        $threeStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 7)
+            ->where('total_rating', '>=', 5)
+            ->where('journey_type', 3);
+
+        $twoStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 5)
+            ->where('total_rating', '>=', 3)
+            ->where('journey_type', 3);
+
+        $withFriendsStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 3)
+            ->where('journey_type', 3)
+            ->unionAll($fiveStars)
+            ->unionAll($fourStars)
+            ->unionAll($threeStars)
+            ->unionAll($twoStars)
+            ->get();
+
+        $aloneOpinions = DB::table('apartament_opinions')
+            ->selectRaw('
+                        count(*) as opinionsAmount,
+                        round(avg(total_rating), 1) as totalAvg,
+                        round(avg(cleanliness), 1) as cleanlinessAvg,
+                        round(avg(location), 1) as locationAvg,
+                        round(avg(facilities), 1) as facilitiesAvg,
+                        round(avg(staff), 1) staffAvg,
+                        round(avg(quality_per_price), 1) quality_per_priceAvg
+                        ')
+            ->where('id_apartament', $apartamentId)
+            ->where('journey_type', 4)
+            ->first();
+
+        $fiveStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '>=', 9)
+            ->where('journey_type', 4);
+
+        $fourStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 9)
+            ->where('total_rating', '>=', 7)
+            ->where('journey_type', 4);
+
+        $threeStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 7)
+            ->where('total_rating', '>=', 5)
+            ->where('journey_type', 4);
+
+        $twoStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 5)
+            ->where('total_rating', '>=', 3)
+            ->where('journey_type', 4);
+
+        $aloneStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $apartamentId)
+            ->where('total_rating', '<', 3)
+            ->where('journey_type', 4)
+            ->unionAll($fiveStars)
+            ->unionAll($fourStars)
+            ->unionAll($threeStars)
+            ->unionAll($twoStars)
+            ->get();
+
+        return response()->json([$allOpinions, $userOpinion, $familyOpinions, $couplesOpinions, $businessOpinions, $withFriendsOpinions, $aloneOpinions, $allStars, $familyStars, $couplesStars, $businessStars, $withFriendsStars, $aloneStars]);
     }
 
     public function reservationDetail($idAparment, $idReservation){
