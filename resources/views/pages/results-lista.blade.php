@@ -15,7 +15,7 @@
                 <div class="col-12 col-lg-3 col-md-5 col-sm-12 col-xs-12 inline-wrapper text-right"> <a class="btn btn-default" href="/search/kafle?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/kafle.png") }}'></a> <a class="btn btn-default" href="/search/lista?{{ http_build_query(Request::except('page')) }}"><img class="active" src='{{ asset("images/results/lista.png") }}'></a> <a class="btn btn-default" href="/search/mapa?{{ http_build_query(Request::except('page')) }}"><img src='{{ asset("images/results/mapa.png") }}'></a></div>
             </div>
             @foreach ($finds as $apartament)
-                @if($apartament->group_id > 0)
+                @if($apartament->group_id > 0 && $apartament->group_name != NULL)
                     <div class="row list-item" itemscope itemtype="http://schema.org/Hotel">
                         <div class="col-lg-3 col-md-12 col-sm-6 col-xl-3">
                             <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; max-width: 285px; max-height: 149px;">
@@ -75,7 +75,7 @@
                             </div>
                         </div>
                     </div>
-                @elseif($apartament->group_id == 0)
+                @elseif($apartament->group_name == NULL)
                     <div class="row list-item" itemscope itemtype="http://schema.org/Hotel">
                         <div class="col-lg-3 col-md-12 col-sm-6 col-xl-3">
                             <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; max-width: 285px; max-height: 149px;">

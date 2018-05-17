@@ -330,7 +330,7 @@ class Apartaments extends Controller
                         ->orWhere('apartaments.apartament_city',$region);
                 }
             })
-            ->where('apartaments.group_id', 0)
+            //->where('apartaments.group_id', 0)
             ->groupBy('apartaments.id');
             //->groupBy('apartaments.group_id')
             //->orderBy('apartaments.group_id', 'DESC')
@@ -418,12 +418,15 @@ class Apartaments extends Controller
             }
         }
 
-        $countedObjects = count($finds->all());
-
+        $countedObjects = 0;
         $countedApartaments = 0;
         foreach($finds as $find){
-            if($find->apartaments_amount == NULL) $countedApartaments++;
-            else $countedApartaments += $find->apartaments_amount;
+            if($find->group_name != NULL && $find->group_id > 0) $countedObjects++;
+            else if($find->group_id == 0){
+                $countedApartaments++;
+                $countedObjects++;
+            }
+            else $countedApartaments++;
         }
 
         $finds = $finds->all();

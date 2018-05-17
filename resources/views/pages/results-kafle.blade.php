@@ -48,7 +48,7 @@
 <div class="infinite-scroll">
 		<div class="row">
             @foreach ($finds as $apartament)
-                @if($apartament->group_id > 0)
+                @if($apartament->group_id > 0 && $apartament->group_name != NULL)
                     <div style="overflow: auto;" class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" itemscope itemtype="http://schema.org/Hotel">
                         <div class="map-img-wrapper">
 
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                     </div>
-                @elseif($apartament->group_id == 0)
+                @elseif($apartament->group_name == NULL)
                     <div style="overflow: auto;" class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" itemscope itemtype="http://schema.org/Hotel">
                         <div class="map-img-wrapper">
 
@@ -151,7 +151,7 @@
                             </div>
                         </div>
                     </div>
-                @endif
+                    @endif
             @endforeach
          </div>
 <div id="pagination" class="mobile-none" style="text-align: right">{{ $finds->appends(['dorosli' => $request->dorosli, 'dzieci' => $request->dzieci, 'powrot' => $request->powrot, 'przyjazd' => $request->przyjazd, 'region' => $request->region])->links() }}</div>
