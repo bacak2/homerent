@@ -150,6 +150,10 @@ class Apartaments extends Controller
             ->limit(4)
             ->get();
 
+        $comments = DB::table('apartament_opinions')->where('id_apartament', $id)->get();
+
+        $comments = json_encode($comments);
+
         return view('pages.apartaments', ['apartament' => $apartament,
             'groups' => $groups,
             'images' => $images,
@@ -160,6 +164,7 @@ class Apartaments extends Controller
             'lastSeen' => $lastSeen,
             'countedCookies' => $countedCookies,
             'seeAlso' => $seeAlso,
+            'comments' => $comments,
         ]);
 
     }
