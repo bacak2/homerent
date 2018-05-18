@@ -138,6 +138,18 @@ class Apartaments extends Controller
 
         $countedCookies = $lastSeen->count();
 
+    //////rules to change!!!
+        $seeAlso = Apartament::selectRaw('*, apartaments.id, MIN(price_value) AS min_price')
+            ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            ->join('languages', function($join) {
+                $join->on('apartament_descriptions.language_id','=','languages.id')
+                    ->where('languages.id', $this->language->id);
+            })
+            ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+            ->groupBy('apartaments.id')
+            ->limit(4)
+            ->get();
+
         return view('pages.apartaments', ['apartament' => $apartament,
             'groups' => $groups,
             'images' => $images,
@@ -147,6 +159,7 @@ class Apartaments extends Controller
             'language' => $this->language,
             'lastSeen' => $lastSeen,
             'countedCookies' => $countedCookies,
+            'seeAlso' => $seeAlso,
         ]);
 
     }
@@ -198,6 +211,35 @@ class Apartaments extends Controller
             array_push($idApartments, $apartament->id);
         }
 
+        if(isset($_COOKIE['lastSeenApartments'])) $cookiesApartments = unserialize($_COOKIE['lastSeenApartments']);
+        else $cookiesApartments = [];
+
+        $lastSeen = Apartament::selectRaw('*, apartaments.id, MIN(price_value) AS min_price')
+            ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            ->join('languages', function($join) {
+                $join->on('apartament_descriptions.language_id','=','languages.id')
+                    ->where('languages.id', $this->language->id);
+            })
+            ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+            ->whereIn('apartaments.id', $cookiesApartments)
+            ->groupBy('apartaments.id')
+            ->limit(4)
+            ->get();
+
+        $countedCookies = $lastSeen->count();
+
+        //////rules to change!!!
+        $seeAlso = Apartament::selectRaw('*, apartaments.id, MIN(price_value) AS min_price')
+            ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            ->join('languages', function($join) {
+                $join->on('apartament_descriptions.language_id','=','languages.id')
+                    ->where('languages.id', $this->language->id);
+            })
+            ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+            ->groupBy('apartaments.id')
+            ->limit(4)
+            ->get();
+
         return view('pages.apartamentsGroup', [
             'apartaments' => $apartaments,
             'idApartments' => $idApartments,
@@ -207,6 +249,9 @@ class Apartaments extends Controller
             'beds' => $beds,
             'language' => $this->language,
             'apartamentsAmount' => $apartamentsAmount,
+            'lastSeen' => $lastSeen,
+            'countedCookies' => $countedCookies,
+            'seeAlso' => $seeAlso,
         ]);
 
     }

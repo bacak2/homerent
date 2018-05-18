@@ -211,6 +211,7 @@ return [
     'nrFloors' => '{0}pięter|{1}piętro|[2,4]piętra|[5,*]pięter',
     'nrBedrooms' => '{0}sypialni|{1}sypialnia|[2,4]sypialnie|[5,*]sypialni',
     'nrApartmentsInKomplex' => '{0}apartamentów|{1}apartament|[2,4]apartamenty|[5,*]apartamentów',
+    'nrReviews' => '{0}opinii|{1}opinia|[2,4]opinie|[5,*]opinii',
     'Typ podrózy' => 'Typ podrózy',
     'Ogólna ocena' => 'Ogólna ocena',
     'Plusy obiektu' => 'Plusy obiektu',

@@ -147,8 +147,11 @@ class Account extends Controller
         $current_data = date("Y-m-d");
 
         $users_opinions = DB::table('reservations')
-            ->selectRaw('apartament_opinions.*, reservations.*, apartament_opinions.created_at AS opinionCreateDate, apartaments.apartament_address, apartaments.apartament_address_2, apartaments.apartament_city, apartaments.apartament_district, apartament_descriptions.apartament_name, apartament_link')
+            ->selectRaw('sub.opinionAmount, sub.ratingAvg, apartament_opinions.*, reservations.*, apartament_opinions.created_at AS opinionCreateDate, apartaments.apartament_address, apartaments.apartament_address_2, apartaments.apartament_city, apartaments.apartament_district, apartament_descriptions.apartament_name, apartament_link')
             ->leftjoin('apartaments', 'reservations.apartament_id', '=', 'apartaments.id')
+            ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
+            '), 'sub.id_apartament', '=', 'apartaments.id')
             ->leftjoin('apartament_opinions', 'reservations.id', '=', 'apartament_opinions.id_reservation')
             ->leftjoin('apartament_descriptions', 'reservations.apartament_id', '=', 'apartament_descriptions.apartament_id')
             ->where('user_id', Auth::user()->id)
@@ -157,12 +160,50 @@ class Account extends Controller
             ->orderBy('reservation_arrive_date', 'DESC')
             ->get();
 
-//dd($users_opinions);
+        $opinionToAdd = 0;
+
+        foreach($users_opinions as $opinion){
+            if($opinion->total_rating == NULL) $opinionToAdd++;
+        }
 
         return view('account.myOpinions', [
             'users_opinions' => $users_opinions,
             'current_data' => $current_data,
+            'opinionToAdd' => $opinionToAdd,
+            'buttonCheck' => $buttonCheck = 1,
         ]);
+
+    }
+
+    public function opinionsToAdd()
+    {
+
+        $current_data = date("Y-m-d");
+
+        $users_opinions = DB::table('reservations')
+            ->selectRaw('sub.opinionAmount, sub.ratingAvg, apartament_opinions.*, reservations.*, apartament_opinions.created_at AS opinionCreateDate, apartaments.apartament_address, apartaments.apartament_address_2, apartaments.apartament_city, apartaments.apartament_district, apartament_descriptions.apartament_name, apartament_link')
+            ->leftjoin('apartaments', 'reservations.apartament_id', '=', 'apartaments.id')
+            ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
+            '), 'sub.id_apartament', '=', 'apartaments.id')
+            ->leftjoin('apartament_opinions', 'reservations.id', '=', 'apartament_opinions.id_reservation')
+            ->leftjoin('apartament_descriptions', 'reservations.apartament_id', '=', 'apartament_descriptions.apartament_id')
+            ->where('user_id', Auth::user()->id)
+            ->where('reservation_arrive_date', '<', $current_data)
+            ->where('total_rating', null)
+            ->groupBy('reservations.id')
+            ->orderBy('reservation_arrive_date', 'DESC')
+            ->get();
+
+        $opinionToAdd = $users_opinions->count();
+
+        return view('account.myOpinions', [
+            'users_opinions' => $users_opinions,
+            'current_data' => $current_data,
+            'opinionToAdd' => $opinionToAdd,
+            'buttonCheck' => $buttonCheck = 2,
+        ]);
+
     }
 
     public function getOpinionDetails($apartamentId, $reservationId)
@@ -492,10 +533,18 @@ class Account extends Controller
 
         $reservation = DB::table('reservations')->where('id', $idReservation)->get();
 
+        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $idReservation)->get();
+
+        $availableServices = DB::table('additional_services')->where('id_apartament', $id)
+            ->whereNotIn('id', DB::table('reservation_additional_services')->select('id_service')->where('id_reservation', $idReservation))
+            ->get();
+
         return view('reservation.fourthStep', [
             'apartament' => $apartament,
             'reservation' => $reservation,
             'language' => $this->language->language_code,
+            'servicesDetails' => $servicesDetails ?? 0,
+            'availableServices' => $availableServices ?? 0,
         ]);
 
     }

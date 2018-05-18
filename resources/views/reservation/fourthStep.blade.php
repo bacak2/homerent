@@ -33,7 +33,8 @@
     @endif
 <div class="container">
     @if(!(Request::is('*/my-reservations*')))
-        @if(Request::has('servicesAdded') || $_GET['status'] == 2)
+        <?php $_GET['status'] = $_GET['status'] ?? 0 ?>
+        @if(Request::has('servicesAdded') || $_GET['status'] == 2 )
             <div class="row reservation-item px-2 py-1 mb-4" id="services-confirmed">
                 <i class="fa fa-3x fa-check-circle"></i>
                 <span class="mt-2 ml-2">Zamówione usługi dodatkowe zostały dodane do rezerwacji. <a href="#details">Zobacz szczegóły ↓</a></span>
