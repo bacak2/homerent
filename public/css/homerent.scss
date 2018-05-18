@@ -658,6 +658,15 @@ img.active{
 	background-color: black !important;
 }
 
+#btn-back-from-comment{
+	background-color: rgba(242, 242, 242, 1);
+	box-sizing: border-box;
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgba(121, 121, 121, 1);
+	border-radius: 5px;
+}
+
 select {
 	height:20px;
 	font-size: 12px;
