@@ -151,8 +151,59 @@ class Apartaments extends Controller
             ->get();
 
         $comments = DB::table('apartament_opinions')->where('id_apartament', $id)->get();
-
         $comments = json_encode($comments);
+
+        //$familyComments = DB::table('apartament_opinions')->where('id_apartament', $id)->where('journey_type', 0)->get();
+        //$familyComments = json_encode($familyComments);
+
+        $allOpinions = DB::table('apartament_opinions')
+            ->selectRaw('
+                        count(*) as opinionsAmount,
+                        round(avg(total_rating), 1) as totalAvg,
+                        round(avg(cleanliness), 1) as cleanlinessAvg,
+                        round(avg(location), 1) as locationAvg,
+                        round(avg(facilities), 1) as facilitiesAvg,
+                        round(avg(staff), 1) staffAvg,
+                        round(avg(quality_per_price), 1) quality_per_priceAvg
+                        ')
+            ->where('id_apartament', $id)
+            ->first();
+        $allOpinions = json_encode($allOpinions);
+
+        $fiveStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $id)
+            ->where('total_rating', '>=', 9);
+
+        $fourStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $id)
+            ->where('total_rating', '<', 9)
+            ->where('total_rating', '>=', 7);
+
+        $threeStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $id)
+            ->where('total_rating', '<', 7)
+            ->where('total_rating', '>=', 5);
+
+        $twoStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $id)
+            ->where('total_rating', '<', 5)
+            ->where('total_rating', '>=', 3);
+
+        $allStars = DB::table('apartament_opinions')
+            ->selectRaw('count(*) as amount')
+            ->where('id_apartament', $id)
+            ->where('total_rating', '<', 3)
+            ->unionAll($fiveStars)
+            ->unionAll($fourStars)
+            ->unionAll($threeStars)
+            ->unionAll($twoStars)
+            ->get();
+
+        $allStars = json_encode($allStars);
 
         return view('pages.apartaments', ['apartament' => $apartament,
             'groups' => $groups,
@@ -165,6 +216,8 @@ class Apartaments extends Controller
             'countedCookies' => $countedCookies,
             'seeAlso' => $seeAlso,
             'comments' => $comments,
+            'allOpinions' => $allOpinions,
+            'allStars' => $allStars,
         ]);
 
     }
