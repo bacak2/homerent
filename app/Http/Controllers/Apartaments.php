@@ -153,8 +153,8 @@ class Apartaments extends Controller
         $comments = DB::table('apartament_opinions')->where('id_apartament', $id)->get();
         $comments = json_encode($comments);
 
-        //$familyComments = DB::table('apartament_opinions')->where('id_apartament', $id)->where('journey_type', 0)->get();
-        //$familyComments = json_encode($familyComments);
+        $familyComments = DB::table('apartament_opinions')->where('id_apartament', $id)->where('journey_type', 0)->get();
+        $familyComments = json_encode($familyComments);
 
         $allOpinions = DB::table('apartament_opinions')
             ->selectRaw('
@@ -216,6 +216,7 @@ class Apartaments extends Controller
             'countedCookies' => $countedCookies,
             'seeAlso' => $seeAlso,
             'comments' => $comments,
+            'familyComments' => $familyComments,
             'allOpinions' => $allOpinions,
             'allStars' => $allStars,
         ]);

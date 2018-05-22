@@ -1445,6 +1445,23 @@ div.reservation-path{
 
 }
 
+div.user-comments{
+    margin-left: 0px;
+
+    div.comment{
+      margin: 0px 0px 40px 0px;
+      padding: 0px;
+    }
+
+    div.user-data{
+      margin-top: 10px;
+      padding-left:0px;
+
+      div.user-data-detail{
+        margin-left: 56px;
+      }
+    }
+}
 
 #comment-wrapper{
 	margin-top: 24px;
