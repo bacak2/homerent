@@ -9,7 +9,7 @@ div.description-map-bottom-right, div.description-bottom-right, div.add-to-favou
 	visibility:hidden !important;
 }
 
-#navMenuTop #my-favouriteies, a.btn.btn-info.btn-mobile.btn-res4th.pull-right, #my-reservation-filters{
+#navMenuTop #my-favouriteies, a.btn.btn-info.btn-mobile.btn-res4th.pull-right, #my-reservation-filters, div.com-2 .btn.font-11{
 	display: none !important;
 }
 
@@ -136,31 +136,32 @@ div.red-nr-alert{
 	background-color: #fff;
 	width: 30%;
 	height: 100%;
-}
 
-/* Style the buttons inside the tab */
-.tab button {
-	display: block;
-	background-color: #f1f1f1;
-	color: black;
-	padding: 22px 16px;
-	width: 100%;
-	height: 38px;
-	border: 1px solid #ccc;
-	border-right: none;
-	outline: none;
-	text-align: left;
-	cursor: pointer;
-	transition: 0.3s;
-	font-size: 17px;
-}
+	/* Style the buttons inside the tab */
+	.tablinks {
+		display: block;
+		background-color: rgb(180, 180, 180);
+		color: black;
+		padding: 22px 16px;
+		width: 100%;
+		height: 38px;
+		border: 1px solid #ccc;
+		border-right: none;
+		outline: none;
+		text-align: left;
+		cursor: pointer;
+		transition: 0.3s;
+		font-size: 17px;
+		margin-bottom: 5px;
 
-.tab button{
-	margin-bottom: 5px;
+		div{
+			background-color: rgba(255, 255, 255, 1);
+		}
+	}
 }
 
 /* Create an active/current "tab button" class */
-.tab button.active {
+.tab div.active {
 	background-color: #fff;
 	width: 105%;
 }
@@ -173,6 +174,29 @@ div.red-nr-alert{
 	border: 1px solid #ccc;
 	width: 70%;
 	height: 100%;
+
+    .bars {
+        .avgBars{
+            padding-left: 20px;
+        }
+        .detail-bars{
+            padding-right: 8px;
+            div{
+              padding: 0px;
+            }
+        }
+    }
+
+    .rating-box-apartment{
+        border-spacing: 2px;
+        width: 110px;
+        height: 65px;
+        border: 1px solid #4b4b4b;
+
+		span:last-child{
+			font-size: 30px;
+		}
+    }
 }
 
 .overall-rating-box{

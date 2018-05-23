@@ -121,6 +121,7 @@ class Account extends Controller
             ->leftjoin('apartament_descriptions', 'reservations.apartament_id', '=', 'apartament_descriptions.apartament_id')
             ->where('user_id', Auth::user()->id)
             ->where('reservation_arrive_date', '>=', $current_data)
+            ->groupBy('id')
             ->orderBy('reservation_arrive_date', 'ASC')
             ->get();
 
@@ -131,6 +132,7 @@ class Account extends Controller
             ->leftjoin('apartament_descriptions', 'reservations.apartament_id', '=', 'apartament_descriptions.apartament_id')
             ->where('user_id', Auth::user()->id)
             ->where('reservation_arrive_date', '<', $current_data)
+            ->groupBy('id')
             ->orderBy('reservation_arrive_date', 'DESC')
             ->get();
 
