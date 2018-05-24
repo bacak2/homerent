@@ -178,6 +178,15 @@ div.red-nr-alert{
     .bars {
         .avgBars{
             padding-left: 20px;
+			& > div:hover{
+				cursor: pointer;
+			}
+			.selected{
+				background-color: lightgray;
+				padding: 1px;
+				font-weight: bold;
+				border: 1px solid gray;
+			}
         }
         .detail-bars{
             padding-right: 8px;
