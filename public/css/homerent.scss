@@ -142,7 +142,7 @@ div.red-nr-alert{
 		display: block;
 		background-color: rgb(180, 180, 180);
 		color: black;
-		padding: 22px 16px;
+		/*padding: 22px 16px;*/
 		width: 100%;
 		height: 38px;
 		border: 1px solid #ccc;
@@ -195,6 +195,7 @@ div.red-nr-alert{
 
 		span:last-child{
 			font-size: 30px;
+			font-weight: bold;
 		}
     }
 }
