@@ -39,6 +39,8 @@ Route::group(
 
         Route::get('/test','Apartaments@showTotalApartamentPrice');
 
+        Route::get('/increaseHelpful','Apartaments@increaseHelpful');
+
         Route::get('/checkGroup','Apartaments@checkGroupAvailability');
 
         Route::get('/map','Apartaments@showApartamentsOnMap');

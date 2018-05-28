@@ -503,8 +503,6 @@ class Apartaments extends Controller
             $aloneStars = json_encode($aloneStars);
         }
 
-        //dd($comments);
-
         return view('pages.apartaments', ['apartament' => $apartament,
             'groups' => $groups,
             'images' => $images,
@@ -1199,5 +1197,12 @@ class Apartaments extends Controller
         }
         return response()->json($finds);
 
+    }
+
+    public function increaseHelpful(Request $request){
+
+        DB::table('apartament_opinions')->where('id', $request->opinionId)->increment('helpful');
+
+        return response()->json('true');
     }
 }
