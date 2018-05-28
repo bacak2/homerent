@@ -93,6 +93,12 @@ div.red-nr-alert{
 		text-align: right;
 	}
 
+    .right-cancel{
+        visibility: hidden;
+		width: 16px;
+		text-align: right;
+	}
+
 	.middle {
 		float: left;
 		margin-top: 2px;
@@ -125,6 +131,17 @@ div.red-nr-alert{
 	}
 }
 
+#showMoreOpinions{
+	display: none;
+	padding: 7px 0px;
+	background-color: rgba(188, 188, 188, 1);
+	border-color: rgba(148, 148, 148, 1);
+	
+	&:hover{
+		cursor: pointer;
+	}
+}
+
 #rating-wrapper{
 	height: 262px;
 }
@@ -142,7 +159,7 @@ div.red-nr-alert{
 		display: block;
 		background-color: rgb(180, 180, 180);
 		color: black;
-		/*padding: 22px 16px;*/
+		padding: 6px 14px;
 		width: 100%;
 		height: 38px;
 		border: 1px solid #ccc;
@@ -151,11 +168,15 @@ div.red-nr-alert{
 		text-align: left;
 		cursor: pointer;
 		transition: 0.3s;
-		font-size: 17px;
+		font-size: 13px;
 		margin-bottom: 5px;
 
 		div{
 			background-color: rgba(255, 255, 255, 1);
+		}
+
+		img{
+			margin-right: 8px;
 		}
 	}
 }
@@ -164,6 +185,7 @@ div.red-nr-alert{
 .tab div.active {
 	background-color: #fff;
 	width: 105%;
+	font-weight: bold;
 }
 
 /* Style the tab content */
@@ -173,11 +195,12 @@ div.red-nr-alert{
 	padding: 0px 12px;
 	border: 1px solid #ccc;
 	width: 70%;
-	height: 100%;
+	height: 253px;
 
     .bars {
         .avgBars{
             padding-left: 20px;
+			padding-right: 0px;
 			& > div:hover{
 				cursor: pointer;
 			}
@@ -186,6 +209,11 @@ div.red-nr-alert{
 				padding: 1px;
 				font-weight: bold;
 				border: 1px solid gray;
+
+				.right-cancel{
+					visibility: visible;
+					text-align: center;
+				}
 			}
         }
         .detail-bars{
@@ -1239,6 +1267,10 @@ div.edit, div.delete{
 
 .font-12{
 	font-size: 12px;
+}
+
+.font-13{
+	font-size: 13px;
 }
 
 .font-14{

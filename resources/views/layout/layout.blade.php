@@ -23,6 +23,7 @@
 	<script type="text/javascript" src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/jscroll.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/jquery-date-range-picker/dist/jquery.daterangepicker.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('vendor/fotorama/fotorama.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
