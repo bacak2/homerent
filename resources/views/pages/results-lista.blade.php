@@ -18,11 +18,8 @@
                 @if($apartament->group_id > 0 && $apartament->group_name != NULL)
                     <div class="row list-item" itemscope itemtype="http://schema.org/Hotel">
                         <div class="col-lg-3 col-md-12 col-sm-6 col-xl-3">
-                            <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; max-width: 285px; max-height: 149px;">
-                                <div class="add-to-favourities"><a href="#"><img src='{{ asset("images/results/heart.png") }}'></a></div>
-                            </div>
+                            <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; max-width: 285px; max-height: 149px;"></div>
                         </div>
-
                         <div class="col-lg-7 col-md-12">
                             <div class="row list-item-name">
                                 <div class="container py-1 font-weight-bold"><h2 style='font-size: 24px; display: inline; font-weight: bold' itemprop="name">{{ $apartament->group_name }}</h2>

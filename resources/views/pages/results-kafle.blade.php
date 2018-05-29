@@ -51,7 +51,6 @@
                 @if($apartament->group_id > 0 && $apartament->group_name != NULL)
                     <div style="overflow: auto;" class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" itemscope itemtype="http://schema.org/Hotel">
                         <div class="map-img-wrapper">
-
                             <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
                                 <div class="map-see-more mobile-none">
                                     <div class="container py-1">
@@ -62,8 +61,6 @@
                                     <a style=" display: inline-block; width: 100%; height: 100%" href="/apartaments-group/{{ $apartament->group_link }}"></a>
                                 </div>
                             </div>
-                            <div class="add-to-favourities"><a href="#"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Add to favorites') }}" src='{{ asset("images/results/heart.png") }}'></a></div>
-
                             <div class="komplex-description-top">{{ $apartament->apartaments_amount }} {{trans_choice('messages.nrApartmentsInKomplex', $apartament->apartaments_amount)}} {{__('messages.from')}} {{ $apartament->min_price }} PLN</div>
                             <div class="description-bottom-right mobile-none">
                                 @for ($i = 0; $i < 5; $i++)
@@ -115,7 +112,7 @@
                                      <a style=" display: inline-block; width: 100%; height: 100%" href="/apartaments/{{ $apartament->apartament_link }}"></a>
                                 </div>
                             </div>
-                            <div class="add-to-favourities"><a href="#"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Add to favorites') }}" src='{{ asset("images/results/heart.png") }}'></a></div>
+                            <div class="add-to-favourities"><span onClick="addToFavourites({{$apartament->id}}, {{Auth::user()->id ?? 0}})"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Add to favorites') }}" src='{{ asset("images/results/heart.png") }}'></span></div>
 
                             <div class="map-description-top">{{ $apartament->min_price }} PLN</div>
                             <div class="map-description-bottom">{{ __("messages.Breakfast included") }}</div>
@@ -181,6 +178,30 @@
             });
         });
     }
+
+    function addToFavourites(apartamentId, userId){
+
+        if(userId == 0) alert("Aby dodać apartament do ulubionych musisz się zalogować");
+
+        else{
+            $.ajax({
+                type: "GET",
+                url: '/addToFavourites/'+apartamentId+'/'+userId,
+                dataType : 'json',
+                data: {
+                    apartamentId: apartamentId,
+                    userId: userId,
+                },
+                success: function(responseMessage) {
+                    alert(responseMessage);
+                },
+                error: function() {
+                    console.log( "Error in connection with controller");
+                },
+            });
+        }
+    }
+
 </script>
 
 @endsection

@@ -41,6 +41,8 @@ Route::group(
 
         Route::get('/increaseHelpful','Apartaments@increaseHelpful');
 
+        Route::get('/addToFavourites/{apartmentId}/{userId}','Favourites@addToFavourites');
+
         Route::get('/checkGroup','Apartaments@checkGroupAvailability');
 
         Route::get('/map','Apartaments@showApartamentsOnMap');
