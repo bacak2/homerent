@@ -22,9 +22,9 @@
 	            <li class="nav-item">
 	              <a class="nav-link" id="sign-up" href="#">{{ __('messages.register')}}</a>
 	            </li>
-	        @else 
+	        @else
                   <li class="nav-item">
-                    <a class="nav-link" id="my-favouriteies" href="{{ route('myFavourites') }}">{{ __('messages.My favourites') }} </a>
+                    <a class="nav-link" href="{{ route('myFavourites') }}">{{ __('messages.My favourites') }} </a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ route('myOpinions') }}">{{ __('messages.My opinions') }} </a>

@@ -77,7 +77,7 @@
                         <div class="col-lg-3 col-md-12 col-sm-6 col-xl-3">
                             <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; max-width: 285px; max-height: 149px;">
                                 <div class="list-item-description-bottom">{{ __("messages.Breakfast included") }}</div>
-                                <div class="add-to-favourities"><a href="#"><img src='{{ asset("images/results/heart.png") }}'></a></div>
+                                <div class="add-to-favourities"><span onClick="addToFavourites({{$apartament->id}}, {{Auth::user()->id ?? 0}})"><img src='{{ asset("images/results/heart.png") }}'></span></div>
                             </div>
                         </div>
 
@@ -143,4 +143,30 @@
     @include('includes.last-seen')
 @endif
 </span>
+
+<script>
+    function addToFavourites(apartamentId, userId){
+
+        if(userId == 0) alert("Aby dodać apartament do ulubionych musisz się zalogować");
+
+        else{
+            $.ajax({
+                type: "GET",
+                url: '/addToFavourites/'+apartamentId+'/'+userId,
+                dataType : 'json',
+                data: {
+                    apartamentId: apartamentId,
+                    userId: userId,
+                },
+                success: function(responseMessage) {
+                    alert(responseMessage);
+                },
+                error: function() {
+                    console.log( "Error in connection with controller");
+                },
+            });
+        }
+    }
+</script>
+
 @endsection

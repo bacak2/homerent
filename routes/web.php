@@ -43,6 +43,8 @@ Route::group(
 
         Route::get('/addToFavourites/{apartmentId}/{userId}','Favourites@addToFavourites');
 
+        Route::get('/deleteFromFavourites/{apartmentId}/{userId}','Favourites@deleteFromFavourites');
+
         Route::get('/checkGroup','Apartaments@checkGroupAvailability');
 
         Route::get('/map','Apartaments@showApartamentsOnMap');

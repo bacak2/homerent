@@ -131,6 +131,28 @@ div.red-nr-alert{
 	}
 }
 
+.expanded{
+	padding: 10px 0px 0px 0px;
+	margin-top: 10px;
+	margin-left: 0px;
+	border-top: 1px solid #d7d7d7;
+
+	div{
+		padding: 0px;
+	}
+
+	&>div:last-child{
+		padding-left: 15px;
+	}
+}
+
+.expand{
+	max-width: 49px;
+	padding-left: 0px;
+	margin-top: 10px;
+	border: solid 1px gray;
+}
+
 #showMoreOpinions{
 	display: none;
 	padding: 7px 0px;

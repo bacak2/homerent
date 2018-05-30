@@ -569,4 +569,40 @@ class Account extends Controller
             ]);
     }
 
+    public function favourites(){
+
+        $usersFavourites = DB::table('apartament_favourites')
+            ->select('id')
+            ->where('user_id', '=', Auth::user()->id)
+            ->get()
+            ->toArray();
+
+        if (is_null($usersFavourites)) return view('account.myFavouritesEmpty');
+
+        $whereData = [];
+
+        foreach($usersFavourites as $value){
+            array_push($whereData, $value->id);
+        }
+
+        $finds = DB::table("apartaments")
+            ->selectRaw('apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+            ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+            ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
+            //->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+            ->whereIn('apartaments.id', $whereData)
+            ->where('language_id', $this->language->id)
+            ->groupBy('apartaments.id')
+            ->get();
+
+        $favouritesCount = $finds->count();
+
+        return view('account.myFavourites', [
+            'finds' => $finds,
+            'favouritesCount' => $favouritesCount,
+        ]);
+
+    }
+
 }

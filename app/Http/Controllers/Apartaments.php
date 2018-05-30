@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use App\{Apartament, Apartament_description, Apartament_group, Reservation};
 use Illuminate\Pagination\Paginator;
 use DateTime;
+use Auth;
 
 class Apartaments extends Controller
 {
@@ -503,6 +504,13 @@ class Apartaments extends Controller
             $aloneStars = json_encode($aloneStars);
         }
 
+        $isInFavourites = DB::table('apartament_favourites')
+            ->where('apartament_id', '=', $id)
+            ->where('user_id', '=', Auth::user()->id ?? 0)
+            ->first();
+
+        $isInFavourites = $isInFavourites->id ?? 0;
+
         return view('pages.apartaments', ['apartament' => $apartament,
             'groups' => $groups,
             'images' => $images,
@@ -531,6 +539,7 @@ class Apartaments extends Controller
             'businessStars' => $businessStars ?? 0,
             'friendsStars' => $friendsStars ?? 0,
             'aloneStars' => $aloneStars ?? 0,
+            'isInFavourites' => $isInFavourites,
         ]);
 
     }
