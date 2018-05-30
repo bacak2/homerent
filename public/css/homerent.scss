@@ -153,6 +153,39 @@ div.red-nr-alert{
 	border: solid 1px gray;
 }
 
+.favourites-compare{
+
+	#left-side-compare{
+		div{
+			width: 100%;
+			margin-bottom: 6px;
+			&:nth-child(1){height: 100px;}
+			&:nth-child(2){height: 40px;}
+			&:nth-child(3){height: 40px;}
+			&:nth-child(4){height: 40px;}
+			&:nth-child(5){height: 40px;}
+			&:nth-child(6){height: 30px;}
+			&:nth-child(7){height: 40px;}
+		}
+	}
+
+	#right-side-compare > div > div{
+		margin-bottom: 6px;
+		&:nth-child(1){height: 100px;}
+		&:nth-child(2){height: 40px;}
+		&:nth-child(3){height: 40px;}
+		&:nth-child(4){height: 40px;}
+		&:nth-child(5){height: 40px;}
+		&:nth-child(6){
+			height: 30px;
+			& > div{
+				margin-right: 2px !important;
+			}
+		}
+		&:nth-child(7){height: 40px;}
+	}
+}
+
 #showMoreOpinions{
 	display: none;
 	padding: 7px 0px;

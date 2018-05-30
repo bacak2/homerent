@@ -572,17 +572,17 @@ class Account extends Controller
     public function favourites(){
 
         $usersFavourites = DB::table('apartament_favourites')
-            ->select('id')
+            ->select('apartament_id')
             ->where('user_id', '=', Auth::user()->id)
             ->get()
             ->toArray();
 
-        if (is_null($usersFavourites)) return view('account.myFavouritesEmpty');
+        if (empty($usersFavourites)) return view('account.favourites.empty');
 
         $whereData = [];
 
         foreach($usersFavourites as $value){
-            array_push($whereData, $value->id);
+            array_push($whereData, $value->apartament_id);
         }
 
         $finds = DB::table("apartaments")
@@ -598,7 +598,7 @@ class Account extends Controller
 
         $favouritesCount = $finds->count();
 
-        return view('account.myFavourites', [
+        return view('account.favourites.kafle', [
             'finds' => $finds,
             'favouritesCount' => $favouritesCount,
         ]);
