@@ -127,6 +127,16 @@ Route::group(
                 'as' => 'myFavourites'
             ]);
 
+            Route::GET('/my-favourites-list', [
+                'uses' => 'Account@favourites',
+                'as' => 'myFavouritesList'
+            ]);
+
+            Route::GET('/my-favourites-map', [
+                'uses' => 'Account@favourites',
+                'as' => 'myFavouritesMap'
+            ]);
+
             Route::GET('/my-favourites-compare', [
                 'uses' => 'Favourites@compare',
                 'as' => 'myFavouritesCompare'

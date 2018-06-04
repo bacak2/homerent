@@ -569,7 +569,7 @@ class Account extends Controller
             ]);
     }
 
-    public function favourites(){
+    public function favourites(Request $request){
 
         $usersFavourites = DB::table('apartament_favourites')
             ->select('apartament_id')
@@ -598,10 +598,26 @@ class Account extends Controller
 
         $favouritesCount = $finds->count();
 
-        return view('account.favourites.kafle', [
-            'finds' => $finds,
-            'favouritesCount' => $favouritesCount,
-        ]);
+        if ($request->route()->getName() == 'myFavourites') {
+            return view('account.favourites.kafle', [
+                'finds' => $finds,
+                'favouritesCount' => $favouritesCount,
+            ]);
+        }
+        else if($request->route()->getName() == 'myFavouritesList'){
+            return view('account.favourites.lista', [
+                'finds' => $finds,
+                'favouritesCount' => $favouritesCount,
+            ]);
+        }
+        else {
+            return view('account.favourites.mapa', [
+                'finds' => $finds,
+                'favouritesCount' => $favouritesCount,
+            ]);
+        }
+
+
 
     }
 
