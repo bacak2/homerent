@@ -151,6 +151,10 @@ class Apartaments extends Controller
             ->limit(4)
             ->get();
 
+        $favouritesAmount = DB::table('apartament_favourites')->where('user_id', Auth::user()->id ?? 0)->get();
+        if($favouritesAmount->isEmpty()) $favouritesAmount = 0;
+        else $favouritesAmount = 1;
+
         $comments = DB::table('apartament_opinions')->where('id_apartament', $id)->get();
 
         if($comments->isEmpty()) $comments = '';
@@ -540,6 +544,7 @@ class Apartaments extends Controller
             'friendsStars' => $friendsStars ?? 0,
             'aloneStars' => $aloneStars ?? 0,
             'isInFavourites' => $isInFavourites,
+            'favouritesAmount' => $favouritesAmount,
         ]);
 
     }
@@ -974,6 +979,10 @@ class Apartaments extends Controller
 
         $countedCookies = $lastSeen->count();
 
+        $favouritesAmount = DB::table('apartament_favourites')->where('user_id', Auth::user()->id ?? 0)->get();
+        if($favouritesAmount->isEmpty()) $favouritesAmount = 0;
+        else $favouritesAmount = 1;
+
         return view("pages.results-".$view, [
             'region' => $region,
             'arive_date' => $arriveDate,
@@ -987,6 +996,7 @@ class Apartaments extends Controller
             'nightsCounter' => $nightsCounter,
             'lastSeen' => $lastSeen,
             'countedCookies' => $countedCookies,
+            'favouritesAmount' => $favouritesAmount,
         ]);
     }
 

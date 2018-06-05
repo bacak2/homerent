@@ -159,7 +159,11 @@
                     userId: userId,
                 },
                 success: function(responseMessage) {
-                    alert(responseMessage);
+                    @if($favouritesAmount == 0 && Auth::check())
+                        $("#first-added-favourites").show();
+                    @else
+                        alert(responseMessage);
+                    @endif
                 },
                 error: function() {
                     console.log( "Error in connection with controller");
@@ -168,5 +172,9 @@
         }
     }
 </script>
+
+@if($favouritesAmount == 0 && Auth::check())
+    @include('includes.favourites-first-added-popup')
+@endif
 
 @endsection
