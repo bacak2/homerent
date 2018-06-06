@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\{Apartament, Apartament_description, Apartament_group, Reservation, User};
 use Auth;
+use Mail;
 
 
 class Account extends Controller
@@ -586,8 +587,11 @@ class Account extends Controller
         }
 
         $finds = DB::table("apartaments")
-            ->selectRaw('apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+            ->selectRaw('sub.opinionAmount, sub.ratingAvg, apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
             ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
+            '), 'sub.id_apartament', '=', 'apartaments.id')
             ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
             ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
             //->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
@@ -617,7 +621,24 @@ class Account extends Controller
             ]);
         }
 
+    }
 
+    //Async send mail
+    public function sendMail(Request $request){
+
+        $emails = explode(',', str_replace(' ', '', $request->emails));
+
+        $links = explode(',', $request->links);
+
+        foreach($emails as $email){
+            Mail::send('includes.mail_send-to-friends', ['test'=>$links], function($message) use ($email){
+                $message->to($email)
+                    ->subject('Linki do ulubionych apartamentów');
+                $message->from('kontakt@visitzakopane.pl','Homerent');
+            });
+        }
+
+        return response()->json('true');
 
     }
 

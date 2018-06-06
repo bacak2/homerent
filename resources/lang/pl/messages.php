@@ -110,7 +110,6 @@ return [
         'Most popular' => 'Najpopularniejsze',
         'Closest' => 'Najbliżej',
         'reviews_number' => 'opinii',
-        'Perfect' => 'Doskonały',
         'Breakfast included' => 'śniadanie w cenie',
         'Satisfying' => 'Spełniające',
         'criteria and dates' => 'kryteria i daty',  
@@ -224,4 +223,9 @@ return [
     'Stosunek jakości do ceny' => 'Stosunek jakości do ceny',
     'Opublikuj na mojej tablicy w Facebook' => 'Opublikuj na mojej tablicy w Facebook',
     'Chcę wystawić recenzję w serwisie nazwa_serwisu.pl anonimowo.' => 'Chcę wystawić recenzję w serwisie nazwa_serwisu.pl anonimowo',
+    'Perfect' => 'Doskonały',
+    'Very good' => 'Bardzo dobry',
+    'Average' => 'Średni',
+    'Bad' => 'Zły',
+    'Awful' => 'Okropny',
 ];

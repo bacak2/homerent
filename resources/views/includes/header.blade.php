@@ -24,7 +24,8 @@
 	            </li>
 	        @else
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('myFavourites') }}">{{ __('messages.My favourites') }} </a>
+                    <span id="favourites-nav" class="nav-link">{{ __('messages.My favourites') }} ({{0}})</span>
+                    {{--<a class="nav-link" href="{{ route('myFavourites') }}">Wszystkie</a>--}}
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ route('myOpinions') }}">{{ __('messages.My opinions') }} </a>

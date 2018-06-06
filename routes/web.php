@@ -186,5 +186,10 @@ Route::group(
                 'uses' => 'Account@deleteItem',
                 'as' => 'Account.delete'
             ]);
+
+            Route::GET('/send-email-to-friends', [
+                'uses' => 'Account@sendMail',
+                'as' => 'account.sendMail'
+            ]);
         });
     });
