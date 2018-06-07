@@ -606,6 +606,7 @@ class Account extends Controller
             return view('account.favourites.kafle', [
                 'finds' => $finds,
                 'favouritesCount' => $favouritesCount,
+                'request' => $request,
             ]);
         }
         else if($request->route()->getName() == 'myFavouritesList'){

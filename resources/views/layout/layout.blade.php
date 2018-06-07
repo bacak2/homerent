@@ -47,7 +47,10 @@
 	@include('includes.login-popup')
 	{{--Sign-up popup--}}
 	@include('includes.registration-popup')
-	{{--Favourites popup--}}
-	@include('includes.favourites-popup')
+
+	@auth
+		{{--Favourites popup--}}
+		@include('includes.favourites-popup')
+	@endauth
 </body>
 </html>

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Session;
+use DB;
 
 class LoginController extends Controller
 {
@@ -49,5 +50,29 @@ class LoginController extends Controller
             session(['url.intended' => url()->previous()]);
         }
         return view('auth.login');
+    }
+
+    protected function authenticated(Request $request)
+    {
+
+        $userId = DB::table('users')
+            ->select('id')
+            ->where('email', $request->email)
+            ->first();
+
+        $userFavourites = DB::table('apartament_favourites')
+            ->select('apartaments.id', 'apartament_descriptions.apartament_name', 'apartament_address', 'apartament_address_2')
+            ->distinct('apartaments.id')
+            ->join('apartament_descriptions','apartament_favourites.apartament_id', '=', 'apartament_descriptions.apartament_id')
+            ->join('apartaments','apartament_favourites.apartament_id', '=', 'apartaments.id')
+            //->join('apartament_photos','apartaments.apartament_default_photo_id', '=', 'apartament_photos.id')
+            ->where('user_id', '=', $userId->id)
+            ->get();
+
+        $userFavouritesCount = $userFavourites->count();
+
+        session(['userFavouritesCount' => $userFavouritesCount]);
+
+        session(['userFavourites' => $userFavourites]);
     }
 }

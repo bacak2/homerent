@@ -8,13 +8,13 @@
           <div class="col-md-6 mb-2 mb-sm-0">
               <div class="input-group mb-2 mb-sm-0">
                   <div class="input-group-addon"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i></div>
-                  <input type="text" class="form-control" id="przyjazd" name="przyjazd" placeholder="{{ __('messages.arrive')}}" value="{{ $_GET['przyjazd'] }}" required>
+                  <input type="text" class="form-control" id="przyjazd" name="przyjazd" placeholder="{{ __('messages.arrive')}}" value="{{ $_GET['przyjazd'] ?? ''}}" required>
               </div>
           </div>
           <div class="col-md-6 mb-2 mb-sm-0">
               <div class="input-group mb-2 mb-sm-0">
                   <div class="input-group-addon"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i></div>
-                  <input type="text" class="form-control" id="powrot" name="powrot" placeholder="{{ __('messages.return')}}"  value="{{ $_GET['powrot'] }}" required>
+                  <input type="text" class="form-control" id="powrot" name="powrot" placeholder="{{ __('messages.return')}}"  value="{{ $_GET['powrot'] ?? ''}}" required>
               </div>
           </div>
       </div>

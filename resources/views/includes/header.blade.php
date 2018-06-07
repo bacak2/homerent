@@ -23,9 +23,35 @@
 	              <a class="nav-link" id="sign-up" href="#">{{ __('messages.register')}}</a>
 	            </li>
 	        @else
-                  <li class="nav-item">
-                    <span id="favourites-nav" class="nav-link">{{ __('messages.My favourites') }} ({{0}})</span>
-                    {{--<a class="nav-link" href="{{ route('myFavourites') }}">Wszystkie</a>--}}
+                  <li class="nav-item" style="position: relative">
+                    <span id="favourites-nav" class="nav-link">{{ __('messages.My favourites') }} ({{Session::get('userFavouritesCount')}})</span>
+                      <div id="favourites-bar" style="border-bottom: 1px solid black; background-image: url('{{ asset('images/account/favouritesPopup.png') }}'); background-repeat: no-repeat; background-position: left top; display: none; position: absolute; left: 8px; width: 320px; z-index: 2000;">
+                          <div class="p-3">
+                              <span class="bold" style="font-size: 24px">Ulubione({{Session::get('userFavouritesCount')}})</span> wyczyść listę
+
+                              @foreach(Session::get('userFavourites') as $favourite)
+                                  <div class="row">
+                                      <div class="col-3" style="background-image: url('{{ asset("images/apartaments/$favourite->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; margin-left: 15px; padding-left: 0px;"></div>
+                                      <div class="col-8 row">
+                                          <div class="col-12 font-13 txt-blue">{{$favourite->apartament_name}}</div>
+                                          <div class="col-12 font-11 bold">{{$favourite->apartament_address}}</div>
+                                          <div class="col-12 font-11">{{$favourite->apartament_address_2}}</div>
+                                      </div>
+                                      <div class="col-1">Heart</div>
+                                  </div>
+                                  <hr>
+                              @endforeach
+                              <a class="btn btn-black" href="{{route('myFavourites')}}">Wszystkie</a>
+                              <a class="btn btn-black" href="{{route('myFavouritesCompare')}}">Porównaj</a>
+                              <button class="btn btn-black">Wyślij</button>
+                          </div>
+                      </div>
+
+                      <script>
+                          $("#favourites-nav").click(function() {
+                              $("#favourites-bar").toggle();
+                          });
+                      </script>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link" href="{{ route('myOpinions') }}">{{ __('messages.My opinions') }} </a>
