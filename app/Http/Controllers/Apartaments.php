@@ -13,6 +13,7 @@ use App\{Apartament, Apartament_description, Apartament_group, Reservation};
 use Illuminate\Pagination\Paginator;
 use DateTime;
 use Auth;
+use Illuminate\Support\Facades\Session;
 
 class Apartaments extends Controller
 {
@@ -1220,8 +1221,16 @@ class Apartaments extends Controller
 
     public function increaseHelpful(Request $request){
 
+        $sessionId = Session::getId();
+
+        if ($request->session()->exists("$request->opinionId/$sessionId")) {
+            return response()->json("Już oceniłeś tą opinię");
+        }
+
         DB::table('apartament_opinions')->where('id', $request->opinionId)->increment('helpful');
 
-        return response()->json('true');
+        session(["$request->opinionId/$sessionId" => 1]);
+
+        return response()->json("Dodano ocenę do opinii");
     }
 }
