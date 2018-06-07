@@ -193,10 +193,13 @@
                     userId: userId,
                 },
                 success: function(responseMessage) {
+console.log(responseMessage[2]);
+                    $("#favourites-nav-item").html("Ulubione("+responseMessage[1]+")");
+
                     @if($favouritesAmount == 0 && Auth::check())
                         $("#first-added-favourites").show();
                     @else
-                        alert(responseMessage);
+                        alert(responseMessage[0]);
                     @endif
                 },
                 error: function() {

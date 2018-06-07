@@ -60,16 +60,22 @@ class LoginController extends Controller
             ->where('email', $request->email)
             ->first();
 
+        $userFavouritesCount = DB::table('apartament_favourites')
+            ->select('id')
+            ->where('user_id', '=', $userId->id)
+            ->get();
+
+        $userFavouritesCount = $userFavouritesCount->count();
+
         $userFavourites = DB::table('apartament_favourites')
             ->select('apartaments.id', 'apartament_descriptions.apartament_name', 'apartament_address', 'apartament_address_2')
             ->distinct('apartaments.id')
             ->join('apartament_descriptions','apartament_favourites.apartament_id', '=', 'apartament_descriptions.apartament_id')
             ->join('apartaments','apartament_favourites.apartament_id', '=', 'apartaments.id')
-            //->join('apartament_photos','apartaments.apartament_default_photo_id', '=', 'apartament_photos.id')
             ->where('user_id', '=', $userId->id)
+            ->orderBy('apartament_favourites.created_at', 'desc')
+            ->limit(3)
             ->get();
-
-        $userFavouritesCount = $userFavourites->count();
 
         session(['userFavouritesCount' => $userFavouritesCount]);
 
