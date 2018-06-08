@@ -265,10 +265,25 @@
                                 userId: userId,
                             },
                             success: function(responseMessage) {
+
+                                if(responseMessage[0] == 1) {
+                                    var htmlForeach = '';
+
+                                    for (var i = 0; i < responseMessage[2].length; i++) {
+                                        htmlForeach += '<div class="row"> <div class="col-3" style="background-image: url(\'{{ url('/') }}/images/apartaments/' + responseMessage[2][i].id + '/1.jpg\'); background-size: cover; position: relative; margin-bottom: 0px; margin-left: 15px; padding-left: 0px; max-height: 52px;"></div> <div class="col-8 row" style="margin-right: -20px"> <div class="col-12 font-13 txt-blue"><a href="/apartaments/' + responseMessage[2][i].apartament_link + '">' + responseMessage[2][i].apartament_name + '</a></div> <div class="col-12 font-11 bold">' + responseMessage[2][i].apartament_address + '</div> <div class="col-12 font-11">' + responseMessage[2][i].apartament_address_2 + '</div> </div> <div class=""><img src="{{ asset("images/favourites/heart.png") }}"></div> </div> <hr>';
+                                    }
+
+                                    html = $('<span id="favourites-nav" onclick="$(\'#favourites-bar\').toggle();" class="nav-link">{{ __('messages.My favourites') }} (' + responseMessage[1] + ')</span> <div id="favourites-bar" style="border-bottom: 1px solid black; background-image: url({{ asset('images/account/favouritesPopup.png') }}); background-repeat: no-repeat; background-position: left top; display: none; position: absolute; left: 8px; width: 320px; z-index: 2000;"> <div class="p-3 pt-4"> <span class="bold" style="font-size: 24px">Ulubione (' + responseMessage[1] + ')</span> <a class="font-11" onclick="clearFavouritesPopup()" href="#">Wyczyść listę</a> ' + htmlForeach + '<a class="btn btn-black px-2" href="{{route('myFavourites')}}">Wszystkie (' + responseMessage[1] + ')</a> <a class="btn btn-black px-2" href="{{route('myFavouritesCompare')}}">Porównaj</a> <button class="send-to-friends btn btn-black px-2" onclick="$(\'#favourites-bar\').hide(); $(\'#send-to\').show();">Wyślij</button> </div> </div>');
+                                    $('#fav-nav').html('');
+                                    html.appendTo('#fav-nav');
+                                }
+
                                 @if($favouritesAmount == 0 && Auth::check())
-                                    $("#first-added-favourites").show();
+                                $("#first-added-favourites").show();
                                 @else
-                                    alert(responseMessage);
+                                if(responseMessage[0] == 1) responseAlert = "Apartament dodano do ulubionych";
+                                else responseAlert = "Apartament znajduje się już w ulubionych";
+                                alert(responseAlert);
                                 @endif
                             },
                             error: function() {

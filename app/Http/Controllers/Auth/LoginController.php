@@ -68,7 +68,7 @@ class LoginController extends Controller
         $userFavouritesCount = $userFavouritesCount->count();
 
         $userFavourites = DB::table('apartament_favourites')
-            ->select('apartaments.id', 'apartament_descriptions.apartament_name', 'apartament_address', 'apartament_address_2')
+            ->select('apartaments.id', 'apartament_descriptions.apartament_name', 'apartament_address', 'apartament_address_2', 'apartament_descriptions.apartament_link')
             ->distinct('apartaments.id')
             ->join('apartament_descriptions','apartament_favourites.apartament_id', '=', 'apartament_descriptions.apartament_id')
             ->join('apartaments','apartament_favourites.apartament_id', '=', 'apartaments.id')
@@ -77,8 +77,19 @@ class LoginController extends Controller
             ->limit(3)
             ->get();
 
+        $userFavouritesAll = DB::table('apartament_favourites')
+            ->select('apartaments.id', 'apartament_descriptions.apartament_name', 'apartament_address', 'apartament_address_2', 'apartament_descriptions.apartament_link')
+            ->distinct('apartaments.id')
+            ->join('apartament_descriptions','apartament_favourites.apartament_id', '=', 'apartament_descriptions.apartament_id')
+            ->join('apartaments','apartament_favourites.apartament_id', '=', 'apartaments.id')
+            ->where('user_id', '=', $userId->id)
+            ->orderBy('apartament_favourites.created_at', 'desc')
+            ->get();
+
         session(['userFavouritesCount' => $userFavouritesCount]);
 
         session(['userFavourites' => $userFavourites]);
+
+        session(['userFavouritesAll' => $userFavouritesAll]);
     }
 }
