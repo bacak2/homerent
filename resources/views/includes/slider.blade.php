@@ -3,13 +3,13 @@
   <div id="mainSliderSearch" class="carousel slide" data-ride="carousel" data-interval="7000">
       <div class="carousel-inner d-none d-md-block d-lg-block d-xl-block">
           <div class="carousel-item active">
-              <img class="d-block w-100" src="images/slider/1.png" alt="First slide">
+              <img class="d-block w-100" src="/images/slider/1.png" alt="First slide">
           </div>
           <div class="carousel-item">
-              <img class="d-block w-100" src="images/slider/2.png" alt="Second slide">
+              <img class="d-block w-100" src="/images/slider/2.png" alt="Second slide">
           </div>
           <div class="carousel-item">
-              <img class="d-block w-100" src="images/slider/3.png" alt="Third slide">
+              <img class="d-block w-100" src="/images/slider/3.png" alt="Third slide">
           </div>
       </div>
       <div id="topSearch" style="background-image: url('images/slider/1.png');">

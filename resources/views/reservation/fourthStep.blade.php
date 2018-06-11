@@ -197,22 +197,44 @@
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Payment for stay') }}:</div><div class="col-8">Cena zakwaterowania nie obejmuje opłaty za zużycie energii elektrycznej oraz opłaty klimatycznej.</div></div>
                     <div class="row"><a class="btn btn-more-info" href="{{ route('apartamentInfo', ['link' => $apartament->descriptions[0]->apartament_link ]) }}">Więcej informacji o obiekcie</a></div>
         </div>
+
         <div class="col-lg-8 col-sm-12">
-            <form class="ml-3 mb-3" name="wskazowki" action="#" onsubmit="znajdz_wskazowki(); return false;" class="ml-2">
-                <div class="row">
-                    Wskazówki dojazdu: <input class="font-12" type="text" name="skad"  id="skad" style="width:180px" placeholder="Lokalizacja początkowa">
-                    <input class="btn btn-info btn-mobile btn-res4th" type="submit" value="Pokaż">
-                    <div class="col-2 font-12 ml-3" style="display: inline-block;">
-                        <div id="distance" class="row" style="font-weight: bold"></div>
-                        <div id="duration" class="row"></div>
-                    </div>
-                    <div class="col-3">
-                        <a class="btn btn-info btn-mobile btn-res4th pull-right">Drukuj wskazówki dojazdu</a>
-                    </div>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#showMap">Mapa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#showStreetview">Okolica (Street view)</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="showMap" class="tab-pane active">
+                    <form name="wskazowki" action="#" onsubmit="znajdz_wskazowki(); return false;">
+                        <div class="row">
+                            <div class="col-12" style="font-size: 16px"><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></div>
+                            <div class="col-12 mb-4" style="font-size: 14px">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}, {{ $apartament->apartament_address_2 }}</div>
+                            <div class="col-12 mb-2" style="font-size: 14px">GPS: N 48° 12' 39.90'' E 16° 23' 1.82''</div>
+                        </div>
+                        <div class="row col-12 my-2">
+                            <span style="font-size: 16px">Wskazówki dojazdu: </span>
+                            <input class="font-12 ml-2" name="skad" id="skad" style="width:180px" placeholder="Lokalizacja początkowa" type="text">
+                            <input class="btn btn-info btn-mobile btn-res4th" value="Pokaż" type="submit">
+                            <div class="col-2 font-12 ml-3" style="display: inline-block;">
+                                <div id="distance" class="row" style="font-weight: bold"></div>
+                                <div id="duration" class="row"></div>
+                            </div>
+                            <div class="col-3">
+                                <a class="btn btn-info btn-mobile btn-res4th pull-right">Drukuj wskazówki dojazdu</a>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="wskazowki"></div>
+                    <div id="mapka" style="width: 100%; height: 500px; margin-bottom: 30px;"></div>
                 </div>
-            </form>
-            <div id="wskazowki"></div>
-            <div id="mapka" style="width: 100%; height: 500px; margin-bottom: 30px;"></div>
+                <div id="showStreetview" class="tab-pane">
+                    <div id="streetView" style="width: 100%; height: 500px; margin-bottom: 30px;"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -300,10 +322,10 @@
     var greenMarkers = [];
     var trasa  		 = new google.maps.DirectionsService();
     var trasa_render = new google.maps.DirectionsRenderer();
+    var wspolrzedne = new google.maps.LatLng({{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }});
 
     function mapaStart()
     {
-        var wspolrzedne = new google.maps.LatLng({{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }});
         var greenIcon = new google.maps.MarkerImage('{{ asset("images/map/u3576.png") }}');
         var opcjeMapy = {
             zoom: 13,
@@ -359,8 +381,28 @@
         return marker;
     }
 
+    function setStreetView(){
+
+        var mapS = new google.maps.Map(document.getElementById('streetView'), {
+            center: wspolrzedne,
+            zoom: 14
+        });
+
+        var panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('streetView'), {
+                position: wspolrzedne,
+                pov: {
+                    heading: 34,
+                    pitch: 0
+                },
+                addressControl: false,
+            });
+        mapS.setStreetView(panorama);
+    }
+
     $(document).ready(function(){
         mapaStart();
+        setStreetView();
     });
 
     $(document).ready(function(){

@@ -1,7 +1,7 @@
 @extends ('layout.layout')
 @section('title', 'Wyszukiwarka')
 @section('content')
-<div class="container pt-5 pb-5 results-search">
+<div class="container pt-5 pb-5 results-search" @if(Request::is('*/account/*') && !$request->has('przyjazd')) style="display: none" @endif>
 <div class="col">
 
     @include('includes.search-form-results')
