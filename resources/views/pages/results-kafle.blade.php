@@ -212,13 +212,14 @@
                             foreachLinks += '{{ url('/') }}/pl/apartaments/'+responseMessage[3][i].apartament_link+',';
                         }
 
-                        html2 = $('<span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br><div class="row"><div class="col-2"><span class="font-14">Linki:</span></div><div class="col-10"><ul class="font-13">'+ htmlForeach2 +'</ul></div></div><label for="emails">Adresy e-mail:</label><input id="emails" name="emails" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)"><input id="links" name="links" type="hidden" value="'+foreachLinks+'"><hr><button onclick="sendMailToFriends()" class="btn btn-default">Wyślij</button><button class="btn btn-default close-send-to">Anuluj</button><div id="close-send-to" class="close-send-to">x</div>');
+                        html2 = $('<span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br><div class="row"><div class="col-2"><span class="font-14">Linki:</span></div><div class="col-10"><ul class="font-13">'+ htmlForeach2 +'</ul></div></div><label for="emails">Adresy e-mail:</label><input id="emails" name="emails" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)"><input id="links" name="links" type="hidden" value="'+foreachLinks+'"><hr><button onclick="sendMailToFriends()" class="btn btn-default">Wyślij</button><button onClick="closeSendTo()" class="btn btn-default">Anuluj</button><div onClick="closeSendTo()" id="close-send-to" class="close-send-to">x</div>');
                         $('#send-to').html('');
                         html2.appendTo('#send-to');
                     }
 
                     @if($favouritesAmount == 0 && Auth::check())
-                        $("#first-added-favourites").show();
+                        if(responseMessage[0] == 1) $("#first-added-favourites").show();
+                        else alert("Apartament znajduje się już w ulubionych");
                     @else
                         if(responseMessage[0] == 1) responseAlert = "Apartament dodano do ulubionych";
                         else responseAlert = "Apartament znajduje się już w ulubionych";
@@ -230,6 +231,10 @@
                 },
             });
         }
+    }
+
+    function closeSendTo(){
+        $("#send-to").hide();
     }
 
 </script>
