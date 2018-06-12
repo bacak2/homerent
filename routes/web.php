@@ -118,6 +118,11 @@ Route::group(
             'as' => 'reservations.SendMail'
         ]);
 
+        Route::GET('/for-owners', [
+            'uses' => 'Owners@index',
+            'as' => 'owners.index'
+        ]);
+
         Route::prefix('/account')->group(function () {
             Route::GET('/data', [
                 'uses' => 'Account@index',
@@ -140,7 +145,7 @@ Route::group(
             ]);
 
             Route::GET('/my-favourites-compare', [
-                'uses' => 'Favourites@compare',
+                'uses' => 'Account@favourites',
                 'as' => 'myFavouritesCompare'
             ]);
 

@@ -55,9 +55,20 @@
                                         <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="Parking" style="background-image: url('{{ asset("images/results/parking.png") }}');"> </div>
                                     @endif
                                 </div>
-                                <div class="col-6 list-item-last-reservation">
-                                    {{ __("messages.Last reservation") }} 2 {{ __("messages.hours ago") }}
-                                </div>
+                                @if(!empty($apartament->lastReservationDate))
+                                    <div class="col-6 list-item-last-reservation">
+                                        <?php
+                                        $date1 = new DateTime($apartament->lastReservationDate);
+                                        $date2 = new DateTime('2006-04-14T11:30:00');
+
+                                        $diff = $date2->diff($date1);
+
+                                        $hours = $diff->h;
+                                        $hours = $hours + ($diff->days*24);
+                                        ?>
+                                        {{ __("messages.Last reservation") }} {{$hours}} {{ __("messages.hours ago") }}
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-12">
@@ -85,8 +96,14 @@
                             <div class="row list-item-name">
                                 <div class="container py-1 font-weight-bold"><h2 style='font-size: 24px; display: inline; font-weight: bold' itemprop="name">{{ $apartament->apartament_name }}</h2>
                                     <span class="pull-right">
-                                    @for ($i = 0; $i < 5; $i++)
+                                        @for ($i = 0; $i < floor($apartament->ratingAvg/2); $i++)
                                             <img class="list-item" src='{{ asset("images/results/star_list.png") }}'>
+                                        @endfor
+                                        @if(floor($apartament->ratingAvg/2) != ceil($apartament->ratingAvg/2))
+                                            <img class="list-item" src='{{ asset("images/results/star_list_half.png") }}'>
+                                        @endif
+                                        @for ($i = ceil($apartament->ratingAvg/2); $i < 5; $i++)
+                                            <img class="list-item" src='{{ asset("images/results/star_list_empty.png") }}'>
                                         @endfor
                                     </span>
                                 </div>
@@ -94,7 +111,20 @@
                             <div class="row list-item-address">
                                 <div class="container py-1">{{ $apartament->apartament_district }}
                                     <span class="pull-right">
-                                        <span style="color: green; letter-spacing: -1px;"><b>8,3/10</b> <span style="font-size: 14px">{{ __("messages.Perfect") }}</span></span> <span style="color: blue; font-size: 10px">55 {{ __("messages.reviews_number") }}</span>
+                                        @if($apartament->ratingAvg < 1)
+                                            <div class="row"></div>
+                                        @elseif($apartament->ratingAvg < 2.5)
+                                            <span class="txt-red" style="letter-spacing: -1px;"><b>{{ number_format($apartament->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;<span class="font-14">{{ __("messages.Awful") }}</span></span>
+                                        @elseif($apartament->ratingAvg < 4.5)
+                                            <span class="txt-red" style="letter-spacing: -1px;"><b>{{ number_format($apartament->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;<span class="font-14">{{ __("messages.Bad") }}</span></span>
+                                        @elseif($apartament->ratingAvg < 6.5)
+                                            <span class="txt-yellow" style="letter-spacing: -1px;"><b>{{ number_format($apartament->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;<span class="font-14">{{ __("messages.Average") }}</span></span>
+                                        @elseif($apartament->ratingAvg < 8.5)
+                                            <span class="txt-green" style="letter-spacing: -1px;"><b>{{ number_format($apartament->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;<span class="font-14">{{ __("messages.Very good") }}</span></span>
+                                        @else
+                                            <span class="txt-green" style="letter-spacing: -1px;"><b>{{ number_format($apartament->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;<span class="font-14">{{ __("messages.Perfect") }}</span></span>
+                                        @endif
+                                        <span style="color: blue; font-size: 10px">{{$apartament->opinionAmount ?? 0}} {{trans_choice('messages.nrReviews', $apartament->opinionAmount ?? 0)}}</span>
                                     </span>
                                 </div>
                             </div>
@@ -116,9 +146,20 @@
                                         <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="Parking" style="background-image: url('{{ asset("images/results/parking.png") }}');"> </div>
                                     @endif
                                 </div>
-                                <div class="col-6 list-item-last-reservation">
-                                    {{ __("messages.Last reservation") }} 2 {{ __("messages.hours ago") }}
-                                </div>
+                                @if(!empty($apartament->lastReservationDate))
+                                    <div class="col-6 list-item-last-reservation">
+                                        <?php
+                                        $date1 = new DateTime($apartament->lastReservationDate);
+                                        $date2 = new DateTime('now');
+
+                                        $diff = $date2->diff($date1);
+
+                                        $hours = $diff->h;
+                                        $hours = $hours + ($diff->days*24);
+                                        ?>
+                                        {{ __("messages.Last reservation") }} {{$hours}} {{ __("messages.hours ago") }}
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-12">

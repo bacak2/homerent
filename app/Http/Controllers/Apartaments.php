@@ -695,12 +695,19 @@ class Apartaments extends Controller
         if ($request->has('balkon')) array_push($whereData, ['apartaments.apartament_balcony', '1']);
         if ($request->has('zwierzeta')) array_push($whereData, ['apartaments.apartament_animals', '1']);
 
-        $withoutGroup = DB::table("apartaments")->selectRaw('apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+        $withoutGroup = DB::table("apartaments")
+            ->selectRaw('lastReservation.lastReservationDate, sub.opinionAmount, sub.ratingAvg, apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
             ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
             ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
             ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
             ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
             ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+            ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
+            '), 'sub.id_apartament', '=', 'apartaments.id')
+            ->leftjoin(DB::raw('(select apartament_id, reservations.created_at as lastReservationDate from `apartaments`
+                right join `reservations` on `apartaments`.`id` = `reservations`.`id`  group by apartament_id) lastReservation
+            '), 'lastReservation.apartament_id', '=', 'apartaments.id')
             ->whereNotIn('apartaments.id', Apartament::select('apartaments.id')
             ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
             /*->leftJoin('apartament_prices', function($join) {
@@ -767,12 +774,19 @@ class Apartaments extends Controller
             //->orderBy('apartaments.group_id', 'DESC')
             //->paginate($paginate, ['apartaments.id']);
 
-        $finds = DB::table("apartaments")->selectRaw('apartament_groups.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+        $finds = DB::table("apartaments")
+            ->selectRaw('lastReservation.lastReservationDate, sub.opinionAmount, sub.ratingAvg, apartament_groups.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
             ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
             ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
             ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
             ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
             ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+            ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
+            '), 'sub.id_apartament', '=', 'apartaments.id')
+            ->leftjoin(DB::raw('(select apartament_id, reservations.created_at as lastReservationDate from `apartaments`
+                right join `reservations` on `apartaments`.`id` = `reservations`.`id`  group by apartament_id) lastReservation
+            '), 'lastReservation.apartament_id', '=', 'apartaments.id')
             ->whereNotIn('apartaments.id', Apartament::select('apartaments.id')
                 ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                 /*->leftJoin('apartament_prices', function($join) {
