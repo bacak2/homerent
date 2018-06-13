@@ -19,7 +19,7 @@ body	{
     font-family: 'Open Sans', sans-serif;
 }
 
-.nav-item:hover{
+.nav-item:hover, input[type="submit"]:hover{
 	cursor: pointer;
 }
 
@@ -2091,4 +2091,50 @@ span.error-show{
 	}
 
 }
+
+@media (max-width: 990px){
+	.h1-owners{
+		font-size: 20px;
+		font-weight: bold;
+	}
+
+	.h2-owners{
+		font-size: 18px;
+		font-weight: bold;
+	}
+
+	.h3-owners{
+		font-size: 13px;
+		font-weight: bold;
+	}
+
+	.font-m-11{
+		font-size: 11px;
+	}
+
+	.font-m-13{
+		font-size: 13px;
+	}
+
+	.mb-sm-30{
+		margin-bottom: 30px;
+	}
+}
+
+@media (min-width: 991px){
+	.h1-owners{
+		font-size: 32px;
+		font-weight: bold;
+	}
+	.h2-owners{
+		font-size: 24px;
+		font-weight: bold;
+	}
+
+	.h3-owners{
+		font-size: 20px;
+		font-weight: bold;
+	}
+}
+
 /*# sourceMappingURL=homerent.css.map */

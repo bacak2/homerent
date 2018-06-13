@@ -53,6 +53,8 @@ Route::group(
 
         Route::get('/autocomplete','Apartaments@apartamentAutoComplete');
 
+        Route::get('/autocompleteCities','Owners@citiesAutoComplete');
+
         Route::get('/reservations', [
             'uses' => 'Reservations@firstStep',
             'as' => 'reservations.firstStep'
@@ -121,6 +123,11 @@ Route::group(
         Route::GET('/for-owners', [
             'uses' => 'Owners@index',
             'as' => 'owners.index'
+        ]);
+
+        Route::GET('/for-owners/first-step', [
+            'uses' => 'Owners@firstStep',
+            'as' => 'owners.firstStep'
         ]);
 
         Route::prefix('/account')->group(function () {
