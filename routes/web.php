@@ -130,6 +130,15 @@ Route::group(
             'as' => 'owners.firstStep'
         ]);
 
+        Route::GET('/for-travelers', [
+            'uses' => 'Travelers@index',
+            'as' => 'travelers.index'
+        ]);
+
+        Route::GET('/about-us', function(){return view('about-us.index');},[
+            'as' => 'travelers.index'
+        ]);
+
         Route::prefix('/account')->group(function () {
             Route::GET('/data', [
                 'uses' => 'Account@index',

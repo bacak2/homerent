@@ -1667,6 +1667,42 @@ div.rating-item-description{
 	}
 }
 
+.input-none-apartment-kind {
+	img{
+		margin-right: 5px;
+	}
+	div.rItem{
+
+	}
+	label{
+		cursor: pointer;
+	}
+	input {
+		display: none;
+	}
+}
+
+.guide-popup{
+	display: none;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: left top;
+	position: relative;
+	left: 8px;
+	min-height: 200px;
+	width: 100%;
+}
+
+.guide-mobile-popup{
+	display: none;
+	border: 1px solid;
+	padding: 10px;
+}
+
+#guide-1:hover, #guide-2:hover, #guide-3:hover{
+	cursor: pointer;
+}
+
 span#showPricePerNight, div#coupon, span#cancelCoupon, span#nameChange{
 	cursor: pointer;
 }
@@ -2058,6 +2094,12 @@ span.error-show{
 	}
 }
 
+@media (max-width: 1200px){
+    #about-us-aggregate{
+      padding: 0px;
+    }
+}
+
 @media (min-width: 1200px){
 	.else-handheld-none{
 		display: none !important;
@@ -2067,6 +2109,10 @@ span.error-show{
 		margin-bottom: -10px;
 		max-width: 95px;
 	}
+
+    #about-us-aggregate{
+      padding: 0px 160px;
+    }
 }
 
 @media (min-width: 991px) and (max-width: 1200px){
