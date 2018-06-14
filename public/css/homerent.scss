@@ -1188,14 +1188,16 @@ label.inline-label{
 	left: 16px;
 }
 
-.form-group .col-sm-9, .form-group .col-sm-6{
-	padding-left: 0px !important;
-}
-
-.form-group{
-	#postcode, #postcode_invoice{
+@media (min-width: 575px){
+	.form-group .col-sm-9, .form-group .col-sm-6{
 		padding-left: 0px !important;
-		padding-right: 0px !important;
+	}
+
+	.form-group{
+		#postcode, #postcode_invoice{
+			padding-left: 0px !important;
+			padding-right: 0px !important;
+		}
 	}
 }
 
@@ -1647,8 +1649,12 @@ div.rating-item-description{
 }
 
 .opinion-rItem{
-	background-color: grey;
-	border: black solid 1px;
+	background-color: #F2F2F2;
+	border: #797979 solid 1px;
+}
+
+.opinion-rItem.selected{
+	background-color: #999999;
 }
 
 .input-none {
