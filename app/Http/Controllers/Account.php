@@ -608,7 +608,20 @@ class Account extends Controller
 
         else {
 
-            $view = 'kafle';
+            switch($request->route()->getName()) {
+                case 'myFavourites':
+                    $view = 'kafle';
+                    break;
+                case 'myFavouritesList':
+                    $view = 'lista';
+                    break;
+                case 'myFavouritesMap':
+                    $view = 'mapa';
+                    break;
+                default:
+                    $view = 'kafle';
+                    break;
+            }
 
             $request->amount = $request->Mamount ?? $request->amount;
             $request->amount2 = $request->Mamount2 ?? $request->amount2;
@@ -946,8 +959,8 @@ class Account extends Controller
                 'finds' => $finds,
                 'favouritesCount' => $favouritesCount,
                 'request' => $request,
-                'black' => $black,
-                'gray' => $gray,
+                //'black' => $black ?? 0,
+                //'gray' => $gray ?? 0,
             ]);
         }
         else if($request->route()->getName() == 'myFavouritesCompare'){

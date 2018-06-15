@@ -135,9 +135,22 @@ Route::group(
             'as' => 'travelers.index'
         ]);
 
-        Route::GET('/about-us', function(){return view('about-us.index');},[
-            'as' => 'travelers.index'
+        Route::GET('/about-us', [
+            'uses' => 'AboutUs@index',
+            'as' => 'aboutUs.index'
         ]);
+
+        Route::GET('/media', [
+            'uses' => 'AboutUs@media',
+            'as' => 'aboutUs.media'
+        ]);
+
+        Route::GET('/media-download/{name}/{extension}', [
+            'uses' => 'AboutUs@getDownload',
+            'as' => 'aboutUs.getDownload'
+        ]);
+
+        Route::view('/resources-to-download', 'about-us.resources');
 
         Route::prefix('/account')->group(function () {
             Route::GET('/data', [
