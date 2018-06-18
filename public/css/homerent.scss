@@ -272,6 +272,33 @@ div.red-nr-alert{
 	}
 }
 
+.question{
+	font-size: 20px;
+	font-weight: bold;
+	color: #0066CC;
+	margin-bottom: 20px;
+
+	&:hover{
+		cursor: pointer;
+	}
+}
+
+.answer{
+    display: none;
+	font-size: 13px;
+}
+
+.faq-header{
+	font-size: 32px;
+	font-weight: bold;
+}
+
+.contact-box{
+	background-color: rgba(242, 242, 242, 1);
+	border: 1px solid rgba(121, 121, 121, 1);
+	padding: 14px;
+}
+
 /* Style the tab */
 .tab {
 	float: left;

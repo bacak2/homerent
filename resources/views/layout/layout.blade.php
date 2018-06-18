@@ -29,6 +29,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/locale/pl.js"></script>
+	<script src="https://apis.google.com/js/platform.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer>{lang: 'pl'}</script>
 	{{-- JS AUTOCOMPLETE --}}
         <script src="{{ asset('vendor/easy-autocomplete/dist/jquery.easy-autocomplete.min.js')}}"></script> 
 	<link rel="stylesheet" href="{{ asset('vendor/easy-autocomplete/dist/easy-autocomplete.min.css')}}"> 

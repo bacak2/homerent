@@ -27,6 +27,8 @@ Route::group(
 
         Route::view('/regulations', 'pages.regulations');
 
+        Route::view('/privacy-policy', 'pages.privacyPolicy');
+
         Auth::routes();
 
         Route::get('/home', 'HomeController@index')->name('home');
@@ -150,7 +152,24 @@ Route::group(
             'as' => 'aboutUs.getDownload'
         ]);
 
+        Route::GET('/news', [
+            'uses' => 'AboutUs@news',
+            'as' => 'aboutUs.news'
+        ]);
+
+        Route::GET('/news/{newsId}', [
+            'uses' => 'AboutUs@newsDetail',
+            'as' => 'aboutUs.newsDetail'
+        ]);
+
+        Route::GET('/contact', [
+            'uses' => 'AboutUs@contact',
+            'as' => 'aboutUs.contact'
+        ]);
+
         Route::view('/resources-to-download', 'about-us.resources');
+
+        Route::view('/guidebooks', 'guidebooks.index');
 
         Route::prefix('/account')->group(function () {
             Route::GET('/data', [

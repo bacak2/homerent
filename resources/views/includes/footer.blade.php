@@ -44,12 +44,12 @@
                         <div class="col-6 col-md-7">
                             <div><a href="{{route('aboutUs.index')}}">O firmie</a></div>
                             <div><a href="{{route('aboutUs.media')}}">Media</a></div>
-                            <div><a href="/regulations">Polityka prywatności</a></div>
-                            <div><a href="#">Regulamin</a></div>
-                            <div><a href="#">Kontakt</a></div>
+                            <div><a href="/privacy-policy">Polityka prywatności</a></div>
+                            <div><a href="/regulations">Regulamin</a></div>
+                            <div><a href="{{route('aboutUs.contact')}}">Kontakt</a></div>
                         </div>
                         <div class="col-6 col-md-5 mobile-none">
-                            <div><a href="#">Aktualności</a></div>
+                            <div><a href="{{route('aboutUs.news')}}">Aktualności</a></div>
                             <div><a href="#">Program afiliacyjny</a></div>
                         </div>
                     </div>
@@ -57,6 +57,10 @@
 
                 <div class="col-12 col-md-3 mb-2">
                     <div class="font-16 bold"><a href="#">Bądź na bieżąco</a></div>
+                    <div class="pt-2 pb-1 pl-2" style="background-color: #ffffff">
+                        <!--div class="g-follow" data-annotation="bubble" data-height="20" data-href="https://plus.google.com/112646535477180334123" data-rel="publisher"></div>
+                        <div class="g-ytsubscribe" data-channel="NoclegiVISITzakopane" data-layout="default" data-count="default"></div-->
+                    </div>
                 </div>
             </div>
         </div>
@@ -69,7 +73,7 @@
                     Aby zapewnić najwyższą jakość usług wykorzystujemy informacje przechowywane w przeglądarce internetowej.
                     <br>
                     Sprawdź cel, warunki przechowywania lub dostępu do nich w
-                    <a class="text-white" style="text-decoration: underline" href="#">Polityce prywatności</a>
+                    <a class="text-white" style="text-decoration: underline" href="/privacy-policy">Polityce prywatności</a>
                 </div>
                 <div class="col-4">
 
