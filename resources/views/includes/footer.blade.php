@@ -23,9 +23,9 @@
                         </div>
 
                         <div class="col-12 col-md-6 mb-4 mb-md-0">
-                            <div class="font-16 bold mb-2"><a href="#">Pomoc</a></div>
-                            <div class="font-13"><a href="#">Często zadawane pytania</a></div>
-                            <div class="font-13"><a href="#">Przewodniki</a></div>
+                            <div class="font-16 bold mb-2"><a href="{{route('aboutUs.contact')}}">Pomoc</a></div>
+                            <div class="font-13"><a href="{{route('aboutUs.contact').'#faq'}}">Często zadawane pytania</a></div>
+                            <div class="font-13"><a href="/guidebooks">Przewodniki</a></div>
                             <div class="font-13"><a href="{{route('travelers.index')}}">Dla podróżnych</a></div>
                             <div class="font-13"><a href="{{route('owners.index')}}">Dla właścicieli</a></div>
                         </div>

@@ -14,7 +14,6 @@
 
 Route::group(
     [
-        //'prefix' => LaravelLocalization::setLocale(),
         'prefix' => LaravelLocalization::setLocale(),
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
     ],
@@ -122,6 +121,11 @@ Route::group(
             'as' => 'reservations.SendMail'
         ]);
 
+        Route::GET('/sendContactForm', [
+            'uses' => 'AboutUs@SendMail',
+            'as' => 'aboutUs.SendMail'
+        ]);
+
         Route::GET('/for-owners', [
             'uses' => 'Owners@index',
             'as' => 'owners.index'
@@ -167,9 +171,19 @@ Route::group(
             'as' => 'aboutUs.contact'
         ]);
 
+        Route::GET('/contact/{faqToShow}', [
+            'uses' => 'AboutUs@faq',
+            'as' => 'aboutUs.faq'
+        ]);
+
         Route::view('/resources-to-download', 'about-us.resources');
 
         Route::view('/guidebooks', 'guidebooks.index');
+
+        Route::GET('/guidebooks/{guidebookId}', [
+            'uses' => 'AboutUs@guidebookDetail',
+            'as' => 'aboutUs.guidebookDetail'
+        ]);
 
         Route::prefix('/account')->group(function () {
             Route::GET('/data', [

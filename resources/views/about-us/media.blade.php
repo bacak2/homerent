@@ -10,7 +10,7 @@
     <div class="row mb-2">
         <div class="col-1 mobile-none"></div>
         <div class="col-12 col-md-11">
-            <a href="#" style="color: #0066CC; font-size: 24px; font-weight: bold">Aktualności »</a>
+            <a href="{{route('aboutUs.news')}}" style="color: #0066CC; font-size: 24px; font-weight: bold">Aktualności »</a>
         </div>
     </div>
     <div class="row mb-4">
@@ -21,13 +21,13 @@
         <div class="col-12 col-md-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                    Ponad 100 obiektów z okolic Śląska w naszej ofercie.
+                    <a href="{{route('aboutUs.newsDetail', 0)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>.
                 </div>
             </div>
             <div class="row mb-2" style="display: inline-block">
                 <div class="col-12 font-14">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                    <a href="#" class="bold font-16">»</a>
+                    <a href="{{route('aboutUs.newsDetail', 0)}}" class="bold font-16">»</a>
                 </div>
             </div>
             <div class="row font-11" style="color: #999999;">
@@ -45,13 +45,13 @@
         <div class="col-12 col-md-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                    Ponad 100 obiektów z okolic Śląska w naszej ofercie.
+                    <a href="{{route('aboutUs.newsDetail', 0)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>.
                 </div>
             </div>
             <div class="row mb-2" style="display: inline-block">
                 <div class="col-12 font-14">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                    <a href="#" class="bold font-16">»</a>
+                    <a href="{{route('aboutUs.newsDetail', 0)}}" class="bold font-16">»</a>
                 </div>
             </div>
             <div class="row font-11" style="color: #999999;">
@@ -69,13 +69,13 @@
         <div class="col-12 col-md-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                    Ponad 100 obiektów z okolic Śląska w naszej ofercie.
+                    <a href="{{route('aboutUs.newsDetail', 0)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>.
                 </div>
             </div>
             <div class="row mb-2" style="display: inline-block">
                 <div class="col-12 font-14">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                    <a href="#" class="bold font-16">»</a>
+                    <a href="{{route('aboutUs.newsDetail', 0)}}" class="bold font-16">»</a>
                 </div>
             </div>
             <div class="row font-11" style="color: #999999;">
@@ -87,13 +87,13 @@
     </div>
     <div class="row mb-5" style="color: #0066CC; font-size: 16px; font-weight: bold">
         <div class="col-8 mobile-none"></div>
-        <div class="col-12 col-md-4"><a href="#">Zobacz wszystko »</a></div>
+        <div class="col-12 col-md-4"><a href="{{route('aboutUs.news')}}">Zobacz wszystko »</a></div>
     </div>
 
     <div class="row mb-2">
         <div class="col-1 mobile-none"></div>
         <div class="col-12 col-md-11">
-            <a href="#" style="color: #0066CC; font-size: 24px; font-weight: bold">O nas w mediach »</a>
+            <a href="{{route('aboutUs.news')}}" style="color: #0066CC; font-size: 24px; font-weight: bold">O nas w mediach »</a>
         </div>
     </div>
     <div class="row mb-4">
@@ -104,13 +104,13 @@
         <div class="col-12 col-md-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                    Ponad 100 obiektów z okolic Śląska w naszej ofercie.
+                    <a href="{{route('aboutUs.newsDetail', 0)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>.
                 </div>
             </div>
             <div class="row mb-2" style="display: inline-block">
                 <div class="col-12 font-14">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                    <a href="#" class="bold font-16">»</a>
+                    <a href="{{route('aboutUs.newsDetail', 0)}}" class="bold font-16">»</a>
                 </div>
             </div>
             <div class="row font-11" style="color: #999999;">
@@ -128,13 +128,13 @@
         <div class="col-12 col-md-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                    Ponad 100 obiektów z okolic Śląska w naszej ofercie.
+                    <a href="{{route('aboutUs.newsDetail', 0)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>.
                 </div>
             </div>
             <div class="row mb-2" style="display: inline-block">
                 <div class="col-12 font-14">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                    <a href="#" class="bold font-16">»</a>
+                    <a href="{{route('aboutUs.newsDetail', 0)}}" class="bold font-16">»</a>
                 </div>
             </div>
             <div class="row font-11" style="color: #999999;">
@@ -152,13 +152,13 @@
         <div class="col-12 col-md-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                    Ponad 100 obiektów z okolic Śląska w naszej ofercie.
+                    <a href="{{route('aboutUs.newsDetail', 0)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>.
                 </div>
             </div>
             <div class="row mb-2" style="display: inline-block">
                 <div class="col-12 font-14">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                    <a href="#" class="bold font-16">»</a>
+                    <a href="{{route('aboutUs.newsDetail', 0)}}" class="bold font-16">»</a>
                 </div>
             </div>
             <div class="row font-11" style="color: #999999;">
@@ -170,7 +170,7 @@
     </div>
     <div class="row mb-5" style="color: #0066CC; font-size: 16px; font-weight: bold">
         <div class="col-8 mobile-none"></div>
-        <div class="col-12 col-md-4"><a href="#">Zobacz wszystko »</a></div>
+        <div class="col-12 col-md-4"><a href="{{route('aboutUs.news')}}">Zobacz wszystko »</a></div>
     </div>
 
     <div class="row" style="margin-bottom: 86px">
@@ -224,7 +224,7 @@
                         <div class="font-11 mt-2">Specjalista ds.kontaktów z mediami</div>
                     </div>
                 </div>
-                <button class="btn btn-black" style="width: 100%">Napisz do nas</button>
+                <button class="btn btn-black writeToUsOpen" style="width: 100%">Napisz do nas</button>
                 <div class="mt-3">
                     <img src="{{asset('images/contact/phoneMinIcon.png')}}">
                     <span class="ml-1">+48 18 20 64 002</span>
@@ -241,4 +241,7 @@
         <iframe style="position: absolute; left: 50%; transform: translateX(-50%); max-width: 100%; max-height: auto" width="660" height="330" src="https://www.youtube.com/embed/eCY6V3Scdfc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 </div>
+
+@include('includes.write-to-us')
+
 @endsection

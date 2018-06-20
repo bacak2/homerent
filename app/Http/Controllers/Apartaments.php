@@ -33,6 +33,8 @@ class Apartaments extends Controller
     public function showIndex()
     {
         $todayDate = date("Y-m-d");
+        $tomorrowDate = date('Y-m-d', strtotime($todayDate . ' +1 day'));
+
         //DB::connection()->enableQueryLog();
         //dd(DB::getQueryLog());
         $apartaments = DB::table('apartaments')
@@ -51,10 +53,15 @@ class Apartaments extends Controller
             })
             ->join('apartament_photos','apartaments.apartament_default_photo_id', '=', 'apartament_photos.id')
             ->groupBy('apartaments.id','apartament_descriptions.id','apartament_descriptions.apartament_name','apartament_descriptions.apartament_link','apartament_photos.photo_link')
+            ->limit(16)
             ->get();
 
 
-        return view('pages.index', ['apartaments' => $apartaments]);
+        return view('pages.index', [
+            'apartaments' => $apartaments,
+            'todayDate' => $todayDate,
+            'tomorrowDate' => $tomorrowDate,
+        ]);
     }
 
 
