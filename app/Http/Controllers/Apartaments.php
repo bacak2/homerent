@@ -33,7 +33,6 @@ class Apartaments extends Controller
     public function showIndex()
     {
         $todayDate = date("Y-m-d");
-        $tomorrowDate = date('Y-m-d', strtotime($todayDate . ' +1 day'));
 
         //DB::connection()->enableQueryLog();
         //dd(DB::getQueryLog());
@@ -56,9 +55,33 @@ class Apartaments extends Controller
             ->limit(16)
             ->get();
 
+        $apartamentsFirstCity = DB::table('apartaments')
+            ->selectRaw('distinct(apartaments.id), apartament_descriptions.apartament_name, 
+                          apartament_descriptions.apartament_link, apartament_photos.photo_link, MIN(apartament_prices.price_value) AS price_value')
+            ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            ->join('languages', function($join) {
+                $join->on('apartament_descriptions.language_id','=','languages.id')
+                    ->where('languages.id', $this->language->id);
+            })
+            ->join('apartament_prices', function($join) use($todayDate) {
+                $join->on('apartament_prices.apartament_id','=','apartaments.id')
+
+                    ->Where('apartament_prices.date_of_price','>=',$todayDate);
+
+            })
+            ->join('apartament_photos','apartaments.apartament_default_photo_id', '=', 'apartament_photos.id')
+            ->where('apartament_city', 'Zakopane')
+            ->groupBy('apartaments.id','apartament_descriptions.id','apartament_descriptions.apartament_name','apartament_descriptions.apartament_link','apartament_photos.photo_link')
+            ->limit(2)
+            ->get();
+
+        $todayDate = date("D d.m.Y");
+        $tomorrowDate = date('D d.m.Y', strtotime($todayDate . ' +1 day'));
+
 
         return view('pages.index', [
             'apartaments' => $apartaments,
+            'apartamentsFirstCity' => $apartamentsFirstCity,
             'todayDate' => $todayDate,
             'tomorrowDate' => $tomorrowDate,
         ]);

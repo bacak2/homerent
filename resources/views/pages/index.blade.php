@@ -23,7 +23,14 @@
 				@endforeach
 				<div class="col-12 text-center p-0 mt-2">
 					<div class="gray-bar-index">
-						<a href="#" style="color: #0066CC">235 innych apartamentów dla Ciebie ></a>
+						<form action="/search/kafle" method="GET">
+							<input type="hidden" name="region" value="">
+							<input type="hidden" name="przyjazd" value="{{$todayDate}}">
+							<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
+							<input type="hidden" name="dzieci" value="0">
+							<input type="hidden" name="dorosli" value="1">
+							<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów dla Ciebie >">
+						</form>
 					</div>
 				</div>
 		    </div>
@@ -149,32 +156,26 @@
 				</div>
 
 				<h4 class="h4-index">Polecamy w Krakowie</h4>
-				<div class="row">
-				@foreach ($apartaments as $apartament)
-					<a class="" href="/apartaments/{{ $apartament->apartament_link }}">
-						<div style="background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}');" class="apartament" itemscope itemtype="http://schema.org/Hotel">
-							<div class="col-8 semi-transparent">
-								<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
-								<p class="p-0 m-0 price">{{ __('messages.from') }} {{$apartament->price_value}} PLN{{ __('messages.pernight') }}</p>
-							</div>
+				@foreach ($apartamentsFirstCity as $apartament)
+					<div style="position: relative">
+						<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
+							<img style="width:100%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
+						</a>
+						<div class="col-8 semi-transparent semi-transparent2">
+							<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
+							<p class="p-0 m-0 price">{{ __('messages.from') }} {{$apartament->price_value}} PLN{{ __('messages.pernight') }}</p>
 						</div>
-					</a>
+					</div>
 				@endforeach
-				</div>
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków - 56 apartamentów</div>
-				</div>
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków - 56 apartamentów</div>
-				</div>
 				<div class="gray-bar-index text-center">
-					<a href="/guidebooks" style="color: #0066CC">235 innych apartamentów w Krakowie ></a>
+					<form action="/search/kafle" method="GET">
+						<input type="hidden" name="region" value="Kraków">
+						<input type="hidden" name="przyjazd" value="{{$todayDate}}">
+						<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
+						<input type="hidden" name="dzieci" value="0">
+						<input type="hidden" name="dorosli" value="1">
+						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów w Krakowie >">
+					</form>
 				</div>
 			</div>
 			<div class="col-12 col-md-4">
@@ -186,20 +187,26 @@
 				</div>
 
 				<h4 class="h4-index">Polecamy we Wrocławiu</h4>
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków - 56 apartamentów</div>
-				</div>
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków - 56 apartamentów</div>
-				</div>
+				@foreach ($apartamentsFirstCity as $apartament)
+					<div style="position: relative">
+						<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
+							<img style="width:100%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
+						</a>
+						<div class="col-8 semi-transparent semi-transparent2">
+							<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
+							<p class="p-0 m-0 price">{{ __('messages.from') }} {{$apartament->price_value}} PLN{{ __('messages.pernight') }}</p>
+						</div>
+					</div>
+				@endforeach
 				<div class="gray-bar-index text-center">
-					<a href="/guidebooks" style="color: #0066CC">235 innych apartamentów w Krakowie ></a>
+					<form action="/search/kafle" method="GET">
+						<input type="hidden" name="region" value="Wrocław">
+						<input type="hidden" name="przyjazd" value="{{$todayDate}}">
+						<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
+						<input type="hidden" name="dzieci" value="0">
+						<input type="hidden" name="dorosli" value="1">
+						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów we Wrocławiu >">
+					</form>
 				</div>
 			</div>
 			<div class="col-12 col-md-4">
@@ -211,20 +218,26 @@
 				</div>
 
 				<h4 class="h4-index">Polecamy w Zakopanem</h4>
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków - 56 apartamentów</div>
-				</div>
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków - 56 apartamentów</div>
-				</div>
+				@foreach ($apartamentsFirstCity as $apartament)
+					<div style="position: relative">
+						<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
+							<img style="width:100%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
+						</a>
+						<div class="col-8 semi-transparent semi-transparent2">
+							<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
+							<p class="p-0 m-0 price">{{ __('messages.from') }} {{$apartament->price_value}} PLN{{ __('messages.pernight') }}</p>
+						</div>
+					</div>
+				@endforeach
 				<div class="gray-bar-index text-center">
-					<a href="/guidebooks" style="color: #0066CC">235 innych apartamentów w Krakowie ></a>
+					<form action="/search/kafle" method="GET">
+						<input type="hidden" name="region" value="Zakopane">
+						<input type="hidden" name="przyjazd" value="{{$todayDate}}">
+						<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
+						<input type="hidden" name="dzieci" value="0">
+						<input type="hidden" name="dorosli" value="1">
+						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów w Zakopanem >">
+					</form>
 				</div>
 			</div>
 		</div>

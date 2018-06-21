@@ -63,6 +63,23 @@ class AboutUs extends Controller
         ]);
     }
 
+    //Async send mail
+    public function sendMailWithNews(Request $request){
+
+        $emails = explode(',', str_replace(' ', '', $request->emails2));
+
+        $links = explode(',', $request->links);
+
+        foreach($emails as $email){
+            Mail::send('includes.mail_send-to-friends', ['test'=>$links], function($message) use ($email){
+                $message->to($email)
+                    ->subject('Link do aktualności');
+                $message->from('kontakt@visitzakopane.pl','Homerent');
+            });
+        }
+
+    }
+
     public function SendMail(Request $request){
 
         //dd($request);

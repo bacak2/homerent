@@ -185,6 +185,11 @@ Route::group(
             'as' => 'aboutUs.guidebookDetail'
         ]);
 
+        Route::GET('/send-news-to-friends', [
+            'uses' => 'AboutUs@sendMailWithNews',
+            'as' => 'aboutUs.sendMailWithNews'
+        ]);
+
         Route::prefix('/account')->group(function () {
             Route::GET('/data', [
                 'uses' => 'Account@index',

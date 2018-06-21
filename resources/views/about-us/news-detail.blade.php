@@ -64,33 +64,34 @@
         </div>
     </div>
 
-    <label for="emails">Adresy e-mail:</label>
-    <input id="emails" name="emails" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)">
+    <label for="emails2">Adresy e-mail:</label>
+    <input id="emails2" name="emails2" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)">
     <input id="links" name="links" type="hidden" value="{{Request::url()}}">
     <hr>
-    <button id="send-mail-to-friends" class="btn btn-default">Wyślij</button>
-    <button class="btn btn-default close-send-news">Anuluj</button>
+    <button id="send-mail-with-news" class="btn btn-default">Wyślij</button>
+    <button class="btn btn-default close-send-news-friends">Anuluj</button>
 
-    <div id="close-send-news" class="close-send-news">x</div>
+    <div id="close-send-news" class="close-send-news-friends">x</div>
 </div>
 
-<div id="confirm-sended-to-friends">
+<div id="confirm-send-news-friends">
     <span style="font-size: 24px; font-weight: bold">Wiadomość e-mail została wysłana</span><br>
-    <button class="btn btn-default close-confirm-sended">OK</button>
+    <button class="btn btn-default close-confirm-news">OK</button>
 </div>
 
 <script>
     $(".send-news-friends").click(function() {
         $("#send-news").show();
+        $("#send-to").hide();
         if($("#truncate-favourites").css("display") != "none") $("#truncate-favourites").hide();
     });
 
-    $(".close-send-news").click(function() {
+    $(".close-send-news-friends").click(function() {
         $("#send-news").hide();
     });
 
-    $(".close-confirm-sended").click(function() {
-        $("#confirm-sended-to-friends").hide();
+    $(".close-confirm-news").click(function() {
+        $("#confirm-send-news-friends").hide();
     });
 
     function copyToClipboard(element) {
@@ -101,21 +102,21 @@
         $temp.remove();
     }
 
-    $("#send-mail-to-friends").on('click', function(){
-        sendMailToFriends();
+    $("#send-mail-with-news").on('click', function(){
+        sendMailWithNews();
     });
 
-    function sendMailToFriends(){
+    function sendMailWithNews(){
 
-        mailToFriendsSended();
+        mailWithNewsSended();
 
         $.ajax({
             type: "GET",
-            url: '/account/send-email-to-friends',
+            url: '/send-news-to-friends',
             dataType : 'json',
             data: {
-                emails: $("#emails").val(),
-                links: $("#links").val(),
+                emails2: $("#emails2").val(),
+                link: $("#link").val(),
             },
             success: function() {
                 //
@@ -126,9 +127,9 @@
         });
     }
 
-    function mailToFriendsSended(){
+    function mailWithNewsSended(){
         $('#send-news').hide();
-        $('#confirm-sended-to-friends').show();
+        $('#confirm-send-news-friends').show();
     }
 </script>
 @endsection
