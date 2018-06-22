@@ -48,7 +48,7 @@
 		<div class="row mb-3 mb-md-5 desktop-none">
 			<div class="col-12 col-md-4">
 				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Na narty</div>
@@ -56,7 +56,7 @@
 			</div>
             <div class="col-12 col-md-4">
 				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Z dziećmi</div>
@@ -64,7 +64,7 @@
 			</div>
 			<div class="col-12 col-md-4">
 				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 1)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Zakopane</div>
@@ -72,7 +72,7 @@
 			</div>
 			<div class="col-12 col-md-4">
 				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 2)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Kraków</div>
@@ -80,7 +80,7 @@
 			</div>
 			<div class="col-12 col-md-4">
 				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 2)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Warszawa</div>
@@ -93,7 +93,7 @@
 			<div class="col-12 mb-4 font-15">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.</div>
 			<div class="col-12 col-md-4">
 				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
@@ -101,7 +101,7 @@
 			</div>
             <div class="col-12 col-md-4">
 				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
@@ -109,7 +109,7 @@
 			</div>
 			<div class="col-12 col-md-4">
 				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 1)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
@@ -117,7 +117,7 @@
 			</div>
 			<div class="col-12 col-md-4">
 				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 2)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
@@ -125,7 +125,7 @@
 			</div>
 			<div class="col-12 col-md-4">
 				<div style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 2)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
@@ -149,7 +149,7 @@
 		<div class="row mb-5 mobile-none">
 			<div class="col-12 col-md-4">
 				<div class="mb-3" style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Kraków - 56 apartamentów</div>
@@ -159,7 +159,7 @@
 				@foreach ($apartamentsFirstCity as $apartament)
 					<div style="position: relative">
 						<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
-							<img style="width:100%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
+							<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
 						</a>
 						<div class="col-8 semi-transparent semi-transparent2">
 							<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
@@ -180,7 +180,7 @@
 			</div>
 			<div class="col-12 col-md-4">
 				<div class="mb-3" style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Wrocław - 56 apartamentów</div>
@@ -190,7 +190,7 @@
 				@foreach ($apartamentsFirstCity as $apartament)
 					<div style="position: relative">
 						<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
-							<img style="width:100%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
+							<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
 						</a>
 						<div class="col-8 semi-transparent semi-transparent2">
 							<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
@@ -211,7 +211,7 @@
 			</div>
 			<div class="col-12 col-md-4">
 				<div class="mb-3" style="position: relative">
-					<a class="to-download-description" href="{{route('aboutUs.guidebookDetail', 0)}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
 						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
 					</a>
 					<div class="guidebooks-index-page">Zakopane - 56 apartamentów</div>
@@ -221,7 +221,7 @@
 				@foreach ($apartamentsFirstCity as $apartament)
 					<div style="position: relative">
 						<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
-							<img style="width:100%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
+							<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
 						</a>
 						<div class="col-8 semi-transparent semi-transparent2">
 							<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>

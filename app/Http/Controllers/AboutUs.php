@@ -42,8 +42,21 @@ class AboutUs extends Controller
         return view('about-us.news-detail');
     }
 
-    public function guidebookDetail($guidebookId){
-        return view('guidebooks.index');
+    public function guidebookDetail($guidebookLink){
+
+        $guidebook = DB::table('guidebooks')
+            ->where('guidebook_link', $guidebookLink)
+            ->first();
+
+        $tags = DB::table('guidebook_tag_pivots')
+            ->where('guidebook_id', $guidebook->id)
+            ->join('guidebook_tags','guidebook_tags.id', '=', 'guidebook_id')
+            ->get();
+
+        return view('guidebooks.detail', [
+            'guidebook'=> $guidebook,
+            'tags'=> $tags,
+        ]);
     }
 
     public function contact(){

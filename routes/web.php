@@ -178,11 +178,19 @@ Route::group(
 
         Route::view('/resources-to-download', 'about-us.resources');
 
-        Route::view('/guidebooks', 'guidebooks.index');
+        Route::GET('/guidebooks', [
+            'uses' => 'Guidebooks@Index',
+            'as' => 'guidebooks.Index'
+        ]);
 
-        Route::GET('/guidebooks/{guidebookId}', [
-            'uses' => 'AboutUs@guidebookDetail',
-            'as' => 'aboutUs.guidebookDetail'
+        Route::GET('/guidebooks/{guidebookLink}', [
+            'uses' => 'Guidebooks@Detail',
+            'as' => 'guidebooks.Detail'
+        ]);
+
+        Route::GET('/guidebooks/tag/{guidebookTag}', [
+            'uses' => 'Guidebooks@Tag',
+            'as' => 'guidebooks.Tag'
         ]);
 
         Route::GET('/send-news-to-friends', [
