@@ -61,6 +61,11 @@ Route::group(
             'as' => 'reservations.firstStep'
         ]);
 
+        Route::get('/reservations-unavailable', [
+            'uses' => 'Reservations@unavailable',
+            'as' => 'reservations.unavailable'
+        ]);
+
         Route::get('/reservations-second-step', [
             'uses' => 'Reservations@secondStep',
             'as' => 'reservations.secondStep'

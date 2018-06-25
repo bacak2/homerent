@@ -439,4 +439,23 @@ class Reservations extends Controller
         return $priceFrom;
     }
 
+    public function unavailable(){
+
+        $apartmentsSimilar = DB::table('apartaments')
+            ->selectRaw('*, apartaments.id, MIN(price_value) AS min_price')
+            ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            ->join('languages', function($join) {
+                $join->on('apartament_descriptions.language_id','=','languages.id')
+                    ->where('languages.id', $this->language->id);
+            })
+            ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+            ->groupBy('apartaments.id')
+            ->limit(4)
+            ->get();
+
+        return view('reservation.apartment-unavailable', [
+            'apartmentsSimilar' => $apartmentsSimilar,
+        ]);
+    }
+
 }
