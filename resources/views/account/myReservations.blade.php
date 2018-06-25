@@ -4,7 +4,6 @@
 
 @section('content')
 <div class="container">
-    @if(!($users_reservations_future->isEmpty() && $users_reservations_gone->isEmpty()))
     <div class="row mt-4 mb-2">
         <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>Rezerwacje</b></h1></div>
         <span id="my-reservation-filters">
@@ -37,14 +36,6 @@
     <div class="row mb-4">
         <span class="font-11">* Właściciel może pobrać na miejscu dodatkowe opłaty - np: opłatę klimatyczną, parking itd  (sprawdź opis oferty).</span>
     </div>
-    @else
-        <div class="row mt-4 mb-2">
-            <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>Rezerwacje</b></h1></div>
-        </div>
-        <div class="row mt-4 mb-2">
-            <div class="col-12">Nie masz jeszcze żadnych rezerwacji. </div>
-        </div>
-    @endif
     @foreach($users_reservations_future as $reservation)
     <div class="row minH-90 py-3">
         <div class="col-lg-2 col-4"><img src='{{ asset("images/apartaments/$reservation->apartament_id/1.jpg") }}') style="width: 100%"></div>

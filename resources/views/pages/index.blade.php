@@ -131,13 +131,21 @@
 					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
 				</div>
 			</div>
-			<div class="col-12 col-md-4 font-15">
+			<div class="col-12 col-md-4">
+				<div style="position: relative">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
+						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
+					</a>
+					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
+				</div>
+			</div>
+			<!--div class="col-12 col-md-4 font-15">
 				<div style="height: 195px; border: 1px solid black; padding: 18px;">
 					<span class="font-18 bold d-block">Polecaj i zarabiaj</span>
 					<span class="d-block mb-2">Za każde polecenie dostaniesz <b>40 zł</b> do wykorzystania podczas kolejnych rezerwacji z naszej oferty.</span>
 					<a href="#" class="btn btn-black" style="color: #fff; width: 100px; padding: 7px 20px">Zobacz</a>
 				</div>
-			</div>
+			</div-->
 			<div class="col-12 text-center">
 				<div class="gray-bar-index">
 					<a href="/guidebooks" style="color: #0066CC">Więcej przewodników »</a>

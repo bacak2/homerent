@@ -4,19 +4,21 @@
         <div class="col-2"><span class="font-14">Linki:</span></div>
         <div class="col-10">
             <ul class="font-13">
-                @foreach(Session::get('userFavouritesAll') as $apartament)
-                    <li>
-                        <span id="link{{ $apartament->id }}">{{route('apartamentInfo', $apartament->apartament_link)}}</span>
-                        <span class="txt-blue copy-to-clipboard" onclick="copyToClipboard('#link{{ $apartament->id }}')">Skopiuj</span>
-                    </li>
-                @endforeach
+                @if(!Session::get('userFavouritesAll')->isEmpty())
+                    @foreach(Session::get('userFavouritesAll') as $apartament)
+                        <li>
+                            <span id="link{{ $apartament->id }}">{{route('apartamentInfo', $apartament->apartament_link)}}</span>
+                            <span class="txt-blue copy-to-clipboard" onclick="copyToClipboard('#link{{ $apartament->id }}')">Skopiuj</span>
+                        </li>
+                    @endforeach
+                @endif
             </ul>
         </div>
     </div>
 
     <label for="emails">Adresy e-mail:</label>
     <input id="emails" name="emails" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)">
-    <input id="links" name="links" type="hidden" value="@foreach(Session::get('userFavouritesAll') as $apartament){{route('apartamentInfo', $apartament->apartament_link)}},@endforeach">
+    <input id="links" name="links" type="hidden" value="@if(!Session::get('userFavouritesAll')->isEmpty()) @foreach(Session::get('userFavouritesAll') as $apartament){{route('apartamentInfo', $apartament->apartament_link)}},@endforeach @endif">
     <hr>
     <button id="send-mail-to-friends" class="btn btn-default">Wyślij</button>
     <button class="btn btn-default close-send-to">Anuluj</button>

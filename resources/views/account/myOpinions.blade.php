@@ -4,7 +4,14 @@
 
 @section('content')
 <div class="container">
-    @if(!($users_opinions->isEmpty()))
+@if($users_opinions->isEmpty())
+    <div class="row mt-4 mb-2">
+        <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>Opinie</b></h1></div>
+    </div>
+    <div class="row mt-4 mb-2">
+        <div class="col-12">Nie możesz jeszcze dodawać opinii.</div>
+    </div>
+@else
     <div class="row mt-4 mb-2">
         <div class="col-12 row">
             <span style="font-size: 28px"><b>Moje opinie</b></span>
@@ -42,14 +49,6 @@
         </div>
         </span>
     </div>
-    @else
-        <div class="row mt-4 mb-2">
-            <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>Opinie</b></h1></div>
-        </div>
-        <div class="row mt-4 mb-2">
-            <div class="col-12">Nie możesz jeszcze dodawać opinii.</div>
-        </div>
-    @endif
 
     {{--table header--}}
         <div class="row" style="font-size: 20px"><div class="col-lg-6"></div><div class="col-lg-2" style="margin-left: -15px;"><b>Średnia ocen</b></div><div class="col-lg-4"><b>Twoja ocena</b></div></div>
@@ -143,6 +142,8 @@
             </div>
         </div>
     @endforeach
+
+@endif
 </div>
 
 <div id="opinion-detail-popup" style="display: none;">

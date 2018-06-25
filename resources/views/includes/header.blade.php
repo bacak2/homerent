@@ -25,23 +25,25 @@
 	        @else
                   <li id="fav-nav" class="nav-item" style="position: relative">
                     <span id="favourites-nav-item">
-                      <span id="favourites-nav" @if(Session::get('userFavouritesCount') != 0) onclick="$('#favourites-bar').toggle();" @else onclick="window.location.href='{{route("myFavourites")}}'" @endif class="nav-link">{{ __('messages.My favourites') }} ({{Session::get('userFavouritesCount')}})</span>
+                      <span id="favourites-nav" @if(Session::get('userFavouritesCount') != 0) onclick="$('#favourites-bar').toggle();" @else onclick="window.location.href='{{route("myFavourites")}}'" @endif class="nav-link">{{ __('messages.My favourites') }} ({{Session::get('userFavouritesCount') ?? 0}})</span>
                       <div id="favourites-bar" style="border-bottom: 1px solid black; background-image: url('{{ asset('images/account/favouritesPopup.png') }}'); background-repeat: no-repeat; background-position: left top; display: none; position: absolute; left: 8px; width: 320px; z-index: 2000;">
                           <div class="p-3 pt-4">
                               <span class="bold" style="font-size: 24px">Ulubione ({{Session::get('userFavouritesCount')}})</span>
                               <a id="clear-favourites-in-header" class="font-11" href="#">Wyczyść listę</a>
-                              @foreach(Session::get('userFavourites') as $favourite)
-                                  <div class="row">
-                                      <div class="col-3" style="background-image: url('{{ asset("images/apartaments/$favourite->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; margin-left: 15px; padding-left: 0px; max-height: 52px;"></div>
-                                      <div class="col-8 row" style="margin-right: -20px">
-                                          <div class="col-12 font-13 txt-blue"><a href="/apartaments/{{$favourite->apartament_link}}">{{$favourite->apartament_name}}</a></div>
-                                          <div class="col-12 font-11 bold">{{$favourite->apartament_address}}</div>
-                                          <div class="col-12 font-11">{{$favourite->apartament_address_2}}</div>
+                              @if(Session::get('userFavouritesCount') != 0)
+                                  @foreach(Session::get('userFavourites') as $favourite)
+                                      <div class="row">
+                                          <div class="col-3" style="background-image: url('{{ asset("images/apartaments/$favourite->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; margin-left: 15px; padding-left: 0px; max-height: 52px;"></div>
+                                          <div class="col-8 row" style="margin-right: -20px">
+                                              <div class="col-12 font-13 txt-blue"><a href="/apartaments/{{$favourite->apartament_link}}">{{$favourite->apartament_name}}</a></div>
+                                              <div class="col-12 font-11 bold">{{$favourite->apartament_address}}</div>
+                                              <div class="col-12 font-11">{{$favourite->apartament_address_2}}</div>
+                                          </div>
+                                          <div class=""><img src="{{ asset("images/favourites/heart.png") }}"></div>
                                       </div>
-                                      <div class=""><img src="{{ asset("images/favourites/heart.png") }}"></div>
-                                  </div>
-                                  <hr>
-                              @endforeach
+                                      <hr>
+                                  @endforeach
+                              @endif
                               <a class="btn btn-black px-2" href="{{route('myFavourites')}}">Wszystkie ({{Session::get('userFavouritesCount')}})</a>
                               <a class="btn btn-black px-2" href="{{route('myFavouritesCompare')}}">Porównaj</a>
                               <button class="send-to-friends btn btn-black px-2" onclick="$('#favourites-bar').hide()">Wyślij</button>

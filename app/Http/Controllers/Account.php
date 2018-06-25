@@ -138,6 +138,10 @@ class Account extends Controller
             ->orderBy('reservation_arrive_date', 'DESC')
             ->get();
 
+        if($users_reservations_future->isEmpty() && $users_reservations_gone->isEmpty()){
+            return view('account.myReservations-empty');
+        }
+
         return view('account.myReservations', [
             'users_reservations_future' => $users_reservations_future,
             'users_reservations_gone' => $users_reservations_gone,

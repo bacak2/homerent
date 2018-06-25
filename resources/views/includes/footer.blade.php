@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-6 col-md-5 mobile-none">
                             <div><a href="{{route('aboutUs.news')}}">Aktualności</a></div>
-                            <div><a href="#">Program afiliacyjny</a></div>
+                            <!--div><a href="#">Program afiliacyjny</a></div-->
                         </div>
                     </div>
                 </div>
