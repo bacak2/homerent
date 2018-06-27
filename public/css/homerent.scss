@@ -2243,6 +2243,15 @@ span.error-show{
 	}
 }
 
+@media (max-width: 767px){
+	.form-row.pick-date{
+		padding-right: 0px;
+		& > div{
+			padding-right: 0px;
+		}
+	}
+}
+
 @media (min-width: 768px) and (max-width: 990px){
 	.dropdown-menu.show{
 		width: 720px;

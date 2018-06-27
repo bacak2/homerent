@@ -8,13 +8,13 @@
           <div class="col-md-6 mb-2 mb-sm-0">
               <div class="input-group mb-2 mb-sm-0">
                   <div class="input-group-addon"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i></div>
-                  <input type="text" class="form-control" id="przyjazd" name="przyjazd" placeholder="{{ __('messages.arrive')}}" required>
+                  <input type="text" class="form-control" id="przyjazd" name="przyjazd" placeholder="{{ __('messages.arrive')}}" required style="margin-right: 1px">
               </div>
           </div>
           <div class="col-md-6 mb-2 mb-sm-0">
               <div class="input-group mb-2 mb-sm-0">
                   <div class="input-group-addon"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i></div>
-                  <input type="text" class="form-control" id="powrot" name="powrot" placeholder="{{ __('messages.return')}}"  required>
+                  <input type="text" class="form-control" id="powrot" name="powrot" placeholder="{{ __('messages.return')}}"  required style="margin-right: 1px">
               </div>
           </div>
       </div>

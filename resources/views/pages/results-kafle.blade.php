@@ -1,7 +1,7 @@
 @extends ('pages.results')
 @section ('displayResults')
 
-    {{--dd(Session::get('auth_attempt'))--}}
+
             <div class="row desktop-none" style="margin-bottom: 20px">
                 <div class="col-9 text-mobile-search">
                     <a href="{{ route('index') }}" style="color: #00afea">Start > </a><b>{{ $finds[0]->apartament_city}}</b>, {{__('messages.from')}} {{ $_GET['przyjazd'] }}, {{__('messages.number of nights')}}: {{ $nightsCounter }}, {{__('messages.Persons')}}: {{ $_GET['dorosli']+$_GET['dzieci'] }} {{--__('messages.Filters')--}}

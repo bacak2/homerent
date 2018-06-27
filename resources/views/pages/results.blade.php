@@ -1,16 +1,27 @@
 @extends ('layout.layout')
 @section('title', 'Wyszukiwarka')
 @section('content')
-<div class="container pt-5 pb-5 results-search" @if(Request::is('*/account/*') && !$request->has('przyjazd')) style="display: none" @endif>
-<div class="col">
 
-    @include('includes.search-form-results')
+@mobile
+     @switch($request->region)
+        @case('Kraków') @case('kraków') <div id="topSearch" style="background-image: url('{{asset('images/slider/1.png')}}');"> @break
+        @case('Zakopane') @case('zakopane') <div id="topSearch" style="background-image: url('{{asset('images/slider/2.png')}}');"> @break
+        @case('Wrocław') @case('wrocław') <div id="topSearch" style="background-image: url('{{asset('images/slider/3.png')}}');"> @break
+        @default <div id="topSearch" style="background-image: url('{{asset('images/slider/1.png')}}');">
+     @endswitch
+    <div class="container searchCont" style="padding-top: 20px;">
+        @include('includes.search-form-results')
+    </div>
 </div>
-</div>
+@elsemobile
+    <div class="container pt-5 pb-5 results-search" @if(Request::is('*/account/*') && !$request->has('przyjazd')) style="display: none" @endif>
+        <div class="col">
+            @include('includes.search-form-results')
+        </div>
+    </div>
+@endmobile
 	<div class="container" id="apartamentsforyou">
-
-                @yield('displayResults')
-
+        @yield('displayResults')
 	</div>
 <div id="lang" style="display: none;">
         {{ App::getLocale() }}
@@ -24,7 +35,7 @@
                 startOfWeek: 'monday',
                 language:'{{ App::getLocale() }}',
                 startDate: new Date(),
-                format: 'ddd D.M.YYYY',  //more formats at http://momentjs.com/docs/#/displaying/format/
+                format: 'ddd DD.MM.YYYY',  //more formats at http://momentjs.com/docs/#/displaying/format/
                 customOpenAnimation: function(cb)
                 {
                     $(this).fadeIn(100, cb);
