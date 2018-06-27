@@ -231,7 +231,7 @@
 
 <script>
     $('#guide-1').click(function() {
-        $('#guide-1-popup').show();
+        $('#guide-1-popup').toggle();
         $('#guide-2-popup').hide();
         $('#guide-3-popup').hide();
     });
@@ -243,7 +243,7 @@
     });
 
     $('#guide-2').click(function() {
-        $('#guide-2-popup').show();
+        $('#guide-2-popup').toggle();
         $('#guide-1-popup').hide();
         $('#guide-3-popup').hide();
     });
@@ -255,7 +255,7 @@
     });
 
     $('#guide-3').click(function() {
-        $('#guide-3-popup').show();
+        $('#guide-3-popup').toggle();
         $('#guide-1-popup').hide();
         $('#guide-2-popup').hide();
     });

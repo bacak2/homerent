@@ -9,7 +9,7 @@ $dataItemTopHeight: 40px;
 	visibility:hidden !important;
 }
 
-#navMenuTop #my-favouriteies, a.btn.btn-info.btn-mobile.btn-res4th.pull-right, #my-reservation-filters, div.com-2 .btn.font-11{
+#navMenuTop #my-favouriteies, a.btn.btn-info.btn-mobile.btn-res4th.pull-right, div.com-2 .btn.font-11{
 	display: none !important;
 }
 
@@ -88,6 +88,12 @@ body	{
 
 .nav-item:hover, input[type="submit"]:hover{
 	cursor: pointer;
+}
+
+.btn.detail{
+	background: none;
+	color: #0056ff;
+	font-size: 14px;
 }
 
 .rating-green{
@@ -2243,12 +2249,23 @@ span.error-show{
 	}
 }
 
+@media (min-width: 767px){
+	.btn-group.user-opinion{
+		position: absolute;
+		right: 0;
+	}
+}
+
 @media (max-width: 767px){
 	.form-row.pick-date{
 		padding-right: 0px;
 		& > div{
 			padding-right: 0px;
 		}
+	}
+
+	.btn-group.user-opinion{
+		position: relative;
 	}
 }
 
@@ -2374,6 +2391,11 @@ span.error-show{
 			background-color: #fff;
 			padding: 18px;
 		}
+	}
+
+	.user-opinion-row{
+		border-bottom: 1px solid black;
+		border-top: 1px solid black;
 	}
 }
 

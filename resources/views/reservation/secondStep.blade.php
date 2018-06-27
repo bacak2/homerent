@@ -619,7 +619,7 @@
                         <input id="accept0" name="accept0" type="checkbox" class="required">
                         <label for="accept0" class="inline-label">Akceptuję ustawę o ochronie danych osobowych (Lorem ipsum, dokładny tekst tego disclamera do ułożenia przez prawnika, być może nie będzie potrzebny, jeśli jest akceptacja regulaminu)</label>
                     </div>
-                    <div class="row mb-4">
+                    <div class="row mb-4 pt-4 pt-md-0">
                         <input id="accept1" name="accept1" type="checkbox" class="required">
                         <label for="accept1" class="inline-label">{{ __('messages.I accept the terms of use') }} Homent</label>
                     </div>

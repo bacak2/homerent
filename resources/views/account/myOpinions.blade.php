@@ -13,48 +13,22 @@
     </div>
 @else
     <div class="row mt-4 mb-2">
-        <div class="col-12 row">
+        <div class="col-12">
             <span style="font-size: 28px"><b>Moje opinie</b></span>
             @if($opinionToAdd > 0)
-                <div style="position: absolute; right: 0px;" class="btn-group">
+                <div class="btn-group user-opinion">
                     <a class="btn @if($buttonCheck == 1) btn-selected @endif btn-info btn-mobile" href="{{route('myOpinions')}}">{{__('Wszystkie')}}</a>
                     <a class="btn @if($buttonCheck == 2) btn-selected @endif btn-info btn-mobile" href="{{route('myOpinionsToAdd')}}">{{__('Do wystawienia')}}<div class="red-nr-alert">{{$opinionToAdd}}</div></a>
                 </div>
             @endif
         </div>
-        <span id="my-reservation-filters">
-        <div class="col-lg-3 col-12 inline-wrapper text-right">
-            <div class="btn-group pull-left">
-                <a class="btn btn-mobile btn-selected" href="{{ route('myReservations')}}">{{__('Data przyjazdu')}}</a>
-                <a class="btn btn-mobile btn-info" href="{{url()->current()}}?sort=reservation">{{__('Data rezerwacji')}}</a>
-            </div></div>
-        <div class="col-lg-5 col-12">
-            <input class="col-lg-6 col-5" id="search-reservation" type="text" style="width: 100%; font-size: 10px" placeholder="np: nr rezerwacji, nazwa/adres obiektu">
-            <button class="btn btn-mobile btn-dark col-lg-4 col-6">Szukaj rezerwacji</button>
-        </div>
-        <div class="col-lg-1 col-2"><button type="button" class="btn btn-filter dropdown-toggle" id="menu1" data-toggle="dropdown"><span>{{ __('messages.Filters') }}</span><!--img src="{{ asset("images/results/filter.png") }}"--></button>
-            <div class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                {!! Form::open(array('url' => '#')) !!}
-                <div class="row">
-                    <div class="col-3">
-
-                    </div>
-                </div>
-                <hr>
-                <button type="submit" class="btn btn-primary searchbtn">{{ __('messages.Apply filters') }}</button>
-                <a id="resetFilters" href="#">{{ __('messages.Restore default') }}</a>
-                {!! Form::close() !!}
-
-            </div>
-        </div>
-        </span>
     </div>
 
     {{--table header--}}
-        <div class="row" style="font-size: 20px"><div class="col-lg-6"></div><div class="col-lg-2" style="margin-left: -15px;"><b>Średnia ocen</b></div><div class="col-lg-4"><b>Twoja ocena</b></div></div>
+        <div class="row mobile-none" style="font-size: 20px"><div class="col-lg-6"></div><div class="col-lg-2" style="margin-left: -15px;"><b>Średnia ocen</b></div><div class="col-lg-4"><b>Twoja ocena</b></div></div>
     {{--end header--}}
     @foreach($users_opinions as $opinion)
-        <div class="row py-3">
+        <div class="user-opinion-row row py-3 my-3 my-md-0">
             <div class="col-lg-2 col-4"><img src='{{ asset("images/apartaments/$opinion->apartament_id/1.jpg") }}') style="width: 100%;"></div>
             <div class="col-lg-3 col-8">
                 <span class="font-16 txt-blue" style="font-weight: bold"><a href="/apartaments/{{ $opinion->apartament_link }}">{{ $opinion->apartament_name }}</a></span><br>
@@ -63,12 +37,13 @@
                     {{ $opinion->apartament_address }}
                 </span>
             </div>
-            <div class="col-lg-1 col-4">
-                <div class="row font-11">Pobyt:</div>
-                <div class="row font-12">{{ abs((strtotime($opinion->reservation_arrive_date) - strtotime($current_data)) / (60*60*24)) }} dni temu</div>
+            <div class="col-lg-1 col-12">
+                <div class="font-11">Pobyt:</div>
+                <div class="font-12">{{ abs((strtotime($opinion->reservation_arrive_date) - strtotime($current_data)) / (60*60*24)) }} dni temu</div>
             </div>
-            <div class="col-lg-2 col-4">
-                <div class="row font-11">
+            <div class="col-12 mt-2 desktop-none">Średnia ocen:</div>
+            <div class="col-lg-2 col-12 px-3 px-md-0">
+                <div class="font-11">
                     @for ($i = 0; $i < floor($opinion->ratingAvg/2); $i++)
                         <img class="mr-2" src='{{ asset("images/opinions/star.png") }}'>
                     @endfor
@@ -80,23 +55,24 @@
                     @endfor
                 </div>
                 @if($opinion->ratingAvg < 1)
-                    <div class="row"></div>
+                    <div></div>
                 @elseif($opinion->ratingAvg < 2.5)
-                    <div class="row txt-red"><b>{{ number_format($opinion->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Awful") }}</div>
+                    <div class="txt-red"><b>{{ number_format($opinion->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Awful") }}</div>
                 @elseif($opinion->ratingAvg < 4.5)
-                    <div class="row txt-red"><b>{{ number_format($opinion->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Bad") }}</div>
+                    <div class="txt-red"><b>{{ number_format($opinion->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Bad") }}</div>
                 @elseif($opinion->ratingAvg < 6.5)
-                    <div class="row txt-yellow"><b>{{ number_format($opinion->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Average") }}</div>
+                    <div class="txt-yellow"><b>{{ number_format($opinion->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Average") }}</div>
                 @elseif($opinion->ratingAvg < 8.5)
-                    <div class="row txt-green"><b>{{ number_format($opinion->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Very good") }}</div>
+                    <div class="txt-green"><b>{{ number_format($opinion->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Very good") }}</div>
                 @else
-                    <div class="row txt-green"><b>{{ number_format($opinion->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Perfect") }}</div>
+                    <div class="txt-green"><b>{{ number_format($opinion->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Perfect") }}</div>
                 @endif
-                <div class="row font-12 txt-blue">{{$opinion->opinionAmount ?? 0}} {{trans_choice('messages.nrReviews', $opinion->opinionAmount ?? 0)}}</div>
+                <div class="font-12 txt-blue">{{$opinion->opinionAmount ?? 0}} {{trans_choice('messages.nrReviews', $opinion->opinionAmount ?? 0)}}</div>
             </div>
-            <div class="col-lg-4 col-6">
+            <div class="col-lg-4 col-12 px-3 px-md-0">
                 @if($opinion->total_rating > 0)
-                    <div class="row">
+                    <div class="col-12 px-0 mt-2 desktop-none">Twoja ocena:</div>
+                    <div class="row px-3 px-md-0">
                         <div class="col-6">
                             <div class="row font-11">
                                 @for ($i = 0; $i < floor($opinion->total_rating/2); $i++)
@@ -123,14 +99,14 @@
                             <div class="row font-12">{{ date("d.m.Y", strtotime($opinion->opinionCreateDate)) }}</div>
                         </div>
                         <div class="col-4 font-12 txt-blue">
-                            <button class="btn detail" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">Szczegóły >></button>
+                            <button class="btn detail" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">szczegóły >></button>
                         </div>
                         <div class="col-2">
                             <i onClick="deletePop({{$opinion->id_reservation}})" class="trash-my-opinions fa fa-trash fa-2x" aria-hidden="true"></i>
                         </div>
                     </div>
                 @else
-                    <div class="row instead-trash">
+                    <div class="row instead-trash px-3 px-md-1">
                         <div class="col-8 font-11">
                             Przekazując informacje na temat pobytu w tym obiekcie pomagasz innym podróżnym podejmować lepsze decyzje.
                         </div>
