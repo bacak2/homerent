@@ -178,10 +178,10 @@
         <span id="opinion">
             <h3 class="my-4"><b>Ocena</b></h3>
             <div class="row mb-5">
-                <div class="col-2"><a class="btn btn-black" href="{{url()->current()}}/opinion" style="width: 100%">Oceń teraz</a></div>
-                <div class="col-10">
-                    <div class="row mb-2 font-12">Twoja ocena i opinia pomogą wybierać innym w przyszłości.</div>
-                    <div class="row font-12">A dodatkowo zyskujesz 5% rabatu lub 50 pln zniżki na kolejną rezerwację.</div>
+                <div class="col-12 col-md-2"><a class="btn btn-black" href="{{url()->current()}}/opinion" style="width: 100%">Oceń teraz</a></div>
+                <div class="col-12 col-md-10">
+                    <div class="mb-2 font-12">Twoja ocena i opinia pomogą wybierać innym w przyszłości.</div>
+                    <div class="font-12">A dodatkowo zyskujesz 5% rabatu lub 50 pln zniżki na kolejną rezerwację.</div>
                 </div>
             </div>
         </span>
@@ -195,7 +195,7 @@
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Cancellation / prepayment') }}:</div><div class="col-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</div></div>
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Animals') }}:</div><div class="col-8">Zwierzęta są akceptowane na życzenie. Mogą obowiązywać dodatkowe opłaty</div></div>
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Payment for stay') }}:</div><div class="col-8">Cena zakwaterowania nie obejmuje opłaty za zużycie energii elektrycznej oraz opłaty klimatycznej.</div></div>
-                    <div class="row"><a class="btn btn-more-info" href="{{ route('apartamentInfo', ['link' => $apartament->descriptions[0]->apartament_link ]) }}">Więcej informacji o obiekcie</a></div>
+                    <div class="row mx-0 mb-3 mb-md-0"><a class="btn btn-more-info" href="{{ route('apartamentInfo', ['link' => $apartament->descriptions[0]->apartament_link ]) }}">Więcej informacji o obiekcie</a></div>
         </div>
 
         <div class="col-lg-8 col-sm-12">

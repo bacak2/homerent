@@ -131,6 +131,18 @@ div.red-nr-alert{
 	margin-left: 5px;
 }
 
+#enterTerm{
+
+	border: black 1px solid;
+	font-size: 16px;
+	font-weight: bold;
+	background-color: rgba(204, 204, 204, 1);
+
+	&:hover{
+		cursor: pointer;
+	}
+}
+
 #opinion-choice{
 	width: 330px;
 	margin-top: 46px;
@@ -538,6 +550,7 @@ div.red-nr-alert{
 }
 
 .anchor-destination{
+	width: 0px;
 	padding-top: 100px;
 	margin-top: -100px;
 }
@@ -1914,7 +1927,7 @@ div.reservation-path{
 	height:100%;
 	background-color: rgba(0, 0, 0, 0.8);
 	z-index: 2000;
-	#login-form, #registration-form, #opinion-detail {
+	#login-form, #registration-form {
 		position: fixed;
 		width: 320px;
 		border: solid black 1px;
@@ -1933,18 +1946,6 @@ div.reservation-path{
       top: 0;
       left: 50%;
       transform: translate(-50%, 10%);
-    }
-
-	#opinion-detail{
-      top: 0;
-      left: 50%;
-      transform: translate(-50%, 10%);
-	  width: 710px;
-
-		div.col-12{
-			padding-left: 0px;
-			padding-right: 0px;
-		}
     }
 }
 
@@ -2122,6 +2123,23 @@ span.error-show{
 		border: solid black 1px;
 		background-color: #fff;
 	}
+
+	#opinion-detail{
+		top: 0;
+		left: 50%;
+		transform: translate(-50%, 10%);
+		width: 710px;
+		position: fixed;
+		border: solid black 1px;
+		background-color: #fff;
+		z-index: 1000;
+		padding: 20px;
+
+		div.col-12{
+			padding-left: 0px;
+			padding-right: 0px;
+		}
+	}
 }
 
 @media (max-width: 767px){
@@ -2217,6 +2235,22 @@ span.error-show{
 			transform: translateX(-50%);
 		}
 	}
+
+	#opinion-detail-popup{
+		position: absolute;
+	}
+
+	#opinion-detail{
+		position: static;
+		width: 100%;
+		left: 0;
+		top: 0;
+		border: solid black 1px;
+		background-color: #fff;
+		z-index: 1000;
+		padding: 20px;
+		margin-left: 0px;
+	}
 }
 
 @media (max-width: 316px){
@@ -2249,13 +2283,6 @@ span.error-show{
 	}
 }
 
-@media (min-width: 767px){
-	.btn-group.user-opinion{
-		position: absolute;
-		right: 0;
-	}
-}
-
 @media (max-width: 767px){
 	.form-row.pick-date{
 		padding-right: 0px;
@@ -2266,6 +2293,13 @@ span.error-show{
 
 	.btn-group.user-opinion{
 		position: relative;
+	}
+}
+
+@media (min-width: 767px){
+	.btn-group.user-opinion{
+		position: absolute;
+		right: 0;
 	}
 }
 

@@ -99,7 +99,11 @@
                             <div class="row font-12">{{ date("d.m.Y", strtotime($opinion->opinionCreateDate)) }}</div>
                         </div>
                         <div class="col-4 font-12 txt-blue">
-                            <button class="btn detail" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">szczegóły >></button>
+                            @mobile
+                                <a class="btn detail" href="#" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">szczegóły >></a>
+                            @elsemobile
+                                <button class="btn detail" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">szczegóły >></button>
+                            @endmobile
                         </div>
                         <div class="col-2">
                             <i onClick="deletePop({{$opinion->id_reservation}})" class="trash-my-opinions fa fa-trash fa-2x" aria-hidden="true"></i>
@@ -124,7 +128,7 @@
 
 <div id="opinion-detail-popup" style="display: none;">
     <div id="opinion-detail" class="row">
-        <div class="col-6">
+        <div class="col-12 col-md-6">
             <div class="row opinion-detal gray-box pl-3">
                 <div class="col-12">Twoja ocena</div>
                 <div class="col-12" id="myTotalWrapper">
@@ -154,7 +158,7 @@
                 </div>
             </div>
             <b class="font-11" style="margin-left: 34px">Pobyt: <span id="stay"></span></b>
-            <div class="py-2" style="border-top: solid 1px gray; position: absolute; bottom: 46px; width: 304px;">
+            <div class="py-2" style="border-top: solid 1px gray; @notmobile position: absolute; @endnotmobile bottom: 46px; width: 304px;">
                 <div class="col-12 font-12 mb-2">
                     Czystość
                     <span class="pull-right rating-opinion-detail my-opinion"><span id="user-cleanlinessAvg"></span></span>
@@ -191,11 +195,11 @@
                     </span>
                 </div>
             </div>
-            <div id="helpful-wraper" class="py-2" style="display: none; border-top: solid 1px gray; position: absolute; bottom: 0px; width: 304px;">
+            <div id="helpful-wraper" class="py-2" style="display: none; border-top: solid 1px gray; @notmobile position: absolute; @endnotmobile bottom: 0px; width: 304px;">
                 <div id="helpful" class="col-12 font-12 mb-2"></div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6 mt-4 mt-md-0">
             <div class="row opinion-detal gray-box pl-3">
                 <div class="col-12" style="margin-bottom: -11px;">Średnia ocena</div>
                 <div class="col-12" id="totalAvgWrapper">

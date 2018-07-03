@@ -192,100 +192,94 @@
 					</div>
 				</div>
 
-				<div class="row mb-3" style="font-size: 14px">
-					<div class="col-12">
-						<h4 id="facilities" class="anchor-destination"><b>{{__('Udogodnienia')}}</b></h4>
-					</div>
-					<div class="col-12">
-						<div class="row mb-3 sm-facilities-mb-3">
-							<div class="col-md-4"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> {{ $apartament->apartament_persons }} {{trans_choice('messages.nrPersons',$apartament->apartament_persons)}}</div>
-							<div class="col-md-4"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> {{ $apartament->apartament_double_beds }} {{trans_choice('messages.nrDouble beds', $apartament->apartament_double_beds)}}</div>
-							<div class="col-md-4"><img src="{{ asset("images/apartment_detal/bathroom.png") }}"> {{ $apartament->apartament_bathrooms }} {{trans_choice('messages.nrBathrooms', $apartament->apartament_bathrooms)}}</div>
-						</div>
-						<div class="row mb-3 sm-facilities-mb-3">
-							<div class="col-md-4"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> {{ $apartament->apartament_rooms_number }} {{trans_choice('messages.rooms_number', $apartament->apartament_rooms_number )}}</div>
-							<div class="col-md-4"><img src="{{ asset("images/apartment_detal/bed.png") }}"> {{ $apartament->apartament_single_beds }} {{trans_choice('messages.nrSingle beds', $apartament->apartament_single_beds)}}</div>
+				<div class=" mb-3" style="font-size: 14px">
+					<h4 id="facilities" class="anchor-destination"><b>{{__('Udogodnienia')}}</b></h4>
+					    <div class="row">
+							<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> {{ $apartament->apartament_persons }} {{trans_choice('messages.nrPersons',$apartament->apartament_persons)}}</div>
+							<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> {{ $apartament->apartament_rooms_number }} {{trans_choice('messages.rooms_number', $apartament->apartament_rooms_number )}}</div>
+							<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> {{ $apartament->apartament_living_area}} m<sup>2</sup></div>
+							<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> {{ $apartament->apartament_double_beds }} {{trans_choice('messages.nrDouble beds', $apartament->apartament_double_beds)}}</div>
+							<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/bed.png") }}"> {{ $apartament->apartament_single_beds }} {{trans_choice('messages.nrSingle beds', $apartament->apartament_single_beds)}}</div>
+							<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/bedroom.png") }}"> {{ $apartament->apartament_bedrooms }} {{trans_choice('messages.nrBedrooms', $apartament->apartament_bedrooms)}}</div>
+							<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/bathroom.png") }}"> {{ $apartament->apartament_bathrooms }} {{trans_choice('messages.nrBathrooms', $apartament->apartament_bathrooms)}}</div>
 							@if($apartament->apartament_levels_number > 1)
-								<div class="col-md-4"><img src="{{ asset("images/apartment_detal/stairs.png") }}"> {{ $apartament->apartament_levels_number }} {{trans_choice('messages.nrLevels', $apartament->apartament_levels_number)}}</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/stairs.png") }}"> {{ $apartament->apartament_levels_number }} {{trans_choice('messages.nrLevels', $apartament->apartament_levels_number)}}</div>
 							@endif
-						</div>
-						<div class="row mb-3 sm-facilities-mb-3">
-							<div class="col-md-4"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> {{ $apartament->apartament_living_area}} m<sup>2</sup></div>
-							<div class="col-md-4"><img src="{{ asset("images/apartment_detal/bedroom.png") }}"> {{ $apartament->apartament_bedrooms }} {{trans_choice('messages.nrBedrooms', $apartament->apartament_bedrooms)}}</div>
-							<div class="col-md-4"><img src="{{ asset("images/apartment_detal/stairs.png") }}"> {{ $apartament->apartament_floors_number }} {{trans_choice('messages.nrFloors', $apartament->apartament_floors_number)}}</div>
-						</div>
-						<div class="row">
+							<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/stairs.png") }}"> {{ $apartament->apartament_floors_number }} {{trans_choice('messages.nrFloors', $apartament->apartament_floors_number)}}</div>
 							@if($apartament->apartament_wifi > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/wifi.png") }}"> Wifi</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/wifi.png") }}"> Wifi</div>
 							@endif
 							@if($apartament->apartament_parking > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/parking.png") }}"> Parking</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/parking.png") }}"> Parking</div>
 							@endif
 							@if($apartament->apartament_elevator > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/elevator.png") }}"> Winda</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/elevator.png") }}"> Winda</div>
 							@endif
 							@if($apartament->apartament_spa > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/pool.png") }}"> Strefa SPA</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/pool.png") }}"> Strefa SPA</div>
 							@endif
 							@if($apartament->apartament_balcony > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Balkon</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Balkon</div>
 							@endif
 							@if(1 > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/towel.png") }}"> Ręczniki</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/towel.png") }}"> Ręczniki</div>
 							@endif
 							@if(1 > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Pościel</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Pościel</div>
 							@endif
 							@if($apartament->apartament_fireplace > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Kominek</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Kominek</div>
 							@endif
 							@if($apartament->apartament_tv > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/television.png") }}"> TV</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/television.png") }}"> TV</div>
 							@endif
 							@if($apartament->apartament_iron > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/ironing-board.png") }}"> Żelazko</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/ironing-board.png") }}"> Żelazko</div>
 							@endif
 						</div>
 						<div class="row">
 							<div class="col-12 mb-3 mt-3"><b>Kuchnia</b></div>
+						</div>
+						<div class="row">
 							@if(1 > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/cutlery.png") }}"> Naczynia i sztućce</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/cutlery.png") }}"> Naczynia i sztućce</div>
 							@endif
 							@if($apartament->apartament_fridge > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Lodówka</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Lodówka</div>
 							@endif
 							@if($apartament->apartament_cooker > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Kuchenka</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Kuchenka</div>
 							@endif
 							@if($apartament->apartament_electric_kettle > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Czajnik</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Czajnik</div>
 							@endif
 							@if($apartament->apartament_microvawe_owen > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Mikrofala</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Mikrofala</div>
 							@endif
 							@if($apartament->apartament_washing_machine > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Zmywarka</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Zmywarka</div>
 							@endif
 							@if($apartament->apartament_toaster > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Toster</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Toster</div>
 							@endif
 						</div>
 						<div class="row">
 							<div class="col-12 mb-3 mt-3"><b>Łazienka</b></div>
+						</div>
+						<div class="row">
 							@if($apartament->apartament_shower_cabin > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/shower.png") }}"> Kabina prysznicowa</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/shower.png") }}"> Kabina prysznicowa</div>
 							@endif
 							@if($apartament->apartament_bathtub > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/bathtub.png") }}"> Wanna</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/bathtub.png") }}"> Wanna</div>
 							@endif
 							@if($apartament->apartament_washer > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/laundry.png") }}"> Pralka</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/laundry.png") }}"> Pralka</div>
 							@endif
 							@if($apartament->apartament_hair_dryer  > 0)
-								<div class="col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/hairdryer.png") }}"> Suszarka do włosów</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/hairdryer.png") }}"> Suszarka do włosów</div>
 							@endif
 						</div>
-					</div>
 				</div>
 
 				<div class="row mt-2 mb-3 font-12">

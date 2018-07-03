@@ -1,66 +1,15 @@
-@extends ('pages.results')
-@section('title', 'Ulubione')
-@section ('displayResults')
+@extends ('account.favourites.layout')
 
-    <div class="row desktop-none" style="margin-bottom: 20px">
-        <div class="col-9 text-mobile-search">
-        </div>
-        <div class="col-3">
-            <div  style="position: absolute; right:10px;"><a  class="btn btn-info btn-mobile filters-toggle">{{__('messages.change')}} </a></div>
-        </div>
-        @mobile
-        @include('includes.filters-mobile')
-        @endmobile
-    </div>
+@section('fav-title', 'Kafle')
 
-    </form>
+@section('icons-active')
+    <a class="btn btn-default" href="{{ route('myFavourites') }}"><img class="active" src='{{ asset("images/results/kafle.png") }}'></a>
+    <a class="btn btn-default" href="{{ route('myFavouritesList') }}"><img src='{{ asset("images/results/lista.png") }}'></a>
+    <a class="btn btn-default" href="{{ route('myFavouritesMap') }}"><img src='{{ asset("images/results/mapa.png") }}'></a>
+    <a href="{{ route('myFavouritesCompare') }}">Porównaj</a>
+@endsection
 
-    <div style="margin-top: 15px; margin-bottom: 15px" class="desktop-none sort-by">{{__('messages.Sort by')}}:
-        <select id="u1001_input" name="sort" class="input-sm">
-            <option selected="" value="Najlepsze dopasowanie">{{__('messages.Best fit')}}</option>
-            <option value="Najniższa cena">{{__('messages.Lowest price')}}</option>
-            <option value="Najlepiej oceniane">{{__('messages.Top rated')}}</option>
-            <option value="Najpopularniejsze">{{__('messages.Most popular')}}</option>
-            <option value="Najbliżej">{{__('messages.Closest')}}</option>
-        </select>
-    </div>
-
-    <span class="mobile-none">
-</span>
-
-    <div class="container display-favourites" id="apartamentsforyou">
-
-        <div class="row">
-            <div class="col-8"><h1 style="font-size: 28px" class="pb-2">Ulubione ({{ $favouritesCount }})</h1></div>
-            <div class="col-4">
-                <span id="clear-favourites" class="pull-right">Wyczyść ulubione</span>
-                <span class="pull-right mx-2">|</span>
-                <span class="send-to-friends pull-right">Wyślij znajomemu</span>
-            </div>
-        </div>
-
-        <div id="eneterTermRow" class="row" @if($request->has('przyjazd')) style="display: none" @endif>
-            <div class="col-12" style="padding: 10px; background-color: #d0cdca">
-                <i class="fa fa-3x fa-info-circle"></i>
-                <span class="font-13">Jeśli chcesz porównać wg ceny za pobyt - wprowadź dane dot. terminów rezerwacji.</span>
-                <button id="enterTerm" class="pull-right">Wprowadź terminy</button>
-            </div>
-        </div>
-
-        <div class="row pt-4">
-            <div class="col-lg-6 col-md-12">Kafle</div>
-            <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12 sort-by">{{__('messages.Sort by')}}:
-                <select id="u1001_input" name="sort" class="input-sm">
-                    <option selected="" value="Najlepsze dopasowanie">{{__('messages.Best fit')}}</option>
-                    <option value="Najniższa cena">{{__('messages.Lowest price')}}</option>
-                    <option value="Najlepiej oceniane">{{__('messages.Top rated')}}</option>
-                    <option value="Najpopularniejsze">{{__('messages.Most popular')}}</option>
-                    <option value="Najbliżej">{{__('messages.Closest')}}</option>
-                </select>
-            </div>
-        <div class="col-12 col-lg-3 col-md-5 col-sm-12 col-xs-12 inline-wrapper text-right"> <a class="btn btn-default" href="{{ route('myFavourites') }}"><img class="active" src='{{ asset("images/results/kafle.png") }}'></a> <a class="btn btn-default" href="{{ route('myFavouritesList') }}"><img src='{{ asset("images/results/lista.png") }}'></a> <a class="btn btn-default" href="{{ route('myFavouritesMap') }}"><img src='{{ asset("images/results/mapa.png") }}'></a><a href="{{ route('myFavouritesCompare') }}">Porównaj</a></div>
-    </div>
-
+@section('if-has-przyjazd')
     @if(!$request->has('przyjazd'))
         <div class="row">
             @foreach ($finds as $apartament)
@@ -340,10 +289,10 @@
             @endforeach
         </div>
     @endif
-</div>
+@endsection
 
+@section('script')
     <script type="text/javascript">
-
         if($(window).width() < 767) {
             $('#pagination').hide();
             $(function () {
@@ -360,12 +309,5 @@
                 });
             });
         }
-
-        $("#enterTerm").on('click', function(){
-            $("div.results-search").show();
-            $("#eneterTermRow").hide();
-        });
-
     </script>
-
 @endsection

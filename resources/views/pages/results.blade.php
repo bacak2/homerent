@@ -3,6 +3,7 @@
 @section('content')
 
 @mobile
+@if(Request::is('*/account/*') && !$request->has('przyjazd')) <div class="results-search" style="display: none"> @endif
      @switch($request->region)
         @case('Kraków') @case('kraków') <div id="topSearch" style="background-image: url('{{asset('images/slider/1.png')}}');"> @break
         @case('Zakopane') @case('zakopane') <div id="topSearch" style="background-image: url('{{asset('images/slider/2.png')}}');"> @break
@@ -13,6 +14,7 @@
         @include('includes.search-form-results')
     </div>
 </div>
+@if(Request::is('*/account/*') && !$request->has('przyjazd')) </div> @endif
 @elsemobile
     <div class="container pt-5 pb-5 results-search" @if(Request::is('*/account/*') && !$request->has('przyjazd')) style="display: none" @endif>
         <div class="col">
@@ -26,6 +28,9 @@
 <div id="lang" style="display: none;">
         {{ App::getLocale() }}
 </div>
+@endsection
+
+@section('scripts')
 <script type="text/javascript">
 
     $('.pick-date').dateRangePicker(
@@ -319,5 +324,4 @@
 
     });
 </script>
-
 @endsection

@@ -6,16 +6,17 @@
 <div class="container">
     <div class="row mt-4 mb-2">
         <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>Rezerwacje</b></h1></div>
+        {{--
         <div class="col-lg-3 col-12 inline-wrapper text-right">
             <div class="btn-group pull-left">
                 <a class="btn btn-mobile btn-selected" href="{{ route('myReservations')}}">{{__('Data przyjazdu')}}</a>
                 <a class="btn btn-mobile btn-info" href="{{url()->current()}}?sort=reservation">{{__('Data rezerwacji')}}</a>
-            </div></div>
-        <div class="col-lg-5 col-12">
+            </div>
+        </div>
+        <div class="col-lg-6 col-12">
             <input class="col-lg-6 col-5" id="search-reservation" type="text" style="width: 100%; font-size: 10px" placeholder="np: nr rezerwacji, nazwa/adres obiektu">
             <button class="btn btn-mobile btn-dark col-lg-4 col-6">Szukaj rezerwacji</button>
-        </div>
-        <div class="col-lg-1 col-2"><button type="button" class="btn btn-filter dropdown-toggle" id="menu1" data-toggle="dropdown"><span>{{ __('messages.Filters') }}</span><!--img src="{{ asset("images/results/filter.png") }}"--></button>
+            <button type="button" class="btn btn-filter dropdown-toggle" id="menu1" data-toggle="dropdown"><span>{{ __('messages.Filters') }}</span></button>
             <div class="dropdown-menu" role="menu" aria-labelledby="menu1">
                 {!! Form::open(array('url' => '#')) !!}
                 <div class="row">
@@ -30,10 +31,15 @@
 
             </div>
         </div>
+        --}}
     </div>
-    <div class="row mb-4">
+    <div class="row col-12 mb-4">
         <span class="font-11">* Właściciel może pobrać na miejscu dodatkowe opłaty - np: opłatę klimatyczną, parking itd  (sprawdź opis oferty).</span>
     </div>
+    {{--@if(!$reservations->isEmpty())
+        @foreach($reservations as $reservation)
+        @endforeach
+    @endif--}}
     @foreach($users_reservations_future as $reservation)
     <div class="row minH-90 py-3">
         <div class="col-lg-2 col-4 px-3 px-md-0"><img src='{{ asset("images/apartaments/$reservation->apartament_id/1.jpg") }}') style="width: 100%"></div>
@@ -103,8 +109,8 @@
             <div>
                 <a class="btn btn-black" href="tel:713333222"><img src="{{ asset("images/account/phone.png") }}"></a>
                 <a class="btn btn-black" href="mailto:ja@ja.pl"><img src="{{ asset("images/account/envelope.png") }}"></a>
-                <a class="btn btn-black font-12 px-1 py-2 desktop-none" href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a>
-                <a class="btn btn-black font-12 px-1 py-2 desktop-none" href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
+                <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a>
+                <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
                 <div class="more row mobile-none">
                     <div class="btn-toggle col-1" style="height: 100%"> <i style="font-size:16px; font-weight: bold" class="fa">&#xf100;</i></div>
                     <div class="col-1" style="display: none;">
@@ -160,17 +166,17 @@
             </div>
             <div class="col-lg-2 col-12">
                 <div>
-                    @if(1==0)
-                        <div class="d-inline-block" style="width: 120px">
-                            <span class="font-11 pull-left">Oceniłeś na:</span>
-                            <span class="bold pull-right" style="font-size: 22px">4</span>
+                    @if($reservation->total_rating != null)
+                        <div class="btn d-inline-block p-1 @if($reservation->total_rating <= 3) rating-red @elseif($reservation->total_rating <= 5) rating-yellow @else rating-green @endif" style="width: 120px; border: 1px solid rgba(121, 121, 121, 1);">
+                            <span class="font-11 pull-left mt-2">Oceniłeś na:</span>
+                            <span class="bold pull-right" style="font-size: 22px">{{round($reservation->total_rating)}}</span>
                         </div>
                     @else
                         <a class="btn btn-black mobile-none" style="padding-left:2.5rem; padding-right:2.5rem;" href="{{ route('account.opinion',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Oceń</a>
-                        <a class="btn btn-black font-12 px-1 py-2 desktop-none" href="{{ route('account.opinion',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Oceń</a>
+                        <a class="btn btn-black font-12 px-4 desktop-none" style="width: 120px; border: 1px solid rgba(121, 121, 121, 1); padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.opinion',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Oceń</a>
                     @endif
-                    <a class="btn btn-black font-12 px-1 py-2 desktop-none" href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a>
-                    <a class="btn btn-black font-12 px-1 py-2 desktop-none" href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
+                    <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a>
+                    <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
                     <div class="more row mobile-none">
                         <div class="btn-toggle col-1" style="height: 100%"> <i style="font-size:16px; font-weight: bold" class="fa">&#xf100;</i></div>
                         <div class="col-1" style="display: none;">

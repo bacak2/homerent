@@ -116,6 +116,8 @@ class Account extends Controller
 
         $current_data = date("Y-m-d");
 
+        //if(Request::has('sort')) exit();
+
         $users_reservations_future = DB::table('reservations')
             ->select('reservations.*', 'apartaments.apartament_address', 'apartaments.apartament_address_2', 'apartaments.apartament_city', 'apartaments.apartament_district', 'apartament_descriptions.apartament_name', 'apartament_link')
             ->distinct('id')
@@ -128,10 +130,11 @@ class Account extends Controller
             ->get();
 
         $users_reservations_gone = DB::table('reservations')
-            ->select('reservations.*', 'apartaments.apartament_address', 'apartaments.apartament_address_2', 'apartaments.apartament_city', 'apartaments.apartament_district', 'apartament_descriptions.apartament_name', 'apartament_link')
+            ->select('reservations.*', 'apartaments.apartament_address', 'apartaments.apartament_address_2', 'apartaments.apartament_city', 'apartaments.apartament_district', 'apartament_descriptions.apartament_name', 'apartament_link', 'total_rating')
             ->distinct('id')
             ->leftjoin('apartaments', 'reservations.apartament_id', '=', 'apartaments.id')
             ->leftjoin('apartament_descriptions', 'reservations.apartament_id', '=', 'apartament_descriptions.apartament_id')
+            ->leftjoin('apartament_opinions', 'reservations.id', 'apartament_opinions.id_reservation')
             ->where('user_id', Auth::user()->id)
             ->where('reservation_arrive_date', '<', $current_data)
             ->groupBy('id')

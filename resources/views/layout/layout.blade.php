@@ -56,5 +56,7 @@
 	{{--Send-to-friends popup--}}
 	@include('includes.send-to-friends')
 	@endauth
+
+	@yield('scripts')
 </body>
 </html>
