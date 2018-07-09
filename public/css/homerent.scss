@@ -1547,6 +1547,13 @@ label.inline-label{
 	height: 260px;
 	z-index: 1000;
 	padding: 10px;
+
+	&>div{
+		margin-top: 100px;
+	}
+	button{
+		width: 120px;
+	}
 }
 
 #send-news{
@@ -2293,6 +2300,38 @@ span.error-show{
 
 	.btn-group.user-opinion{
 		position: relative;
+	}
+
+	#send-to{
+		width: 100%;
+		input[type="text"]{
+			width: 100%;
+		}
+	}
+
+	#truncate-favourites{
+		width: 100%;
+		button{
+			left: 125px;
+		}
+	}
+
+	#first-added-favourites{
+		width: 100%;
+		right: 0;
+		button{
+			right: 33%;
+		}
+	}
+
+	#confirm-sended-to-friends{
+		width: 100%;
+		&>div{
+			margin-top: 100px;
+		}
+		button{
+			width: 120px;
+		}
 	}
 }
 

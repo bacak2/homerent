@@ -1,7 +1,7 @@
 <div class="col">
     <form class="wyszukiwarka" action="{{$request->getPathInfo()}}" method="GET" >
     <div class="form-row">
-      <div class="col-md-3 mb-2 mb-sm-0">
+      <div class="col-md-2 mb-2 mb-sm-0">
         <input type="text" class="form-control" id="region" name="region" placeholder="{{ __('messages.forexample')}}" value="{{ $_GET['region'] ?? '' }}">
       </div>
       <div class="form-inline col-md-5 form-row pick-date ">

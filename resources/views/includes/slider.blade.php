@@ -26,7 +26,7 @@
 
 $('.pick-date').dateRangePicker(
   {
-    separator : ' to ',
+    separator : ' do ',
     autoClose: true,
     startOfWeek: 'monday',
     language:'{{ App::getLocale() }}',

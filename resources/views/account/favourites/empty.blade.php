@@ -23,19 +23,21 @@
         <div class="col-12">
             <h2>Jak dodać obiekt do ulubionych?</h2>
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
+            <br>
             <span>
-                Kliknij ikonę serca w prawym górnym rogu zapowiedzi obiektu.<br>
-                Jeśli chcesz usunąć z ulubionych - kliknij ikonę serca ponownie.
+                Kliknij ikonę serca w prawym górnym rogu zapowiedzi obiektu.
             </span>
-            <img src="{{ asset("images/favourites/empty1.png") }}">
+            <br><br>
+            <img @mobile style="width: 100%" @endmobile src="{{ asset("images/favourites/empty1.png") }}">
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
+            <br>
             <span>
                 Lub na stronie apartamentu
             </span>
             <br><br>
-            <img src="{{ asset("images/favourites/empty2.png") }}">
+            <img @mobile style="width: 100%" @endmobile src="{{ asset("images/favourites/empty2.png") }}">
         </div>
     </div>
 </div>

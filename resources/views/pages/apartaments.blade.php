@@ -6,6 +6,21 @@
 	<div class="row">
 		<div class="container py-1">
 			<a href="{{ url()->previous() }}" class="btn btn-primary ml-2">{{ __('messages.Return') }}</a>
+			<span class="pull-right">
+				<div class="d-inline-block">
+					<div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
+						<img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/results/heart.png')}}">
+					</div>
+					<div class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">Zapisz</div>
+				</div>
+				<div class="d-inline-block">|</div>
+				<div class="d-inline-block">
+					<div class="d-inline-block send-news-friends mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
+						<img style="padding: 7px 9px; max-width: 36px" src="{{asset('images/favourites/Envelop.png')}}">
+					</div>
+					<div class="d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">Wyślij</div>
+				</div>
+			</span>
 			<div id="addApartamentToFavourites" class="pull-right" @if($isInFavourites > 0) style="display:none" @endif><button onClick="addToFavourites({{$apartament->id}}, {{Auth::user()->id ?? 0}})">Zapisz</button></div>
 			<div id="deleteApartamentFromFavourites" class="pull-right" @if($isInFavourites == 0) style="display:none" @endif><button onClick="deleteFromFavourites({{$apartament->id}}, {{Auth::user()->id ?? 0}})">Usuń z ulubionych</button></div>
 		</div>

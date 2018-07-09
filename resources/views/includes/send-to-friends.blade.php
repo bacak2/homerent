@@ -20,15 +20,20 @@
     <input id="emails" name="emails" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)">
     <input id="links" name="links" type="hidden" value="@if(!Session::get('userFavouritesAll')->isEmpty()) @foreach(Session::get('userFavouritesAll') as $apartament){{route('apartamentInfo', $apartament->apartament_link)}},@endforeach @endif">
     <hr>
-    <button id="send-mail-to-friends" class="btn btn-default">Wyślij</button>
-    <button class="btn btn-default close-send-to">Anuluj</button>
+    <div style="text-align: center;">
+        <button id="send-mail-to-friends" class="btn btn-default">Wyślij</button>
+        <button class="btn btn-default close-send-to">Anuluj</button>
+    </div>
+
 
     <div id="close-send-to" class="close-send-to">x</div>
 </div>
 
 <div id="confirm-sended-to-friends">
     <span style="font-size: 24px; font-weight: bold">Wiadomość e-mail została wysłana</span><br>
-    <button class="btn btn-default close-confirm-sended">OK</button>
+    <div style="text-align: center">
+        <button class="btn btn-default close-confirm-sended">OK</button>
+    </div>
 </div>
 
 <script>
