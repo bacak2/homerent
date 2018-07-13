@@ -231,20 +231,30 @@
 
 <script>
     $('#guide-1').click(function() {
-        $('#guide-1-popup').toggle();
-        $('#guide-2-popup').hide();
-        $('#guide-3-popup').hide();
-    });
-
-    $('#guide-1').hover(function() {
-        $('#guide-1-popup').show();
+        if($('#guide-1-popup').is(":visible")) $('#guide-1-popup').hide();
+        else $('#guide-1-popup').show();
         $('#guide-2-popup').hide();
         $('#guide-3-popup').hide();
     });
 
     $('#guide-2').click(function() {
-        $('#guide-2-popup').toggle();
+        if($('#guide-2-popup').is(":visible")) $('#guide-2-popup').hide();
+        else $('#guide-2-popup').show();
         $('#guide-1-popup').hide();
+        $('#guide-3-popup').hide();
+    });
+
+    $('#guide-3').click(function() {
+        if($('#guide-3-popup').is(":visible")) $('#guide-3-popup').hide();
+        else $('#guide-3-popup').show();
+        $('#guide-1-popup').hide();
+        $('#guide-2-popup').hide();
+    });
+
+@desktop
+    $('#guide-1').hover(function() {
+        $('#guide-1-popup').show();
+        $('#guide-2-popup').hide();
         $('#guide-3-popup').hide();
     });
 
@@ -254,17 +264,12 @@
         $('#guide-3-popup').hide();
     });
 
-    $('#guide-3').click(function() {
-        $('#guide-3-popup').toggle();
-        $('#guide-1-popup').hide();
-        $('#guide-2-popup').hide();
-    });
-
     $('#guide-3').hover(function() {
         $('#guide-3-popup').show();
         $('#guide-1-popup').hide();
         $('#guide-2-popup').hide();
     });
+@enddesktop
 </script>
 
 @endsection

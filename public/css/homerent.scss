@@ -893,6 +893,12 @@ button {
 	&:not('.opinion-to-left'){text-align: center;}
 }
 
+#mapka{
+	div[style*="cursor: default; position: absolute;"]{
+		/*margin-top: 30px;*/
+	}
+}
+
 .map-button{
 
 	width: 280px;
@@ -2275,12 +2281,6 @@ span.error-show{
 	}
 }
 
-@media (max-width: 430px){
-	.map-legend-button:nth-child(3){
-		margin-left: 16px;
-	}
-}
-
 @media (min-width: 575px) and (max-width: 767px){
 	.description-map-bottom-right.desktop-none{
 		position: relative;
@@ -2332,6 +2332,10 @@ span.error-show{
 		button{
 			width: 120px;
 		}
+	}
+
+	.map-legend-button{
+		margin-left: 2px;
 	}
 }
 
