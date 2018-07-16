@@ -34,6 +34,8 @@ Route::group(
 
         Route::get('/apartaments/{link}', 'Apartaments@showApartamentInfo')->name('apartamentInfo');
 
+        Route::get('/printPdf','Apartaments@printPdf');
+
         Route::get('/apartaments-group/{link}', 'Apartaments@showApartamentGroup')->name('apartamentGroup');
 
         Route::get('/search/{view}','Apartaments@searchApartaments');
@@ -191,6 +193,11 @@ Route::group(
         Route::GET('/guidebooks/{guidebookLink}', [
             'uses' => 'Guidebooks@Detail',
             'as' => 'guidebooks.Detail'
+        ]);
+
+        Route::GET('/guidebooks/print-pdf/{guidebookLink}', [
+            'uses' => 'Guidebooks@printPdf',
+            'as' => 'guidebooks.printPdf'
         ]);
 
         Route::GET('/guidebooks/tag/{guidebookTag}', [

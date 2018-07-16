@@ -234,7 +234,7 @@
 								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Bathtub_24.png") }}"> Strefa SPA</div>
 							@endif
 							@if($apartament->apartament_balcony > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/double-bed.png") }}"> Balkon</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/balcony.png") }}"> Balkon</div>
 							@endif
 							@if(1 > 0)
 								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/towel.png") }}"> Ręczniki</div>
@@ -419,20 +419,23 @@
 							<div id="showMap" class="tab-pane active">
 								<form name="wskazowki" action="#" onsubmit="znajdz_wskazowki(); return false;">
 									<div class="row">
-										<div class="col-12" style="font-size: 16px"><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></div>
+										<div class="col-12" style="font-size: 14px"><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></div>
 										<div class="col-12 mb-4" style="font-size: 14px">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}, {{ $apartament->apartament_address_2 }}</div>
 										<div class="col-12 mb-2" style="font-size: 14px">GPS: N 48° 12' 39.90'' E 16° 23' 1.82''</div>
 									</div>
-									<div class="row col-12 my-2">
-										<span style="font-size: 16px">Wskazówki dojazdu: </span>
+									<div class="row mx-0 my-2">
+										<span style="font-size: 14px">Wskazówki dojazdu: </span>
 										<input class="font-12 ml-2" name="skad" id="skad" style="width:180px" placeholder="Lokalizacja początkowa" type="text">
 										<input class="btn btn-info btn-mobile btn-res4th" value="Pokaż" type="submit">
-										<div class="col-2 font-12 ml-3" style="display: inline-block;">
+										<div class="col-2 font-12 ml-1 pr-0" style="display: inline-block;">
 											<div id="distance" class="row" style="font-weight: bold"></div>
 											<div id="duration" class="row"></div>
 										</div>
-										<div class="col-3">
-											<a class="btn btn-info btn-mobile btn-res4th pull-right">Drukuj wskazówki dojazdu</a>
+								</form>
+								<form name="wskazowki-print" action="/printPdf">
+										<div class="pl-0 pull-right">
+											<input type='hidden' id='wskazowkiContent' name='wskazowkiContent' value='' />
+											<input id="drukujWskazowki" class="btn btn-info btn-mobile btn-res4th" value="Drukuj wskazówki dojazdu" type="submit"></input>
 										</div>
 									</div>
 								</form>
@@ -1425,6 +1428,7 @@
 
             trasa.route(dane_trasy, obsluga_wskazowek);
             greenMarkers[0].setMap(null);
+            $("#printPdf").show();
         }
 
         function obsluga_wskazowek(wynik, status)

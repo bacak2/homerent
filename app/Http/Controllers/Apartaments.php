@@ -14,6 +14,7 @@ use Illuminate\Pagination\Paginator;
 use DateTime;
 use Auth;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class Apartaments extends Controller
 {
@@ -1276,5 +1277,11 @@ class Apartaments extends Controller
         session(["$request->opinionId/$sessionId" => 1]);
 
         return response()->json("Dodano ocenę do opinii");
+    }
+
+    public function printPdf(Request $request){ dd($request);
+        $pdf = PDF::loadHTML('<div style="width: 500px; font-family: DejaVu Sans;">'.'</div>')
+            ->setPaper('a4', 'landscape')->setWarnings(false);
+        return $pdf->download('invoice.pdf');
     }
 }

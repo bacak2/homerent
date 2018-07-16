@@ -90,19 +90,19 @@
                         <span class="udogodnienia">{{ __('messages.Facilities') }}<i class="fa fa-caret-down udogodnienia"></i></span>
                         <div class="udogodnienia">
                             <p>
-                                <label>{!! Form::checkbox('SPA', null, null, ['id' => 'spa']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('SPA') }}</label>
+                                <label>{!! Form::checkbox('SPA', null, null, ['id' => 'spa']) !!}<img src='{{ asset("images/results/Bathtub_24.png") }}'">{{ __('SPA') }}</label>
                             </p>
                             <p>
-                                <label>{!! Form::checkbox('zwierzeta', null, null, ['id' => 'zwierzeta']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Acceptance of animals') }}</label>
+                                <label>{!! Form::checkbox('zwierzeta', null, null, ['id' => 'zwierzeta']) !!}<img src='{{ asset("images/results/Dog_24.png") }}'">{{ __('messages.Acceptance of animals') }}</label>
                             </p>
                             <p>
-                                <label>{!! Form::checkbox('garaz', null, null, ['id' => 'garaz']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Garage/Parking') }}</label>
+                                <label>{!! Form::checkbox('garaz/parking', null, null, ['id' => 'garaz']) !!}<img src='{{ asset("images/results/parking3.png") }}'">{{ __('messages.Garage/Parking') }}</label>
                             </p>
                             <p>
-                                <label>{!! Form::checkbox('kominek', null, null, ['id' => 'kominek']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Fireplace') }}</label>
+                                <label>{!! Form::checkbox('kominek', null, null, ['id' => 'kominek']) !!}<img src='{{ asset("images/results/Fireplace_24.png") }}'">{{ __('messages.Fireplace') }}</label>
                             </p>
                             <p>
-                                <label>{!! Form::checkbox('balkon', null, null, ['id' => 'balkon']) !!}<img src='{{ asset("images/results/wifi.png") }}'">{{ __('messages.Balcony/Terrace') }}</label>
+                                <label>{!! Form::checkbox('balkon', null, null, ['id' => 'balkon']) !!}<img src='{{ asset("images/results/balcony.png") }}'">{{ __('messages.Balcony/Terrace') }}</label>
                             </p>
                         </div>
                     </div>
