@@ -13,13 +13,13 @@
                 <div class="col-sm-6">
                     <div class="row px-3">
                         <div class="col-6 col-md-3 rItem pr-2" style="padding: 0px;">
-                            <input id="type0" type="radio" value="0" name="type"><label for="type0" style="width: 100%"><div id="apartamentKind0" class="font-13 opinion-rItem selected" style="padding: 8px 8px 12px 8px;border-radius: 5px;"><img style="float: left;" src='{{ asset("images/reservations/u4088.png") }}'><div>Apartament</div></div></label>
+                            <input id="type0" type="radio" value="0" name="type"><label for="type0" style="width: 100%"><div id="apartamentKind0" class="font-13 opinion-rItem selected" style="padding: 8px 8px 12px 8px;border-radius: 5px;"><img style="float: left;" src='{{ asset("images/reservations/Block_2_24.png") }}'><div>Apartament</div></div></label>
                         </div>
                         <div class="col-6 col-md-3 rItem pr-2" style="padding: 0px;">
-                            <input id="type1" type="radio" value="1" name="type"><label for="type1" style="width: 100%"><div id="apartamentKind1" class="font-13 opinion-rItem" style="padding: 8px 8px 12px 8px;border-radius: 5px;"><img style="float: left;" src='{{ asset("images/reservations/u4088.png") }}'><div>Dom całoroczny</div></div></label>
+                            <input id="type1" type="radio" value="1" name="type"><label for="type1" style="width: 100%"><div id="apartamentKind1" class="font-13 opinion-rItem" style="padding: 8px 8px 12px 8px;border-radius: 5px;"><img style="float: left;" src='{{ asset("images/reservations/house.png") }}'><div>Dom całoroczny</div></div></label>
                         </div>
                         <div class="col-6 col-md-3 rItem pr-2" style="padding: 0px;">
-                            <input id="type2" type="radio" value="2" name="type"><label for="type2" style="width: 100%"><div id="apartamentKind2" class="font-13 opinion-rItem" style="padding: 8px 8px 12px 8px;border-radius: 5px;"><img style="float: left;" src='{{ asset("images/reservations/u4088.png") }}'><div>Dom letniskowy</div></div></label>
+                            <input id="type2" type="radio" value="2" name="type"><label for="type2" style="width: 100%"><div id="apartamentKind2" class="font-13 opinion-rItem" style="padding: 8px 8px 12px 8px;border-radius: 5px;"><img style="float: left;" src='{{ asset("images/reservations/Wood_House_24.png") }}'><div>Dom letniskowy</div></div></label>
                         </div>
                         <div class="col-6 col-md-3 rItem" style="padding: 0px;">
                             <input id="type3" type="radio" value="3" name="type"><label for="type3" style="width: 100%"><div id="apartamentKind3" class="font-13 opinion-rItem" style="padding: 8px 8px 12px 8px;border-radius: 5px;"><img style="float: left;" src='{{ asset("images/reservations/u4088.png") }}'><div>Lorem ipsum</div></div></label>

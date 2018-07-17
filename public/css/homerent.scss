@@ -2360,6 +2360,11 @@ span.error-show{
 		padding-right: 24px;
 		padding-left: 6px;
 	}
+	#topSearch{
+		.container{
+			padding-top: 90px;
+		}
+	}
 }
 
 @media (min-width: 768px) and (max-width: 1200px){
@@ -2416,6 +2421,12 @@ span.error-show{
 	.cenaRange input[type='text'] {
 		display: inline-block;
 		width: 40px;
+	}
+
+	#topSearch{
+		.container{
+			padding-top: 130px;
+		}
 	}
 
 }

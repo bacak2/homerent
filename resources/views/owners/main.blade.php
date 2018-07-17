@@ -15,19 +15,19 @@
     <div class="row">
         <div class="col-sm-12 col-md-4">
             <div class="row mb-md-5 mb-3">
-                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_owners/icon.png") }}'></div>
+                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_owners/procent.png") }}'></div>
                 <div class="col-8"><h3 class="h3-owners">Za darmo</h3><span class="font-13">Nie pobieramy opłat za rejestrację i zarządzanie apartamentem.</span></div>
             </div>
         </div>
         <div class="col-sm-12 col-md-4">
             <div class="row mb-md-5 mb-3">
-                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_owners/icon.png") }}'></div>
+                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_owners/Check_House_96.png") }}'></div>
                 <div class="col-8"><h3 class="h3-owners">Bez wyłączności</h3><span class="font-13">Współpracuj z kim chcesz. Możesz dodawać swój apartament do wielu serwisów - pamiętaj jedynie o aktualizacji kalendarza dostępności.</span></div>
             </div>
         </div>
         <div class="col-sm-12 col-md-4">
             <div class="row mb-md-5 mb-3">
-                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_owners/icon.png") }}'></div>
+                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_owners/Online_Real_Estate_96.png") }}'></div>
                 <div class="col-8"><h3 class="h3-owners">Rezerwacje online</h3><span class="font-13">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.</span></div>
             </div>
         </div>
@@ -57,7 +57,7 @@
         <div class="col-sm-12 col-md-6">
             <div style="font-size: 20px;" class="bold mt-3 mb-4">Skontaktuj się z nami</div>
             <div style="width:100%; min-height: 125px; background-color: #cfcfcf; border: 1px solid black; width: 408px; padding: 20px">
-                <div class="mr-2" style="float: left"><img src='{{ asset("images/for_owners/icon2.png") }}'></div>
+                <div class="mr-2" style="float: left"><img src='{{ asset("images/for_owners/Call_48.png") }}'></div>
                 <span style="font-size: 20px; display: inline-block">tel: +22 111 11 11, 600-000-000</span>
                 <span class="font-13" style="display: inline-block">pn-pt, 8:00-18:00</span>
             </div>

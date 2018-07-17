@@ -10,7 +10,7 @@
         <div class="col-12 col-md-6 pl-3 mb-3">
             <div style="padding: 12px 16px 16px 16px; background-color: #F2F2F2; border: 1px solid #CCCCCC;">
                 <div class="row">
-                    <div class="col-3 col-md-2 pt-1"><img src='{{ asset("images/about_us/icon.png") }}'></div>
+                    <div class="col-3 col-md-2 pt-1"><img src='{{ asset("images/about_us/Group_User_48.png") }}'></div>
                     <div class="col-9 col-md-10">
                         <div class="h2-owners">250 847 gości</div>
                         <div class="font-13">zarezerwowało noclegi</div>
@@ -22,7 +22,7 @@
         <div class="col-12 col-md-6 pl-3 mb-3">
             <div style="padding: 12px 16px 16px 16px; background-color: #F2F2F2; border: 1px solid #CCCCCC;">
                 <div class="row">
-                    <div class="col-3 col-md-2 pt-1"><img src='{{ asset("images/about_us/icon.png") }}'></div>
+                    <div class="col-3 col-md-2 pt-1"><img src='{{ asset("images/about_us/Hotel_Sign_1_48.png") }}'></div>
                     <div class="col-9 col-md-10">
                         <div class="h2-owners">15 878 noclegów</div>
                         <div class="font-13">dostępnych w serwisie</div>
@@ -34,7 +34,7 @@
         <div class="col-12 col-md-6 pl-3 mb-3">
             <div style="padding: 12px 16px 16px 16px; background-color: #F2F2F2; border: 1px solid #CCCCCC;">
                 <div class="row">
-                    <div class="col-3 col-md-2 pt-1"><img src='{{ asset("images/about_us/icon.png") }}'></div>
+                    <div class="col-3 col-md-2 pt-1"><img src='{{ asset("images/about_us/User_Message1_48.png") }}'></div>
                     <div class="col-9 col-md-10">
                         <div class="h2-owners">8 471 opinii</div>
                         <div class="font-13">które pomogą podróżującym w decyzji</div>
@@ -46,7 +46,7 @@
         <div class="col-12 col-md-6 pl-3 mb-3">
             <div style="padding: 12px 16px 16px 16px; background-color: #F2F2F2; border: 1px solid #CCCCCC;">
                 <div class="row">
-                    <div class="col-3 col-md-2 pt-1"><img src='{{ asset("images/about_us/icon.png") }}'></div>
+                    <div class="col-3 col-md-2 pt-1"><img src='{{ asset("images/about_us/Globe1_48.png") }}'></div>
                     <div class="col-9 col-md-10">
                         <div class="h2-owners">178 miejcowości</div>
                         <div class="font-13">w Polsce</div>

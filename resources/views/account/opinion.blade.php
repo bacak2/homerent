@@ -33,19 +33,19 @@
             <div class="form-group row input-none journey-type">
                 {!! Form::label('address', __('messages.Typ podrózy').':*', array('class' => 'col-sm-2 col-form-label')) !!}
                 <div class="rItem">
-                    <input id="type0" type="radio" value="0" name="type"><label for="type0"><div class="p-2 opinion-rItem"><img src='{{ asset("images/reservations/u4088.png") }}'>Rodziny</div></label>
+                    <input id="type0" type="radio" value="0" name="type"><label for="type0"><div class="p-2 opinion-rItem"><img src='{{ asset("images/reservations/family.png") }}'>Rodziny</div></label>
                 </div>
                 <div class="rItem">
-                    <input id="type1" type="radio" value="1" name="type"><label for="type1"><div class="p-2 opinion-rItem"><img src='{{ asset("images/reservations/u4088.png") }}'>Pary</div></label>
+                    <input id="type1" type="radio" value="1" name="type"><label for="type1"><div class="p-2 opinion-rItem"><img src='{{ asset("images/reservations/couple.png") }}'>Pary</div></label>
                 </div>
                 <div class="rItem">
-                    <input id="type2" type="radio" value="2" name="type"><label for="type2"><div class="p-2 opinion-rItem"><img src='{{ asset("images/reservations/u4088.png") }}'>Biznesowe</div></label>
+                    <input id="type2" type="radio" value="2" name="type"><label for="type2"><div class="p-2 opinion-rItem"><img src='{{ asset("images/reservations/Business_Person_24.png") }}'>Biznesowe</div></label>
                 </div>
                 <div class="rItem">
-                    <input id="type3" type="radio" value="3" name="type"><label for="type3"><div class="p-2 opinion-rItem"><img src='{{ asset("images/reservations/u4088.png") }}'>Ze znajomymi</div></label>
+                    <input id="type3" type="radio" value="3" name="type"><label for="type3"><div class="p-2 opinion-rItem"><img src='{{ asset("images/reservations/Group_User_24.png") }}'>Ze znajomymi</div></label>
                 </div>
                 <div class="rItem">
-                    <input id="type4" type="radio" value="4" name="type"><label for="type4"><div class="p-2 opinion-rItem"><img src='{{ asset("images/reservations/u4088.png") }}'>W pojedynkę</div></label>
+                    <input id="type4" type="radio" value="4" name="type"><label for="type4"><div class="p-2 opinion-rItem"><img src='{{ asset("images/reservations/Male_Person.png") }}'>W pojedynkę</div></label>
                 </div>
             </div>
             <div class="form-group row rating-row">

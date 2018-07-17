@@ -4,7 +4,7 @@
       <div class="col-md-3 mb-2 mb-sm-0">
         <input type="text" class="form-control" id="region" name="region" placeholder="{{ __('messages.forexample')}}">
       </div>
-      <div class="form-inline col-md-6 form-row pick-date ">
+      <div class="form-inline col-md-5 col-xl-6 form-row pick-date ">
           <div class="col-md-6 mb-2 mb-sm-0">
               <div class="input-group mb-2 mb-sm-0">
                   <div class="input-group-addon"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i></div>

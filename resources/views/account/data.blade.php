@@ -12,8 +12,8 @@
             <div class="col-lg-3 col-sm-12 mb-4" ng-repeat="account in Accounts">
                 <div class="data-item-top p-2">
                     <% account.label %>
-                    <div class="pull-right ml-2 delete" ng-click="deletePop(account.id)"><img src='{{ asset("images/account/trash.png") }}'></div>
-                    <div class="pull-right edit" ng-click="editItem(account)"><img src='{{ asset("images/account/pencil.png") }}'></div>
+                    <div class="pull-right ml-2 delete" ng-click="deletePop(account.id)"><img data-toggle="tooltip" data-placement="bottom" title="Usuń dane" alt="Usuń dane" src='{{ asset("images/account/trash.png") }}'></div>
+                    <div class="pull-right edit" ng-click="editItem(account)"><img data-toggle="tooltip" data-placement="bottom" title="Edytuj dane" alt="Edytuj dane" src='{{ asset("images/account/pencil.png") }}'></div>
                 </div>
                 <div class="data-item p-2">
                         <div class="mb-2" style="color: gray"><% account.title %></div>

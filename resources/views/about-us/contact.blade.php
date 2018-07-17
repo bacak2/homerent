@@ -75,7 +75,7 @@
                             <span class="ml-1">+48 600 49 49 49</span>
                         </div>
                         <div class="">
-                            <img src="{{asset('images/contact/phoneMinIcon.png')}}">
+                            <img src="{{asset('images/contact/Fax_24.png')}}">
                             <span class="ml-1">fax: +48 18 521 39 38</span>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                     <span class="ml-1">+48 18 20 64 002</span>
                 </div>
                 <div class="mt-3">
-                    <img src="{{asset('images/contact/phoneMinIcon.png')}}">
+                    <img src="{{asset('images/contact/Envelop_24.png')}}">
                     <a href="mailto: media@aaaa.pl" class="ml-1">media@aaaa.pl</a>
                 </div>
             </div>

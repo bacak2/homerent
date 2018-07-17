@@ -3,9 +3,9 @@
 @section('fav-title', 'Porównanie')
 
 @section('icons-active')
-    <a class="btn btn-default" href="{{ route('myFavourites') }}"><img src='{{ asset("images/results/kafle.png") }}'></a>
-    <a class="btn btn-default" href="{{ route('myFavouritesList') }}"><img src='{{ asset("images/results/lista.png") }}'></a>
-    <a class="btn btn-default" href="{{ route('myFavouritesMap') }}"><img src='{{ asset("images/results/mapa.png") }}'></a>
+    <a class="btn btn-default" href="{{ route('myFavourites') }}"><img data-toggle="tooltip" data-placement="bottom" title="Kafle" alt="Kafle" src='{{ asset("images/results/kafle.png") }}'></a>
+    <a class="btn btn-default" href="{{ route('myFavouritesList') }}"><img data-toggle="tooltip" data-placement="bottom" title="Lista" alt="Lista" src='{{ asset("images/results/lista.png") }}'></a>
+    <a class="btn btn-default" href="{{ route('myFavouritesMap') }}"><img data-toggle="tooltip" data-placement="bottom" title="Mapa" alt="Mapa" src='{{ asset("images/results/mapa.png") }}'></a>
     <a class="active" href="{{ route('myFavouritesCompare') }}">Porównaj</a>
 @endsection
 

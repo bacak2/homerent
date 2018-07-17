@@ -14,19 +14,19 @@
     <div class="row mt-3">
         <div class="col-sm-12 col-md-4 mb-3">
             <div class="row mb-1">
-                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/icon.png") }}'></div>
+                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/procent.png") }}'></div>
                 <div class="col-8"><h3 class="h3-owners">Tanio</h3><span class="font-13">Ok. 50 % taniej niż za hotel.</span></div>
             </div>
         </div>
         <div class="col-sm-12 col-md-4 mb-3">
             <div class="row mb-1">
-                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/icon.png") }}'></div>
+                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/time.png") }}'></div>
                 <div class="col-8"><h3 class="h3-owners">Szybko</h3><span class="font-13">Zarezerwuj od razu i tylko czekaj na wyjazd.</span></div>
             </div>
         </div>
         <div class="col-sm-12 col-md-4">
             <div class="row mb-1">
-                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/icon.png") }}'></div>
+                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/up.png") }}'></div>
                 <div class="col-8"><h3 class="h3-owners">Bezpiecznie</h3><span class="font-13">Zaufało nam 23 765 klientów. Znajdź obiekt i sprawdź opinie</span></div>
             </div>
         </div>
@@ -36,7 +36,7 @@
     <div class="row mt-3">
         <div id="guide-1" class="col-sm-12 col-md-4 mb-3">
             <div class="row mb-1">
-                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/iconRound.png") }}'></div>
+                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/Search_96.png") }}'></div>
                 <div class="col-6"><h3 class="h3-owners @mobile txt-blue @endmobile">Znajdź nocleg spośród 14 587 obiektów</h3></div>
                 <div class="col-2 mobile-none" style="position: relative">
                     <img src='{{ asset("images/for_travelers/arrow.png") }}' style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);">
@@ -52,7 +52,7 @@
 
         <div id="guide-2" class="col-sm-12 col-md-4 mb-3">
             <div class="row mb-1">
-                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/iconRound.png") }}'></div>
+                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/Check_96.png") }}'></div>
                 <div class="col-6"><h3 class="h3-owners @mobile txt-blue @endmobile">Zarezerwuj wybrany obiekt</h3></div>
                 <div class="col-2 mobile-none" style="position: relative">
                     <img src='{{ asset("images/for_travelers/arrow.png") }}' style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);">
@@ -71,7 +71,7 @@
 
         <div id="guide-3" class="col-sm-12 col-md-4 mb-3">
             <div class="row mb-1">
-                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/iconRound.png") }}'></div>
+                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/User_Message_1_96.png") }}'></div>
                 <div class="col-8"><h3 class="h3-owners @mobile txt-blue @endmobile">Podziel się opinią</h3></div>
             </div>
         </div>
@@ -208,7 +208,7 @@
                 <div class="col-12">
                     <div style="width:100%; min-height: 125px; background-color: #cfcfcf; border: 1px solid black; padding: 12px 20px">
                         <h4 style="font-size: 24px; font-weight: bold; margin-bottom: 15px">Masz pytania? Skontaktuj się z nami</h4>
-                        <div class="mr-2" style="float: left"><img src='{{ asset("images/for_travelers/icon2.png") }}'></div>
+                        <div class="mr-2" style="float: left"><img src='{{ asset("images/for_travelers/Call_48.png") }}'></div>
                         <a href="mailto: kontakt@visitzakopane.pl" class="btn btn-black pull-right" style="width: 208px">Napisz do nas</a>
                         <span style="font-size: 20px; display: inline-block">tel: +22 111 11 11, 600-000-000</span><br>
                         <span class="font-13" style="display: inline-block">pn-pt, 8:00-18:00</span>
