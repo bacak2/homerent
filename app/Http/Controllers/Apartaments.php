@@ -1279,9 +1279,9 @@ class Apartaments extends Controller
         return response()->json("Dodano ocenę do opinii");
     }
 
-    public function printPdf(Request $request){ dd($request);
-        $pdf = PDF::loadHTML('<div style="width: 500px; font-family: DejaVu Sans;">'.'</div>')
+    public function printPdf(Request $request){
+        $pdf = PDF::loadHTML('<div style="width: 500px; font-family: DejaVu Sans;">'.$request->wskazowkiContent.'</div>')
             ->setPaper('a4', 'landscape')->setWarnings(false);
-        return $pdf->download('invoice.pdf');
+        return $pdf->download('Wskazówki_dojazdu.pdf');
     }
 }

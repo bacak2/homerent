@@ -213,21 +213,22 @@
                         <div class="row">
                             <div class="col-12" style="font-size: 16px"><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></div>
                             <div class="col-12 mb-4" style="font-size: 14px">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}, {{ $apartament->apartament_address_2 }}</div>
-                            <div class="col-12 mb-2" style="font-size: 14px">GPS: N 48° 12' 39.90'' E 16° 23' 1.82''</div>
+                            <div class="col-12 mb-2" style="font-size: 14px">GPS: {{ $apartament->apartament_gps }}</div>
                         </div>
                         <div class="row col-12 my-2">
-                            <span style="font-size: 16px">Wskazówki dojazdu: </span>
+                            <span style="font-size: 14px; margin-top: 5px">Wskazówki dojazdu: </span>
                             <input class="font-12 ml-2" name="skad" id="skad" style="width:180px" placeholder="Lokalizacja początkowa" type="text">
                             <input class="btn btn-info btn-mobile btn-res4th" value="Pokaż" type="submit">
-                            <div class="col-2 font-12 ml-3" style="display: inline-block;">
+                            <div class="col-2 font-12 ml-1 pr-1">
                                 <div id="distance" class="row" style="font-weight: bold"></div>
                                 <div id="duration" class="row"></div>
                             </div>
-                            <div class="col-3">
-                                <a class="btn btn-info btn-mobile btn-res4th pull-right">Drukuj wskazówki dojazdu</a>
-                            </div>
-                        </div>
                     </form>
+                            <form action="{{route('printPdf')}}" class="col-2 pl-0" method="POST" name="wskazowki-print">
+                                <input type='hidden' id='wskazowkiContent' name='wskazowkiContent' value='' />
+                                <input id="drukujWskazowki" class="btn btn-info btn-mobile btn-res4th ml-0" value="Drukuj wskazówki dojazdu" style="display: none" type="submit">
+                            </form>
+                        </div>
                     <div id="wskazowki"></div>
                     <div id="mapka" style="width: 100%; height: 500px; margin-bottom: 30px;"></div>
                 </div>
@@ -341,6 +342,8 @@
 
     function znajdz_wskazowki()
     {
+        $("#drukujWskazowki").hide();
+        $("#wskazowkiContent").val("");
         var dane_trasy =
         {
             origin: document.getElementById('skad').value,
@@ -359,11 +362,19 @@
             alert('Nie znaleziono lokalizacji początkowej');
             return;
         }
+        else
+        {
+            trasa_render.setDirections(wynik);
+            $("#distance").text(wynik.routes[0].legs[0].distance.text);
+            $("#duration").text(wynik.routes[0].legs[0].duration.text);
+            $('#wskazowki').css({display: 'block'});
+            setTimeout(function(){
+                var pdfContent = $("#wskazowki").html();
+                $("#wskazowkiContent").val(pdfContent);
+                $("#drukujWskazowki").show();
+            }, 2000);
+        }
 
-        trasa_render.setDirections(wynik);
-        $("#distance").text(wynik.routes[0].legs[0].distance.text);
-        $("#duration").text(wynik.routes[0].legs[0].duration.text);
-        $('#wskazowki').css({display: 'block'});
     }
 
     function dodajZielonyMarker(lat,lng,txt, ikona)

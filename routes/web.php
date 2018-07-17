@@ -34,7 +34,7 @@ Route::group(
 
         Route::get('/apartaments/{link}', 'Apartaments@showApartamentInfo')->name('apartamentInfo');
 
-        Route::get('/printPdf','Apartaments@printPdf');
+        Route::post('/printPdf','Apartaments@printPdf')->name('printPdf');
 
         Route::get('/apartaments-group/{link}', 'Apartaments@showApartamentGroup')->name('apartamentGroup');
 

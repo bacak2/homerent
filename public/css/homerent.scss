@@ -1135,7 +1135,7 @@ div > span > i.fa{
 }
 
 #writeToUsClose, .send-to-friends, .send-news-friends, .copy-to-clipboard, .dropdown-menu label:hover, .dropdown-menu span:hover, input[type=checkbox]:hover, label.map-legend-button:hover, a.filters-toggle, .desktop-none.filters-toggle span, .btn-res4th, #cancel-login-popup, #cancel-opinion-detail, #cancel-registration-popup, input#submit, span#log-in-inline, .trash-my-opinions:hover, #clear-favourites {
-	cursor: pointer;
+	cursor: pointer !important;
 }
 
 .desktop-none.filters-toggle span, .desktop-none.filters-toggle div{
