@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Auth;
 use Session;
 use Mail;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class AboutUs extends Controller
 {
@@ -39,7 +40,7 @@ class AboutUs extends Controller
     }
 
     public function newsDetail($newsId){
-        return view('about-us.news-detail');
+        return view('about-us.news-detail', ['newsId' => $newsId]);
     }
 
     public function guidebookDetail($guidebookLink){
@@ -95,8 +96,6 @@ class AboutUs extends Controller
 
     public function SendMail(Request $request){
 
-        //dd($request);
-
         Mail::send('includes.mail_contact-form', [], function($message) use ($request){
             $message->to('krzysztof.baca@artplus.pl')
                 ->subject('Formularz kontaktowy');
@@ -130,6 +129,18 @@ class AboutUs extends Controller
 
         else url()->previous();
 
+    }
+
+    public function printPdf($newsId){
+
+        $news = DB::table('news')
+            ->where('id', $newsId)
+            ->first();
+
+        $pdf = PDF::loadHTML('<div style="width: 100%; font-family: DejaVu Sans;"><div style="font-size: 12px">'.$news->news_content.'</div></div>')
+            ->setPaper('a4', 'landscape')->setWarnings(false);
+
+        return $pdf->download('Artykuł_'.$news->news_title.'.pdf');
     }
 
 }

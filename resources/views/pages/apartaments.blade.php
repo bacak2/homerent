@@ -458,19 +458,19 @@
 									<img src='{{ asset("images/apartment_detal/journeyType0.png") }}'>Wszystkie opinie (<span class="allOpinionsAmount"></span>)
 								</div>
 								<div class="tablinks" onclick="openJourneyType(event, 'familyOpinions', 'Rodziny')" id="familyTab">
-									<img src='{{ asset("images/apartment_detal/journeyType0.png") }}'>Rodziny (<span class="familyOpinionsAmount"></span>)
+									<img src='{{ asset("images/apartment_detal/journeyType1.png") }}'>Rodziny (<span class="familyOpinionsAmount"></span>)
 								</div>
 								<div class="tablinks" onclick="openJourneyType(event, 'couplesOpinions', 'Pary')" id="couplesTab">
-									<img src='{{ asset("images/apartment_detal/journeyType0.png") }}'>Pary (<span class="couplesOpinionsAmount"></span>)
+									<img src='{{ asset("images/apartment_detal/journeyType2.png") }}'>Pary (<span class="couplesOpinionsAmount"></span>)
 								</div>
 								<div class="tablinks" onclick="openJourneyType(event, 'businessOpinions', 'Biznesowe')" id="businessTab">
-									<img src='{{ asset("images/apartment_detal/journeyType0.png") }}'>Biznesowe (<span class="businessOpinionsAmount"></span>)
+									<img src='{{ asset("images/apartment_detal/journeyType3.png") }}'>Biznesowe (<span class="businessOpinionsAmount"></span>)
 								</div>
 								<div class="tablinks" onclick="openJourneyType(event, 'friendsOpinions', 'Ze znajomymi')" id="friendsTab">
-									<img src='{{ asset("images/apartment_detal/journeyType0.png") }}'>Ze znajomymi (<span class="friendsOpinionsAmount"></span>)
+									<img src='{{ asset("images/apartment_detal/journeyType4.png") }}'>Ze znajomymi (<span class="friendsOpinionsAmount"></span>)
 								</div>
 								<div class="tablinks" onclick="openJourneyType(event, 'aloneOpinions', 'W pojedynkę')" id="aloneTab">
-									<img src='{{ asset("images/apartment_detal/journeyType0.png") }}'>W pojedynkę (<span class="aloneOpinionsAmount"></span>)
+									<img src='{{ asset("images/apartment_detal/journeyType5.png") }}'>W pojedynkę (<span class="aloneOpinionsAmount"></span>)
 								</div>
 							</div>
 
@@ -2124,7 +2124,7 @@
 					case 4: journeyType = 'W pojedynkę'; break;
 				}
 
-				html21 = $('<div style="float: left"></div>').append($('<div style="width: 50px"></div>').append($('<img src=\'{{ asset("images/opinions/journey-type-"."0".".png") }}\'><span class="font-11 under-journey-type">'+journeyType+'</span>')));
+				html21 = $('<div style="float: left"></div>').append($('<div style="width: 50px"></div>').append($('<img src=\'{{ asset("images/opinions/journey-type-")}}'+comments[i]['journey_type']+'.png\'><span class="font-11 under-journey-type">'+journeyType+'</span>')));
 				if(comments[i]['user_name'] == 0) html22 = $('<div class="col-12 user-data-detail"></div>').append($('<div class="row font-16">Anonimowy</div><div class="row font-11" style="margin-top: 3px;">Opinia z: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div>'));
 				else html22 = $('<div class="col-12 user-data-detail"></div>').append($('<div class="row font-16"><b>'+comments[i]['user_name']+'</b></div><div class="row font-16">'+comments[i]['user_country']+', '+comments[i]['user_city']+'</div><div class="row font-11" style="margin-top: 3px;">Opinia z: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div>'));
 				html2 = $('<div style="margin-bottom: 16px;"></div>').append(html21).append(html22);

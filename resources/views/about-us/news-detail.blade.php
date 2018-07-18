@@ -7,12 +7,26 @@
         <div class="col-6 col-md-2 mb-2">
             <a href="{{ route('aboutUs.news') }}" class="pointer-back" style="background-image: url('{{ asset("images/news/otherNews.png") }}')">
                 <div  class="btn font-13" style="width: 100%" >
-                    <b>Inne artykuły</b>
+                    Inne artykuły
                 </div>
             </a>
         </div>
         <div class="col-12 col-md-10 mb-2">
-            <div class="pull-right send-news-friends">Wyślij znajomemu</div>
+            <span class="pull-right">
+                <div class="d-inline-block">
+                    <div class="d-inline-block send-news-friends mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
+                        <img style="padding: 7px 9px; max-width: 36px" src="{{asset('images/favourites/Envelop.png')}}">
+                    </div>
+                    <div class="d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">Wyślij znajomemu</div>
+                </div>
+                <div class="d-inline-block">|</div>
+                <div class="d-inline-block">
+                    <div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
+                        <img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/favourites/Pdf_file.png')}}">
+                    </div>
+                    <a href="{{route('aboutUs.printPdf', $newsId)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">Zapisz</a>
+                </div>
+            </span>
         </div>
     </div>
     <h1 style="font-size: 32px; font-weight: bold;">Tytuł artykułu lorem ipsum</h1>
@@ -26,8 +40,20 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</p>
             </div>
         </div>
-        <div class="col-12">
-            <div class="send-news-friends">Wyślij znajomemu</div>
+        <div class="col-12 mt-3">
+            <div class="d-inline-block">
+                <div class="d-inline-block send-news-friends mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
+                    <img style="padding: 7px 9px; max-width: 36px" src="{{asset('images/favourites/Envelop.png')}}">
+                </div>
+                <div class="d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">Wyślij znajomemu</div>
+            </div>
+            <div class="d-inline-block">|</div>
+            <div class="d-inline-block">
+                <div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
+                    <img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/favourites/Pdf_file.png')}}">
+                </div>
+                <a href="{{route('aboutUs.printPdf', $newsId)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">Zapisz</a>
+            </div>
         </div>
     </div>
     <div class="row my-5">

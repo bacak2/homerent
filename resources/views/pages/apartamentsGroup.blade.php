@@ -180,8 +180,8 @@
 							<div class="col-4">{{__('Kaucja zwrotna')}}: 300 PLN</div>
 						</div>
 						<div class="row mb-2">
-							<div class="col-lg-4 col-sm-12 sm-facilities"><img src="{{ asset("images/apartment_detal/double-bed.png") }}">{{__('Przyjazny zwierzętom')}}</div>
-							<div class="col-lg-4 col-sm-12"><img src="{{ asset("images/apartment_detal/double-bed.png") }}">{{__('Zakaz palenia')}}</div>
+							<div class="col-lg-4 col-sm-12 sm-facilities"><img src="{{ asset("images/apartment_detal/Dog_24.png") }}">{{__('Przyjazny zwierzętom')}}</div>
+							<div class="col-lg-4 col-sm-12"><img src="{{ asset("images/apartment_detal/No-Smoking_24.png") }}">{{__('Zakaz palenia')}}</div>
 							<div class="col-4 mobile-none"></div>
 						</div>
 					</div>
@@ -222,11 +222,12 @@
 									<div id="distance" class="row" style="font-weight: bold"></div>
 									<div id="duration" class="row"></div>
 								</div>
-								<div class="col-3">
-									<a class="btn btn-info btn-mobile btn-res4th pull-right">Drukuj wskazówki dojazdu</a>
-								</div>
-							</div>
 						</form>
+						<form action="{{route('printPdf')}}" class="col-2 pl-0" method="POST" name="wskazowki-print">
+							<input type='hidden' id='wskazowkiContent' name='wskazowkiContent' value='' />
+							<input id="drukujWskazowki" class="btn btn-info btn-mobile btn-res4th ml-0" value="Drukuj wskazówki dojazdu" style="display: none" type="submit">
+						</form>
+						</div>
 						<div id="wskazowki"></div>
 						<div id="mapka" style="width: 100%; height: 500px; margin-bottom: 30px;"></div>
 					</div>
@@ -234,7 +235,8 @@
 
 				<div class="row mt-3 mb-3 font-12">
 					<div class="col-12 mb-3">
-						<h4 id="map" class="anchor-destination"><b>{{__('Apartamenty w kompleksie')}} ({{$apartamentsAmount}})</b></h4>
+						<span class="anchor-destination"></span>
+						<h4 id="map" class="bold">{{__('Apartamenty w kompleksie')}} ({{$apartamentsAmount}})</h4>
 					</div>
 					<div class="col-12 mb-2 row">
 						@foreach ($apartaments as $apartament)
@@ -335,6 +337,8 @@
 
             function znajdz_wskazowki()
             {
+                $("#drukujWskazowki").hide();
+                $("#wskazowkiContent").val("");
                 var dane_trasy =
                     {
                         origin: document.getElementById('skad').value,
@@ -353,11 +357,19 @@
                     alert('Nie znaleziono lokalizacji początkowej');
                     return;
                 }
+                else
+                {
+                    trasa_render.setDirections(wynik);
+                    $("#distance").text(wynik.routes[0].legs[0].distance.text);
+                    $("#duration").text(wynik.routes[0].legs[0].duration.text);
+                    $('#wskazowki').css({display: 'block'});
+                    setTimeout(function(){
+                        var pdfContent = $("#wskazowki").html();
+                        $("#wskazowkiContent").val(pdfContent);
+                        $("#drukujWskazowki").show();
+                    }, 2000);
+                }
 
-                trasa_render.setDirections(wynik);
-                $("#distance").text(wynik.routes[0].legs[0].distance.text);
-                $("#duration").text(wynik.routes[0].legs[0].duration.text);
-                $('#wskazowki').css({display: 'block'});
             }
 
             function dodajZielonyMarker(lat,lng,txt, ikona)

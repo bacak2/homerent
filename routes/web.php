@@ -173,6 +173,11 @@ Route::group(
             'as' => 'aboutUs.newsDetail'
         ]);
 
+        Route::GET('/news/print-pdf/{newsId}', [
+            'uses' => 'AboutUs@printPdf',
+            'as' => 'aboutUs.printPdf'
+        ]);
+
         Route::GET('/contact', [
             'uses' => 'AboutUs@contact',
             'as' => 'aboutUs.contact'
