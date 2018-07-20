@@ -1024,6 +1024,16 @@ img.active{
 	border-radius: 5px;
 }
 
+.btn-opinion-gray{
+	background-color: rgba(242, 242, 242, 1);
+	box-sizing: border-box;
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgba(121, 121, 121, 1);
+	border-radius: 5px;
+	padding: 8px 12px;
+}
+
 select {
 	height:20px;
 	font-size: 12px;
@@ -1134,7 +1144,11 @@ div > span > i.fa{
 	}
 }
 
-#writeToUsClose, .send-to-friends, .send-news-friends, .copy-to-clipboard, .dropdown-menu label:hover, .dropdown-menu span:hover, input[type=checkbox]:hover, label.map-legend-button:hover, a.filters-toggle, .desktop-none.filters-toggle span, .btn-res4th, #cancel-login-popup, #cancel-opinion-detail, #cancel-registration-popup, input#submit, span#log-in-inline, .trash-my-opinions:hover, #clear-favourites {
+.display-none-permanent{
+    display: none !important;
+}
+
+#addApartamentToFavourites, #deleteApartamentFromFavourites, #writeToUsClose, .send-to-friends, .send-news-friends, .copy-to-clipboard, .dropdown-menu label:hover, .dropdown-menu span:hover, input[type=checkbox]:hover, label.map-legend-button:hover, a.filters-toggle, .desktop-none.filters-toggle span, .btn-res4th, #cancel-login-popup, #cancel-opinion-detail, #cancel-registration-popup, input#submit, span#log-in-inline, .trash-my-opinions:hover, #clear-favourites {
 	cursor: pointer !important;
 }
 
@@ -2169,7 +2183,7 @@ span.error-show{
 	}
 
 	#mobileReservation{
-		width: 95%;
+		width: 100%;
 	}
 
     .img-group-detail{
@@ -2271,6 +2285,63 @@ span.error-show{
 		padding: 20px;
 		margin-left: 0px;
 	}
+
+	#rating-wrapper-mobile{
+		.tab {
+			float: left;
+			border-right: none;
+			background-color: #fff;
+			width: 100%;
+			height: 100%;
+
+			/* Style the buttons inside the tab */
+			.tablinks {
+				display: block;
+				background-color: rgba(242, 242, 242, 1);
+				color: black;
+				padding: 6px 14px;
+				width: 100%;
+				height: 38px;
+				border: 1px solid #ccc;
+				outline: none;
+				text-align: left;
+				cursor: pointer;
+				transition: 0.3s;
+				font-size: 13px;
+				margin-bottom: 5px;
+
+				div{
+					background-color: rgba(242, 242, 242, 1);
+				}
+
+				img{
+					margin-right: 8px;
+				}
+			}
+		}
+	}
+
+	.tabcontent-mobile{
+		background-color: rgba(242, 242, 242, 1);
+	}
+
+	#chooseJourneyType{
+		position: absolute;
+		right: 30px;
+		top: 0px;
+		width: 40px;
+		height: 40px;
+	}
+
+	.tabcontent-mobile {
+		border: 1px solid #ccc;
+	}
+
+	.totalAvgImg{
+		height: 22px;
+		margin-top: 2px;
+	}
+
 }
 
 @media (max-width: 316px){
@@ -2344,11 +2415,23 @@ span.error-show{
 	.map-legend-button{
 		margin-left: 2px;
 	}
+
+	#apartamentsforyou{
+		.apartament {
+			background-size: 100% 100%;
+		}
+	}
 }
 
 @media (min-width: 767px){
 	.btn-group.user-opinion{
 		position: absolute;
+		right: 0;
+	}
+
+	#printDirections{
+		position: absolute;
+		bottom: 4px;
 		right: 0;
 	}
 }
@@ -2366,6 +2449,11 @@ span.error-show{
 			padding-top: 90px;
 		}
 	}
+    .searchCont{
+        max-width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 1200px){

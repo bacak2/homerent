@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use Lang;
 
 class LoginController extends Controller
 {
@@ -91,5 +92,16 @@ class LoginController extends Controller
         session(['userFavourites' => $userFavourites]);
 
         session(['userFavouritesAll' => $userFavouritesAll]);
+    }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
+
+        return redirect('/'.Lang::locale());
     }
 }

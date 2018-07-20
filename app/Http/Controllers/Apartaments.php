@@ -15,6 +15,7 @@ use DateTime;
 use Auth;
 use Illuminate\Support\Facades\Session;
 use Barryvdh\DomPDF\Facade as PDF;
+use Lang;
 
 class Apartaments extends Controller
 {
@@ -79,6 +80,17 @@ class Apartaments extends Controller
         $todayDate = date("D d.m.Y");
         $tomorrowDate = date('D d.m.Y', strtotime($todayDate . ' +1 day'));
 
+        if(Lang::locale() == 'pl'){
+            $todayDate = str_replace(
+                array("Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun"),
+                array("Pon", "Wto", "Śro", "Czw", "Pią", "Sob", "Nie"),
+                $todayDate);
+
+            $tomorrowDate = str_replace(
+                array("Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun"),
+                array("Pon", "Wto", "Śro", "Czw", "Pią", "Sob", "Nie"),
+                $tomorrowDate);
+        }
 
         return view('pages.index', [
             'apartaments' => $apartaments,
@@ -547,6 +559,20 @@ class Apartaments extends Controller
 
         $isInFavourites = $isInFavourites->id ?? 0;
 
+        $todayDate = date("D d.m.Y");
+        $tomorrowDate = date('D d.m.Y', strtotime($todayDate . ' +1 day'));
+        if(Lang::locale() == 'pl'){
+            $todayDate = str_replace(
+                array("Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun"),
+                array("Pon", "Wto", "Śro", "Czw", "Pią", "Sob", "Nie"),
+                $todayDate);
+
+            $tomorrowDate = str_replace(
+                array("Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun"),
+                array("Pon", "Wto", "Śro", "Czw", "Pią", "Sob", "Nie"),
+                $tomorrowDate);
+        }
+
         return view('pages.apartaments', ['apartament' => $apartament,
             'groups' => $groups,
             'images' => $images,
@@ -577,6 +603,8 @@ class Apartaments extends Controller
             'aloneStars' => $aloneStars ?? 0,
             'isInFavourites' => $isInFavourites,
             'favouritesAmount' => $favouritesAmount,
+            'todayDate' => $todayDate,
+            'tomorrowDate' => $tomorrowDate,
         ]);
 
     }

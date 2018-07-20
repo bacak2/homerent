@@ -1,10 +1,10 @@
 <div class="col">
   <form class="wyszukiwarka" action="/search/kafle" method="GET" >
     <div class="form-row">
-      <div class="col-md-3 mb-2 mb-sm-0">
+      <div class="col-md-2 col-lg-3 mb-2 mb-sm-0">
         <input type="text" class="form-control" id="region" name="region" placeholder="{{ __('messages.forexample')}}">
       </div>
-      <div class="form-inline col-md-5 col-xl-6 form-row pick-date ">
+      <div class="form-inline col-md-5 form-row pick-date ">
           <div class="col-md-6 mb-2 mb-sm-0">
               <div class="input-group mb-2 mb-sm-0">
                   <div class="input-group-addon"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i></div>
@@ -18,7 +18,7 @@
               </div>
           </div>
       </div>
-      <div class="col-md">
+      <div class="col-12 col-md">
           <div class="input-group mb-2 mb-sm-0">
             <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}"><i class="fa fa-lg fa-male" aria-hidden="true" placeholder="{{ __('messages.adults')}}"></i></div>
               <select class="form-control" name='dorosli'>
@@ -33,7 +33,7 @@
               </select>
           </div>
       </div>
-      <div class="col-md">
+      <div class="col-12 col-md">
         <div class="input-group mb-2 mb-sm-0">
           <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Kids') }}"><i class="fa fa-child" aria-hidden="true" placeholder="{{ __('messages.kids')}}"></i></div>
               <select class="form-control" name='dzieci'>
@@ -49,7 +49,7 @@
               </select>
         </div>
       </div>
-      <div class="col-md">
+      <div class="col-12 col-md">
         <button type="submit" class="btn btn-primary searchbtn">{{ __('messages.search') }}</button>
       </div>
     </div>

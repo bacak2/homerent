@@ -3,33 +3,90 @@
 @section('title', $apartament->apartament_city.' - '.$apartament->descriptions[0]->apartament_name.' - Zarezerwuj już teraz' )
 
 @section('content')
-	<div class="row">
+	<div class="row mx-0">
 		<div class="container py-1">
-			<a href="{{ url()->previous() }}" class="btn btn-primary ml-2">{{ __('messages.Return') }}</a>
-			<span class="pull-right">
-				<div class="d-inline-block">
-					<div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
-						<img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/results/heart.png')}}">
+			<div class="pull-left mobile-none tablet-none">
+				<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButton.png") }}')">
+					<div  class="btn font-13 py-2 px-3" style="width: 100%" >
+						Powrót do wyników wyszukiwania
 					</div>
-					<div class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">Zapisz</div>
+				</a>
+			</div>
+			<div class="@mobile d-block @elsemobile pull-left @endmobile font-13 mt-2 ml-md-3">
+				<a href="{{route('index')}}">Start ></a>
+				<form action="/search/kafle" class="d-inline" method="GET">
+					<input type="hidden" name="region" value="{{$apartament->apartament_city}}">
+					<input type="hidden" name="przyjazd" value="{{$todayDate}}">
+					<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
+					<input type="hidden" name="dzieci" value="0">
+					<input type="hidden" name="dorosli" value="1">
+					<input class="hrefSubmit" type="submit" style="color: #0066CC" value="{{$apartament->apartament_city}} >">
+				</form>
+				<span class="bold ml-1">{{$apartament->descriptions[0]->apartament_name}}</span>
+			</div>
+			<div class="desktop-none col-4 d-inline-block pl-0 my-2">
+				<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButtonMobile.png") }}')">
+					<div  class="btn font-13 py-2 px-3" style="width: 100%" >
+						{{ __('messages.Return') }}
+					</div>
+				</a>
+			</div>
+			<span class="pull-right @mobile my-2 @endmobile">
+				<div class="d-inline-block">
+					<div id="addApartamentToFavourites" @if($isInFavourites > 0) style="display:none" @endif onClick="addToFavourites({{$apartament->id}}, {{Auth::user()->id ?? 0}})">
+						<div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
+							<img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/results/heart.png')}}">
+						</div>
+						<div class="mobile-none d-inline-block font-13 txt-blue" style="margin-top: 6px;">Zapisz</div>
+					</div>
 				</div>
-				<div class="d-inline-block">|</div>
+				<div class="d-inline-block">
+					<div id="deleteApartamentFromFavourites" @if($isInFavourites == 0) style="display:none" @endif onClick="deleteFromFavourites({{$apartament->id}}, {{Auth::user()->id ?? 0}})">
+						<div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
+							<img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/results/heart.png')}}">
+						</div>
+						<div class="mobile-none d-inline-block font-13 txt-blue" style="margin-top: 6px;">Usuń z ulubionych</div>
+					</div>
+				</div>
+				<div class="mobile-none d-inline-block">|</div>
 				<div class="d-inline-block">
 					<div class="d-inline-block send-news-friends mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
 						<img style="padding: 7px 9px; max-width: 36px" src="{{asset('images/favourites/Envelop.png')}}">
 					</div>
-					<div class="d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">Wyślij</div>
+					<div class="mobile-none d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">Wyślij</div>
 				</div>
+				<div class="mobile-none d-inline-block">|</div>
+				@mobile
+				<div class="d-inline-block ml-3">
+					<div class="fb-like" data-href="https://www.facebook.com/VisitZakopane/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+				</div>
+				@elsemobile
+
+				<div class="d-inline-block mx-3">
+					<div class="fb-like" data-href="https://www.facebook.com/VisitZakopane/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="false" data-share="false"></div>
+				</div>
+
+				<div class="d-inline-block" style="position: relative;top: 6px;">
+					<div class="g-plusone" data-size="medium"></div>
+				</div>
+
+				@endmobile
 			</span>
-			<div id="addApartamentToFavourites" class="pull-right" @if($isInFavourites > 0) style="display:none" @endif><button onClick="addToFavourites({{$apartament->id}}, {{Auth::user()->id ?? 0}})">Zapisz</button></div>
-			<div id="deleteApartamentFromFavourites" class="pull-right" @if($isInFavourites == 0) style="display:none" @endif><button onClick="deleteFromFavourites({{$apartament->id}}, {{Auth::user()->id ?? 0}})">Usuń z ulubionych</button></div>
 		</div>
 	</div>
-	<div class="else-handheld-none" id="stickyReservationPanelMobile">
-		<div class=""><a href="{{ url()->previous() }}" class="btn btn-primary ml-3 mr-2">{{ __('messages.Return') }}</a></div>
-		<div class="col-sm-9 col-md-10" style="padding-left: 0px;"><a id="mobileReservation" href="#stickyReservationPanel" class="btn btn-primary btn-black">Zarezerwuj</a></div>
+	@handheld
+	<div id="stickyReservationPanelMobile">
+		<div class="col-4 col-md-2 col-lg-1 d-inline-block pr-1">
+			<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButtonMobile.png") }}')">
+				<div  class="btn font-13 py-2 px-3" style="width: 100%" >
+					{{ __('messages.Return') }}
+				</div>
+			</a>
+		</div>
+		<div class="col-8 col-md-9 col-lg-10" style="padding-left: 0px;"><a id="mobileReservation" href="#stickyReservationPanel" class="btn btn-primary btn-black">Zarezerwuj</a></div>
 	</div>
-	<div class="row back" style="background-image: url( {{ asset("images/apartaments/$apartament->id/1.jpg") }} );">
+	@endhandheld
+	<div class="row mx-0 back" style="background-image: url( {{ asset("images/apartaments/$apartament->id/1.jpg") }} );">
 		<div class="container">
 			<div class="row apartament-info" >
 				<div class="col-md-8">
@@ -308,9 +365,8 @@
 							<div class="col-4">{{__('Kaucja zwrotna')}}: 300 PLN</div>
 						</div>
 						<div class="row mb-2">
-							<div class="col-lg-4 col-sm-12 sm-facilities"><img src="{{ asset("images/apartment_detal/Dog_24.png") }}">{{__('Przyjazny zwierzętom')}}</div>
-							<div class="col-lg-4 col-sm-12"><img src="{{ asset("images/apartment_detal/No-Smoking_24.png") }}">{{__('Zakaz palenia')}}</div>
-							<div class="col-4 mobile-none"></div>
+							<div class="col-md-4 col-sm-12 sm-facilities"><img src="{{ asset("images/apartment_detal/Dog_24.png") }}">{{__('Przyjazny zwierzętom')}}</div>
+							<div class="col-md-4 col-sm-12"><img src="{{ asset("images/apartment_detal/No-Smoking_24.png") }}">{{__('Zakaz palenia')}}</div>
 						</div>
 					</div>
 					<div class="col-12 mb-2">
@@ -423,20 +479,24 @@
 										<div class="col-12 mb-4" style="font-size: 14px">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}, {{ $apartament->apartament_address_2 }}</div>
 										<div class="col-12 mb-2" style="font-size: 14px">GPS: {{ $apartament->apartament_gps }}</div>
 									</div>
-									<div class="row col-12 my-2">
-										<span style="font-size: 14px; margin-top: 5px">Wskazówki dojazdu: </span>
-										<input class="font-12 ml-2" name="skad" id="skad" style="width:180px" placeholder="Lokalizacja początkowa" type="text">
-										<input class="btn btn-info btn-mobile btn-res4th" value="Pokaż" type="submit">
-										<div class="col-2 font-12 ml-1 pr-1">
+									<div class="row my-2 mx-0" style="position: relative;">
+										<span class="col-12 px-0"style="font-size: 14px; margin-top: 5px">Wskazówki dojazdu: </span>
+										<div class="col-6 col-md-3 px-0">
+											<input class="font-12" name="skad" id="skad" style="width: 100%; height: 100%" placeholder="Lokalizacja początkowa" type="text">
+										</div>
+										<div class="col-3 col-md-2 px-1">
+											<input class="btn btn-info btn-mobile btn-res4th" style="width: 100%; height: 100%; margin-left: 0px;" value="Pokaż" type="submit">
+										</div>
+										<div class="col-3 col-md-2 col-lg-1 col-xl-2 font-12 pr-0 mr-lg-3">
 											<div id="distance" class="row" style="font-weight: bold"></div>
 											<div id="duration" class="row"></div>
 										</div>
 								</form>
-								<form action="{{route('printPdf')}}" class="col-2 pl-0" method="POST" name="wskazowki-print">
+								<form id="printDirections" action="{{route('printPdf')}}" class="mt-2 mt-md-0 pl-0" method="POST" name="wskazowki-print">
 									<input type='hidden' id='wskazowkiContent' name='wskazowkiContent' value='' />
 									<input id="drukujWskazowki" class="btn btn-info btn-mobile btn-res4th ml-0" value="Drukuj wskazówki dojazdu" style="display: none" type="submit">
 								</form>
-								</div>
+							</div>
 								<div id="wskazowki"></div>
 								<div id="mapka" style="width: 100%; height: 500px; margin-bottom: 30px;"></div>
 							</div>
@@ -452,6 +512,805 @@
 						<h4 id="opinions" class="anchor-destination"><b>{{__('Ocena')}}</b></h4>
 					</div>
 					@if($comments != '')
+						@mobile
+						<div id="rating-wrapper-mobile" class="col-12 mb-2">
+							<div class="tab">
+								<div id="chooseJourneyType" class="center-h-v font-16" onclick="openJourneyTypes()">▼</div>
+								<div class="tablinks" onclick="openJourneyType(event, 'allOpinions', 'Wszystkie opinie')" id="defaultOpen">
+									<img src='{{ asset("images/apartment_detal/journeyType0.png") }}'>Wszystkie opinie (<span class="allOpinionsAmount"></span>)
+								</div>
+								<div class="tablinks" onclick="openJourneyType(event, 'familyOpinions', 'Rodziny')" id="familyTab">
+									<img src='{{ asset("images/apartment_detal/journeyType1.png") }}'>Rodziny (<span class="familyOpinionsAmount"></span>)
+								</div>
+								<div class="tablinks" onclick="openJourneyType(event, 'couplesOpinions', 'Pary')" id="couplesTab">
+									<img src='{{ asset("images/apartment_detal/journeyType2.png") }}'>Pary (<span class="couplesOpinionsAmount"></span>)
+								</div>
+								<div class="tablinks" onclick="openJourneyType(event, 'businessOpinions', 'Biznesowe')" id="businessTab">
+									<img src='{{ asset("images/apartment_detal/journeyType3.png") }}'>Biznesowe (<span class="businessOpinionsAmount"></span>)
+								</div>
+								<div class="tablinks" onclick="openJourneyType(event, 'friendsOpinions', 'Ze znajomymi')" id="friendsTab">
+									<img src='{{ asset("images/apartment_detal/journeyType4.png") }}'>Ze znajomymi (<span class="friendsOpinionsAmount"></span>)
+								</div>
+								<div class="tablinks" onclick="openJourneyType(event, 'aloneOpinions', 'W pojedynkę')" id="aloneTab">
+									<img src='{{ asset("images/apartment_detal/journeyType5.png") }}'>W pojedynkę (<span class="aloneOpinionsAmount"></span>)
+								</div>
+							</div>
+						</div>
+						<div class="col-12" style="margin-top: -14px;">
+							<div id="allOpinions" class="tabcontent-mobile p-2">
+								<div class="row mx-0 mb-2">
+									<img id="allTotalAvgImg" class="totalAvgImg">
+									<div  id="allTotalAvgWrapper" class="rating-box-apartment center-h-v">
+										<span class="font-18 bold"><span id="allTotalAvg" class="ml-2"></span>/10</span>
+										<span id="allDescription" class="font-12"></span>
+									</div>
+								</div>
+								<div class="row mx-0 font-13 mb-1" style="font-weight: bold">
+									Na podstawie&nbsp;
+								<span class="allOpinionsAmount"></span>
+									&nbsp;opinii.
+								</div>
+								<div class="row mx-0 font-11">
+									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+								</div>
+								<div class="row bars">
+									<div class="avgBars font-11 col-12 my-3">
+										<div id="allPerfect" class="row">
+											<div class="side left">
+												<div>Doskonały</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 30%; background-color: #00f324;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="allVery-good" class="row">
+											<div class="side left">
+												<div>Bardzo dobry</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #00f324;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="allAverage" class="row">
+											<div class="side left">
+												<div>Średni</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f3ef00;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="allBad" class="row">
+											<div class="side left">
+												<div>Zły</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f30019;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="allAwful" class="row">
+											<div class="side left">
+												<div>Okropny</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f30019;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+										<div class="row" style="display: none">
+											<div class="side left" onclick="openDefault()">Pokaż wszystkie</div>
+										</div>
+									</div>
+									<div class="detail-bars col-9 pl-0">
+										<div class="col-12 font-11 mb-1">
+											Czystość
+											<span class="pull-right rating-opinion-detail"><span id="allCleanliness"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="allCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Lokalizacja
+											<span class="pull-right rating-opinion-detail"><span id="allLocation"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="allLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Udogodnienia
+											<span class="pull-right rating-opinion-detail"><span id="allFacilities"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+														<img id="allFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
+													</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Obsługa
+											<span class="pull-right rating-opinion-detail"><span id="allStaff"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="allStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Stosunek jakości<br> do ceny
+											<span style="">
+													<span class="pull-right rating-opinion-detail">
+														<span id="allQuality_per_price"></span>
+													</span>
+													<span class="pull-right" style="background-color: #fff">
+														<img id="allQuality_per_priceImg" src='{{ asset("images/opinions/dot.png") }}'>
+													</span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12" style="margin-top: -14px;">
+							<div id="familyOpinions" class="tabcontent-mobile p-2">
+								<div class="row mx-0 mb-2">
+									<img id="familyTotalAvgImg" class="totalAvgImg">
+									<div  id="familyTotalAvgWrapper" class="rating-box-apartment center-h-v">
+										<span class="font-18 bold"><span id="familyTotalAvg" class="ml-2"></span>/10</span>
+										<span id="familyDescription" class="font-12"></span>
+									</div>
+								</div>
+								<div class="row mx-0 font-13 mb-1" style="font-weight: bold">
+									Na podstawie&nbsp;
+								<span class="familyOpinionsAmount"></span>
+									&nbsp;opinii.
+								</div>
+								<div class="row mx-0 font-11">
+									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+								</div>
+								<div class="row bars">
+									<div class="avgBars font-11 col-12 my-3">
+										<div id="familyPerfect" class="row">
+											<div class="side left">
+												<div>Doskonały</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 30%; background-color: #00f324;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="familyVery-good" class="row">
+											<div class="side left">
+												<div>Bardzo dobry</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #00f324;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="familyAverage" class="row">
+											<div class="side left">
+												<div>Średni</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f3ef00;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="familyBad" class="row">
+											<div class="side left">
+												<div>Zły</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f30019;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="familyAwful" class="row">
+											<div class="side left">
+												<div>Okropny</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f30019;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+										<div class="row" style="display: none">
+											<div class="side left" onclick="openFamily()">Pokaż wszystkie</div>
+										</div>
+									</div>
+									<div class="detail-bars col-9 pl-0">
+										<div class="col-12 font-11 mb-1">
+											Czystość
+											<span class="pull-right rating-opinion-detail"><span id="familyCleanliness"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="familyCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Lokalizacja
+											<span class="pull-right rating-opinion-detail"><span id="familyLocation"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="familyLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Udogodnienia
+											<span class="pull-right rating-opinion-detail"><span id="familyFacilities"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+														<img id="familyFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
+													</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Obsługa
+											<span class="pull-right rating-opinion-detail"><span id="familyStaff"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="familyStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Stosunek jakości<br> do ceny
+											<span style="">
+													<span class="pull-right rating-opinion-detail">
+														<span id="familyQuality_per_price"></span>
+													</span>
+													<span class="pull-right" style="background-color: #fff">
+														<img id="familyQuality_per_priceImg" src='{{ asset("images/opinions/dot.png") }}'>
+													</span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12" style="margin-top: -14px;">
+							<div id="couplesOpinions" class="tabcontent-mobile p-2">
+								<div class="row mx-0 mb-2">
+									<img id="couplesTotalAvgImg" class="totalAvgImg">
+									<div  id="couplesTotalAvgWrapper" class="rating-box-apartment center-h-v">
+										<span class="font-18 bold"><span id="couplesTotalAvg" class="ml-2"></span>/10</span>
+										<span id="couplesDescription" class="font-12"></span>
+									</div>
+								</div>
+								<div class="row mx-0 font-13 mb-1" style="font-weight: bold">
+									Na podstawie&nbsp;
+								<span class="couplesOpinionsAmount"></span>
+									&nbsp;opinii.
+								</div>
+								<div class="row mx-0 font-11">
+									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+								</div>
+								<div class="row bars">
+									<div class="avgBars font-11 col-12 my-3">
+										<div id="couplesPerfect" class="row">
+											<div class="side left">
+												<div>Doskonały</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 30%; background-color: #00f324;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="couplesVery-good" class="row">
+											<div class="side left">
+												<div>Bardzo dobry</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #00f324;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="couplesAverage" class="row">
+											<div class="side left">
+												<div>Średni</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f3ef00;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="couplesBad" class="row">
+											<div class="side left">
+												<div>Zły</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f30019;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="couplesAwful" class="row">
+											<div class="side left">
+												<div>Okropny</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f30019;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+										<div class="row" style="display: none">
+											<div class="side left" onclick="openCouples()">Pokaż wszystkie</div>
+										</div>
+									</div>
+									<div class="detail-bars col-9 pl-0">
+										<div class="col-12 font-11 mb-1">
+											Czystość
+											<span class="pull-right rating-opinion-detail"><span id="couplesCleanliness"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="couplesCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Lokalizacja
+											<span class="pull-right rating-opinion-detail"><span id="couplesLocation"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="couplesLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Udogodnienia
+											<span class="pull-right rating-opinion-detail"><span id="couplesFacilities"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+														<img id="couplesFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
+													</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Obsługa
+											<span class="pull-right rating-opinion-detail"><span id="couplesStaff"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="couplesStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Stosunek jakości<br> do ceny
+											<span style="">
+													<span class="pull-right rating-opinion-detail">
+														<span id="couplesQuality_per_price"></span>
+													</span>
+													<span class="pull-right" style="background-color: #fff">
+														<img id="couplesQuality_per_priceImg" src='{{ asset("images/opinions/dot.png") }}'>
+													</span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12" style="margin-top: -14px;">
+							<div id="businessOpinions" class="tabcontent-mobile p-2">
+								<div class="row mx-0 mb-2">
+									<img id="businessTotalAvgImg" class="totalAvgImg">
+									<div  id="businessTotalAvgWrapper" class="rating-box-apartment center-h-v">
+										<span class="font-18 bold"><span id="businessTotalAvg" class="ml-2"></span>/10</span>
+										<span id="businessDescription" class="font-12"></span>
+									</div>
+								</div>
+								<div class="row mx-0 font-13 mb-1" style="font-weight: bold">
+									Na podstawie&nbsp;
+								<span class="businessOpinionsAmount"></span>
+									&nbsp;opinii.
+								</div>
+								<div class="row mx-0 font-11">
+									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+								</div>
+								<div class="row bars">
+									<div class="avgBars font-11 col-12 my-3">
+										<div id="businessPerfect" class="row">
+											<div class="side left">
+												<div>Doskonały</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 30%; background-color: #00f324;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="businessVery-good" class="row">
+											<div class="side left">
+												<div>Bardzo dobry</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #00f324;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="businessAverage" class="row">
+											<div class="side left">
+												<div>Średni</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f3ef00;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="businessBad" class="row">
+											<div class="side left">
+												<div>Zły</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f30019;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="businessAwful" class="row">
+											<div class="side left">
+												<div>Okropny</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f30019;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+										<div class="row" style="display: none">
+											<div class="side left" onclick="openBusiness()">Pokaż wszystkie</div>
+										</div>
+									</div>
+									<div class="detail-bars col-9 pl-0">
+										<div class="col-12 font-11 mb-1">
+											Czystość
+											<span class="pull-right rating-opinion-detail"><span id="businessCleanliness"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="businessCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Lokalizacja
+											<span class="pull-right rating-opinion-detail"><span id="businessLocation"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="businessLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Udogodnienia
+											<span class="pull-right rating-opinion-detail"><span id="businessFacilities"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+														<img id="businessFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
+													</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Obsługa
+											<span class="pull-right rating-opinion-detail"><span id="businessStaff"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="businessStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Stosunek jakości<br> do ceny
+											<span style="">
+													<span class="pull-right rating-opinion-detail">
+														<span id="businessQuality_per_price"></span>
+													</span>
+													<span class="pull-right" style="background-color: #fff">
+														<img id="businessQuality_per_priceImg" src='{{ asset("images/opinions/dot.png") }}'>
+													</span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12" style="margin-top: -14px;">
+							<div id="friendsOpinions" class="tabcontent-mobile p-2">
+								<div class="row mx-0 mb-2">
+									<img id="friendsTotalAvgImg" class="totalAvgImg">
+									<div  id="friendsTotalAvgWrapper" class="rating-box-apartment center-h-v">
+										<span class="font-18 bold"><span id="friendsTotalAvg" class="ml-2"></span>/10</span>
+										<span id="friendsDescription" class="font-12"></span>
+									</div>
+								</div>
+								<div class="row mx-0 font-13 mb-1" style="font-weight: bold">
+									Na podstawie&nbsp;
+								<span class="friendsOpinionsAmount"></span>
+									&nbsp;opinii.
+								</div>
+								<div class="row mx-0 font-11">
+									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+								</div>
+								<div class="row bars">
+									<div class="avgBars font-11 col-12 my-3">
+										<div id="friendsPerfect" class="row">
+											<div class="side left">
+												<div>Doskonały</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 30%; background-color: #00f324;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="friendsVery-good" class="row">
+											<div class="side left">
+												<div>Bardzo dobry</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #00f324;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="friendsAverage" class="row">
+											<div class="side left">
+												<div>Średni</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f3ef00;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="friendsBad" class="row">
+											<div class="side left">
+												<div>Zły</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f30019;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="friendsAwful" class="row">
+											<div class="side left">
+												<div>Okropny</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f30019;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+										<div class="row" style="display: none">
+											<div class="side left" onclick="openFriends()">Pokaż wszystkie</div>
+										</div>
+									</div>
+									<div class="detail-bars col-9 pl-0">
+										<div class="col-12 font-11 mb-1">
+											Czystość
+											<span class="pull-right rating-opinion-detail"><span id="friendsCleanliness"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="friendsCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Lokalizacja
+											<span class="pull-right rating-opinion-detail"><span id="friendsLocation"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="friendsLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Udogodnienia
+											<span class="pull-right rating-opinion-detail"><span id="friendsFacilities"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+														<img id="friendsFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
+													</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Obsługa
+											<span class="pull-right rating-opinion-detail"><span id="friendsStaff"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="friendsStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Stosunek jakości<br> do ceny
+											<span style="">
+													<span class="pull-right rating-opinion-detail">
+														<span id="friendsQuality_per_price"></span>
+													</span>
+													<span class="pull-right" style="background-color: #fff">
+														<img id="friendsQuality_per_priceImg" src='{{ asset("images/opinions/dot.png") }}'>
+													</span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-12" style="margin-top: -14px;">
+							<div id="aloneOpinions" class="tabcontent-mobile p-2">
+								<div class="row mx-0 mb-2">
+									<img id="aloneTotalAvgImg" class="totalAvgImg">
+									<div  id="aloneTotalAvgWrapper" class="rating-box-apartment center-h-v">
+										<span class="font-18 bold"><span id="aloneTotalAvg" class="ml-2"></span>/10</span>
+										<span id="aloneDescription" class="font-12"></span>
+									</div>
+								</div>
+								<div class="row mx-0 font-13 mb-1" style="font-weight: bold">
+									Na podstawie&nbsp;
+								<span class="aloneOpinionsAmount"></span>
+									&nbsp;opinii.
+								</div>
+								<div class="row mx-0 font-11">
+									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+								</div>
+								<div class="row bars">
+									<div class="avgBars font-11 col-12 my-3">
+										<div id="alonePerfect" class="row">
+											<div class="side left">
+												<div>Doskonały</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 30%; background-color: #00f324;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="aloneVery-good" class="row">
+											<div class="side left">
+												<div>Bardzo dobry</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #00f324;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="aloneAverage" class="row">
+											<div class="side left">
+												<div>Średni</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f3ef00;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="aloneBad" class="row">
+											<div class="side left">
+												<div>Zły</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f30019;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+
+										<div id="aloneAwful" class="row">
+											<div class="side left">
+												<div>Okropny</div>
+											</div>
+											<div class="middle">
+												<div class="bar-container">
+													<div style="width: 70%; background-color: #f30019;"></div>
+												</div>
+											</div>
+											<div class="side right">0</div>
+										</div>
+										<div class="row" style="display: none">
+											<div class="side left" onclick="openAlone()">Pokaż wszystkie</div>
+										</div>
+									</div>
+									<div class="detail-bars col-9 pl-0">
+										<div class="col-12 font-11 mb-1">
+											Czystość
+											<span class="pull-right rating-opinion-detail"><span id="aloneCleanliness"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="aloneCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Lokalizacja
+											<span class="pull-right rating-opinion-detail"><span id="aloneLocation"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="aloneLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Udogodnienia
+											<span class="pull-right rating-opinion-detail"><span id="aloneFacilities"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+														<img id="aloneFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
+													</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Obsługa
+											<span class="pull-right rating-opinion-detail"><span id="aloneStaff"></span></span>
+											<span class="pull-right" style="background-color: #fff">
+													<img id="aloneStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
+												</span>
+										</div>
+										<div class="col-12 font-11 mb-1">
+											Stosunek jakości<br> do ceny
+											<span style="">
+													<span class="pull-right rating-opinion-detail">
+														<span id="aloneQuality_per_price"></span>
+													</span>
+													<span class="pull-right" style="background-color: #fff">
+														<img id="aloneQuality_per_priceImg" src='{{ asset("images/opinions/dot.png") }}'>
+													</span>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="row mt-3 mb-1 mx-0 font-12">
+							<div class="col-12 mb-2 font-18 bold">
+								<span id="opinionHeader">Wszystkie opinie</span> (<span id="allOpinionsAmount"></span>) <span id="allOpinionsAfter"></span>
+							</div>
+							<div class="col-12">
+								<label for="sortType" style="font-size: 13px">Sortuj:</label>
+								<select id="sortType">
+									<option value="1">Najnowsze opinie</option>
+									<option value="2">Najstarsze opinie</option>
+									<option value="3">Najbardziej pomocne</option>
+									<option value="4">Najwyższe oceny</option>
+									<option value="5">Najniższe oceny</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-12 mb-2 row user-comments"></div>
+						<div id="showMoreOpinions" class="col-12 center-h-v font-13">Pokaż kolejne ▼</div>
+						@elsemobile
 						<div id="rating-wrapper" class="col-12 mb-2">
 							<div class="tab">
 								<div class="tablinks" onclick="openJourneyType(event, 'allOpinions', 'Wszystkie opinie')" id="defaultOpen">
@@ -740,7 +1599,6 @@
 													<img id="familyQuality_per_priceImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 											</span>
-
 										</div>
 									</div>
 								</div>
@@ -1308,68 +2166,9 @@
 							</span>
 						</div>
 					</div>
-					<div class="col-12 mb-2 row user-comments">
-						<!--div class="col-3 user-data">
-							<div>
-								{{--@if($opinionData['user_name'] == NULL && $opinionData['user_country'] == NULL && $opinionData['user_city'] == NULL) Anonimowy --}}
-								<div style="float: left">
-									<div style="width: 50px">
-										<img src='{{ asset("images/opinions/journey-type-"."0".".png") }}'>
-										<span class="font-11 under-journey-type">Rodzina</span>
-									</div>
-								</div>
-								<div class="col-12 user-data-detail">
-									<div class="row font-16"><b>user_name</b></div>
-									<div class="row font-16">Polska, Gdańsk</div>
-									<div class="row font-11" style="margin-top: 3px;">Opinia z: created_at</div>
-								</div>
-							</div>
-							<div style="clear: both;" class="col-12 row">
-								<button class="btn font-11">Pomocna</button>
-								<a class="btn font-11" href="#">flaga</a>
-							</div>
-						</div>
-						<div class="comment-background col-9 row py-3" style="background-image: url('{{ asset("images/apartment_detal/comment_background.png") }}')">
-							<div class="col-2" style="padding-left: 0px;">
-								<div style="font-size: 22px" class="overall-rating-box center-h-v rating-green"><b>11</b></div>
-								<button class="btn font-11" id="1">rozwiń ▼</button>
-							</div>
-							<div class="col-10 comment-row mb-3" style="padding-right: 0px; padding-left: 0px;">
-								<div class="col-12 mb-2" style="padding-right: 0px; margin-left: -16px">
-									<img src='{{ asset("images/opinions/star8.png") }}'>
-								</div>
-								{{--@if($opinionData['pros'] != NULL)--}}
-									<div class="col-12 row font-12 mb-3" style="padding-right: 0px">
-										<div class="col-1 center-h-v">
-											<div style="background-color: #4eff5e; color: white; width:16px; height: 16px"><b>+</b></div>
-										</div>
-										<div class="col-11 comment-row" style="margin-left: -20px; padding-right: 0px">
-											<div class="ml-2">
-												pros
-											</div>
-										</div>
-									</div>
-								{{--@endif
-								@if($opinionData['cons'] != NULL)--}}
-									<div class="col-12 row font-12 mb-3" style="padding-right: 0px">
-										<div class="col-1 center-h-v">
-											<div style="background-color: #ff2620; color: white; width:16px; height: 16px"><b>-</b></div>
-										</div>
-										<div class="col-11 comment-row" style="margin-left: -20px; padding-right: 0px">
-											<div class="ml-2">
-												cons
-											</div>
-										</div>
-									</div>
-								{{--@endif--}}
-
-								<div id="expand-1" style="display: none">
-									po rozwinięciu
-								</div>
-							</div>
-						</div-->
-					</div>
+					<div class="col-12 mb-2 row user-comments"></div>
 					<div id="showMoreOpinions" class="col-12 center-h-v font-13">Pokaż kolejne ▼</div>
+					@endmobile
 					@else
 						<div class="col-12 mb-2">Apartament nie otrzymał jeszcze żadnych opinii</div>
 					@endif
@@ -1435,7 +2234,6 @@
             if(status != google.maps.DirectionsStatus.OK || !wynik.routes[0])
             {
                 alert('Nie znaleziono lokalizacji początkowej');
-                return;
             }
 			else
 			{
@@ -1650,7 +2448,7 @@
 
             $('.pick-date').dateRangePicker(
                 {
-                    separator : ' to ',
+                    separator : ' do ',
                     autoClose: true,
                     startOfWeek: 'monday',
                     language:'{{ App::getLocale() }}',
@@ -1667,7 +2465,7 @@
                     getValue: function()
                     {
                         if ($('#przyjazd').val() && $('#powrot').val() )
-                            return $('#przyjazd').val() + ' to ' + $('#powrot').val();
+                            return $('#przyjazd').val() + ' do ' + $('#powrot').val();
                         else
                             return '';
                     },
@@ -1884,31 +2682,31 @@
             $(".allOpinionsAmount").text(allOpinions.opinionsAmount);
             $("#allOpinionsAmount").text(allOpinions.opinionsAmount);
 
-            if(familyOpinions.opinionsAmount == 0) $("#familyTab").css({'display':'none'});
+            if(familyOpinions.opinionsAmount == 0) $("#familyTab").addClass('display-none-permanent');
             else{
                 $(".familyOpinionsAmount").text(familyOpinions.opinionsAmount);
                 $("#familyOpinionsAmount").text(familyOpinions.opinionsAmount);
 			}
 
-            if(couplesOpinions.opinionsAmount == 0) $("#couplesTab").css({'display':'none'});
+            if(couplesOpinions.opinionsAmount == 0) $("#couplesTab").addClass('display-none-permanent');
 			else{
 				$(".couplesOpinionsAmount").text(couplesOpinions.opinionsAmount);
 				$("#couplesOpinionsAmount").text(couplesOpinions.opinionsAmount);
             }
 
-            if(businessOpinions.opinionsAmount == 0) $("#businessTab").css({'display':'none'});
+            if(businessOpinions.opinionsAmount == 0) $("#businessTab").addClass('display-none-permanent');
             else{
                 $(".businessOpinionsAmount").text(businessOpinions.opinionsAmount);
                 $("#businessOpinionsAmount").text(businessOpinions.opinionsAmount);
 			}
 
-            if(friendsOpinions.opinionsAmount == 0) $("#friendsTab").css({'display':'none'});
+            if(friendsOpinions.opinionsAmount == 0) $("#friendsTab").addClass('display-none-permanent');
             else{
                 $(".friendsOpinionsAmount").text(friendsOpinions.opinionsAmount);
                 $("#friendsOpinionsAmount").text(friendsOpinions.opinionsAmount);
 			}
 
-            if(aloneOpinions.opinionsAmount == 0) $("#aloneTab").css({'display':'none'});
+            if(aloneOpinions.opinionsAmount == 0) $("#aloneTab").addClass('display-none-permanent');
             else{
                 $(".aloneOpinionsAmount").text(aloneOpinions.opinionsAmount);
                 $("#aloneOpinionsAmount").text(aloneOpinions.opinionsAmount);
@@ -1931,6 +2729,34 @@
             $("#"+journeyName+"Staff").text(journeyTypeObj.staffAvg);
             $("#"+journeyName+"Quality_per_price").text(journeyTypeObj.quality_per_priceAvg);
 
+            @mobile
+            //set color of text for total avg rating
+            if(journeyTypeObj.totalAvg <= 3 && journeyTypeObj.totalAvg >= 1){
+                $("#"+journeyName+"TotalAvgWrapper").addClass("txt-red");
+            }
+            else if(journeyTypeObj.totalAvg > 3 && journeyTypeObj.totalAvg <= 6){
+                $("#"+journeyName+"TotalAvgWrapper").addClass("txt-yellow");
+            }
+            else if(journeyTypeObj.totalAvg > 6){
+                $("#"+journeyName+"TotalAvgWrapper").addClass("txt-green");
+            }
+
+            if(journeyTypeObj.totalAvg < 2) {
+                $("#"+journeyName+"Description").text("Okropny");
+            }
+            else if(journeyTypeObj.totalAvg >= 2 && journeyTypeObj.totalAvg < 4){
+                $("#"+journeyName+"Description").text("Zły");
+            }
+            else if(journeyTypeObj.totalAvg >= 4 && journeyTypeObj.totalAvg < 6){
+                $("#"+journeyName+"Description").text("Średni");
+            }
+            else if(journeyTypeObj.totalAvg >= 6 && journeyTypeObj.totalAvg < 8){
+                $("#"+journeyName+"Description").text("Bardzo dobry");
+            }
+            else if(journeyTypeObj.totalAvg >= 8){
+                $("#"+journeyName+"Description").text("Doskonały");
+            }
+            @elsemobile
             //set color box for total avg rating
             if(journeyTypeObj.totalAvg <= 3 && journeyTypeObj.totalAvg >= 1){
                 $("#"+journeyName+"TotalAvgWrapper").addClass("rating-red");
@@ -1941,6 +2767,7 @@
             else if(journeyTypeObj.totalAvg > 6){
                 $("#"+journeyName+"TotalAvgWrapper").addClass("rating-green");
             }
+            @endmobile
 
             //set img for total avg rating
             if(journeyTypeObj.totalAvg == null) $("#"+journeyName+"TotalAvgImg").attr("src",'{{ asset("images/opinions/star1.png") }}');
@@ -2099,7 +2926,82 @@
 
         nowSortedComments = allComments;
 		showingCommentsAmount = 0;
+	@mobile
+        function setComments(comments, more){
+            //clear last comments
+            $("div.user-comments").html('');
 
+            if(comments.length > 5 && showingCommentsAmount + 5 < comments.length) $("#showMoreOpinions").show();
+            else $("#showMoreOpinions").hide();
+
+            if(comments.length < 5 || showingCommentsAmount + 5 > comments.length) len = comments.length;
+            else len = 5;
+
+            if(more == 1 && showingCommentsAmount + 5 < comments.length) len = showingCommentsAmount + 5;
+
+            showingCommentsAmount = len;
+
+            for (var i = 0; i < len; i++) {
+
+                switch(comments[i]['journey_type']){
+                    case 0: journeyType = 'Rodzina'; break;
+                    case 1: journeyType = 'Para'; break;
+                    case 2: journeyType = 'Biznasowa'; break;
+                    case 3: journeyType = 'Ze znajomymi'; break;
+                    case 4: journeyType = 'W pojedynkę'; break;
+                }
+
+                if (comments[i]['pros'] == null && comments[i]['cons'] == null){
+                    htmlPros = '<div class="col-12 font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego komentarza do oceny.</div>';
+                    htmlCons = '';
+                }
+                else{
+                    if (comments[i]['pros'] != null) htmlPros = '<div class="col-1 center-h-v"> <div style="background-color: #4eff5e; color: white; width:16px; height: 16px"><b>+</b></div> </div> <div class="col-10 pl-2 pr-0">'+ comments[i]['pros'] +'</div>';
+                    else htmlPros = '<div class="col-12 font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego pozytywnego komentarza do oceny.</div>';
+                    if (comments[i]['cons'] != null) htmlCons = '<div class="col-1 center-h-v"><div style="background-color: #ff2620; color: white; width:16px; height: 16px"><b>-</b></div></div><div class="col-10 pl-2 pr-0">'+ comments[i]['cons'] +'</div>';
+                    else htmlCons = '<div class="col-12 font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego negatywnego komentarza do oceny.</div>';
+                }
+
+                if (comments[i]['helpful'] == 1) helpful = '<div class="row mb-1 font-11"><b class="mr-1">'+comments[i]['helpful']+'</b> osoba uznała opinię za pomocną</div>';
+                else if (comments[i]['helpful'] > 1 && comments[i]['helpful'] < 5) helpful = '<div class="row mb-1 font-11"><b class="mr-1">'+comments[i]['helpful']+'</b> osoby uznały opinię za pomocną</div>';
+                else if (comments[i]['helpful'] >= 5) helpful = '<div class="row mb-1 font-11"><b class="mr-1">'+comments[i]['helpful']+'</b> osób uznało opinię za pomocną</div>';
+                else helpful = '';
+
+                if(comments[i]['user_name'] != 0) nameAndCity = '<div class="font-13"><b>'+comments[i]['user_name']+'</b></div> <div class="font-13">'+comments[i]['user_country']+', '+comments[i]['user_city']+'</div>';
+                else nameAndCity = '<div class="font-13">Anonimowy</div>';
+
+                if(comments[i]['total_rating'] <= 3 && comments[i]['total_rating'] >= 1){
+                    ratingColor = "txt-red";
+                }
+                else if(comments[i]['total_rating'] > 3 && comments[i]['total_rating'] <= 6){
+                    ratingColor = "txt-yellow";
+                }
+                else if(comments[i]['total_rating'] > 6){
+                    ratingColor = "txt-green";
+                }
+
+                if(comments[i]['total_rating'] < 2) {
+                   	ratingDescription = "Okropny";
+                }
+                else if(comments[i]['total_rating'] >= 2 && comments[i]['total_rating'] < 4){
+                    ratingDescription = "Zły";
+                }
+                else if(comments[i]['total_rating'] >= 4 && comments[i]['total_rating'] < 6){
+                    ratingDescription = "Średni";
+                }
+                else if(comments[i]['total_rating'] >= 6 && comments[i]['total_rating'] < 8){
+                    ratingDescription = "Bardzo dobry";
+                }
+                else if(comments[i]['total_rating'] >= 8){
+                    ratingDescription = "Doskonały";
+                }
+
+                html = $('<div class="col-12 px-0"><div class="p-3" style="background-position: left bottom; background-image: url(\'{{ asset("images/apartment_detal/comment_mobile_background.png") }}\'"><div class="row"> <div class="col-6"><img src="/images/opinions/star'+Math.ceil(comments[i]['total_rating'])+'.png"></div> <div class="col-6 pl-0 '+ratingColor+'"> <span class="font-12 pull-right mt-1">'+ratingDescription+'</span> <span class="font-18 bold mr-1 pull-right"> <span>'+parseFloat(comments[i]['total_rating']).toFixed(1)+'</span>/10 </span></div></div><div class="row mb-4 mt-3">'+htmlPros+'</div> <div class="row" style="margin-bottom: 78px"> '+htmlCons+' </div> '+helpful+' <div class="row"> <div class="col-7 px-0"> <div class="row ml-0"> <img style="width: 48px; height: 48px" src=\'{{ asset("images/opinions/journey-type-") }}'+comments[i]['journey_type']+'.png\'> <div class="col pl-1 pr-0"> '+nameAndCity+' <div class="font-11" style="margin-top: 3px;">Opinia z: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div> </div> </div> </div> <div class="col-5 px-0"> <a class="btn btn-opinion-gray font-11 pull-right ml-2" href="#"><img src=\'{{ asset("images/opinions/flag.png") }}\'></a> <button class="btn btn-opinion-gray font-11 pull-right" onclick="increaseHelpful('+comments[i]['id']+')"><img src=\'{{ asset("images/opinions/thumb.png") }}\'></button> </div> </div></div></div>');
+				html.appendTo('.user-comments');
+
+            }
+        }
+	@elsemobile
 		function setComments(comments, more){
 		    //clear last comments
             $("div.user-comments").html('');
@@ -2128,7 +3030,7 @@
 				if(comments[i]['user_name'] == 0) html22 = $('<div class="col-12 user-data-detail"></div>').append($('<div class="row font-16">Anonimowy</div><div class="row font-11" style="margin-top: 3px;">Opinia z: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div>'));
 				else html22 = $('<div class="col-12 user-data-detail"></div>').append($('<div class="row font-16"><b>'+comments[i]['user_name']+'</b></div><div class="row font-16">'+comments[i]['user_country']+', '+comments[i]['user_city']+'</div><div class="row font-11" style="margin-top: 3px;">Opinia z: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div>'));
 				html2 = $('<div style="margin-bottom: 16px;"></div>').append(html21).append(html22);
-                html3 = $('<div style="clear: both; max-width: 200px; width: 200px;" class="col-12 row"></div>').append('<button class="btn font-11" onclick="increaseHelpful('+comments[i]['id']+')"><img src={{ asset("images/opinions/thumb.png") }}>Pomocna<br>opinia</button><a class="btn font-11" href="#"><img src={{ asset("images/opinions/flag.png") }}></a>');
+                html3 = $('<div style="clear: both; max-width: 200px; width: 200px;" class="col-12 row"></div>').append('<button class="btn btn-opinion-gray font-11 mr-2 px-1 py-0" onclick="increaseHelpful('+comments[i]['id']+')"><img style="position: relative;top: 6px;" src={{ asset("images/opinions/thumb.png") }}><span class="ml-1">Pomocna</span><br><span class="ml-3">opinia</span></button><a class="btn btn-opinion-gray ml-2 font-11" href="#"><img src={{ asset("images/opinions/flag.png") }}></a>');
                 htmlLeft = $('<div class="col-3 user-data"></div>').append(html2).append(html3);
 
                 if(comments[i]['total_rating'] > 6) ratingColor = "green";
@@ -2144,9 +3046,9 @@
 				}
 				else{
                     if (comments[i]['pros'] != null) html12 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px"> <div class="col-1 center-h-v"> <div style="background-color: #4eff5e; color: white; width:16px; height: 16px"><b>+</b></div> </div> <div class="col-11 comment-row" style="margin-left: -20px; padding-right: 0px"> <div class="ml-2">'+ comments[i]['pros'] +'</div> </div> </div>');
-                    else html12 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego komentarza do oceny.</div>');
+                    else html12 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego pozytywnego komentarza do oceny.</div>');
                     if (comments[i]['cons'] != null) html13 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px"> <div class="col-1 center-h-v"> <div style="background-color: #ff2620; color: white; width:16px; height: 16px"><b>-</b></div> </div> <div class="col-11 comment-row" style="margin-left: -20px; padding-right: 0px"> <div class="ml-2">'+ comments[i]['cons'] +'</div> </div> </div>');
-                    else html13 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego komentarza do oceny.</div>');
+                    else html13 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego negatywnego komentarza do oceny.</div>');
 				}
 
                 //set stay month name and year
@@ -2281,6 +3183,8 @@
                 html.appendTo('.user-comments');
             };
         }
+    @endmobile
+
 		sortComments(nowSortedComments);
 
         function sortCommentsNewest(comments){
@@ -2412,17 +3316,7 @@
             $(".avgBars > div").removeClass("selected");
             $(this).addClass("selected");
             $(".avgBars > div:last-child").show();
-            //$(this).off("click");
 		});
-
-        /*var handler = function() {
-            $(".avgBars > div").removeClass("selected");
-            $(this).addClass("selected");
-        };
-
-            $(".avgBars > div").on("click", ".avgBars > div:not(.selected)", handler);
-            $(".avgBars > div").off("click", this, handler);
-        */
 	</script>
 
 	<script>
@@ -2476,28 +3370,102 @@
             $(".avgBars > div").removeClass("selected");
         }
 
+        var showingJourneyTypes = 1;
+
+		@mobile
+        function openJourneyType(evt, JourneyType, JourneyTypeName) {
+            var i, tabcontent, tablinks;
+            showingCommentsAmount = 0;
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            tabcontent = document.getElementsByClassName("tabcontent-mobile");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            document.getElementById(JourneyType).style.display = "block";
+            evt.currentTarget.className += " active";
+            openJourneyTypes();
+
+            $("#opinionHeader").text(JourneyTypeName);
+            if (JourneyType == 'allOpinions'){
+                nowSortedComments = allComments;
+                sortComments(nowSortedComments);
+                $("#allOpinionsAmount").text(allOpinions.opinionsAmount);
+            }
+            else if (JourneyType == 'familyOpinions'){
+                nowSortedComments = familyComments;
+                sortComments(nowSortedComments);
+                $("#allOpinionsAmount").text(familyOpinions.opinionsAmount);
+            }
+            else if (JourneyType == 'couplesOpinions'){
+                nowSortedComments = couplesComments;
+                sortComments(nowSortedComments);
+                $("#allOpinionsAmount").text(couplesOpinions.opinionsAmount);
+            }
+            else if (JourneyType == 'businessOpinions'){
+                nowSortedComments = businessComments;
+                sortComments(nowSortedComments);
+                $("#allOpinionsAmount").text(businessOpinions.opinionsAmount);
+            }
+            else if (JourneyType == 'friendsOpinions'){
+                nowSortedComments = friendsComments;
+                sortComments(nowSortedComments);
+                $("#allOpinionsAmount").text(friendsOpinions.opinionsAmount);
+            }
+            else if (JourneyType == 'aloneOpinions'){
+                nowSortedComments = aloneComments;
+                sortComments(nowSortedComments);
+                $("#allOpinionsAmount").text(aloneOpinions.opinionsAmount);
+            }
+
+            $("#allOpinionsAfter").text("");
+            $(".avgBars > div").removeClass("selected");
+        }
+		@endmobile
+
+        function openJourneyTypes(){
+            if(showingJourneyTypes == 1){
+                $(".tablinks:not(.active)").hide();
+                $("#chooseJourneyType").text("▼");
+                showingJourneyTypes = 0;
+			}
+			else{
+                $(".tablinks:not(.display-none-permanent)").show();
+                $("#chooseJourneyType").text("▲");
+                showingJourneyTypes = 1;
+			}
+		}
+
         function openDefault() {
             document.getElementById("defaultOpen").click();
+            @mobile document.getElementById("chooseJourneyType").click(); @endmobile
             $(".avgBars > div:last-child").hide();
         }
         function openFamily() {
             document.getElementById("familyTab").click();
+            @mobile document.getElementById("chooseJourneyType").click(); @endmobile
             $(".avgBars > div:last-child").hide();
         }
         function openCouples() {
             document.getElementById("couplesTab").click();
+            @mobile document.getElementById("chooseJourneyType").click(); @endmobile
             $(".avgBars > div:last-child").hide();
         }
         function openBusiness() {
             document.getElementById("businessTab").click();
+            @mobile document.getElementById("chooseJourneyType").click(); @endmobile
             $(".avgBars > div:last-child").hide();
         }
         function openFriends() {
             document.getElementById("friendsTab").click();
+            @mobile document.getElementById("chooseJourneyType").click(); @endmobile
             $(".avgBars > div:last-child").hide();
         }
         function openAlone() {
             document.getElementById("aloneTab").click();
+            @mobile document.getElementById("chooseJourneyType").click(); @endmobile
             $(".avgBars > div:last-child").hide();
         }
 
