@@ -499,11 +499,6 @@ div.red-nr-alert{
 	text-align: center;
 }
 
-.trash-my-opinions{
-	background-color: #e7e7e7;
-	padding: 10px 15px;
-}
-
 .instead-trash{
 	background-color: #e7e7e7;
 	padding: 5px;
@@ -1520,9 +1515,9 @@ label.inline-label{
 	}
 }
 
-#send-to{
+#send-to, #send-news{
 	display: none;
-	position: absolute;
+	position: fixed;
 	top: 30%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -1533,7 +1528,7 @@ label.inline-label{
 	z-index: 1000;
 	padding: 10px;
 
-	#close-send-to{
+	#close-send-to, #close-send-news{
 		position: absolute;
 		right: 0;
 		top: 0;
@@ -1561,9 +1556,9 @@ label.inline-label{
 	}
 }
 
-#confirm-sended-to-friends{
+#confirm-sended-to-friends, #confirm-send-news-friends{
 	display: none;
-	position: absolute;
+	position: fixed;
 	top: 30%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -1580,61 +1575,6 @@ label.inline-label{
 	button{
 		width: 120px;
 	}
-}
-
-#send-news{
-	display: none;
-	position: fixed;
-	top: 30%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: #ffffff;
-	border: solid 1px black;
-	width: 640px;
-	min-height: 260px;
-	z-index: 999;
-	padding: 10px;
-
-	#close-send-news{
-		position: absolute;
-		right: 0;
-		top: 0;
-		background-color: black;
-		color: white;
-		padding: 6px 12px;
-		font-weight: bold;
-
-		&:hover{cursor: pointer;}
-	}
-
-	input[type="text"]{
-		font-size: 13px;
-		width: 480px;
-		height: 40px;
-	}
-
-	input[type="submit"]:hover{cursor: pointer}
-
-	label{font-size: 14px;}
-
-	ul{
-		list-style-type: none;
-		padding-left: 0px;
-	}
-}
-
-#confirm-send-news-friends{
-	display: none;
-	position: fixed;
-	top: 30%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: #ffffff;
-	border: solid 1px black;
-	width: 640px;
-	height: 260px;
-	z-index: 999;
-	padding: 10px;
 }
 
 .detail-legend{
@@ -2104,6 +2044,11 @@ span.error-show{
 	white-space: pre-line;
 }
 
+.trash-my-opinions{
+	background-color: #e7e7e7;
+	padding: 15px;
+}
+
 @media (min-width: 768px) {
 	.desktop-hidden{
 		visibility: hidden !important;
@@ -2145,17 +2090,6 @@ span.error-show{
 		#Rpath{
 			order: 2;
 		}
-	}
-
-	.add-new-data{
-		z-index: 100;
-		position: fixed;
-		top: 2%;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 1000px;
-		border: solid black 1px;
-		background-color: #fff;
 	}
 
 	#opinion-detail{
@@ -2380,8 +2314,8 @@ span.error-show{
 		position: relative;
 	}
 
-	#send-to{
-		width: 100%;
+	#send-to, #send-news, #confirm-send-news-friends, #confirm-sended-to-friends{
+		width: 95%;
 		input[type="text"]{
 			width: 100%;
 		}
@@ -2420,6 +2354,10 @@ span.error-show{
 		.apartament {
 			background-size: 100% 100%;
 		}
+	}
+
+	.trash-my-opinions{
+		padding: 15px;
 	}
 }
 
@@ -2468,6 +2406,22 @@ span.error-show{
 	#mobileReservation{
 		width: 100%;
 	}
+
+	.add-new-data{
+		z-index: 100;
+		position: fixed;
+		top: 2%;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 95%;
+		border: solid black 1px;
+		background-color: #fff;
+	}
+
+	.trash-my-opinions{
+		padding: 8px;
+	}
+
 }
 
 @media (max-width: 1200px){
@@ -2489,6 +2443,10 @@ span.error-show{
     #about-us-aggregate{
       padding: 0px 160px;
     }
+
+	.trash-my-opinions{
+		padding: 12px;
+	}
 }
 
 @media (min-width: 991px) and (max-width: 1200px){
@@ -2561,7 +2519,7 @@ span.error-show{
 		left: 0;
 		background-color: rgba(13, 13, 13, 0.6);
 		width: 100%;
-		height: 100%;
+		height: 110%;
 		z-index: 1999;
 
 		&>div{
@@ -2623,6 +2581,17 @@ span.error-show{
 			background-color: #fff;
 			padding: 18px;
 		}
+	}
+
+	.add-new-data{
+		z-index: 100;
+		position: fixed;
+		top: 2%;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 1000px;
+		border: solid black 1px;
+		background-color: #fff;
 	}
 }
 

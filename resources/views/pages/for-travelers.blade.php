@@ -209,8 +209,8 @@
                     <div style="width:100%; min-height: 125px; background-color: #cfcfcf; border: 1px solid black; padding: 12px 20px">
                         <h4 style="font-size: 24px; font-weight: bold; margin-bottom: 15px">Masz pytania? Skontaktuj się z nami</h4>
                         <div class="mr-2" style="float: left"><img src='{{ asset("images/for_travelers/Call_48.png") }}'></div>
-                        <a href="mailto: kontakt@visitzakopane.pl" class="btn btn-black pull-right" style="width: 208px">Napisz do nas</a>
-                        <span style="font-size: 20px; display: inline-block">tel: +22 111 11 11, 600-000-000</span><br>
+                        <a href="mailto: kontakt@visitzakopane.pl" class="btn btn-black pull-right" style="width: 170px">Napisz do nas</a>
+                        <span style="font-size: 20px;">tel: +22 111 11 11, 600-000-000</span><br>
                         <span class="font-13" style="display: inline-block">pn-pt, 8:00-18:00</span>
                     </div>
                 </div>
@@ -222,7 +222,7 @@
                     <span class="font-13 bold" style="display: inline-block">tel: +22 111 11 11, 600-000-000</span>
                     <span class="font-13" style="display: inline-block;">pn-pt, 8:00-18:00</span>
                     <div style="clear: both"></div>
-                    <button class="btn btn-black mt-4" style="width: 208px">Napisz do nas</button>
+                    <button class="btn btn-black mt-4" style="width: 100%">Napisz do nas</button>
                 </div>
             </div>
         </div>

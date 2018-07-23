@@ -164,7 +164,7 @@
             </div>
         </div>
         @if(!$additionalServices->isEmpty())
-            <div class="col-lg-6 col-sm-12">
+            <div class="col-lg-6 col-sm-12 mb-3">
                 <div class="row">
                     <div class="col-11 ml-3">
                         <div class="row"><b>{{ __('messages.Additional services') }}</b></div>
@@ -237,7 +237,7 @@
                     </div>
                     <div class="col-12 mt-3" id="messageForOwner" style="display: none">
                         <p><b>{{ __('messages.Message for the owner about services') }}</b></p>
-                        <label for="res-ph">{{ __('messages.Content') }}:</label><textarea id="res-ph" name="wiadomoscDodatkowa" class="ml-4 font-12" rows="4" cols="50" style="width: 80%" placeholder="{{ __('messages.res.Placeholder1') }}"></textarea>
+                        <label class="d-block" for="res-ph">{{ __('messages.Content') }}:</label><textarea id="res-ph" name="wiadomoscDodatkowa" class="font-12" rows="4" cols="50" style="width: 97%" placeholder="{{ __('messages.res.Placeholder1') }}"></textarea>
                     </div>
                 </div>
             </div>

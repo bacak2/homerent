@@ -13,10 +13,10 @@
     </div>
 @else
     <div class="row mt-4 mb-2">
-        <div class="col-12">
+        <div class="col-12 pl-md-0 pl-lg-3">
             <span style="font-size: 28px"><b>Moje opinie</b></span>
             @if($opinionToAdd > 0)
-                <div class="btn-group user-opinion">
+                <div class="btn-group user-opinion mr-3">
                     <a class="btn @if($buttonCheck == 1) btn-selected @endif btn-info btn-mobile" href="{{route('myOpinions')}}">{{__('Wszystkie')}}</a>
                     <a class="btn @if($buttonCheck == 2) btn-selected @endif btn-info btn-mobile" href="{{route('myOpinionsToAdd')}}">{{__('Do wystawienia')}}<div class="red-nr-alert">{{$opinionToAdd}}</div></a>
                 </div>
@@ -25,33 +25,33 @@
     </div>
 
     {{--table header--}}
-        <div class="row mobile-none" style="font-size: 20px"><div class="col-lg-6"></div><div class="col-lg-2" style="margin-left: -15px;"><b>Średnia ocen</b></div><div class="col-lg-4"><b>Twoja ocena</b></div></div>
+        <div class="row d-none d-lg-flex" style="font-size: 20px"><div class="col-lg-6"></div><div class="col-lg-2 px-lg-2" style="margin-left: -15px;"><b>Średnia ocen</b></div><div class="col-lg-4 px-lg-0"><b>Twoja ocena</b></div></div>
     {{--end header--}}
     @foreach($users_opinions as $opinion)
-        <div class="user-opinion-row row py-3 my-3 my-md-0">
-            <div class="col-lg-2 col-4"><img src='{{ asset("images/apartaments/$opinion->apartament_id/1.jpg") }}') style="width: 100%;"></div>
-            <div class="col-lg-3 col-8">
+        <div class="user-opinion-row row py-3 my-3 my-md-0 mr-md-0">
+            <div class="col-lg-2 col-4 pl-md-0 pl-lg-3"><img src='{{ asset("images/apartaments/$opinion->apartament_id/1.jpg") }}') style="width: 100%;"></div>
+            <div class="col-lg-3 col-8 pl-3 pl-md-0 pl-lg-3">
                 <span class="font-16 txt-blue" style="font-weight: bold"><a href="/apartaments/{{ $opinion->apartament_link }}">{{ $opinion->apartament_name }}</a></span><br>
                 <span class="font-12">
                     {{ $opinion->apartament_city }} ({{ $opinion->apartament_district }})<br>
                     {{ $opinion->apartament_address }}
                 </span>
             </div>
-            <div class="col-lg-1 col-12">
-                <div class="font-11">Pobyt:</div>
-                <div class="font-12">{{ abs((strtotime($opinion->reservation_arrive_date) - strtotime($current_data)) / (60*60*24)) }} dni temu</div>
+            <div class="col-lg-1 col-12 pl-md-0 pl-lg-3">
+                <div class="font-11 d-md-inline-block d-lg-block">Pobyt:</div>
+                <div class="font-12 d-md-inline-block d-lg-block">{{ abs((strtotime($opinion->reservation_arrive_date) - strtotime($current_data)) / (60*60*24)) }} dni temu</div>
             </div>
             <div class="col-12 mt-2 desktop-none">Średnia ocen:</div>
-            <div class="col-lg-2 col-12 px-3 px-md-0">
-                <div class="font-11">
+            <div class="col-md-4 col-lg-2 px-3 px-md-0">
+                <div class="row mx-0 font-11">
                     @for ($i = 0; $i < floor($opinion->ratingAvg/2); $i++)
-                        <img class="mr-2" src='{{ asset("images/opinions/star.png") }}'>
+                        <img class="mr-2 mr-lg-1" src='{{ asset("images/opinions/star.png") }}'>
                     @endfor
                     @if(floor($opinion->ratingAvg/2) != ceil($opinion->ratingAvg/2))
-                        <img class="mr-2" src='{{ asset("images/opinions/star_half.png") }}'>
+                        <img class="mr-2 mr-lg-1" src='{{ asset("images/opinions/star_half.png") }}'>
                     @endif
                     @for ($i = ceil($opinion->ratingAvg/2); $i < 5; $i++)
-                        <img class="mr-2" src='{{ asset("images/opinions/star_empty.png") }}'>
+                        <img class="mr-2 mr-lg-1" src='{{ asset("images/opinions/star_empty.png") }}'>
                     @endfor
                 </div>
                 @if($opinion->ratingAvg < 1)
@@ -69,20 +69,20 @@
                 @endif
                 <div class="font-12 txt-blue">{{$opinion->opinionAmount ?? 0}} {{trans_choice('messages.nrReviews', $opinion->opinionAmount ?? 0)}}</div>
             </div>
-            <div class="col-lg-4 col-12 px-3 px-md-0">
+            <div class="col-md-8 col-lg-4 px-3 px-md-0">
                 @if($opinion->total_rating > 0)
                     <div class="col-12 px-0 mt-2 desktop-none">Twoja ocena:</div>
-                    <div class="row px-3 px-md-0">
+                    <div class="row px-3 pr-md-0">
                         <div class="col-6">
                             <div class="row font-11">
                                 @for ($i = 0; $i < floor($opinion->total_rating/2); $i++)
-                                    <img class="mr-2" src='{{ asset("images/opinions/star.png") }}'>
+                                    <img class="mr-2 mr-lg-1" src='{{ asset("images/opinions/star.png") }}'>
                                 @endfor
                                 @if(floor($opinion->total_rating/2) != ceil($opinion->total_rating/2))
-                                    <img class="mr-2" src='{{ asset("images/opinions/star_half.png") }}'>
+                                    <img class="mr-2 mr-lg-1" src='{{ asset("images/opinions/star_half.png") }}'>
                                 @endif
                                 @for ($i = ceil($opinion->total_rating/2); $i < 5; $i++)
-                                    <img class="mr-2" src='{{ asset("images/opinions/star_empty.png") }}'>
+                                    <img class="mr-2 mr-lg-1" src='{{ asset("images/opinions/star_empty.png") }}'>
                                 @endfor
                             </div>
                             @if($opinion->total_rating < 2.5)
@@ -98,19 +98,19 @@
                             @endif
                             <div class="row font-12">{{ date("d.m.Y", strtotime($opinion->opinionCreateDate)) }}</div>
                         </div>
-                        <div class="col-4 font-12 txt-blue">
+                        <div class="col-4 pl-0 pr-3 pr-md-0 font-12 txt-blue">
                             @mobile
                                 <a class="btn detail" href="#" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">szczegóły >></a>
                             @elsemobile
                                 <button class="btn detail" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">szczegóły >></button>
                             @endmobile
                         </div>
-                        <div class="col-2">
-                            <i onClick="deletePop({{$opinion->id_reservation}})" class="trash-my-opinions fa fa-trash fa-2x" aria-hidden="true"></i>
+                        <div class="col-2 pl-0 pl-md-4 pl-lg-0 pr-0">
+                            <img src='{{ asset("images/opinions/trash.png") }}' class="trash-my-opinions img-fluid" onClick="deletePop({{$opinion->id_reservation}})"></img>
                         </div>
                     </div>
                 @else
-                    <div class="row instead-trash px-3 px-md-1">
+                    <div class="row instead-trash mx-0 px-2 px-md-1">
                         <div class="col-8 font-11">
                             Przekazując informacje na temat pobytu w tym obiekcie pomagasz innym podróżnym podejmować lepsze decyzje.
                         </div>

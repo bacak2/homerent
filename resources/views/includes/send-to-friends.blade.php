@@ -29,8 +29,8 @@
     <div id="close-send-to" class="close-send-to">x</div>
 </div>
 
-<div id="confirm-sended-to-friends">
-    <span style="font-size: 24px; font-weight: bold">Wiadomość e-mail została wysłana</span><br>
+<div id="confirm-sended-to-friends" class="text-center">
+    <br><span style="font-size: 24px; font-weight: bold">Wiadomość e-mail została wysłana</span><br>
     <div style="text-align: center">
         <button class="btn btn-default close-confirm-sended">OK</button>
     </div>

@@ -54,18 +54,18 @@
         <a class="@desktop pull-right @else d-block @enddesktop font-14" href="#account">Numer konta do wpłat za rezerwacje ↓</a>
     </div>
 
-    <div class="row" style="margin-bottom: 90px">
-        <div class="col-12 col-md-8">
+    <div class="row mb-3 mb-md-5">
+        <div class="col-md-6 col-lg-7">
             <div class="contact-box font-14">
-                <div class="row mb-5">
-                    <div class="col-6">
+                <div class="row mb-3 mb-md-5">
+                    <div class="col-lg-6">
                         <div class="mb-3 pb-3" style="border-bottom: dashed 1px black">
                             Zapraszamy do zapoznania się z
                             <a href="#faq">najczęściej zadawanymi pytaniami przez podróżnych</a>
                         </div>
-                        <button class="btn btn-black writeToUsOpen" style="width: 100%">Napisz do nas</button>
+                        <a href="#" class="btn btn-black writeToUsOpen" style="width: 100%">Napisz do nas</a>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6 mt-3 mt-lg-0">
                         <div class="mb-3">
                             <img src="{{asset('images/contact/phoneMinIcon.png')}}">
                             <span class="ml-1">+48 18 20 64 002</span>
@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-4 mt-4 mt-md-0">
+        <div class="col-md-6 col-lg-5 mt-3 mt-md-0">
             <div class="contact-box font-14">
                 <div class="bold" style="font-size: 18px">Dla mediów</div>
                 <div class="row my-2">
@@ -110,7 +110,7 @@
                         <div class="font-11 mt-2">Specjalista ds.kontaktów z mediami</div>
                     </div>
                 </div>
-                <button class="btn btn-black writeToUsOpen" style="width: 100%">Napisz do nas</button>
+                <a href="#" class="btn btn-black writeToUsOpen" style="width: 100%">Napisz do nas</a>
                 <div class="mt-3">
                     <img src="{{asset('images/contact/phoneMinIcon.png')}}">
                     <span class="ml-1">+48 18 20 64 002</span>
@@ -124,7 +124,7 @@
     </div>
 
     <div class="row mb-4 font-14">
-        <div class="col-12 col-md-4 mb-4 mb-md-0">
+        <div class="col-12 col-md-4 mb-3 mb-md-0">
             <div class="contact-box">
                 <div class="bold">Siedziba firmy:</div>
                 <div>Nazwa_firmy Sp. z o.o.</div>
@@ -138,11 +138,11 @@
                 <div><span class="bold">Konto (EURO):</span> PL 08 1050 0015 1000 0090 4505 3866</div>
                 <div><span class="bold">Kod SWIFT:</span> INGBPLPW</div>
                 <div class="row mt-3">
-                    <div class="col-12 col-md-3">
+                    <div class="col-md-6 col-lg-4">
                         <div class=""><span class="bold">NIP:</span> 634-239-97-06</div>
                         <div><span class="bold">Regon:</span> 276898760</div>
                     </div>
-                    <div class="col-12 col-md-9 font-11">
+                    <div class="col-md-6 col-lg-8 font-11">
                         W treści przelewu prosimy podawać nr rezerwacji
                     </div>
 

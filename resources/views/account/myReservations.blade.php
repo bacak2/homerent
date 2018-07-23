@@ -42,13 +42,13 @@
     @endif--}}
     @foreach($users_reservations_future as $reservation)
     <div class="row minH-90 py-3">
-        <div class="col-lg-2 col-4 px-3 px-md-0"><img src='{{ asset("images/apartaments/$reservation->apartament_id/1.jpg") }}') style="width: 100%"></div>
-        <div class="col-lg-2 col-8">
+        <div class="col-4 col-lg-2 px-3 px-md-0 mb-md-2 mb-lg-0"><img src='{{ asset("images/apartaments/$reservation->apartament_id/1.jpg") }}') style="width: 100%"></div>
+        <div class="col-8 col-lg-2">
             {{ $reservation->apartament_name }}<br>
             <b>{{ $reservation->apartament_city }}</b> ({{ $reservation->apartament_district }})<br>
             {{ $reservation->apartament_address }}
         </div>
-        <div class="col-lg-2 col-4 my-2 my-md-0">
+        <div class="col-4 col-md-2 my-2 my-md-0 pl-md-0 pl-lg-3">
             <div class="row">
                 <div class="col-6 date-div">
                     <div style="">{{ date("j", strtotime($reservation->reservation_arrive_date)) }}</div>
@@ -60,8 +60,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-1 col-4 my-2 my-md-0"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.number of nights') }}" src="{{ asset("images/account/moon.png") }}"> {{ $reservation->reservation_nights }}</div>
-        <div class="col-lg-1 col-4 my-2 my-md-0">
+        <div class="col-4 col-md-1 my-2 my-md-0 px-md-0 px-lg-3"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.number of nights') }}" src="{{ asset("images/account/moon.png") }}"> {{ $reservation->reservation_nights }}</div>
+        <div class="col-4 col-md-2 col-lg-1 my-2 my-md-0">
             @if($reservation->reservation_status == 0)
                 <div class="row font-11">Rezerwacja wstępna:</div>
                 <div class="row">{{ strtolower(strftime("%d %b %Y", strtotime($reservation->created_at))) }}</div>
@@ -71,13 +71,13 @@
                 <div class="row">{{ strtolower(strftime("%d %b %Y", strtotime($reservation->created_at))) }}</div>
             @endif
         </div>
-        <div class="col-lg-1 col-4 px-3 px-md-1">
+        <div class="col-4 col-md-2 col-lg-1 px-3 px-md-1">
             <div class="row">
                 <div class="col-12 font-11">Opłata za pobyt:</div>
                 <div class="col-12">{{$reservation->payment_full_amount}} PLN</div>
             </div>
         </div>
-        <div class="col-lg-1 col-8 px-3 px-md-1">
+        <div class="col-8 col-md-2 col-lg-1 px-3 px-md-1">
             @if($reservation->reservation_status == 0)
                 <div class="row">
                     <div class="col-6 col-md-12 pr-0 pr-md-3">
@@ -105,7 +105,7 @@
                 <div>{{$reservation->payment_to_pay}} PLN</div>
             @endif
         </div>
-        <div class="col-lg-2 col-12">
+        <div class="col-md-3 col-lg-2 px-lg-0">
             <div>
                 <a class="btn btn-black" href="tel:713333222"><img src="{{ asset("images/account/phone.png") }}"></a>
                 <a class="btn btn-black" href="mailto:ja@ja.pl"><img src="{{ asset("images/account/envelope.png") }}"></a>
@@ -164,7 +164,7 @@
                     <div class="col-12">{{$reservation->payment_to_pay}} PLN</div>
                 </div>
             </div>
-            <div class="col-lg-2 col-12">
+            <div class="col-lg-2 px-lg-0">
                 <div>
                     @if($reservation->total_rating != null)
                         <div class="btn d-inline-block p-1 @if($reservation->total_rating <= 3) rating-red @elseif($reservation->total_rating <= 5) rating-yellow @else rating-green @endif" style="width: 120px; border: 1px solid rgba(121, 121, 121, 1);">

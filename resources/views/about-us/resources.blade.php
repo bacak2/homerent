@@ -6,69 +6,69 @@
     <img style="width: 100%; height: auto;" src='{{ asset("images/about_us/mainImg.png") }}'>
 
     <div class="row mt-2">
-        <div class="col-2 col-md-1">
+        <div class="col-lg-1">
             <a class="font-13" href="{{ url()->previous() }}"><&nbsp;Powrót</a>
         </div>
-        <div class="col-8 col-md-10">
+        <div class="col-lg-10">
             <h1 class="h1-owners mb-4">Materiały do pobrania</h1>
             <div class="row">
-                <div class="col-12 col-md-2 mb-5 mr-3">
+                <div class="col-6 col-md-2 mb-5 mr-0 mr-lg-3">
                     <a class="to-download-description" href="{{route('aboutUs.getDownload', ['logo', 'zip'])}}">
-                        <img src="{{asset('images/media/File_300.png')}}">
+                        <img class="img-fluid" src="{{asset('images/media/File_300.png')}}">
                         <div class="mt-2">
                             <img src="{{asset('images/media/Floppy_24.png')}}">
                             <span class="font-13">Logo</span>
                         </div>
                     </a>
                 </div>
-                <div class="col-12 col-md-2 mb-5 mr-3">
+                <div class="col-6 col-md-2 mb-5 mr-0 mr-lg-3">
                     <a class="to-download-description" href="{{route('aboutUs.getDownload', ['zdjecia_produktow', 'zip'])}}">
-                        <img src="{{asset('images/media/File_300.png')}}">
+                        <img class="img-fluid" src="{{asset('images/media/File_300.png')}}">
                         <div class="mt-2">
                             <img src="{{asset('images/media/Floppy_24.png')}}">
                             <span class="font-13">Zdjęcia produktów</span>
                         </div>
                     </a>
                 </div>
-                <div class="col-12 col-md-2 mb-5 mr-3">
+                <div class="col-6 col-md-2 mb-5 mr-0 mr-lg-3">
                     <a class="to-download-description" href="{{route('aboutUs.getDownload', ['raport_roczny', 'pdf'])}}">
-                        <img src="{{asset('images/media/File_300.png')}}">
+                        <img class="img-fluid" src="{{asset('images/media/File_300.png')}}">
                         <div class="mt-2">
                             <img src="{{asset('images/media/Floppy_24.png')}}">
                             <span class="font-13">Raport roczny</span>
                         </div>
                     </a>
                 </div>
-                <div class="col-12 col-md-2 mb-5 mr-3">
+                <div class="col-6 col-md-2 mb-5 mr-0 mr-lg-3">
                     <a class="to-download-description" href="{{route('aboutUs.getDownload', ['raport_roczny', 'pdf'])}}">
-                        <img src="{{asset('images/media/File_300.png')}}">
+                        <img class="img-fluid" src="{{asset('images/media/File_300.png')}}">
                         <div class="mt-2">
                             <img src="{{asset('images/media/Floppy_24.png')}}">
                             <span class="font-13">Lorem ipsum</span>
                         </div>
                     </a>
                 </div>
-                <div class="col-12 col-md-2 mb-5 mr-3">
+                <div class="col-6 col-md-2 mb-5 mr-0 mr-lg-3">
                     <a class="to-download-description" href="{{route('aboutUs.getDownload', ['raport_roczny', 'pdf'])}}">
-                        <img src="{{asset('images/media/File_300.png')}}">
+                        <img class="img-fluid" src="{{asset('images/media/File_300.png')}}">
                         <div class="mt-2">
                             <img src="{{asset('images/media/Floppy_24.png')}}">
                             <span class="font-13">Lorem ipsum</span>
                         </div>
                     </a>
                 </div>
-                <div class="col-12 col-md-2 mb-5 mr-3">
+                <div class="col-6 col-md-2 mb-5 mr-0 mr-lg-3">
                     <a class="to-download-description" href="{{route('aboutUs.getDownload', ['raport_roczny', 'pdf'])}}">
-                        <img src="{{asset('images/media/File_300.png')}}">
+                        <img class="img-fluid" src="{{asset('images/media/File_300.png')}}">
                         <div class="mt-2">
                             <img src="{{asset('images/media/Floppy_24.png')}}">
                             <span class="font-13">Lorem ipsum</span>
                         </div>
                     </a>
                 </div>
-                <div class="col-12 col-md-2 mb-5 mr-3">
+                <div class="col-6 col-md-2 mb-5 mr-0 mr-lg-3">
                     <a class="to-download-description" href="{{route('aboutUs.getDownload', ['raport_roczny', 'pdf'])}}">
-                        <img src="{{asset('images/media/File_300.png')}}">
+                        <img class="img-fluid" src="{{asset('images/media/File_300.png')}}">
                         <div class="mt-2">
                             <img src="{{asset('images/media/Floppy_24.png')}}">
                             <span class="font-13">Lorem ipsum</span>

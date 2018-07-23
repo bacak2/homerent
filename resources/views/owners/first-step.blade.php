@@ -10,7 +10,7 @@
             {!! Form::model(Auth::user(), ['/', 'method' => 'GET']) !!}
             <div class="form-group row input-none-apartment-kind">
                 {!! Form::label('address', __('Rodzaj domu').':', array('class' => 'col-sm-2 col-form-label')) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-6 col-md-7 col-lg-6">
                     <div class="row px-3">
                         <div class="col-6 col-md-3 rItem pr-2" style="padding: 0px;">
                             <input id="type0" type="radio" value="0" name="type"><label for="type0" style="width: 100%"><div id="apartamentKind0" class="font-13 opinion-rItem selected" style="padding: 8px 8px 12px 8px;border-radius: 5px;"><img style="float: left;" src='{{ asset("images/reservations/Block_2_24.png") }}'><div>Apartament</div></div></label>
@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4 font-11" style="color: #999999">
+                <div class="col-sm-4 col-md-3 col-lg-4 font-11" style="color: #999999">
                     <span id="apartamentKind">Apartament to sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.</span>
                 </div>
             </div>

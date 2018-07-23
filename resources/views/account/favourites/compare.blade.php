@@ -6,13 +6,13 @@
     <a class="btn btn-default" href="{{ route('myFavourites') }}"><img data-toggle="tooltip" data-placement="bottom" title="Kafle" alt="Kafle" src='{{ asset("images/results/kafle.png") }}'></a>
     <a class="btn btn-default" href="{{ route('myFavouritesList') }}"><img data-toggle="tooltip" data-placement="bottom" title="Lista" alt="Lista" src='{{ asset("images/results/lista.png") }}'></a>
     <a class="btn btn-default" href="{{ route('myFavouritesMap') }}"><img data-toggle="tooltip" data-placement="bottom" title="Mapa" alt="Mapa" src='{{ asset("images/results/mapa.png") }}'></a>
-    <a class="active" href="{{ route('myFavouritesCompare') }}">Porównaj</a>
+    <a class="active bold" href="{{ route('myFavouritesCompare') }}">Porównaj</a>
 @endsection
 
 @section('compare-content')
 
     <div class="row favourites-compare">
-        <div id="left-side-compare" class="col-2 font-13">
+        <div id="left-side-compare" class="col-3 col-xl-2 font-13">
             <div>
                 <span class="font-13">Porównaj ulubione apartamenty i wybierz najlepszy dla siebie</span>
                 <br><br>
@@ -58,7 +58,7 @@
             <div>Zwierzęta:</div>
             <div>Inne:</div>
         </div>
-        <div id="right-side-compare" class="row col-10 font-13">
+        <div id="right-side-compare" class="row col-9 col-xl-10 font-13">
             <span id="compare-bar" class="ml-4" style="display: inherit;">
             <div id="compare-bar-prev" class="compare-bar-arrays" style="background-image: url({{ asset("images/apartment_detal/calendar-prev.png") }}"></div>
             @foreach ($finds as $apartament)

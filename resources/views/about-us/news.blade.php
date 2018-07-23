@@ -6,17 +6,17 @@
     <img style="width: 100%; height: auto;" src='{{ asset("images/about_us/mainImg.png") }}'>
 
     <div class="row mt-2">
-        <div class="col-2 col-md-1">
+        <div class="col-lg-1">
             <a class="font-13" href="{{ url()->previous() }}"><&nbsp;Powrót</a>
         </div>
-        <div class="col-8 col-md-10">
+        <div class="col-lg-10">
             <h1 class="h1-owners mb-4">Aktualności VisitWorld</h1>
             @for($i=0; $i<10; $i++)
             <div class="row mb-4">
-                <div class="col-12 col-md-3">
-                    <img src="{{asset('images/media/newsIcon.png')}}">
+                <div class="col-md-4 col-lg-3">
+                    <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
                 </div>
-                <div class="col-12 col-md-9 pl-md-4">
+                <div class="col-md-8 col-lg-9">
                     <div class="row mb-2">
                         <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
                             <a href="{{route('aboutUs.newsDetail', $i)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>

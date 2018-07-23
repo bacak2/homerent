@@ -9,7 +9,7 @@
         <div class="row mt-2 mx-0"><h2 style="font-size: 22px"><b>Dane do rezerwacji</b></h2></div>
 
         <div id="data-content" class="row" style="display: none">
-            <div class="col-lg-3 col-sm-12 mb-4" ng-repeat="account in Accounts">
+            <div class="col-md-6 col-lg-3 mb-4" ng-repeat="account in Accounts">
                 <div class="data-item-top p-2">
                     <% account.label %>
                     <div class="pull-right ml-2 delete" ng-click="deletePop(account.id)"><img data-toggle="tooltip" data-placement="bottom" title="Usuń dane" alt="Usuń dane" src='{{ asset("images/account/trash.png") }}'></div>
@@ -35,7 +35,7 @@
                         <div><% account.email %></div>
                 </div>
             </div>
-            <div class="col-lg-3 col-sm-12">
+            <div class="col-md-6 col-lg-3">
                 <div class="data-item" id="data-item-new">
                     <button id="addNew" class="btn btn-default" style="font-size: 18px">+ dodaj nowe</button>
                 </div>
@@ -62,7 +62,7 @@
 <div class="add-new-data" style="display: none">
     <h4 class="p-3 mb-4"><b>Dodaj dane do rezerwacji</b></h4>
     <div id="form-account" class="row mb-lg-3">
-        <div class="col-lg-6 col-sm-12 pl-lg-5 form-full-width">
+        <div class="col-md-6 col-sm-12 pl-md-5 form-full-width">
             {!! Form::open(['url' => '/foo', 'name' => 'formName', 'class' => 'pl-lg-5']) !!}
             {!! Form::hidden('id', '0', ['id'=>'id', 'ng-model' => 'id']) !!}
             <div class="row">
@@ -120,7 +120,7 @@
                 {!! Form::label('otherDataForInvoice', __('messages.Other data for invoice'), ['style'=>'font-size: 12px']) !!}
             </div>
         </div>
-        <div id="invoice-block" class="col-lg-6 col-sm-12 pr-lg-5 form-full-width">
+        <div id="invoice-block" class="col-md-6 col-sm-12 pr-md-5 form-full-width">
             <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('name_invoice', '', ['id'=>'name_invoice', 'class' => 'required full-width', 'ng-model' => "name_invoice", 'placeholder' => __('messages.Name')]) !!}

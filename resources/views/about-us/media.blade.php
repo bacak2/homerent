@@ -8,17 +8,17 @@
     <h1 class="h1-owners mt-5 mb-4">Media</h1>
 
     <div class="row mb-2">
-        <div class="col-1 mobile-none"></div>
-        <div class="col-12 col-md-11">
+        <div class="col-1 mobile-none tablet-none"></div>
+        <div class="col-12 col-lg-11">
             <a href="{{route('aboutUs.news')}}" style="color: #0066CC; font-size: 24px; font-weight: bold">Aktualności »</a>
         </div>
     </div>
     <div class="row mb-4">
-        <div class="col-1 mobile-none"></div>
-        <div class="col-12 col-md-3">
-            <img src="{{asset('images/media/newsIcon.png')}}">
+        <div class="col-1 mobile-none tablet-none"></div>
+        <div class="col-12 col-md-4 col-lg-3">
+            <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
         </div>
-        <div class="col-12 col-md-7">
+        <div class="col-12 col-md-8 col-lg-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
                     <a href="{{route('aboutUs.newsDetail', 0)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>.
@@ -38,11 +38,11 @@
         </div>
     </div>
     <div class="row mb-4">
-        <div class="col-1 mobile-none"></div>
-        <div class="col-12 col-md-3">
-            <img src="{{asset('images/media/newsIcon.png')}}">
+        <div class="col-1 mobile-none tablet-none"></div>
+        <div class="col-12 col-md-4 col-lg-3">
+            <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
         </div>
-        <div class="col-12 col-md-7">
+        <div class="col-12 col-md-8 col-lg-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
                     <a href="{{route('aboutUs.newsDetail', 0)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>.
@@ -62,11 +62,11 @@
         </div>
     </div>
     <div class="row mb-4">
-        <div class="col-1 mobile-none"></div>
-        <div class="col-12 col-md-3">
-            <img src="{{asset('images/media/newsIcon.png')}}">
+        <div class="col-1 mobile-none tablet-none"></div>
+        <div class="col-12 col-md-4 col-lg-3">
+            <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
         </div>
-        <div class="col-12 col-md-7">
+        <div class="col-12 col-md-8 col-lg-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
                     <a href="{{route('aboutUs.newsDetail', 0)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>.
@@ -86,22 +86,22 @@
         </div>
     </div>
     <div class="row mb-5" style="color: #0066CC; font-size: 16px; font-weight: bold">
-        <div class="col-8 mobile-none"></div>
+        <div class="col-8 mobile-none tablet-none"></div>
         <div class="col-12 col-md-4"><a href="{{route('aboutUs.news')}}">Zobacz wszystko »</a></div>
     </div>
 
     <div class="row mb-2">
-        <div class="col-1 mobile-none"></div>
+        <div class="col-1 mobile-none tablet-none"></div>
         <div class="col-12 col-md-11">
             <a href="{{route('aboutUs.news')}}" style="color: #0066CC; font-size: 24px; font-weight: bold">O nas w mediach »</a>
         </div>
     </div>
     <div class="row mb-4">
-        <div class="col-1 mobile-none"></div>
-        <div class="col-12 col-md-3">
-            <img src="{{asset('images/media/newsIcon.png')}}">
+        <div class="col-1 mobile-none tablet-none"></div>
+        <div class="col-12 col-md-4 col-lg-3">
+            <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
         </div>
-        <div class="col-12 col-md-7">
+        <div class="col-12 col-md-8 col-lg-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
                     <a href="{{route('aboutUs.newsDetail', 0)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>.
@@ -121,11 +121,11 @@
         </div>
     </div>
     <div class="row mb-4">
-        <div class="col-1 mobile-none"></div>
-        <div class="col-12 col-md-3">
-            <img src="{{asset('images/media/newsIcon.png')}}">
+        <div class="col-1 mobile-none tablet-none"></div>
+        <div class="col-12 col-md-4 col-lg-3">
+            <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
         </div>
-        <div class="col-12 col-md-7">
+        <div class="col-12 col-md-8 col-lg-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
                     <a href="{{route('aboutUs.newsDetail', 0)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>.
@@ -145,11 +145,11 @@
         </div>
     </div>
     <div class="row mb-4">
-        <div class="col-1 mobile-none"></div>
-        <div class="col-12 col-md-3">
-            <img src="{{asset('images/media/newsIcon.png')}}">
+        <div class="col-1 mobile-none tablet-none"></div>
+        <div class="col-12 col-md-4 col-lg-3">
+            <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
         </div>
-        <div class="col-12 col-md-7">
+        <div class="col-12 col-md-8 col-lg-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
                     <a href="{{route('aboutUs.newsDetail', 0)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>.
@@ -169,20 +169,20 @@
         </div>
     </div>
     <div class="row mb-5" style="color: #0066CC; font-size: 16px; font-weight: bold">
-        <div class="col-8 mobile-none"></div>
+        <div class="col-8 mobile-none tablet-none"></div>
         <div class="col-12 col-md-4"><a href="{{route('aboutUs.news')}}">Zobacz wszystko »</a></div>
     </div>
 
     <div class="row" style="margin-bottom: 86px">
-        <div class="col-1 mobile-none"></div>
-        <div class="col-12 col-md-7">
+        <div class="col-1 mobile-none tablet-none"></div>
+        <div class="col-md-6 col-lg-7">
             <div class="row">
                 <div class="col-12">
                     <a href="/resources-to-download" style="color: #0066CC; font-size: 24px; font-weight: bold">Materiały do pobrania »</a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-6 col-md-4 mb-4">
                     <a class="to-download-description" href="{{route('aboutUs.getDownload', ['logo', 'zip'])}}">
                         <img src="{{asset('images/media/File_300.png')}}">
                         <div class="mt-2">
@@ -191,7 +191,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-6 col-md-4 mb-4">
                     <a class="to-download-description" href="{{route('aboutUs.getDownload', ['zdjecia_produktow', 'zip'])}}">
                         <img src="{{asset('images/media/File_300.png')}}">
                         <div class="mt-2">
@@ -200,7 +200,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-12 col-md-4 mb-4">
+                <div class="col-6 col-md-4 mb-4">
                     <a class="to-download-description" href="{{route('aboutUs.getDownload', ['raport_roczny', 'pdf'])}}">
                         <img src="{{asset('images/media/File_300.png')}}">
                         <div class="mt-2">
@@ -212,7 +212,7 @@
 
             </div>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-md-6 col-lg-5">
             <div style="color: #0066CC; font-size: 24px; font-weight: bold">Skontaktuj się z nami</div>
             <div style="padding: 20px; border: 1px solid rgba(121, 121, 121, 1); background-color: rgba(242, 242, 242, 1);">
                 <div class="row my-2">

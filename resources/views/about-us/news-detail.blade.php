@@ -4,14 +4,14 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-6 col-md-2 mb-2">
+        <div class="col-6 col-md-3 col-lg-2 mb-2">
             <a href="{{ route('aboutUs.news') }}" class="pointer-back" style="background-image: url('{{ asset("images/news/otherNews.png") }}')">
                 <div  class="btn font-13" style="width: 100%" >
                     Inne artykuły
                 </div>
             </a>
         </div>
-        <div class="col-12 col-md-10 mb-2">
+        <div class="col-12 col-md-9 col-lg-10 mb-2">
             <span class="pull-right">
                 <div class="d-inline-block">
                     <div class="d-inline-block send-news-friends mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">

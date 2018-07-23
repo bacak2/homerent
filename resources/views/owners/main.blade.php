@@ -13,31 +13,31 @@
 
     <h2 class="mt-4 mb-3 h2-owners">Dlaczego warto</h2>
     <div class="row">
-        <div class="col-sm-12 col-md-4">
+        <div class="col-md-6 col-lg-4">
             <div class="row mb-md-5 mb-3">
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_owners/procent.png") }}'></div>
                 <div class="col-8"><h3 class="h3-owners">Za darmo</h3><span class="font-13">Nie pobieramy opłat za rejestrację i zarządzanie apartamentem.</span></div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-md-6 col-lg-4">
             <div class="row mb-md-5 mb-3">
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_owners/Check_House_96.png") }}'></div>
                 <div class="col-8"><h3 class="h3-owners">Bez wyłączności</h3><span class="font-13">Współpracuj z kim chcesz. Możesz dodawać swój apartament do wielu serwisów - pamiętaj jedynie o aktualizacji kalendarza dostępności.</span></div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-md-6 col-lg-4">
             <div class="row mb-md-5 mb-3">
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_owners/Online_Real_Estate_96.png") }}'></div>
                 <div class="col-8"><h3 class="h3-owners">Rezerwacje online</h3><span class="font-13">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.</span></div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-md-6 col-lg-4">
             <div class="row mb-md-5 mb-3">
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_owners/icon.png") }}'></div>
                 <div class="col-8"><h3 class="h3-owners">Lorem ipsum</h3><span class="font-13">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.</span></div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-4">
+        <div class="col-md-6 col-lg-4">
             <div class="row mb-md-5 mb-3">
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_owners/icon.png") }}'></div>
                 <div class="col-8"><h3 class="h3-owners">Lorem ipsum</h3><span class="font-13">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.</span></div>
@@ -54,7 +54,7 @@
 
     <h2 class="mobile-none mt-4 h2-owners">Masz pytania?</h2>
     <div class="row mobile-none" style="margin-bottom: 60px">
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-lg-6">
             <div style="font-size: 20px;" class="bold mt-3 mb-4">Skontaktuj się z nami</div>
             <div style="width:100%; min-height: 125px; background-color: #cfcfcf; border: 1px solid black; width: 408px; padding: 20px">
                 <div class="mr-2" style="float: left"><img src='{{ asset("images/for_owners/Call_48.png") }}'></div>
@@ -62,7 +62,7 @@
                 <span class="font-13" style="display: inline-block">pn-pt, 8:00-18:00</span>
             </div>
         </div>
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-lg-6">
             <div style="font-size: 20px;" class="bold mt-3 mb-4">lub pozwól nam się skontaktować</div>
             <div>
                 <form>
@@ -194,7 +194,7 @@
             <span class="font-13 bold" style="display: inline-block">tel: +22 111 11 11, 600-000-000</span>
             <span class="font-13" style="display: inline-block;">pn-pt, 8:00-18:00</span>
             <div style="clear: both"></div>
-            <button class="btn btn-black mt-4" style="width: 208px">Napisz do nas</button>
+            <button class="btn btn-black mt-4" style="width: 100%">Napisz do nas</button>
         </div>
     </div>
 </div>
