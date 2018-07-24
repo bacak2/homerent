@@ -2,10 +2,10 @@
 
 @section('reservation.content')
     <div class="container">
-        <h1><b>{{ __('Dokup usługi') }}</b></h1>
+        <h1 class="h1-reservation">{{ __('Dokup usługi') }}</h1>
     </div>
     <div class="container flex-box mb-2">
-        <div id="Rtitle"><h2><b>2. {{ __('messages.your data') }}</b></h2></div>
+        <div id="Rtitle"><h2 class="h2-reservation mt-3">2. {{ __('messages.your data') }}</h2></div>
         <div class="mobile-none font-12" id="Rpath">
             <div class="reservation-path">
                 <img src='{{ asset("images/reservations/fullBlack.png") }}'>
@@ -31,7 +31,7 @@
                 <span class="not-active ml-2">{{ __('messages.confirmation') }}</span>
             </div>
         </div>
-        <div class="desktop-none" id="Rpath"><span class="activeBold">{{ __('messages.offer') }} - {{ __('messages.your data') }}</span> - {{ __('messages.payment') }} - {{ __('messages.confirmation') }}</div>
+        <div class="desktop-none font-11 row no-gutters" id="Rpath"><div class="bold col">{{ __('messages.offer') }}</div><div class="pr-2"><img src='{{ asset("images/reservations/lineActiveMobile.png") }}'></div><div class="col bold">{{ __('messages.your data') }}</div><div class="pr-3"><img src='{{ asset("images/reservations/lineNotActiveMobile.png") }}'></div><div class="col">{{ __('messages.payment') }}</div><div class="pr-2"><img src='{{ asset("images/reservations/lineNotActiveMobile.png") }}'></div><div class="col">{{ __('messages.confirmation') }}</div></div>
     </div>
 <div class="container">
     <div class="row">
@@ -549,7 +549,7 @@
             @endguest
             <div class="row mt-5">
                 <div class="col-lg-12 col-sm-12">
-                    <h3><b>{{ __('messages.Message for the owner') }}</b></h3>
+                    <h2 class="h2-reservation">{{ __('messages.Message for the owner') }}</h2>
                     <div class="form-group row">
                         {!! Form::label('messageForOwnerService', 'Treść:', array('class' => 'col-sm-3 col-form-label')) !!}
                         <div class="col-sm-9">
@@ -558,10 +558,9 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row mt-5 not-full-width">
-                <div class="col-lg-12 col-sm-12 pb-3 mb-3" style="border-bottom: dashed">
-                    <h3><b>{{ __('messages.Method of payment') }}</b></h3>
+            <div class="row mt-5 not-full-width mx-0">
+                <h2 class="h2-reservation">{{ __('messages.Method of payment') }}</h2>
+                <div class="col-lg-12 col-sm-12 pb-3 mb-3">
                     <div class="row reservation-payment-method pt-2 pb-4">
                         <div class="col-lg-3 col-sm-9">
                             <b>{{ __('Wybierz') }}</b>
@@ -579,23 +578,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12 col-sm-12 pb-3 mb-3">
-                    <div class="row mb-5">
-                        <input id="accept0" name="accept0" type="checkbox" class="required">
-                        <label for="accept0" class="inline-label">Akceptuję ustawę o ochronie danych osobowych (Lorem ipsum, dokładny tekst tego disclamera do ułożenia przez prawnika, być może nie będzie potrzebny, jeśli jest akceptacja regulaminu)</label>
-                    </div>
-                    <div class="row mb-4">
-                        <input id="accept1" name="accept1" type="checkbox" class="required">
-                        <label for="accept1" class="inline-label">{{ __('messages.I accept the terms of use') }} Homent</label>
-                    </div>
-                    <div class="row mb-4">
-                        <input id="accept2" name="accept2" type="checkbox">
-                        <label for="accept2" class="inline-label">{{ __('messages.I would like to receive information about promotions from') }} Homent</label>
-                    </div>
-                </div>
             </div>
         </div>
-        <div id="stickyheader" class="mobile-none mt-3">
+        <div id="stickyheader" class="d-none d-lg-block mt-3">
             <div class="reservation-item p-3">
                 <div class="row ">
                     <div class="col-4">
@@ -637,32 +622,29 @@
 
 
 </div>
-
-
-<div class="bg-gray">
-    <div class="container py-3">
-        <div class="row">
-            <div class="col-lg-3 col-sm-12 mb-2">
-                <a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/reservations/btn-back.png") }}')">
-                    <div  class="btn" style="width: 100%" >
-                        <b>{{ __('messages.Return') }}</b>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4 offset-lg-5 col-sm-12">
-                <a id="nextNotAv" href="#" class="pointer-back next-notAv" style="background-image: url('{{ asset("images/reservations/btn-next-nAv.png") }}')">
-                    <div  class="btn" style="width: 100%" >
-                        <b>{{ __('Zamów') }}</b>
-                    </div>
-                </a>
-                <button id="nextAv" class="btn ml-2 pointer" type="submit" style="display: none;">{{ __('Zamów') }}</button>
-                {!! Form::close() !!}
-                <div id="notAvDescription" style="font-size: 11px; margin-left: 10px; margin-top: 8px">{{ __('messages.First, choose the method of payment') }}</div>
+    <div class="bg-gray">
+        <div class="container py-3">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
+                    <a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/reservations/btn-back.png") }}')">
+                        <div  class="btn" style="width: 100%" >
+                            <b>{{ __('messages.Return') }}</b>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-5">
+                    <a id="nextNotAv" href="#" class="pointer-back next-notAv" style="background-image: url('{{ asset("images/reservations/btn-next-nAv.png") }}')">
+                        <div  class="btn" style="width: 100%" >
+                            <b>{{ __('Zamów') }}</b>
+                        </div>
+                    </a>
+                    <button id="nextAv" class="btn ml-2 pointer" type="submit" style="display: none;">{{ __('Zamów') }}</button>
+                    {!! Form::close() !!}
+                    <div id="notAvDescription" style="font-size: 11px; margin-left: 10px; margin-top: 8px">{{ __('messages.First, choose the method of payment') }}</div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
     <div id="confirm-delete-pop" style="display: none">
         <h3 class="p-3"><b>Czy na pewno chcesz usunąć dane?</b></h3>
         <div class="col-12 mb-4 mt-2">

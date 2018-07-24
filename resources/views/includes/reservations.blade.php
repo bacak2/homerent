@@ -4,12 +4,12 @@
 
 @section('content')
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-9 col-sm-12">
-				<a href="{{ url()->previous() }}" class="btn btn-link ml-2"><< {{ __('messages.Return') }}</a>
+		<div class="row mx-0 no-gutters">
+			<div class="col-4 col-lg-9">
+				<a href="{{ url()->previous() }}" class="btn btn-link font-13 pl-0">« {{ __('messages.Return') }}</a>
 			</div>
-			<div class="col-lg-3 col-sm-12">
-				<div  style="background-image: url('{{asset('images/reservations/security.png')}}'); width: 270px; height: 51px"></div>
+			<div class="col-8 col-lg-3">
+				<img class="img-fluid pull-right" src="{{asset('images/reservations/security.png')}}">
 			</div>
 		</div>
 	</div>

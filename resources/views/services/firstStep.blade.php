@@ -1,11 +1,10 @@
 @extends ('includes.reservations')
 
-@section('reservation.content')
-    <div class="container">
-        <h1><b>{{ __('Dokup usługi') }}</b></h1>
+@section('reservation.content')<div class="container">
+        <h1 class="h1-reservation">{{ __('Dokup usługi') }}</h1>
     </div>
 <div class="container flex-box mb-2">
-    <div id="Rtitle"><h2><b>1. {{ __('messages.offer') }}</b></h2></div>
+    <div id="Rtitle"><h2 class="h2-reservation mt-3">1. {{ __('messages.offer') }}</h2></div>
     <div class="mobile-none font-12" id="Rpath">
         <div class="reservation-path">
             <img src='{{ asset("images/reservations/thisStepBlack.png") }}'>
@@ -31,11 +30,11 @@
             <span class="not-active ml-2">{{ __('messages.confirmation') }}</span>
         </div>
     </div>
-    <div class="desktop-none" id="Rpath"><span class="activeBold">{{ __('messages.offer') }}</span> - {{ __('messages.your data') }} - {{ __('messages.payment') }} - {{ __('messages.confirmation') }}</div>
+    <div class="desktop-none font-11 row no-gutters" id="Rpath"><div class="bold col">{{ __('messages.offer') }}</div><div class="pr-2"><img src='{{ asset("images/reservations/lineNotActiveMobile.png") }}'></div><div class="col">{{ __('messages.your data') }}</div><div class="pr-3"><img src='{{ asset("images/reservations/lineNotActiveMobile.png") }}'></div><div class="col">{{ __('messages.payment') }}</div><div class="pr-2"><img src='{{ asset("images/reservations/lineNotActiveMobile.png") }}'></div><div class="col">{{ __('messages.confirmation') }}</div></div>
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-8">
+        <div class="col-lg-8">
             @if(!$additionalServices->isEmpty())
                 <div class="row">
                     <div class="mt-4">
@@ -135,13 +134,12 @@
                     </div>
             </div>
         </div>
-        <div class="col-4">
-            <div class="mobile-none mt-3">
+        <div class="d-none d-lg-block col-4">
+            <div class="mt-3">
                 <div class="reservation-item p-3">
                     <div class="row ">
-                        <div class="col-4">
-                            <div class="apartament " style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; margin-bottom: 0px; width: 100px; height: 60px;">
-                            </div>
+                        <div class="col-4 pr-0">
+                            <img class="img-fluid" src='{{ asset("images/apartaments/$apartament->id/1.jpg") }}'>
                         </div>
                         <div class="col-8">
                             <div class="txt-blue"><b>{{ $apartament->descriptions[0]->apartament_name}}</b></div>
@@ -161,30 +159,29 @@
         </div>
     </div>
 </div>
-
-    <div class="bg-gray">
-        <div class="container py-3">
-            <div class="row">
-                <div class="col-lg-3 col-sm-12 mb-2">
-                    <a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/reservations/btn-back.png") }}')">
-                        <div  class="btn" style="width: 100%" >
-                            <b>{{ __('messages.Return') }}</b>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 offset-lg-5 col-sm-12">
-                    <a id="nextNotAv" href="#" class="pointer-back next-notAv" style="background-image: url('{{ asset("images/reservations/btn-next-nAv.png") }}')">
-                        <div  class="btn" style="width: 100%" >
-                            <b>{{ __('Dalej') }}</b>
-                        </div>
-                    </a>
-                    <button id="nextAv" class="btn ml-2 pointer" type="submit" style="display: none;">{{ __('Dalej') }}</button>
-                    {!! Form::close() !!}
-                    <div id="notAvDescription" style="font-size: 11px; margin-left: 10px; margin-top: 8px">{{ __('Wybierz usługę') }}</div>
-                </div>
+<div class="bg-gray">
+    <div class="container py-3">
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
+                <a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/reservations/btn-back.png") }}')">
+                    <div  class="btn" style="width: 100%" >
+                        <b>{{ __('messages.Return') }}</b>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-5">
+                <a id="nextNotAv" href="#" class="pointer-back next-notAv" style="background-image: url('{{ asset("images/reservations/btn-next-nAv.png") }}')">
+                    <div  class="btn" style="width: 100%" >
+                        <b>{{ __('Dalej') }}</b>
+                    </div>
+                </a>
+                <button id="nextAv" class="btn ml-2 pointer" type="submit" style="display: none;">{{ __('Dalej') }}</button>
+                {!! Form::close() !!}
+                <div id="notAvDescription" style="font-size: 11px; margin-left: 10px; margin-top: 8px">{{ __('Wybierz usługę') }}</div>
             </div>
         </div>
     </div>
+</div>
 
 <script>
     $(document).ready(function(){

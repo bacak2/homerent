@@ -2027,7 +2027,11 @@ span.error-show{
 
 .additional-service{
 	border: 1px solid lightgray;
-	padding: 10px;
+	padding: 10px 8px;
+
+	div{
+		padding: 0px !important;
+	}
 }
 
 .btn-to-pay{
@@ -2479,7 +2483,7 @@ span.error-show{
 }
 
 @media (max-width: 990px){
-	.h1-owners{
+	.h1-owners, .h1-reservation{
 		font-size: 20px;
 		font-weight: bold;
 	}
@@ -2499,8 +2503,17 @@ span.error-show{
 		font-weight: bold;
 	}
 
+	.h2-reservation, .h3-reservation{
+		font-size: 16px;
+		font-weight: bold;
+	}
+
 	.font-m-11{
 		font-size: 11px;
+	}
+
+	.font-m-12{
+		font-size: 12px;
 	}
 
 	.font-m-13{
@@ -2541,7 +2554,7 @@ span.error-show{
 }
 
 @media (min-width: 991px){
-	.h1-owners{
+	.h1-owners, .h1-reservation{
 		font-size: 32px;
 		font-weight: bold;
 	}
@@ -2555,9 +2568,18 @@ span.error-show{
 		font-weight: bold;
 	}
 
-	.h2-guidebooks{
+	.h2-guidebooks, .h2-reservation{
 		font-size: 24px;
 		font-weight: bold;
+	}
+
+	.h3-reservation{
+		font-size: 16px;
+		font-weight: bold;
+	}
+
+	.font-22-reservation{
+		font-size: 22px;
 	}
 
 	#writeToUsPopup{

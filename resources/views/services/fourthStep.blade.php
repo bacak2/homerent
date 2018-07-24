@@ -28,7 +28,7 @@
                     <span class="activeBold ml-2">{{ __('messages.confirmation') }}</span>
                 </div>
             </div>
-            <div class="desktop-none" id="Rpath"><span class="activeBold">{{ __('messages.offer') }} - {{ __('messages.your data') }} - {{ __('messages.payment') }} - {{ __('messages.confirmation') }}</span></div>
+            <div class="desktop-none font-11 row no-gutters" id="Rpath"><div class="bold col">{{ __('messages.offer') }}</div><div class="pr-2"><img src='{{ asset("images/reservations/lineActiveMobile.png") }}'></div><div class="bold col">{{ __('messages.your data') }}</div><div class="pr-3"><img src='{{ asset("images/reservations/lineActiveMobile.png") }}'></div><div class="bold col">{{ __('messages.payment') }}</div><div class="pr-2"><img src='{{ asset("images/reservations/lineActiveMobile.png") }}'></div><div class="bold col">{{ __('messages.confirmation') }}</div></div>
         </div>
     @endif
 <div class="container">

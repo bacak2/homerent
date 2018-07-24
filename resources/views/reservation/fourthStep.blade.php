@@ -28,27 +28,27 @@
                     <span class="activeBold ml-2">{{ __('messages.confirmation') }}</span>
                 </div>
             </div>
-            <div class="desktop-none" id="Rpath"><span class="activeBold">{{ __('messages.offer') }} - {{ __('messages.your data') }} - {{ __('messages.payment') }} - {{ __('messages.confirmation') }}</span></div>
+            <div class="desktop-none font-11 row no-gutters" id="Rpath"><div class="bold col">{{ __('messages.offer') }}</div><div class="pr-2"><img src='{{ asset("images/reservations/lineActiveMobile.png") }}'></div><div class="bold col">{{ __('messages.your data') }}</div><div class="pr-3"><img src='{{ asset("images/reservations/lineActiveMobile.png") }}'></div><div class="bold col">{{ __('messages.payment') }}</div><div class="pr-2"><img src='{{ asset("images/reservations/lineActiveMobile.png") }}'></div><div class="bold col">{{ __('messages.confirmation') }}</div></div>
         </div>
     @endif
 <div class="container">
     @if(!(Request::is('*/my-reservations*')))
         <?php $_GET['status'] = $_GET['status'] ?? 0 ?>
         @if(Request::has('servicesAdded') || $_GET['status'] == 2 )
-            <div class="row reservation-item px-2 py-1 mb-4" id="services-confirmed">
+            <div class="row reservation-item px-2 py-1 mb-4 mx-0" id="services-confirmed">
                 <i class="fa fa-3x fa-check-circle"></i>
                 <span class="mt-2 ml-2">Zamówione usługi dodatkowe zostały dodane do rezerwacji. <a href="#details">Zobacz szczegóły ↓</a></span>
             </div>
         @endif
         @if($reservation[0]->reservation_status == 1)
         <h1 class="mt-4"><b>{{ __('messages.reservation') }} (nr {{$reservation[0]->id}})</b></h1>
-        <div class="row reservation-item px-2 py-1 mb-4" id="reservation-confirmed">
+        <div class="row reservation-item px-2 py-1 mb-4 mx-0" id="reservation-confirmed">
             <i class="fa fa-3x fa-check-circle"></i>
             <span class="mt-2 ml-2">Zarezerwowano obiekt wg wybranych parametrów. Na adres e-mail {{$reservation[0]->email}} wysłaliśmy potwierdzenie.</span>
         </div>
         @elseif($reservation[0]->reservation_status == 0)
         <h1 class="mt-4"><b>{{ __('messages.reservation') }} {{ __('messages.preliminary') }} (nr {{$reservation[0]->id}})</b></h1>
-        <div class="row reservation-item px-2 py-1 mb-4">
+        <div class="row reservation-item px-2 py-1 mb-4 mx-0">
             <div class="col-1"><i class="fa fa-3x fa-exclamation-triangle"></i></div>
             <div class="col-11">
                 <span style="color: red">
@@ -70,7 +70,7 @@
     @else()
         <h1 class="mt-4"><b>{{ __('messages.reservation') }} (nr {{$reservation[0]->id}})</b></h1>
     @endif
-    <div class="row reservation-item py-2">
+    <div class="row reservation-item py-2 mx-0">
         <div class="col-lg-2 mobile-none">
             <div class="apartament " style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; margin-bottom: 0px; width: 180px; height: 110px;">
             </div>
@@ -240,7 +240,7 @@
     </div>
 
     <div class="row mt-4 mb-5">
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-md-6 col-lg-4">
             <h3 class="mb-3"><b>Zarezerwował</b></h3>
             <div class="row fs12"><div class="col-4">{{ __('messages.Data') }}:</div><div class="col-8">{{ $reservation[0]->name }} {{ $reservation[0]->surname }}</div></div>
             <div class="row fs12"><div class="col-8 offset-4">{{ $reservation[0]->address }}</div></div>
@@ -256,7 +256,7 @@
                 @if($reservation[0]->nip != NULL)<div class="row fs12"><div class="col-8 offset-4">NIP: {{ $reservation[0]->nip }}</div></div>@endif
             @endif
         </div>
-        <div class="col-lg-4 col-sm-12 font-12 additional-service-list">
+        <div class="col-md-6 col-lg-4 font-12 additional-service-list">
             <h3 class="mb-3" id="details"><b>Koszt pobytu</b></h3>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Payment for stay') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_all_nights}} PLN</span></div></div>
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_final_cleaning}} PLN</span></div></div>
@@ -276,14 +276,14 @@
             <div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_basic_service}} PLN</span></div></div>
             <div class="row mb-3 fs12" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{$reservation[0]->payment_full_amount}} PLN</b></span></div></div>
         </div>
-        <div class="col-lg-4 col-sm-12">
+        <div class="col-md-6 col-lg-4 col-sm-12">
             @if($availableServices->count() != 0 || $servicesDetails->count() != 0)
                 <h3 class="mb-3"><b>Usługi dodatkowe</b></h3>
                 @if($availableServices->count() != 0)
                     <h4 style="font-size: 20px; font-weight: bold">Dostępne</h4>
                     @foreach($availableServices as $availableService)
                         <div class="row mb-3 fs12">
-                            <div class="col-7 row">
+                            <div class="col-7 pl-0">
                                 <div class="col-12 font-14">{{$availableService->name}}</div>
                                 <div class="col-12 font-11">{{$availableService->description}}</div>
                             </div>

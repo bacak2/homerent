@@ -99,26 +99,22 @@
 							<div class="row">
 								<div class="col-md-3">
 									<div class="row">
-										<i class="fa fa-user fa-lg pt-1" aria-hidden="true"></i>
-										<p class="pl-2">{{ __('dla') }} {{ $apartament->apartament_persons }} {{trans_choice('messages.persons',$apartament->apartament_persons)}}</p>
+										<p class="pl-2"><img src="{{ asset("images/apartment_detal/User_24.png") }}"> {{ __('dla') }} {{ $apartament->apartament_persons }} {{trans_choice('messages.persons',$apartament->apartament_persons)}}</p>
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="row">
-										<i class="fa fa-home fa-lg pt-1" aria-hidden="true"></i>
-										<p class="pl-2">{{ $apartament->apartament_rooms_number }} {{trans_choice('messages.rooms_number',$apartament->apartament_rooms_number)}}</p>
+										<p class="pl-2"><img src="{{ asset("images/apartment_detal/House_24.png") }}"> {{ $apartament->apartament_rooms_number }} {{trans_choice('messages.rooms_number',$apartament->apartament_rooms_number)}}</p>
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="row">
-										<i class="fa fa-calculator fa-lg pt-1" aria-hidden="true"></i>
-										<p class="pl-2">{{$apartament->apartament_living_area}} m²</p>
+										<p class="pl-2"><img src="{{ asset("images/apartment_detal/Calculator_2_24.png") }}"> {{$apartament->apartament_living_area}} m²</p>
 									</div>
 								</div>
 								<div class="col-md-3">
 									<div class="row">
-										<i class="fa fa-bed fa-lg pt-1" aria-hidden="true"></i>
-										<p class="pl-2">{{ $beds }} {{trans_choice('messages.beds_number',$beds)}} </p>
+										<p class="pl-2"><img src="{{ asset("images/apartment_detal/HotelSign1_24.png") }}"> {{ $beds }} {{trans_choice('messages.beds_number',$beds)}} </p>
 									</div>
 								</div>
 							</div>

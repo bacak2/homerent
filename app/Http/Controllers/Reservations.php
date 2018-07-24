@@ -89,6 +89,12 @@ class Reservations extends Controller
         $basicService = 50;
         $request->fullPrice = $totalPrice->total_price + $request->servicesPrice + $cleaning + $basicService;
 
+        //get rating of this apartment
+        $opinion = DB::table('apartament_opinions')
+            ->selectRaw('count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg')
+            ->where('id_apartament',$id)
+            ->first();
+
         return view('reservation.firstStep', [
             'apartament' => $apartament,
             'images' => $images,
@@ -103,6 +109,7 @@ class Reservations extends Controller
             'cleaning' => $cleaning,
             'basicService' => $basicService,
             'additionalServices' => $additionalServices,
+            'opinion' => $opinion,
         ]);
 
     }
