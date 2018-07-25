@@ -987,6 +987,18 @@ img.active{
 	border: 0.5px solid #565656;
 }
 
+.btn-reservation-gray{
+	color: #333333;
+	font-size: 12px;
+	display: inline-block;
+	white-space: pre-line;
+	background-color: rgba(228, 228, 228, 1);
+	border: 0.5px solid #565656;
+	&:hover{
+		color: #333333;
+	}
+}
+
 .btn-selected{
 	color: #ffffff !important;
 	background-color: #565656 !important;
@@ -1034,12 +1046,18 @@ select {
 	font-size: 12px;
 }
 
-.dropdown-menu.show{
+.dropdown-menu.show:not(.reservation-4th){
 	width: 1088px;
 	transform: translate3d(-954px, 34px, 0px) !important;
 	background-color: #b2b2b2;
 	padding-right: 24px;
 	padding-left: 6px;
+}
+
+.dropdown-menu.show.reservation-4th{
+	background-color: rgba(1,1,1,0);
+	padding: 0px;
+	border: none;
 }
 
 .dropdown-menu span:not(.district){
@@ -1445,7 +1463,7 @@ label.inline-label{
 
 .favourites-box{
 	display: none;
-	width: 134px;
+	min-width: 134px;
 	margin: 0px 6px;
 }
 
@@ -1643,7 +1661,7 @@ div.contact-item{
 	padding-right: 10px;
 	border-radius: 5px;
 	border: solid 1px;
-	background-color: #bababa;
+	background-color: rgba(228, 228, 228, 1);
 	height: 40px;
 	width: 318px;
 	text-align: center;
@@ -2043,8 +2061,6 @@ span.error-show{
 	background-color: #000000;
 	font-size: 12px;
 	display: inline-block;
-	margin-left: 16px;
-	max-width: 120px;
 	white-space: pre-line;
 }
 
@@ -2111,6 +2127,10 @@ span.error-show{
 			padding-left: 0px;
 			padding-right: 0px;
 		}
+	}
+
+	.bt-md-solid{
+		border-top: solid 1px;
 	}
 }
 
@@ -2518,6 +2538,10 @@ span.error-show{
 
 	.font-m-13{
 		font-size: 13px;
+	}
+
+	.font-m-16{
+		font-size: 16px;
 	}
 
 	.mb-sm-30{

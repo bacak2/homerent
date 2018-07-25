@@ -508,7 +508,7 @@
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-2">{!! Form::select('prefix', array('+48'=> '+48', '+44' => '+44'), '', ['style' => 'height: 100%']) !!}</div>
-                                <div class="col-10">{!! Form::text('phone', $data->phone, ['class' => 'full-width required ']) !!}</div>
+                                <div class="col-10">{!! Form::text('phone', '', ['class' => 'full-width required ']) !!}</div>
                             </div>
                             <div class="font-11" style="color: gray">
                                 Ten numer telefonu jest potrzebny właścicielowi do kontaktu z Tobą.

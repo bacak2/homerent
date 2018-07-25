@@ -405,7 +405,7 @@ class Services extends Controller
     public function SendMail(Request $request){
         $request->reservationId;
         $reservationModel = new Reservation();
-        $reservationModel->sendMail($request->reservationId, $this->language->id);
+        //$reservationModel->sendMail($request->reservationId, $this->language->id);
         return response()->json(['res' => 'done']);
     }
 

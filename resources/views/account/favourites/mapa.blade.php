@@ -11,7 +11,7 @@
 
 @section('if-has-przyjazd')
 
-    <div style="margin-top: 20px" itemscope itemtype="http://schema.org/Hotel">
+    <div class="row" style="margin-top: 20px" itemscope itemtype="http://schema.org/Hotel">
         <div id="mapka" style="width: 100%; height: 500px; margin-bottom: 30px;" itemprop="hasMap"></div>
     </div>
 

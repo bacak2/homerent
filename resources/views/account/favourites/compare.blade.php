@@ -12,7 +12,7 @@
 @section('compare-content')
 
     <div class="row favourites-compare">
-        <div id="left-side-compare" class="col-3 col-xl-2 font-13">
+        <div id="left-side-compare" class="col-3 col-xl-2 font-m-12 font-13">
             <div>
                 <span class="font-13">Porównaj ulubione apartamenty i wybierz najlepszy dla siebie</span>
                 <br><br>
@@ -35,9 +35,9 @@
             <div>Piętro:</div>
             <div>Pozostałe wyposażenie:</div>
             <div class="font-18"><b>Wyposażenie</b></div>
-            <div>Internet bezprzewodowy Wi-Fi</div>
+            <div>Internet bezprzewodowy<br> Wi-Fi</div>
             <div>Garaż</div>
-            <div>Telewizor (kanały lokalne)</div>
+            <div>Telewizor</div>
             <div>Odkurzacz</div>
             <div>Balkon/taras</div>
             <div>Łóżeczko dziecięce</div>
@@ -82,26 +82,26 @@
                         </div>
                         <div class="row font-11">
                             @if($apartament->ratingAvg < 1)
-                                <div class="col-6"></div>
+                                <div class="col-5 pr-0"></div>
                             @elseif($apartament->ratingAvg < 2.5)
-                                <div class="col-6 txt-red">{{ __("messages.Awful") }}</div>
+                                <div class="col-5 pr-0 txt-red">{{ __("messages.Awful") }}</div>
                             @elseif($apartament->ratingAvg < 4.5)
-                                <div class="col-6 txt-red">{{ __("messages.Bad") }}</div>
+                                <div class="col-5 pr-0 txt-red">{{ __("messages.Bad") }}</div>
                             @elseif($apartament->ratingAvg < 6.5)
-                                <div class="col-6 txt-yellow">{{ __("messages.Average") }}</div>
+                                <div class="col-5 pr-0 txt-yellow">{{ __("messages.Average") }}</div>
                             @elseif($apartament->ratingAvg < 8.5)
-                                <div class="col-6 txt-green">{{ __("messages.Very good") }}</div>
+                                <div class="col-5 pr-0 txt-green">{{ __("messages.Very good") }}</div>
                             @else
-                                <div class="col-6 txt-green">{{ __("messages.Perfect") }}/div>
+                                <div class="col-5 pr-0 txt-green">{{ __("messages.Perfect") }}/div>
                             @endif
                             <div class="col-6 txt-blue">{{$apartament->opinionAmount ?? 0}} {{trans_choice('messages.nrReviews', $apartament->opinionAmount ?? 0)}}</div>
                         </div>
                     </div>
                     <div>
-                        <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('Metraż') }}"> <span class="description-below-living-area">{{ $apartament->apartament_living_area }} m²</span> </div>
+                        <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('Metraż') }}"> <span class="description-below-living-area">{{ $apartament->apartament_living_area }} m²</span> </div>
                         <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.people') }}" style="background-image: url('{{ asset("images/results/person.png") }}');"> <span>{{ $apartament->apartament_persons }}</span> </div>
                         <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.kids') }}" style="background-image: url('{{ asset("images/results/child.png") }}');"> <span>{{ $apartament->apartament_kids }}</span> </div>
-                        <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.beds') }}" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>{{ $apartament->apartament_single_beds + $apartament->apartament_double_beds }}</span> </div>
+                        <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('łóżek') }}" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>{{ $apartament->apartament_single_beds + $apartament->apartament_double_beds }}</span> </div>
                     </div>
                     <div>
                         <a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-primary" style="width: 100%">Szczegóły</a>
@@ -159,16 +159,17 @@
 @section('script')
     <script type="text/javascript">
         var middle = 0;
-        var favouritesCount = {{$favouritesCount}} - 6;
+        var showObjects = Math.floor($("#right-side-compare").width()/150);
+        var favouritesCount = {{$favouritesCount}} - showObjects;
 
         function compareMonthShow(){
+
             $('.favourites-box').css({display: 'none'});
             $('#'+middle).css({display:'inline-block'});
-            $('#'+(middle+1)).css({display:'inline-block'});
-            $('#'+(middle+2)).css({display:'inline-block'});
-            $('#'+(middle+3)).css({display:'inline-block'});
-            $('#'+(middle+4)).css({display:'inline-block'});
-            $('#'+(middle+5)).css({display:'inline-block'});
+
+            for(i=1; i<showObjects; i++){
+                $('#'+(middle+i)).css({display:'inline-block'});
+            }
 
             if(middle == 0){
                 $("#compare-bar-prev").css({opacity: '0.25'});
@@ -179,7 +180,7 @@
                 //$("#compare-bar").css({'padding-left': '40px'});
             }
 
-            if(middle == favouritesCount || {{$favouritesCount}} < 6){
+            if(middle == favouritesCount || {{$favouritesCount}} < showObjects){
                 $("#compare-bar-next").css({opacity: '0.25'});
                 //$("#compare-bar").css({'padding-right': '0px'});
             }

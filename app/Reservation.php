@@ -14,7 +14,7 @@ class Reservation extends Model
     }
 
     public function sendMail($reservations_id, $language){
-
+        /*
         $apartamentsDescription = DB::table('reservations')
             ->select('*', 'reservations.updated_at')
             ->join('apartaments','apartaments.id','=','reservations.apartament_id')
@@ -33,6 +33,6 @@ class Reservation extends Model
 
             DB::table('reservations')->where('id', $reservations_id)->update(['email_sended' => 1]);
         }
-
+        */
     }
 }
