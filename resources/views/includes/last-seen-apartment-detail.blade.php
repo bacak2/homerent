@@ -1,15 +1,18 @@
     <div class="row">
         @foreach ($lastSeen as $apartament)
-            <div style="overflow: auto;" class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+            @if ($lastSeen->count() == 4 && $loop->last)
+            <div style="overflow: auto;" class="col-12 col-sm-6 col-md-4 col-lg-3 d-md-none d-lg-block">
+            @else
+            <div style="overflow: auto;" class="col-12 col-sm-6 col-md-4 col-lg-3">
+            @endif
                 <div class="map-img-wrapper">
-
                     <div class="apartament" style="height: 180px; background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
                         <div class="map-see-more mobile-none">
                             <div class="container py-1">
                                 <a href="/apartaments/{{ $apartament->apartament_link }}" style="width: 100%" class="btn btn-primary">{{ __("messages.book") }}</a>
                             </div>
                             <div class="container py-1">
-                                <a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-primary" style="width: 100%">{{ __("messages.see details") }}</a>
+                                <a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-see-more" style="width: 100%">{{ __("messages.see details") }}</a>
                             </div>
                         </div>
                         <div class="desktop-none" style="width: 100%; height: 100%">

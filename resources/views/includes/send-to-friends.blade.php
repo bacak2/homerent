@@ -21,7 +21,7 @@
     <input id="links" name="links" type="hidden" value="@if(!Session::get('userFavouritesAll')->isEmpty()) @foreach(Session::get('userFavouritesAll') as $apartament){{route('apartamentInfo', $apartament->apartament_link)}},@endforeach @endif">
     <hr>
     <div style="text-align: center;">
-        <button id="send-mail-to-friends" class="btn btn-default">Wyślij</button>
+        <button id="send-mail-to-friends" class="btn btn-primary">Wyślij</button>
         <button class="btn btn-default close-send-to">Anuluj</button>
     </div>
 

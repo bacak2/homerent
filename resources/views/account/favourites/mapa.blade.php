@@ -3,9 +3,9 @@
 @section('fav-title', 'Mapa')
 
 @section('icons-active')
-    <a class="btn btn-default" href="{{ route('myFavourites') }}"><img data-toggle="tooltip" data-placement="bottom" title="Kafle" alt="Kafle" src='{{ asset("images/results/kafle.png") }}'></a>
-    <a class="btn btn-default" href="{{ route('myFavouritesList') }}"><img data-toggle="tooltip" data-placement="bottom" title="Lista" alt="Lista" src='{{ asset("images/results/lista.png") }}'></a>
-    <a class="btn btn-default" href="{{ route('myFavouritesMap') }}"><img class="active" data-toggle="tooltip" data-placement="bottom" title="Mapa" alt="Mapa" src='{{ asset("images/results/mapa.png") }}'></a>
+    <a class="btn" href="{{ route('myFavourites') }}"><img data-toggle="tooltip" data-placement="bottom" title="Kafle" alt="Kafle" src='{{ asset("images/results/kafle.png") }}'></a>
+    <a class="btn" href="{{ route('myFavouritesList') }}"><img data-toggle="tooltip" data-placement="bottom" title="Lista" alt="Lista" src='{{ asset("images/results/lista.png") }}'></a>
+    <a class="btn" href="{{ route('myFavouritesMap') }}"><img class="active" data-toggle="tooltip" data-placement="bottom" title="Mapa" alt="Mapa" src='{{ asset("images/results/mapa.png") }}'></a>
     <a href="{{ route('myFavouritesCompare') }}">Porównaj</a>
 @endsection
 

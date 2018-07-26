@@ -8,7 +8,7 @@
     }(document, 'script', 'facebook-jssdk'));
 </script>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;" >
-      <div class="container">
+      <div class="container px-0 px-md-3">
         <a class="navbar-brand" href="{{ url('/') }}">Homent</a>
 			<div class="row mx-auto">        
 		    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
@@ -53,9 +53,9 @@
                                       <hr>
                                   @endforeach
                               @endif
-                              <a class="btn btn-black px-2" href="{{route('myFavourites')}}">Wszystkie ({{Session::get('userFavouritesCount')}})</a>
-                              <a class="btn btn-black px-2" href="{{route('myFavouritesCompare')}}">Porównaj</a>
-                              <button class="send-to-friends btn btn-black px-2" onclick="$('#favourites-bar').hide()">Wyślij</button>
+                              <a class="btn btn-primary px-2" href="{{route('myFavourites')}}">Wszystkie ({{Session::get('userFavouritesCount')}})</a>
+                              <a class="btn btn-primary px-2" href="{{route('myFavouritesCompare')}}">Porównaj</a>
+                              <button class="send-to-friends btn btn-primary px-2" onclick="$('#favourites-bar').hide()">Wyślij</button>
                           </div>
                       </div>
                     </span>

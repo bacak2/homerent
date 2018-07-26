@@ -12,7 +12,7 @@
                         <option value="Najbliżej">{{__('messages.Closest')}}</option>
                     </select>
                 </div>
-                <div class="col-12 col-lg-3 col-md-5 col-sm-12 col-xs-12 inline-wrapper text-right"> <a class="btn btn-default" href="/search/kafle?{{ http_build_query(Request::except('page')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Kafle" alt="Kafle" src='{{ asset("images/results/kafle.png") }}'></a> <a class="btn btn-default" href="/search/lista?{{ http_build_query(Request::except('page')) }}"><img class="active" data-toggle="tooltip" data-placement="bottom" title="Lista" alt="Lista" src='{{ asset("images/results/lista.png") }}'></a> <a class="btn btn-default" href="/search/mapa?{{ http_build_query(Request::except('page')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Mapa" alt="Mapa" src='{{ asset("images/results/mapa.png") }}'></a></div>
+                <div class="col-12 col-lg-3 col-md-5 col-sm-12 col-xs-12 inline-wrapper text-right"> <a class="btn" href="/search/kafle?{{ http_build_query(Request::except('page')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Kafle" alt="Kafle" src='{{ asset("images/results/kafle.png") }}'></a> <a class="btn" href="/search/lista?{{ http_build_query(Request::except('page')) }}"><img class="active" data-toggle="tooltip" data-placement="bottom" title="Lista" alt="Lista" src='{{ asset("images/results/lista.png") }}'></a> <a class="btn" href="/search/mapa?{{ http_build_query(Request::except('page')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Mapa" alt="Mapa" src='{{ asset("images/results/mapa.png") }}'></a></div>
             </div>
             @foreach ($finds as $apartament)
                 @if($apartament->group_id > 0 && $apartament->group_name != NULL)
@@ -71,12 +71,12 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-12">
+                        <div class="col-lg-2 pl-0">
                             <div class="row">
                                 <div class="container py-1 text-right font-weight-bold"><h3 style="font-size: 26px">{{__('messages.from')}} {{ $apartament->min_price }} zł</h3></div>
                             </div>
                             <div class="row">
-                                <div class="container py-1" ><a href="/apartaments-group/{{ $apartament->group_link }}" class="btn btn-primary ml-2" style="width: 100%">{{ __('messages.see apartments') }}</a></div>
+                                <div class="container py-1" ><a href="/apartaments-group/{{ $apartament->group_link }}" class="btn btn-see-more ml-2" style="width: 100%">{{ __('messages.see apartments') }}</a></div>
                             </div>
                             <div class="row">
                                 <div class="container py-1 text-right font-weight-bold"><h4 style="font-size: 18px">{{ $apartament->apartaments_amount }} {{trans_choice('messages.nrApartmentsInKomplex', $apartament->apartaments_amount)}}</h4></div>
@@ -162,7 +162,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-12">
+                        <div class="col-lg-2 pl-0">
                             <div class="row">
                                 <div class="container py-1 text-right font-weight-bold"><h3 style="font-size: 26px">{{__('messages.from')}} {{ $apartament->min_price }} zł</h3></div>
                             </div>
@@ -170,7 +170,7 @@
                                 <div class="container py-1" ><a href="/reservations?link={{ $apartament->apartament_link }}&id={{ $apartament->apartament_id }}&przyjazd={{ $request->przyjazd }}&powrot={{ $request->powrot }}&dorosli={{ $request->dorosli }}&dzieci={{ $request->dzieci }}"  class="btn btn-primary ml-2" style="width: 100%">{{ __('messages.book') }}</a></div>
                             </div>
                             <div class="row">
-                                <div class="container py-1" ><a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-primary ml-2" style="width: 100%">{{ __('messages.see details') }}</a></div>
+                                <div class="container py-1" ><a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-see-more ml-2" style="width: 100%">{{ __('messages.see details') }}</a></div>
                             </div>
                         </div>
                     </div>

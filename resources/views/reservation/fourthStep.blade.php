@@ -67,8 +67,29 @@
             </div>
         </div>
         @endif
-    @else()
-        <h1 class="mt-4 h1-reservation">{{ __('messages.reservation') }} (nr {{$reservation[0]->id}})</h1>
+    @else
+        <div class="row mb-4 mb-md-2 mb-lg-0">
+            <div class="col-8 col-md-6">
+                <h1 class="h1-reservation">{{ __('messages.reservation') }} (nr {{$reservation[0]->id}})</h1>
+            </div>
+            <div class="col-4 col-md-6">
+                <span class="pull-right">
+                    <div class="d-inline-block">
+                        <div class="d-inline-block send-news-friends mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
+                            <img style="padding: 7px 9px; max-width: 36px" src="{{asset('images/favourites/Envelop.png')}}">
+                        </div>
+                        <div class="d-none d-md-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">Wyślij znajomemu</div>
+                    </div>
+                    <div class="d-none d-md-inline-block">|</div>
+                    <div class="d-none d-md-inline-block">
+                        <div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
+                            <img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/favourites/Pdf_file.png')}}">
+                        </div>
+                        <a href="{{route('aboutUs.printPdf', 1)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">Zapisz</a>
+                    </div>
+                </span>
+            </div>
+        </div>
     @endif
     <div class="row reservation-item font-m-13 py-2 mx-0">
         <div class="col-lg-2 pr-0 d-none d-lg-block">
@@ -91,8 +112,8 @@
                 <div class="col-lg-4 col-sm-6 pl-lg-0">
                     <div class="row"><div class="col-4 col-lg-3">{{ __('messages.arrival') }}:</div><div class="col-8 col-lg-9 pr-0"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($reservation[0]->reservation_arrive_date))) }}</b> (po {{$reservation[0]->reservation_arrive_time}})</div></div>
                     <div class="row"><div class="col-4 col-lg-3">{{ __('messages.departure') }}:</div><div class="col-8 col-lg-9 pr-0"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($reservation[0]->reservation_departure_date))) }}</b> (przed 12:00)</div></div>
-                    <div class="row"><div class="col-4" style="font-size: 12px">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8" style="font-size: 12px">{{ $reservation[0]->reservation_nights }}</div></div>
-                    <div class="row"><div class="col-4" style="font-size: 12px">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8" style="font-size: 12px">{{$reservation[0]->reservation_persons}} {{trans_choice('messages.adult persons',$reservation[0]->reservation_persons)}}, {{$reservation[0]->reservation_kids}} dzieci</div></div>
+                    <div class="row"><div class="col-4 pr-lg-0 font-12">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8" style="font-size: 12px">{{ $reservation[0]->reservation_nights }}</div></div>
+                    <div class="row"><div class="col-4 pr-lg-0 font-12">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8" style="font-size: 12px">{{$reservation[0]->reservation_persons}} {{trans_choice('messages.adult persons',$reservation[0]->reservation_persons)}}, {{$reservation[0]->reservation_kids}} dzieci</div></div>
                     <hr class="desktop-none">
                 </div>
                 <div class="col-lg-5 col-sm-6">
@@ -109,7 +130,6 @@
                     @elseif($reservation[0]->reservation_status == 1)
                         <div class="row mb-2"><div class="col-4"><b>Zapłacono:</b></div><div class="col-8"><b>{{$reservation[0]->payment_full_amount}} PLN </b><span class="font-12">({{date("d.m.Y", strtotime($reservation[0]->updated_at))}})</span></div></div>
                         <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły ↓</a></div></div>
-                        <div class="row"><a id="add-new-services"  class="btn btn-info btn-mobile btn-res4th">Dokup usługi</a><a class="btn btn-info btn-mobile btn-res4th">Anuluj rezerwację</a></div>
                     @endif
                     <div class="row mb-2">
                         @if($availableServices->count() == 0)
@@ -123,8 +143,8 @@
                                 <input type="submit" style="width: 100%;height: 100%;" class="btn btn-to-pay" value="Zapłać całość {{$reservation[0]->payment_full_amount}} PLN">
                             </form>
                         </div>
-                        {{--zapłacono zaliczkę--}}
-                        @if(!($reservation[0]->payment_to_pay > 0 && $reservation[0]->payment_to_pay > 0))
+                        {{--pokaż zaliczkę do zapłaty--}}
+                        @if($reservation[0]->reservation_status == 0)
                         <div class="col">
                             <form id="DotpayForm" name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/">
                                 <input type="hidden" name="id" value="734129" /> <input type="hidden" name="opis" value="Opłata za pobyt w {{ $apartament->descriptions[0]->apartament_name }}" />
@@ -160,15 +180,16 @@
                             </form>
                             --}}
                             {{--zapłacono zaliczkę--}}
-                            @if(!($reservation[0]->payment_to_pay > 0 && $reservation[0]->payment_to_pay > 0))
+                            @if($reservation[0]->payment_to_pay != 0 && $reservation[0]->payment_to_pay != $reservation[0]->payment_full_amount && $reservation[0]->reservation_status == 1)
                                 <form name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/">
                                     <input type="hidden" name="id" value="734129" /> <input type="hidden" name="opis" value="Opłata za pobyt w {{ $apartament->descriptions[0]->apartament_name }}" />
-                                    <input type="hidden" name="control" value="{{$reservation[0]->id}}" /> <input type="hidden" name="amount" value="{{$reservation[0]->payment_full_amount}}" />
+                                    <input type="hidden" name="control" value="{{$reservation[0]->id}}" /> <input type="hidden" name="amount" value="{{$reservation[0]->payment_to_pay}}" />
                                     <input type="hidden" name="typ" value="3" />
                                     <input type="hidden" name="URL" value="{{route('reservations.fourthStepAfterDotpay', ['idAparment' => $reservation[0]->apartament_id, 'idReservation' => $reservation[0]->id, 'status' => 'OK'])}}"/>
                                     <input type="hidden" name="URLC" value="{{route('reservations.afterOnlinePaymentPOST')}}"/>
-                                    <input type="submit" class="btn btn-to-pay" value="Zapłać całość {{$reservation[0]->payment_full_amount}} PLN">
+                                    <input type="submit" class="btn btn-to-pay" value="Zapłać całość {{$reservation[0]->payment_to_pay}} PLN">
                                 </form>
+                            @elseif($reservation[0]->reservation_status == 1)
                             @else
                                 <div class="dropdown">
                                     <button class="btn btn-to-pay dropdown-toggle" type="button" data-toggle="dropdown" style="width: 100%; height: 100%">Zapłać<span class="caret"></span>
@@ -199,7 +220,7 @@
                             @endif
                         </div>
                         <div class="col">
-                            <a href="{{route('services.firstStep', [$reservation[0]->apartament_id, $reservation[0]->id, 0])}}" id="add-new-services" class="btn btn-reservation-gray" style="height: 100%">Dokup usługi</a>
+                            <a href="{{route('services.firstStep', [$reservation[0]->apartament_id, $reservation[0]->id, 0])}}" id="add-new-services" class="btn btn-reservation-gray">Dokup usługi</a>
                         </div>
                         <div class="col pl-0">
                             <a class="btn btn-reservation-gray">Anuluj rezerwację</a>
@@ -220,13 +241,13 @@
                         Justyna Mroczek
                     </span>
                 </div>
-                <div class="col-md-3 col-lg-2 mb-2">
+                <div class="col-md-3 col-lg-2 mb-2 px-lg-1">
                     <div class="contact-item"><i class="fa fa-lg fa-phone" style="margin-right: 10px"></i>+48 600 000 000</div>
                 </div>
-                <div class="col-md-3 col-lg-2 mb-2">
+                <div class="col-md-3 col-lg-2 mb-2 px-lg-2">
                     <div class="contact-item"><i class="fa fa-lg fa-phone" style="margin-right: 10px"></i>+48 600 000 000</div>
                 </div>
-                <div class="col-md-5 col-lg-3 mb-2">
+                <div class="col-md-5 col-lg-3 mb-2 px-lg-1">
                     <div class="contact-item"><i class="fa fa-lg fa-envelope" style="margin-right: 10px"></i>justyna.mroczek@gmail.com</div>
                 </div>
                 <div class="col-lg-3 mb-2">
@@ -259,7 +280,7 @@
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Cancellation / prepayment') }}:</div><div class="col-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</div></div>
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Animals') }}:</div><div class="col-8">Zwierzęta są akceptowane na życzenie. Mogą obowiązywać dodatkowe opłaty</div></div>
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Payment for stay') }}:</div><div class="col-8">Cena zakwaterowania nie obejmuje opłaty za zużycie energii elektrycznej oraz opłaty klimatycznej.</div></div>
-                    <div class="row mx-0 mb-3 mb-lg-0"><a class="btn btn-more-info font-m-13" href="{{ route('apartamentInfo', ['link' => $apartament->descriptions[0]->apartament_link ]) }}">Więcej informacji o obiekcie</a></div>
+                    <div class="row mx-0 mb-3 mb-lg-0"><a class="btn btn-more-info font-13" href="{{ route('apartamentInfo', ['link' => $apartament->descriptions[0]->apartament_link ]) }}">Więcej informacji o obiekcie</a></div>
         </div>
 
         <div class="col-lg-8 col-sm-12">
@@ -279,18 +300,22 @@
                             <div class="col-12 mb-4" style="font-size: 14px">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}, {{ $apartament->apartament_address_2 }}</div>
                             <div class="col-12 mb-2" style="font-size: 14px">GPS: {{ $apartament->apartament_gps }}</div>
                         </div>
-                        <div class="row col-12 my-2">
-                            <span style="font-size: 14px; margin-top: 5px">Wskazówki dojazdu: </span>
-                            <input class="font-12 ml-2" name="skad" id="skad" style="width:180px" placeholder="Lokalizacja początkowa" type="text">
-                            <input class="btn btn-info btn-mobile btn-res4th" value="Pokaż" type="submit">
-                            <div class="col-2 font-12 ml-1 pr-1">
+                        <div class="row my-2 mx-0" style="position: relative;">
+                            <span class="col-12 px-0"style="font-size: 14px; margin-top: 5px">Wskazówki dojazdu: </span>
+                            <div class="col-6 col-md-3 px-0">
+                                <input class="font-12" name="skad" id="skad" style="width: 100%; height: 100%" placeholder="Lokalizacja początkowa" type="text">
+                            </div>
+                            <div class="col-3 col-md-2 px-1">
+                                <input class="btn btn-reservation-gray" style="width: 100%; height: 100%; margin-left: 0px;" value="Pokaż" type="submit">
+                            </div>
+                            <div class="col-3 col-md-2 col-lg-1 col-xl-2 font-12 pr-0 mr-lg-3">
                                 <div id="distance" class="row" style="font-weight: bold"></div>
                                 <div id="duration" class="row"></div>
                             </div>
                     </form>
-                            <form action="{{route('printPdf')}}" class="col-2 pl-0" method="POST" name="wskazowki-print">
+                            <form id="printDirections" action="{{route('printPdf')}}" class="mt-2 mt-md-0 pl-0" method="POST" name="wskazowki-print">
                                 <input type='hidden' id='wskazowkiContent' name='wskazowkiContent' value='' />
-                                <input id="drukujWskazowki" class="btn btn-info btn-mobile btn-res4th ml-0" value="Drukuj wskazówki dojazdu" style="display: none" type="submit">
+                                <input id="drukujWskazowki" class="btn btn-reservation-gray ml-0" value="Drukuj wskazówki dojazdu" style="display: none" type="submit">
                             </form>
                         </div>
                     <div id="wskazowki"></div>

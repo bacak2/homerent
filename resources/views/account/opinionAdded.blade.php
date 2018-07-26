@@ -6,12 +6,12 @@
 
 <div class="container">
 
-    <div class="row"><h1 style="font-size: 32px; font-weight: bold">Dziękujemy za wysłanie recenzji</h1></div>
-    <div class="row font-16" style="margin-top: 14px">Przekazując informacje na temat pobytu w tym obiekcie pomagasz innym podróżnym podejmować lepsze decyzje.</div>
-    <div class="row"><a id="btn-back-from-comment" class="btn btn-default" href="/">« Powrót do strony głównej</a></div>
-    <div class="row" style="margin-top: 50px;"><span style="font-size: 24px; font-weight: bold">Twoja recenzja</span></div>
-    <div class="row" style="margin-bottom: 50px;">
-        <div class="col-3" style="margin-top: 24px; padding-left:0px">
+    <div><h1 style="font-size: 32px; font-weight: bold">Dziękujemy za wysłanie recenzji</h1></div>
+    <div class="font-16" style="margin-top: 14px">Przekazując informacje na temat pobytu w tym obiekcie pomagasz innym podróżnym podejmować lepsze decyzje.</div>
+    <div class="mt-2"><a id="btn-back-from-comment" class="btn" href="/">« Powrót do strony głównej</a></div>
+    <div class="mt-2 mt-lg-5"><span style="font-size: 24px; font-weight: bold">Twoja recenzja</span></div>
+    <div class="row mx-0" style="margin-bottom: 50px;">
+        <div class="col-md-3" style="margin-top: 24px; padding-left:0px">
             @if($opinionData['user_name'] == NULL && $opinionData['user_country'] == NULL && $opinionData['user_city'] == NULL) Anonimowy
             @else
                 <div style="float: left">
@@ -28,12 +28,12 @@
             @endif
 
         </div>
-        <div class="comment-background col-9 row py-3" style="background-image: url('{{ asset("images/opinions/comment_background.png") }}')">
-            <div class="col-1" style="padding-left: 0px;">
+        <div class="comment-background col-md-9 row py-3 pt-5 pt-md-3" @mobile style="background-image: url('{{ asset("images/opinions/comment_background_mobile.png") }}')" @elsemobile style="background-image: url('{{ asset("images/opinions/comment_background.png") }}')" @endmobile>
+            <div class="col-2 col-lg-1 px-0">
                 <div style="font-size: 22px" class="overall-rating-box center-h-v @if($opinionData['total_rating'] > 0 && $opinionData['total_rating'] <= 3) rating-red @elseif($opinionData['total_rating'] > 3 && $opinionData['total_rating'] <= 6) rating-yellow @else rating-green @endif"><b>{{$opinionData['total_rating']}}</b></div>
             </div>
-            <div class="col-11 comment-row mb-3" style="padding-right: 0px; padding-left: 0px;">
-                <div class="col-12 mb-2" style="padding-right: 0px; margin-left: 34px">
+            <div class="col-10 col-lg-11 mx-0 comment-row mb-3 px-md-0">
+                <div class="col-12 mb-2" style="padding-right: 0px;">
                     @for ($i = 0; $i < floor($opinionData['total_rating']/2); $i++)
                         <img src='{{ asset("images/opinions/star.png") }}'>
                     @endfor
@@ -50,7 +50,7 @@
                             <div style="background-color: #4eff5e; color: white; width:16px; height: 16px"><b>+</b></div>
                         </div>
                         <div class="col-11 comment-row" style="margin-left: -40px; padding-right: 0px">
-                            <div class="ml-2">
+                            <div class="ml-1">
                                 {{$opinionData['pros']}}
                             </div>
                         </div>
@@ -62,19 +62,19 @@
                             <div style="background-color: #ff2620; color: white; width:16px; height: 16px"><b>-</b></div>
                         </div>
                         <div class="col-11 comment-row" style="margin-left: -40px; padding-right: 0px">
-                            <div class="ml-2">
+                            <div class="ml-1">
                                 {{$opinionData['cons']}}
                             </div>
                         </div>
                     </div>
                 @endif
-                <b class="font-11" style="margin-left: 34px">Pobyt: {{strftime("%B %Y", strtotime($visitDate->reservation_arrive_date))}}</b>
+                <b class="font-11">Pobyt: {{strftime("%B %Y", strtotime($visitDate->reservation_arrive_date))}}</b>
             </div>
-            <div class="col-12 pt-5 pb-4 font-12" style="border-top: gray solid 1px">
-                <div class="row mb-1">
-                    <div class="col-4">
+            <div class="col-12 pt-5 pb-4 font-12 px-0" style="border-top: gray solid 1px">
+                <div class="row mx-0 mb-1">
+                    <div class="col-md-6 col-lg-4 pl-0 pr-0 pr-md-3 mb-2 mb-md-0">
                         Czystość
-                        <span class="pull-right px-1 ml-2 @if($opinionData['cleanliness'] > 0 && $opinionData['cleanliness'] <= 3) rating-red @elseif($opinionData['cleanliness'] > 3 && $opinionData['cleanliness'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['cleanliness']}}</span>
+                        <span class="pull-right px-1 ml-1 @if($opinionData['cleanliness'] > 0 && $opinionData['cleanliness'] <= 3) rating-red @elseif($opinionData['cleanliness'] > 3 && $opinionData['cleanliness'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['cleanliness']}}</span>
                         <span class="pull-right" style="background-color: #fff">
                             @for ($i = 0; $i < floor($opinionData['cleanliness']/2); $i++)
                                 <img src='{{ asset("images/opinions/dot.png") }}'>
@@ -87,9 +87,9 @@
                             @endfor
                         </span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-6 col-lg-4 pl-0 pr-0 pr-md-3 mb-2 mb-md-0">
                         Udogodnienia
-                        <span class="pull-right px-1 ml-2 @if($opinionData['facilities'] > 0 && $opinionData['facilities'] <= 3) rating-red @elseif($opinionData['facilities'] > 3 && $opinionData['facilities'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['facilities']}}</span>
+                        <span class="pull-right px-1 ml-1 @if($opinionData['facilities'] > 0 && $opinionData['facilities'] <= 3) rating-red @elseif($opinionData['facilities'] > 3 && $opinionData['facilities'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['facilities']}}</span>
                         <span class="pull-right" style="background-color: #fff">
                             @for ($i = 0; $i < floor($opinionData['facilities']/2); $i++)
                                 <img src='{{ asset("images/opinions/dot.png") }}'>
@@ -102,10 +102,10 @@
                             @endfor
                         </span>
                     </div>
-                    <div class="col-4">
-                        <div class="price-per-quality">Stosunek jakości do ceny</div>
-                        <span style="position: absolute;top: 0px;right: 0px;">
-                            <span class="pull-right px-1 ml-2 @if($opinionData['quality_per_price'] > 0 && $opinionData['quality_per_price'] <= 3) rating-red @elseif($opinionData['quality_per_price'] > 3 && $opinionData['quality_per_price'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['quality_per_price']}}</span>
+                    <div class="col-md-6 col-lg-4 pl-0 mt-md-2 mt-lg-0 pr-0 pr-md-3 mb-2 mb-md-0">
+                        <div class="price-per-quality">Stosunek jakości <br> do ceny</div>
+                        <span id="price-per-quality-bar" style="position: absolute;top: 0px;right: 0px;">
+                            <span class="pull-right px-1 ml-1 @if($opinionData['quality_per_price'] > 0 && $opinionData['quality_per_price'] <= 3) rating-red @elseif($opinionData['quality_per_price'] > 3 && $opinionData['quality_per_price'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['quality_per_price']}}</span>
                             <span class="pull-right" style="background-color: #fff">
                                 @for ($i = 0; $i < floor($opinionData['quality_per_price']/2); $i++)
                                     <img src='{{ asset("images/opinions/dot.png") }}'>
@@ -120,10 +120,10 @@
                         </span>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-4">
+                <div class="row mx-0">
+                    <div class="col-md-6 col-lg-4 pl-0 pr-0 pr-md-3 mb-2 mb-md-0">
                         Lokalizacja
-                        <span class="pull-right px-1 ml-2 @if($opinionData['location'] > 0 && $opinionData['location'] <= 3) rating-red @elseif($opinionData['location'] > 3 && $opinionData['location'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['location']}}</span>
+                        <span class="pull-right px-1 ml-1 @if($opinionData['location'] > 0 && $opinionData['location'] <= 3) rating-red @elseif($opinionData['location'] > 3 && $opinionData['location'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['location']}}</span>
                         <span class="pull-right" style="background-color: #fff">
                             @for ($i = 0; $i < floor($opinionData['location']/2); $i++)
                                 <img src='{{ asset("images/opinions/dot.png") }}'>
@@ -136,9 +136,9 @@
                             @endfor
                         </span>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-6 col-lg-4 pl-0 pr-0 pr-md-3 mb-2 mb-md-0">
                         Obsługa
-                        <span class="pull-right px-1 ml-2 @if($opinionData['staff'] > 0 && $opinionData['staff'] <= 3) rating-red @elseif($opinionData['staff'] > 3 && $opinionData['staff'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['staff']}}</span>
+                        <span class="pull-right px-1 ml-1 @if($opinionData['staff'] > 0 && $opinionData['staff'] <= 3) rating-red @elseif($opinionData['staff'] > 3 && $opinionData['staff'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['staff']}}</span>
                         <span class="pull-right" style="background-color: #fff">
                             @for ($i = 0; $i < floor($opinionData['staff']/2); $i++)
                                 <img src='{{ asset("images/opinions/dot.png") }}'>

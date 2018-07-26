@@ -481,7 +481,7 @@
 											<input class="font-12" name="skad" id="skad" style="width: 100%; height: 100%" placeholder="Lokalizacja początkowa" type="text">
 										</div>
 										<div class="col-3 col-md-2 px-1">
-											<input class="btn btn-info btn-mobile btn-res4th" style="width: 100%; height: 100%; margin-left: 0px;" value="Pokaż" type="submit">
+											<input class="btn btn-primary font-13 w-100 h-100 ml-0" value="Pokaż" type="submit">
 										</div>
 										<div class="col-3 col-md-2 col-lg-1 col-xl-2 font-12 pr-0 mr-lg-3">
 											<div id="distance" class="row" style="font-weight: bold"></div>
@@ -490,7 +490,7 @@
 								</form>
 								<form id="printDirections" action="{{route('printPdf')}}" class="mt-2 mt-md-0 pl-0" method="POST" name="wskazowki-print">
 									<input type='hidden' id='wskazowkiContent' name='wskazowkiContent' value='' />
-									<input id="drukujWskazowki" class="btn btn-info btn-mobile btn-res4th ml-0" value="Drukuj wskazówki dojazdu" style="display: none" type="submit">
+									<input id="drukujWskazowki" class="btn btn-default font-12 ml-0" value="Drukuj wskazówki dojazdu" style="display: none" type="submit">
 								</form>
 							</div>
 								<div id="wskazowki"></div>
@@ -1305,7 +1305,7 @@
 							</div>
 						</div>
 						<div class="col-12 mb-2 row user-comments"></div>
-						<div id="showMoreOpinions" class="col-12 center-h-v font-13">Pokaż kolejne ▼</div>
+						<div id="showMoreOpinions" class="col mx-3 center-h-v font-13">Pokaż kolejne ▼</div>
 						@elsemobile
 						<div id="rating-wrapper" class="col-12 mb-2">
 							<div class="tab">
@@ -2145,7 +2145,6 @@
 							</div>
 						</div>
 				</div>
-
 				<div class="row mt-3 mb-3 font-12">
 					<div class="col-12">
                         <div style="font-size: 1.5rem;">
@@ -2163,21 +2162,20 @@
 						</div>
 					</div>
 					<div class="col-12 mb-2 row user-comments"></div>
-					<div id="showMoreOpinions" class="col-12 center-h-v font-13">Pokaż kolejne ▼</div>
+					<div id="showMoreOpinions" class="col mx-3 center-h-v font-13">Pokaż kolejne ▼</div>
 					@endmobile
 					@else
 						<div class="col-12 mb-2">Apartament nie otrzymał jeszcze żadnych opinii</div>
 					@endif
 				</div>
-
 			</div>
-			<span id="similarApartments" class="mobile-none" style="width: 100%">
-				<h2 class="pb-2" style="margin-top: 40px; font-size: 26px">{{__('Osoby, które oglądały ten obiekt oglądały również')}}</h2>
+			<span id="similarApartments" class="mx-3 w-100">
+				<h2 class="pb-2 bold" style="margin-top: 40px; font-size: 26px">{{__('Osoby, które oglądały ten obiekt oglądały również')}}</h2>
 				@include('includes.see-also-apartment')
 			</span>
-			<span class="mobile-none" style="width: 100%">
+			<span class="mobile-none mx-3 w-100">
 				@if($countedCookies > 0)
-					<h2 class="pb-2" style="margin-top: 40px; font-size: 26px">{{__('messages.lastSeen')}}</h2>
+					<h2 class="pb-2 bold" style="margin-top: 40px; font-size: 26px">{{__('messages.lastSeen')}}</h2>
 					@include('includes.last-seen-apartment-detail')
 				@endif
 			</span>
