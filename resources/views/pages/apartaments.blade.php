@@ -5,14 +5,14 @@
 @section('content')
 	<div class="row mx-0">
 		<div class="container py-1">
-			<div class="pull-left mobile-none tablet-none">
+			<div class="pull-left d-none d-md-block">
 				<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButton.png") }}')">
 					<div  class="btn font-13 py-2 px-3" style="width: 100%" >
 						Powrót do wyników wyszukiwania
 					</div>
 				</a>
 			</div>
-			<div class="@mobile d-block @elsemobile pull-left @endmobile font-13 mt-2 ml-md-3">
+			<div class="d-md-none pull-left font-13 mt-2 ml-md-3 col-12 px-0">
 				<a href="{{route('index')}}">Start ></a>
 				<form action="/search/kafle" class="d-inline" method="GET">
 					<input type="hidden" name="region" value="{{$apartament->apartament_city}}">
@@ -24,14 +24,14 @@
 				</form>
 				<span class="bold ml-1">{{$apartament->descriptions[0]->apartament_name}}</span>
 			</div>
-			<div class="desktop-none col-4 d-inline-block pl-0 my-2">
+			<div class="d-md-none col-4 col-sm-3 col-md-4 d-inline-block pl-0 my-2">
 				<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButtonMobile.png") }}')">
 					<div  class="btn font-13 py-2 px-3" style="width: 100%" >
 						{{ __('messages.Return') }}
 					</div>
 				</a>
 			</div>
-			<span class="pull-right @mobile my-2 @endmobile">
+			<span class="pull-right my-2 my-md-0">
 				<div class="d-inline-block">
 					<div id="addApartamentToFavourites" @if($isInFavourites > 0) style="display:none" @endif onClick="addToFavourites({{$apartament->id}}, {{Auth::user()->id ?? 0}})">
 						<div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
@@ -76,14 +76,14 @@
 	</div>
 	@handheld
 	<div id="stickyReservationPanelMobile">
-		<div class="col-4 col-md-2 col-lg-1 d-inline-block pr-1">
+		<div class="col-4 col-sm-3 col-md-2 col-lg-1 d-inline-block pr-1 pl-sm-4 ml-sm-3 pl-md-0 ml-md-0">
 			<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButtonMobile.png") }}')">
 				<div  class="btn font-13 py-2 px-3" style="width: 100%" >
 					{{ __('messages.Return') }}
 				</div>
 			</a>
 		</div>
-		<div class="col-8 col-md-9 col-lg-10" style="padding-left: 0px;"><a id="mobileReservation" href="#stickyReservationPanel" class="btn btn-primary btn-black">Zarezerwuj</a></div>
+		<div class="col-8 col-lg-10 pr-md-5" style="padding-left: 0px;"><a id="mobileReservation" href="#stickyReservationPanel" class="btn btn-primary btn-black">Zarezerwuj</a></div>
 	</div>
 	@endhandheld
 	<div class="row mx-0 back" style="background-image: url( {{ asset("images/apartaments/$apartament->id/1.jpg") }} );">
@@ -97,22 +97,22 @@
 					<div class="col transparent mt-4 mb-2 pt-3 ">
 						<div class="container">
 							<div class="row">
-								<div class="col-md-3">
+								<div class="col-sm-6 col-md-3">
 									<div class="row">
-										<p class="pl-2"><img src="{{ asset("images/apartment_detal/User_24.png") }}"> {{ __('dla') }} {{ $apartament->apartament_persons }} {{trans_choice('messages.persons',$apartament->apartament_persons)}}</p>
+										<p class="pl-2"><img src="{{ asset("images/apartment_detal/User_24.png") }}"><div class="col pl-1">{{ __('dla') }} {{ $apartament->apartament_persons }} {{trans_choice('messages.persons',$apartament->apartament_persons)}}</div></p>
 									</div>
 								</div>
-								<div class="col-md-3">
+								<div class="col-sm-6 col-md-3">
 									<div class="row">
 										<p class="pl-2"><img src="{{ asset("images/apartment_detal/House_24.png") }}"> {{ $apartament->apartament_rooms_number }} {{trans_choice('messages.rooms_number',$apartament->apartament_rooms_number)}}</p>
 									</div>
 								</div>
-								<div class="col-md-3">
+								<div class="col-sm-6 col-md-3">
 									<div class="row">
 										<p class="pl-2"><img src="{{ asset("images/apartment_detal/Calculator_2_24.png") }}"> {{$apartament->apartament_living_area}} m²</p>
 									</div>
 								</div>
-								<div class="col-md-3">
+								<div class="col-sm-6 col-md-3">
 									<div class="row">
 										<p class="pl-2"><img src="{{ asset("images/apartment_detal/HotelSign1_24.png") }}"> {{ $beds }} {{trans_choice('messages.beds_number',$beds)}} </p>
 									</div>
@@ -150,7 +150,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="stickyReservationPanel" class="col-md-4">
+				<div id="stickyReservationPanel" class="col-12 col-md-4 ml-0">
 					<div class="col transparent mt-2 mb-2 pb-1 pt-1">
 						<div class="row">
 							<div class="col-8">{{ __('messages.lowestpricepnight')}}</div>
@@ -162,16 +162,16 @@
 						{!! Form::hidden('link', $apartament->descriptions[0]->apartament_link) !!}
 						{!! Form::hidden('id', $apartament->id) !!}
 						<div class="form-row">
-							<div class="pick-date form-row">
-								<div class="col-md-6 pb-2">
+							<div class="pick-date form-row w-100">
+								<div class="col-sm-6 pb-2">
 									<input type="text" class="form-control" id="przyjazd" name="przyjazd" placeholder="{{ __('messages.arrive')}}" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
 								</div>
-								<div class="col-md-6 pb-2">
+								<div class="col-sm-6 pb-2">
 									<input type="text" class="form-control" id="powrot" name="powrot" placeholder="{{ __('messages.return')}}" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
 								</div>
 							</div>
-							<div class="form-row pb-3">
-								<div class="col-md-6 pb-2">
+							<div class="form-row pb-3 w-100">
+								<div class="col-sm-6 pb-2 pr-0 pr-lg-1">
 									<div class="input-group mb-sm-0">
 										<div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}"><i class="fa fa-lg fa-male" aria-hidden="true" placeholder="{{ __('messages.adults')}}"></i></div>
 										<select class="form-control" name='dorosli' style="width: 120px; height: 38px">
@@ -181,7 +181,7 @@
 										</select>
 									</div>
 								</div>
-								<div class="col-md-6 pb-2">
+								<div class="col-sm-6 pb-2 pr-0 pr-lg-1">
 									<div class="input-group mb-sm-0">
 										<div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Kids') }}"><i class="fa fa-child" aria-hidden="true" placeholder="{{ __('messages.kids')}}"></i></div>
 										<select class="form-control" name='dzieci' style="width: 120px; height: 38px">

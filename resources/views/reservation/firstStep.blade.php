@@ -78,7 +78,7 @@
                     <div class="res-description mt-2 mt-md-0">
                         {{ __('messages.res.firstStepDescription') }}
                     </div>
-                    <hr class="desktop-none">
+                    <hr class="d-sm-none">
                 </div>
                 <div class="col-lg-7 col-sm-6 pl-2">
                     <div class="row">

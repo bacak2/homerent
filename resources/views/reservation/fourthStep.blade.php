@@ -114,7 +114,7 @@
                     <div class="row"><div class="col-4 col-lg-3">{{ __('messages.departure') }}:</div><div class="col-8 col-lg-9 pr-0"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($reservation[0]->reservation_departure_date))) }}</b> (przed 12:00)</div></div>
                     <div class="row"><div class="col-4 pr-lg-0 font-12">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8" style="font-size: 12px">{{ $reservation[0]->reservation_nights }}</div></div>
                     <div class="row"><div class="col-4 pr-lg-0 font-12">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8" style="font-size: 12px">{{$reservation[0]->reservation_persons}} {{trans_choice('messages.adult persons',$reservation[0]->reservation_persons)}}, {{$reservation[0]->reservation_kids}} dzieci</div></div>
-                    <hr class="desktop-none">
+                    <hr class="d-sm-none">
                 </div>
                 <div class="col-lg-5 col-sm-6">
                     {{--wstępna--}}
@@ -156,7 +156,7 @@
                             </form>
                         </div>
                         @endif
-                        <div class="col pl-0">
+                        <div class="col pl-3">
                             <a href="#" class="btn btn-reservation-gray">Anuluj rezerwację</a>
                         </div>
                         @else
@@ -222,7 +222,7 @@
                         <div class="col">
                             <a href="{{route('services.firstStep', [$reservation[0]->apartament_id, $reservation[0]->id, 0])}}" id="add-new-services" class="btn btn-reservation-gray">Dokup usługi</a>
                         </div>
-                        <div class="col pl-0">
+                        <div class="col pl-0 pl-sm-3 pl-md-0 mt-sm-2 mt-md-0">
                             <a class="btn btn-reservation-gray">Anuluj rezerwację</a>
                         </div>
                         @endif
@@ -235,19 +235,19 @@
         </div>
         <div class="col-lg-12 col-sm-12 pt-2 mt-0 mt-lg-2bt-md-solid">
             <div class="row">
-                <div class=" col-sm-6 col-md-12 col-lg-2 mb-2 font-14 font-m-12">
+                <div class="col-sm-6 col-md-12 col-lg-2 mb-2 font-14 font-m-12">
                     <span>
                         Kontakt:<br class="d-none d-lg-inline">
                         Justyna Mroczek
                     </span>
                 </div>
-                <div class="col-md-3 col-lg-2 mb-2 px-lg-1">
+                <div class="col-sm-6 col-md-3 col-lg-2 mb-2 px-lg-1">
                     <div class="contact-item"><i class="fa fa-lg fa-phone" style="margin-right: 10px"></i>+48 600 000 000</div>
                 </div>
-                <div class="col-md-3 col-lg-2 mb-2 px-lg-2">
+                <div class="col-sm-6 col-md-3 col-lg-2 mb-2 px-lg-2">
                     <div class="contact-item"><i class="fa fa-lg fa-phone" style="margin-right: 10px"></i>+48 600 000 000</div>
                 </div>
-                <div class="col-md-5 col-lg-3 mb-2 px-lg-1">
+                <div class="col-sm-6 col-md-5 col-lg-3 mb-2 px-lg-1">
                     <div class="contact-item"><i class="fa fa-lg fa-envelope" style="margin-right: 10px"></i>justyna.mroczek@gmail.com</div>
                 </div>
                 <div class="col-lg-3 mb-2">

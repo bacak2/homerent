@@ -31,8 +31,8 @@
             {!! Form::hidden('apartament', $apartament->id) !!}
             {!! Form::hidden('reservation', $reservation[0]->id) !!}
             <div class="form-group row input-none journey-type">
-                {!! Form::label('address', __('messages.Typ podrózy').':*', array('class' => 'col-md-3 col-form-label')) !!}
-                <div class="row col-md-9 mx-0 pl-3 pl-md-0">
+                {!! Form::label('address', __('messages.Typ podrózy').':*', array('class' => 'col-sm-3 col-form-label')) !!}
+                <div class="row col-sm-9 mx-0 pl-3 pl-md-0">
                     <div class="rItem">
                         <input id="type0" type="radio" value="0" name="type"><label for="type0"><div class="p-2 opinion-rItem"><img src='{{ asset("images/reservations/family.png") }}'>Rodziny</div></label>
                     </div>

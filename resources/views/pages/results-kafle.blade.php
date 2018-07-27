@@ -9,19 +9,19 @@
                 <div class="col-3">
                     <div  style="position: absolute; right:10px;"><a  class="btn btn-info btn-mobile filters-toggle">{{__('messages.change')}} </a></div>
                 </div>
-                @mobile
+                @handheld
                     @include('includes.filters-mobile')
-                @endmobile
+                @endhandheld
             </div>
 
         </form>
 
-            <div class="row desktop-none">
-                <div class="col-8"><h1 class="pb-2" style="display: inline; font-size: 24px">{{ $finds[0]->apartament_city}} <span class="desktop-none">({{ $countedApartaments }})</span></h1><span class="pb-2 mobile-none"> ({{ $countedApartaments }} {{trans_choice('messages.apartaments', $countedApartaments)}})</span></div>
-                <div class="col-4 inline-wrapper text-right desktop-none"> <div style="position: absolute; right:10px;"   class="btn-group"><a class="btn btn-selected btn-mobile" href="/search/kafle?{{ http_build_query(Request::except('page')) }}">{{__('messages.Offers')}}</a><a class="btn btn-info btn-mobile" href="/search/mapa?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a></div></div>
+            <div class="row d-xl-none">
+                <div class="col-8"><h1 class="pb-2" style="display: inline; font-size: 24px">{{ $finds[0]->apartament_city}} <span class="d-xl-none">({{ $countedApartaments }})</span></h1><span class="pb-2 d-none d-xl-inline"> ({{ $countedApartaments }} {{trans_choice('messages.apartaments', $countedApartaments)}})</span></div>
+                <div class="col-4 inline-wrapper text-right d-xl-none"> <div style="position: absolute; right:10px;"   class="btn-group"><a class="btn btn-selected btn-mobile" href="/search/kafle?{{ http_build_query(Request::except('page')) }}">{{__('messages.Offers')}}</a><a class="btn btn-info btn-mobile" href="/search/mapa?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a></div></div>
             </div>
 
-            <div style="margin-top: 15px; margin-bottom: 15px" class="desktop-none sort-by">{{__('messages.Sort by')}}:
+            <div style="margin-top: 15px; margin-bottom: 15px" class="d-xl-none">{{__('messages.Sort by')}}:
                     <select id="u1001_input" name="sort" class="input-sm">
                         <option selected="" value="Najlepsze dopasowanie">{{__('messages.Best fit')}}</option>
                         <option value="Najniższa cena">{{__('messages.Lowest price')}}</option>
@@ -31,9 +31,9 @@
                     </select>
             </div>
 
-            <div class="row mobile-none">
+            <div class="row d-none d-xl-flex">
                 <div class="col-lg-6 col-md-12"><h1 style="font-size: 28px" class="pb-2">{{ $countedApartaments }} {{trans_choice('messages.apartaments', $countedApartaments)}} w {{ $countedObjects }} {{trans_choice('messages.objects', $countedObjects)}}</h1></div>
-                <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12 sort-by">{{__('messages.Sort by')}}:
+                <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12">{{__('messages.Sort by')}}:
                     <select id="u1001_input" name="sort" class="input-sm">
                         <option selected="" value="Najlepsze dopasowanie">{{__('messages.Best fit')}}</option>
                         <option value="Najniższa cena">{{__('messages.Lowest price')}}</option>
@@ -52,17 +52,17 @@
                     <div style="overflow: auto;" class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" itemscope itemtype="http://schema.org/Hotel">
                         <div class="map-img-wrapper">
                             <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
-                                <div class="map-see-more mobile-none">
+                                <div class="map-see-more">
                                     <div class="container py-1">
                                         <a href="/apartaments-group/{{ $apartament->group_link }}" class="btn btn-see-more" style="width: 100%">{{ __("messages.see details") }}</a>
                                     </div>
                                 </div>
-                                <div class="desktop-none" style="width: 100%; height: 100%">
+                                <div class="d-block d-lg-none" style="width: 100%; height: 100%">
                                     <a style=" display: inline-block; width: 100%; height: 100%" href="/apartaments-group/{{ $apartament->group_link }}"></a>
                                 </div>
                             </div>
                             <div class="komplex-description-top">{{ $apartament->apartaments_amount }} {{trans_choice('messages.nrApartmentsInKomplex', $apartament->apartaments_amount)}} {{__('messages.from')}} {{ $apartament->min_price }} PLN</div>
-                            <div class="description-bottom-right mobile-none">
+                            <div class="description-bottom-right d-none d-sm-inline-block">
                                 @for ($i = 0; $i < floor($apartament->ratingAvg/2); $i++)
                                     <img src='{{ asset("images/results/star.png") }}'>
                                 @endfor
@@ -104,7 +104,7 @@
                                     <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="Parking" style="background-image: url('{{ asset("images/results/parking.png") }}');"> </div>
                                 @endif
                             </div>
-                            <div class="description-map-bottom-right desktop-none">
+                            <div class="description-map-bottom-right d-sm-none desktop-none">
                                 @for ($i = 0; $i < floor($apartament->ratingAvg/2); $i++)
                                     <img src='{{ asset("images/results/star.png") }}'>
                                 @endfor
@@ -138,16 +138,15 @@
                         <div class="map-img-wrapper">
 
                             <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
-                                <div class="map-see-more mobile-none">
+                                <div class="map-see-more ">
                                     <div class="container py-1">
-
                                         <a href="/reservations?link={{ $apartament->apartament_link }}&id={{ $apartament->apartament_id }}&przyjazd={{ $request->przyjazd }}&powrot={{ $request->powrot }}&dorosli={{ $request->dorosli }}&dzieci={{ $request->dzieci }}" style="width: 100%" class="btn btn-primary">{{ __("messages.book") }}</a>
                                     </div>
                                     <div class="container py-1">
                                         <a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-see-more" style="width: 100%">{{ __("messages.see details") }}</a>
                                     </div>
                                 </div>
-                                 <div class="desktop-none" style="width: 100%; height: 100%">
+                                 <div class="d-block d-xl-none" style="width: 100%; height: 100%">
                                      <a style=" display: inline-block; width: 100%; height: 100%" href="/apartaments/{{ $apartament->apartament_link }}"></a>
                                 </div>
                             </div>
@@ -155,7 +154,7 @@
 
                             <div class="map-description-top">{{ $apartament->min_price }} PLN</div>
                             <div class="map-description-bottom">{{ __("messages.Breakfast included") }}</div>
-                            <div class="description-bottom-right mobile-none">
+                            <div class="description-bottom-right d-none d-sm-inline-block">
                                 @for ($i = 0; $i < floor($apartament->ratingAvg/2); $i++)
                                     <img src='{{ asset("images/results/star.png") }}'>
                                 @endfor
@@ -198,7 +197,7 @@
                                     <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="Parking" style="background-image: url('{{ asset("images/results/parking.png") }}');"> </div>
                                 @endif
                             </div>
-                            <div class="description-map-bottom-right desktop-none">
+                            <div class="description-map-bottom-right d-sm-none desktop-none">
                                 @for ($i = 0; $i < floor($apartament->ratingAvg/2); $i++)
                                     <img src='{{ asset("images/results/star.png") }}'>
                                 @endfor

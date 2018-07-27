@@ -240,13 +240,13 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row mx-0">
-                                                <div class="offset-sm-3">
+                                                <div class="offset-md-3">
                                                     <input id="wantInvoice" name="wantInvoice" type="checkbox">
                                                 </div>
                                                 {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
                                             </div>
                                             <span id="invoiceFields" style="display: none">
-                                            <h3><b>Dane do faktury</b></h3>
+                                            <h2 class="h2-reservation">Dane do faktury</h2>
                                             <div class="form-group row">
                                                 {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
                                                 <div class="col-sm-9">
@@ -465,13 +465,13 @@
                         </div>
                     </div>
                     <div class="form-group row mx-0">
-                        <div class="offset-sm-3">
+                        <div class="offset-md-3">
                             {!! Form::checkbox('wantInvoice') !!}
                         </div>
                         {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
                     </div>
                     <span id="invoiceFields" style="display: none">
-                <h3><b>Dane do faktury</b></h3>
+                <h2 class="h2-reservation">Dane do faktury</h2>
                 <div class="form-group row">
                     {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
                     <div class="col-sm-9">
@@ -526,11 +526,11 @@
                     </div>
                     @if($errors->any())
                         <div class="row">
-                            <div class="offset-sm-3" style="color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">{{$errors->first()}}</span></div>
+                            <div class="offset-md-3" style="color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">{{$errors->first()}}</span></div>
                         </div>
                     @endif
                     <div class="form-group row mx-0">
-                        <div class="offset-sm-3">
+                        <div class="offset-md-3">
                             <input id="dontWantAccount" name="dontWantAccount" type="checkbox">
                         </div>
                         {!! Form::label('dontWantAccount', __('messages.dontWantAccount'), ['style'=>'font-size: 10px']) !!}
@@ -552,10 +552,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="offset-sm-3" id="passNotSame" style="display: none; color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">Wpisane hasła nie są takie same.</span></div>
+                    <div class="offset-md-3" id="passNotSame" style="display: none; color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">Wpisane hasła nie są takie same.</span></div>
                 </div>
                 <div class="row">
-                    <div class="offset-sm-3" id="passAtLeast" style="display: none; color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">Hasło musi mieć co najmniej 6 znaków.</span></div>
+                    <div class="offset-md-3" id="passAtLeast" style="display: none; color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">Hasło musi mieć co najmniej 6 znaków.</span></div>
                 </div>
             </span>
                 @endguest
@@ -563,11 +563,11 @@
                     <div class="col-lg-12 col-sm-12">
                         <h2 class="h2-reservation">{{ __('messages.Message for the owner') }}</h2>
                         <div class="row">
-                            <div class="col-sm-3 col-md-12">
+                            <div class="col-xs-3 col-sm-12">
                                 <span class="font-m-14">{{ __('messages.Expected time') }}:</span>
                                 <input id="godzinaPrzyjazdu" value="15:00" name="godzinaPrzyjazdu" class="slider-time" style="width: 60px; margin-bottom: 20px">
                             </div>
-                            <div class="col-lg-8 col-sm-6 col-lg-offset-3">
+                            <div class="col-lg-8 col-sm-10 col-lg-offset-3">
                                 <div id="time-range">
                                     <div class="sliders_step1">
                                         <div id="slider-range"></div>

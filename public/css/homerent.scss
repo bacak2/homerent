@@ -855,7 +855,7 @@ button {
 	margin-left: 7px;
 }
 
-.description-below-img.desktop-none.note {
+.description-below-img.note {
 	span {
 		color: white;
 		font-size: 10px;
@@ -916,12 +916,6 @@ button {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-}
-
-.map-img-wrapper:hover {
-	.map-see-more {
-		display: inline;
-	}
 }
 
 .map-img-wrapper{
@@ -1795,6 +1789,7 @@ div.edit, div.delete{
 
 div.more.row{
 	height: 100%;
+	min-height: 80px;
 	position: absolute;
 	top: 0;
 	right: 14px;
@@ -1989,7 +1984,6 @@ div.reservation-path{
 
 .opinion-detal.gray-box{
 	width: 100%;
-	height: 76px;
 	background-color: #e0e0e0;
 	margin-left: 0px;
 
@@ -2164,6 +2158,16 @@ span.error-show{
 	.bt-md-solid{
 		border-top: solid 1px;
 	}
+
+	#my-opinon-detail{
+		position: absolute;
+		bottom: 46px;
+	}
+
+	#helpful-wraper{
+		position: absolute;
+		bottom: 0px;
+	}
 }
 
 @media (max-width: 767px){
@@ -2201,14 +2205,6 @@ span.error-show{
 
 	.mobile-none{
 		display: none !important;
-	}
-
-	.map-description-bottom, .map-count{
-		left: 2px;
-	}
-
-	.map-description-top{
-		left: 2px;
 	}
 
 	.flex-box {
@@ -2545,6 +2541,12 @@ span.error-show{
 	#add-new-services.btn{
 		min-height: 50px;
 		padding-top: 14px;
+	}
+
+	.map-img-wrapper:hover {
+		.map-see-more {
+			display: inline;
+		}
 	}
 }
 

@@ -28,7 +28,7 @@
             @endif
 
         </div>
-        <div class="comment-background col-md-9 row py-3 pt-5 pt-md-3" @mobile style="background-image: url('{{ asset("images/opinions/comment_background_mobile.png") }}')" @elsemobile style="background-image: url('{{ asset("images/opinions/comment_background.png") }}')" @endmobile>
+        <div id="opinion-added-comment" class="comment-background col-md-9 row py-3 pt-5 pt-md-3" @mobile style="background-image: url('{{ asset("images/opinions/comment_background_mobile.png") }}')" @elsemobile style="background-image: url('{{ asset("images/opinions/comment_background.png") }}')" @endmobile>
             <div class="col-2 col-lg-1 px-0">
                 <div style="font-size: 22px" class="overall-rating-box center-h-v @if($opinionData['total_rating'] > 0 && $opinionData['total_rating'] <= 3) rating-red @elseif($opinionData['total_rating'] > 3 && $opinionData['total_rating'] <= 6) rating-yellow @else rating-green @endif"><b>{{$opinionData['total_rating']}}</b></div>
             </div>
@@ -50,7 +50,7 @@
                             <div style="background-color: #4eff5e; color: white; width:16px; height: 16px"><b>+</b></div>
                         </div>
                         <div class="col-11 comment-row" style="margin-left: -40px; padding-right: 0px">
-                            <div class="ml-1">
+                            <div class="ml-5 ml-md-4 ml-lg-3 ml-xl-1">
                                 {{$opinionData['pros']}}
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                             <div style="background-color: #ff2620; color: white; width:16px; height: 16px"><b>-</b></div>
                         </div>
                         <div class="col-11 comment-row" style="margin-left: -40px; padding-right: 0px">
-                            <div class="ml-1">
+                            <div class="ml-5 ml-md-4 ml-lg-3 ml-xl-1">
                                 {{$opinionData['cons']}}
                             </div>
                         </div>
@@ -155,7 +155,22 @@
             </div>
         </div>
     </div>
-    {{--dd($opinionData)--}}
 </div>
+
+<script>
+    $(window).resize(function() {
+        setBackgroundImg();
+    });
+
+    $(document).ready(function() {
+        setBackgroundImg();
+    });
+
+    function setBackgroundImg(){
+        windowWidth = $(window).width();
+        if(windowWidth > 767) $("#opinion-added-comment").css("background-image", "url('{{ asset("images/opinions/comment_background.png") }}')");
+        else $("#opinion-added-comment").css("background-image", "url('{{ asset("images/opinions/comment_background_mobile.png") }}')");
+    }
+</script>
 
 @endsection

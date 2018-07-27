@@ -4,21 +4,21 @@
       <div class="col-md-2 mb-2 mb-sm-0">
         <input type="text" class="form-control" id="region" name="region" placeholder="{{ __('messages.forexample')}}" value="{{ $_GET['region'] ?? '' }}">
       </div>
-      <div class="form-inline col-md-5 form-row pick-date ">
-          <div class="col-md-6 mb-2 mb-sm-0">
+      <div class="form-inline col-md-5 form-row pick-date py-sm-3 py-md-0">
+          <div class="col-sm-6 mb-2 mb-sm-0">
               <div class="input-group mb-2 mb-sm-0">
                   <div class="input-group-addon"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i></div>
                   <input type="text" class="form-control" id="przyjazd" name="przyjazd" placeholder="{{ __('messages.arrive')}}" value="{{ $_GET['przyjazd'] ?? ''}}" required style="margin-right: 1px">
               </div>
           </div>
-          <div class="col-md-6 mb-2 mb-sm-0">
+          <div class="col-sm-6 mb-2 mb-sm-0">
               <div class="input-group mb-2 mb-sm-0">
                   <div class="input-group-addon"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i></div>
                   <input type="text" class="form-control" id="powrot" name="powrot" placeholder="{{ __('messages.return')}}"  value="{{ $_GET['powrot'] ?? ''}}" required style="margin-right: 1px">
               </div>
           </div>
       </div>
-      <div class="col-md">
+      <div class="col-sm">
           <div class="input-group mb-2 mb-sm-0">
             <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}"><i class="fa fa-lg fa-male" aria-hidden="true"></i></div>
               <select class="form-control" placeholder="{{ __('messages.adults')}}" name='dorosli'>
@@ -33,7 +33,7 @@
               </select>
           </div>
       </div>
-      <div class="col-md">
+      <div class="col-sm">
         <div class="input-group mb-2 mb-sm-0">
           <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Kids') }}"><i class="fa fa-child" aria-hidden="true"></i></div>
               <select class="form-control" placeholder="{{ __('messages.kids')}}" name='dzieci'>
@@ -49,7 +49,7 @@
               </select>
         </div>
       </div>
-            <button type="submit" class="btn btn-primary searchbtn desktop-none mx-1" style="width: 100%">{{ __('messages.search') }}</button>
+            <button type="submit" class="btn btn-primary searchbtn desktop-none mx-1 mt-sm-3 mt-md-0" style="width: 100%">{{ __('messages.search') }}</button>
         <div class="col-md btn-group mobile-none">
             <button type="submit" class="btn btn-primary searchbtn">{{ __('messages.search') }}</button>
            

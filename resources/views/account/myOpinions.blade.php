@@ -99,11 +99,12 @@
                             <div class="row font-12">{{ date("d.m.Y", strtotime($opinion->opinionCreateDate)) }}</div>
                         </div>
                         <div class="col-4 pl-0 pr-3 pr-md-0 font-12 txt-blue">
-                            @mobile
+                            <span class="d-inline d-lg-none">
                                 <a class="btn detail" href="#" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">szczegóły >></a>
-                            @elsemobile
+                            </span>
+                            <span class="d-none d-lg-inline">
                                 <button class="btn detail" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">szczegóły >></button>
-                            @endmobile
+                            </span>
                         </div>
                         <div class="col-2 pl-0 pl-md-4 pl-lg-0 pr-0">
                             <img src='{{ asset("images/opinions/trash.png") }}' class="trash-my-opinions img-fluid" onClick="deletePop({{$opinion->id_reservation}})"></img>
@@ -128,9 +129,9 @@
 
 <div id="opinion-detail-popup" style="display: none;">
     <div id="opinion-detail" class="row">
-        <div class="col-12 col-md-6">
-            <div class="row opinion-detal gray-box pl-3">
-                <div class="col-12">Twoja ocena</div>
+        <div class="col-12 col-md-6 pr-md-3">
+            <div class="row opinion-detal gray-box pl-3 pb-3">
+                <div class="col-12 pl-0 mb-0">Twoja ocena</div>
                 <div class="col-12" id="myTotalWrapper">
                     <img src='{{ asset("images/opinions/star10.png") }}'>
                     <span style="font-weight: bold">
@@ -140,25 +141,25 @@
                 </div>
             </div>
             <div id="comment-wrapper">
-                <div id="pros-wraper" class="col-12 row font-12 mb-3 ml-1" style="padding-right: 0px; ">
-                    <div class="col-2 center-h-v" style="padding-left: 5px;">
+                <div id="pros-wraper" class="col-12 row font-12 pl-0 mb-3 ml-1" style="padding-right: 0px; ">
+                    <div class="col-2 col-sm-1 col-md-2 center-h-v" style="padding-left: 5px;">
                         <div style="background-color: #4eff5e; color: white; width:16px; height: 16px"><b>+</b></div>
                     </div>
-                    <div class="col-11 comment-row" style="margin-left: -40px; padding-right: 0px">
+                    <div class="col-10 col-sm-11 col-md-10 comment-row" style="margin-left: -40px; padding-right: 0px">
                         <div id="pros" class="ml-2"></div>
                     </div>
                 </div>
-                <div id="cons-wraper" class="col-12 row font-12 mb-3 ml-1" style="padding-right: 0px">
-                    <div class="col-2 center-h-v" style="padding-left: 5px;">
+                <div id="cons-wraper" class="col-12 row font-12 pl-0 mb-3 ml-1" style="padding-right: 0px">
+                    <div class="col-2 col-sm-1 col-md-2 center-h-v" style="padding-left: 5px;">
                         <div style="background-color: #ff2620; color: white; width:16px; height: 16px"><b>-</b></div>
                     </div>
-                    <div class="col-11 comment-row" style="margin-left: -40px; padding-right: 0px">
+                    <div class="col-10 col-sm-11 col-md-10 comment-row" style="margin-left: -40px; padding-right: 0px">
                         <div id="cons" class="ml-2"></div>
                     </div>
                 </div>
             </div>
             <b class="font-11" style="margin-left: 34px">Pobyt: <span id="stay"></span></b>
-            <div class="py-2" style="border-top: solid 1px gray; @notmobile position: absolute; @endnotmobile bottom: 46px; width: 304px;">
+            <div id="my-opinon-detail" class="py-2" style="border-top: solid 1px gray; width: 304px;">
                 <div class="col-12 font-12 mb-2">
                     Czystość
                     <span class="pull-right rating-opinion-detail my-opinion"><span id="user-cleanlinessAvg"></span></span>
@@ -195,21 +196,21 @@
                     </span>
                 </div>
             </div>
-            <div id="helpful-wraper" class="py-2" style="display: none; border-top: solid 1px gray; @notmobile position: absolute; @endnotmobile bottom: 0px; width: 304px;">
+            <div id="helpful-wraper" class="py-2" style="display: none; border-top: solid 1px gray; width: 304px;">
                 <div id="helpful" class="col-12 font-12 mb-2"></div>
             </div>
         </div>
         <div class="col-12 col-md-6 mt-4 mt-md-0">
-            <div class="row opinion-detal gray-box pl-3">
-                <div class="col-12" style="margin-bottom: -11px;">Średnia ocena</div>
-                <div class="col-12" id="totalAvgWrapper">
+            <div class="row opinion-detal gray-box pl-0">
+                <div class="col-12 mb-0 pl-md-3">Średnia ocena</div>
+                <div class="col-12" id="totalAvgWrapper" style="padding-left: 1rem">
                     <img src='{{ asset("images/opinions/star10.png") }}'>
                     <span style="font-weight: bold">
                         <span id="totalAvg"></span>/10
                     </span>
                     <span id="totalAvgInWords"></span>
                 </div>
-                <div class="col-12 font-11" style="margin-bottom: -10px;margin-top: -10px;">
+                <div class="col-12 font-11 mb-2 pl-md-3">
                     Na podstawie
                     <span id="opinionsAmountWrapper" class="txt-blue">
                         <span id="opinionsAmount"></span> opinii

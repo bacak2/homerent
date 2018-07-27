@@ -9,7 +9,7 @@
         <div class="row mt-2 mx-0"><h2 style="font-size: 22px"><b>Dane do rezerwacji</b></h2></div>
 
         <div id="data-content" class="row" style="display: none">
-            <div class="col-md-6 col-lg-3 mb-4" ng-repeat="account in Accounts">
+            <div class="col-sm-6 col-lg-4 col-xl-3 mb-4" ng-repeat="account in Accounts">
                 <div class="data-item-top p-2">
                     <% account.label %>
                     <div class="pull-right ml-2 delete" ng-click="deletePop(account.id)"><img data-toggle="tooltip" data-placement="bottom" title="Usuń dane" alt="Usuń dane" src='{{ asset("images/account/trash.png") }}'></div>
@@ -35,7 +35,7 @@
                         <div><% account.email %></div>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3">
+            <div class="col-sm-6 col-lg-4 col-xl-3">
                 <div class="data-item" id="data-item-new">
                     <button id="addNew" class="btn btn-default" style="font-size: 18px">+ dodaj nowe</button>
                 </div>

@@ -44,11 +44,11 @@
             </div>
         </div>
 
-        @mobile
-            <div id="guide-1-popup" class="guide-mobile-popup col-sm-12 col-md-4 mb-3">
+        <span class="d-md-none">
+            <div class="guide-1-popup guide-mobile-popup col-sm-12 col-md-4 mb-3">
                 @include('includes.slider-for-travelers')
             </div>
-        @endmobile
+        </span>
 
         <div id="guide-2" class="col-sm-12 col-md-4 mb-3">
             <div class="row mb-1">
@@ -60,14 +60,14 @@
             </div>
         </div>
 
-        @mobile
-        <div id="guide-2-popup" class="guide-mobile-popup col-sm-12 col-md-4 mb-3">
-            <span class="font-13">
-                Znajdź interesujący Cię obiekt, przeczytaj informacje na jego temat. Możesz od razu sprawdzić, co znajduje się w okolicy - zarówno poprzez funkcjonalność Street View, jak i listę obiektów dostępnych obok (np: restauracje, centra handlowe, czy centra zabaw).
-            </span>
-            <img style="width: 100%" src='{{ asset('images/for_travelers/pop2-inside.png') }}'>
-        </div>
-        @endmobile
+        <span class="d-md-none">
+            <div class="guide-2-popup guide-mobile-popup col-sm-12 col-md-4 mb-3">
+                <span class="font-13">
+                    Znajdź interesujący Cię obiekt, przeczytaj informacje na jego temat. Możesz od razu sprawdzić, co znajduje się w okolicy - zarówno poprzez funkcjonalność Street View, jak i listę obiektów dostępnych obok (np: restauracje, centra handlowe, czy centra zabaw).
+                </span>
+                <img style="width: 100%" src='{{ asset('images/for_travelers/pop2-inside.png') }}'>
+            </div>
+        </span>
 
         <div id="guide-3" class="col-sm-12 col-md-4 mb-3">
             <div class="row mb-1">
@@ -76,16 +76,16 @@
             </div>
         </div>
 
-        @mobile
-        <div id="guide-3-popup" class="guide-mobile-popup col-sm-12 col-md-4 mb-3">
-            <img style="width: 100%" src='{{ asset('images/for_travelers/pop3-inside.png') }}'>
-        </div>
-        @endmobile
+        <span class="d-md-none">
+            <div class="guide-3-popup guide-mobile-popup col-sm-12 col-md-4 mb-3">
+                <img style="width: 100%" src='{{ asset('images/for_travelers/pop3-inside.png') }}'>
+            </div>
+        </span>
     </div>
 
-@notmobile
+<span class="d-sm-none d-md-block">
     <div class="row">
-        <div id="guide-1-popup" class="guide-popup" style="background-image: url('{{ asset('images/for_travelers/popup.png') }}');">
+        <div class="guide-1-popup guide-popup" style="background-image: url('{{ asset('images/for_travelers/popup.png') }}');">
             <div class="container searchCont">
                 @include('includes.slider-for-travelers')
             </div>
@@ -93,7 +93,7 @@
     </div>
 
     <div class="row">
-        <div id="guide-2-popup" class="guide-popup px-4" style="background-image: url('{{ asset('images/for_travelers/popup2.png') }}');">
+        <div class="guide-2-popup guide-popup px-4" style="background-image: url('{{ asset('images/for_travelers/popup2.png') }}');">
             <div class="row" style="margin: 40px 10px 0px 10px;">
                 <div class="col-4 @handheld font-11 @endhandheld" style="position: relative;">
                     Znajdź interesujący Cię obiekt, przeczytaj informacje na jego temat. Możesz od razu sprawdzić, co znajduje się w okolicy - zarówno poprzez funkcjonalność Street View, jak i listę obiektów dostępnych obok (np: restauracje, centra handlowe, czy centra zabaw).
@@ -115,11 +115,11 @@
     </div>
 
     <div class="row">
-        <div id="guide-3-popup" class="guide-popup px-4" style="background-image: url('{{ asset('images/for_travelers/popup3.png') }}');">
+        <div class="guide-3-popup guide-popup px-4" style="background-image: url('{{ asset('images/for_travelers/popup3.png') }}');">
             <img style="margin: 40px 0px; border: 1px solid black; width: 100%" src='{{ asset('images/for_travelers/pop3-inside.png') }}'>
         </div>
     </div>
-@endnotmobile
+</span>
 
     <div class="row py-3 mt-4" style="background-color: #cfcfcf">
         <div class="col-sm-12 col-md-4">
@@ -231,43 +231,43 @@
 
 <script>
     $('#guide-1').click(function() {
-        if($('#guide-1-popup').is(":visible")) $('#guide-1-popup').hide();
-        else $('#guide-1-popup').show();
-        $('#guide-2-popup').hide();
-        $('#guide-3-popup').hide();
+        if($('.guide-1-popup').is(":visible")) $('.guide-1-popup').hide();
+        else $('.guide-1-popup').show();
+        $('.guide-2-popup').hide();
+        $('.guide-3-popup').hide();
     });
 
     $('#guide-2').click(function() {
-        if($('#guide-2-popup').is(":visible")) $('#guide-2-popup').hide();
-        else $('#guide-2-popup').show();
-        $('#guide-1-popup').hide();
-        $('#guide-3-popup').hide();
+        if($('.guide-2-popup').is(":visible")) $('.guide-2-popup').hide();
+        else $('.guide-2-popup').show();
+        $('.guide-1-popup').hide();
+        $('.guide-3-popup').hide();
     });
 
     $('#guide-3').click(function() {
-        if($('#guide-3-popup').is(":visible")) $('#guide-3-popup').hide();
-        else $('#guide-3-popup').show();
-        $('#guide-1-popup').hide();
-        $('#guide-2-popup').hide();
+        if($('.guide-3-popup').is(":visible")) $('.guide-3-popup').hide();
+        else $('.guide-3-popup').show();
+        $('.guide-1-popup').hide();
+        $('.guide-2-popup').hide();
     });
 
 @desktop
     $('#guide-1').hover(function() {
-        $('#guide-1-popup').show();
-        $('#guide-2-popup').hide();
-        $('#guide-3-popup').hide();
+        $('.guide-1-popup').show();
+        $('.guide-2-popup').hide();
+        $('.guide-3-popup').hide();
     });
 
     $('#guide-2').hover(function() {
-        $('#guide-2-popup').show();
-        $('#guide-1-popup').hide();
-        $('#guide-3-popup').hide();
+        $('.guide-2-popup').show();
+        $('.guide-1-popup').hide();
+        $('.guide-3-popup').hide();
     });
 
     $('#guide-3').hover(function() {
-        $('#guide-3-popup').show();
-        $('#guide-1-popup').hide();
-        $('#guide-2-popup').hide();
+        $('.guide-3-popup').show();
+        $('.guide-1-popup').hide();
+        $('.guide-2-popup').hide();
     });
 @enddesktop
 </script>
