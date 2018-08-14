@@ -4,7 +4,7 @@
 
 @section('content')
 <span  ng-app="AccountsList" ng-controller="myCtrl">
-    <div class="container">
+    <div class="container mb-4">
         <div class="row mt-4 mx-0"><h1 style="font-size: 28px"><b>Moje dane</b></h1></div>
         <div class="row mt-2 mx-0"><h2 style="font-size: 22px"><b>Dane do rezerwacji</b></h2></div>
 
@@ -55,7 +55,10 @@
                 Połączenie z Facebook:
             </div>
             <div class="col-8">
-                nie
+            @if(Auth::user()->facebook_id == null) nie <a href="#" class="fb-login-button ml-4 font-13" data-max-rows="1" data-size="small" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkConnectionWithFb();">Połącz</a>
+                @else tak
+                @endif
+                <div class="font-11">Nie publikujemy na tablicy Facebook bez Twojej zgody</div>
             </div>
         </div>
     </div>
@@ -581,6 +584,33 @@
         }
 
 
+    }
+</script>
+
+<script>
+    function checkConnectionWithFb(){
+        FB.getLoginStatus(function(response) {
+            if(response.status == "connected"){
+
+                //wprowadź do BD facebook_id dla tego usera (ajax-> newConnectionFb)
+                $.ajax({
+                    type: "GET",
+                    url: '/account/new-connection-fb',
+                    dataType : 'json',
+                    data: {
+                        userID: response.authResponse.userID,
+                    },
+                    success: function(data) {
+                        location.reload();
+                    },
+                    error: function() {
+                        console.log("Error in connection with controller");
+                    },
+                });
+
+            }
+            else alert("Wystąpił błąd podczas połączenia z Facebookiem");
+        });
     }
 </script>
 @endsection

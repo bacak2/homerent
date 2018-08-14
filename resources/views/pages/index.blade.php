@@ -44,101 +44,19 @@
 				<a class="font-13 pull-right" href="/guidebooks" style="color: #0066CC">Więcej przewodników »</a>
 			</div>
 		</div>
-
-		<div class="row mb-3 mb-md-5 desktop-none">
-			<div class="col-12 col-sm-6 col-md-4">
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Na narty</div>
-				</div>
-			</div>
-            <div class="col-12 col-sm-6 col-md-4">
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Z dziećmi</div>
-				</div>
-			</div>
-			<div class="col-12 col-sm-6 col-md-4">
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Zakopane</div>
-				</div>
-			</div>
-			<div class="col-12 col-sm-6 col-md-4">
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków</div>
-				</div>
-			</div>
-			<div class="col-12 col-sm-6 col-md-4">
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Warszawa</div>
-				</div>
-			</div>
-		</div>
-
 		<h3 class="h3-index mobile-none">{{ __('Odwiedzaj i zwiedzaj') }}</h3>
-		<div class="row mb-5 mobile-none">
-			<div class="col-12 mb-4 font-15">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.</div>
+		<div class="row mb-5">
+			<div class="col-12 mb-4 font-15 mobile-none">Szukasz pomysłu na wymarzoną podróż? Chcesz wiedzieć gdzie można miło spędzić czas, co warto zobaczyć? Zajrzyj do naszych przewodników, zainspiruj się i zaplanuj swój pobyt! Znajdziesz tu propozycje atrakcji dla rodzin, dla osób aktywnych, dla miłośników zabytków, dla amatorów wędrówek... i nie tylko</div>
+			@foreach($guidebooks as $guidebook)
 			<div class="col-12 col-sm-6 col-md-4">
 				<div style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
+					<a class="to-download-description" href="{{route('guidebooks.Detail', $guidebook->guidebook_link)}}">
+						<img class="img-fluid" src="{{asset("images/guidebooks/$guidebook->guidebook_img")}}">
 					</a>
-					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
+					<div class="guidebooks-index-page">{{$guidebook->guidebook_title}}</div>
 				</div>
 			</div>
-            <div class="col-12 col-sm-6 col-md-4">
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
-				</div>
-			</div>
-			<div class="col-12 col-sm-6 col-md-4">
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
-				</div>
-			</div>
-			<div class="col-12 col-sm-6 col-md-4">
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
-				</div>
-			</div>
-			<div class="col-12 col-sm-6 col-md-4">
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
-				</div>
-			</div>
-			<div class="col-12 col-sm-6 col-md-4">
-				<div style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków dla miłośników kuchni</div>
-				</div>
-			</div>
+			@endforeach
 			<!--div class="col-12 col-sm-6 col-md-4 font-15">
 				<div style="height: 195px; border: 1px solid black; padding: 18px;">
 					<span class="font-18 bold d-block">Polecaj i zarabiaj</span>
@@ -146,119 +64,113 @@
 					<a href="#" class="btn btn-black" style="color: #fff; width: 100px; padding: 7px 20px">Zobacz</a>
 				</div>
 			</div-->
-			<div class="col-12 text-center">
+			<div class="col-12 text-center mobile-none">
 				<div class="gray-bar-index">
 					<a href="/guidebooks" style="color: #0066CC">Więcej przewodników »</a>
 				</div>
 			</div>
 		</div>
 
-		<h3 class="h3-index mobile-none">{{ __('Zatrzymuj się w 17 miastach') }}</h3>
+		<h3 class="h3-index mobile-none">{{ __('Zatrzymaj się w naszych obiektach') }}</h3>
 		<div class="row mb-5 mobile-none">
 			<div class="col-12 col-sm-6 col-md-4">
-				<div class="mb-3" style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Kraków - 56 apartamentów</div>
-				</div>
-
-				<h4 class="h4-index">Polecamy w Krakowie</h4>
-				@foreach ($apartamentsFirstCity as $apartament)
-					<div style="position: relative">
-						<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
-							<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
-						</a>
-						<div class="col-8 col-sm-11 col-lg-8 semi-transparent semi-transparent2">
-							<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
-							<p class="p-0 m-0 price">{{ __('messages.from') }} {{$apartament->price_value}} PLN{{ __('messages.pernight') }}</p>
-						</div>
+				<form action="/search/kafle" method="GET">
+					<input type="hidden" name="region" value="Zakopane">
+					<input type="hidden" name="przyjazd" value="{{$todayDate}}">
+					<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
+					<input type="hidden" name="dzieci" value="0">
+					<input type="hidden" name="dorosli" value="1">
+					<div class="mb-3" style="position: relative">
+						<input class="w-100" type="image" src="{{asset('images/main/guidebook.png')}}" alt="Zakopane">
+						<div class="guidebooks-index-page">Zakopane - 56 apartamentów</div>
 					</div>
-				@endforeach
-				<div class="gray-bar-index text-center">
-					<form action="/search/kafle" method="GET">
-						<input type="hidden" name="region" value="Kraków">
-						<input type="hidden" name="przyjazd" value="{{$todayDate}}">
-						<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
-						<input type="hidden" name="dzieci" value="0">
-						<input type="hidden" name="dorosli" value="1">
-						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów w Krakowie >">
-					</form>
-				</div>
-			</div>
-			<div class="col-12 col-sm-6 col-md-4">
-				<div class="mb-3" style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Wrocław - 56 apartamentów</div>
-				</div>
 
-				<h4 class="h4-index">Polecamy we Wrocławiu</h4>
-				@foreach ($apartamentsFirstCity as $apartament)
-					<div style="position: relative">
-						<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
-							<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
-						</a>
-						<div class="col-8 col-sm-11 col-lg-8 semi-transparent semi-transparent2">
-							<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
-							<p class="p-0 m-0 price">{{ __('messages.from') }} {{$apartament->price_value}} PLN{{ __('messages.pernight') }}</p>
+					<h4 class="h4-index">Polecamy w Zakopanem</h4>
+					@foreach ($apartamentsFirstCity as $apartament)
+						<div style="position: relative">
+							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
+								<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
+							</a>
+							<div class="col-8 col-sm-11 col-lg-8 semi-transparent semi-transparent2">
+								<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
+								<p class="p-0 m-0 price">{{ __('messages.from') }} {{$apartament->price_value}} PLN{{ __('messages.pernight') }}</p>
+							</div>
 						</div>
-					</div>
-				@endforeach
-				<div class="gray-bar-index text-center">
-					<form action="/search/kafle" method="GET">
-						<input type="hidden" name="region" value="Wrocław">
-						<input type="hidden" name="przyjazd" value="{{$todayDate}}">
-						<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
-						<input type="hidden" name="dzieci" value="0">
-						<input type="hidden" name="dorosli" value="1">
-						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów we Wrocławiu >">
-					</form>
-				</div>
-			</div>
-			<div class="col-12 col-sm-6 col-md-4">
-				<div class="mb-3" style="position: relative">
-					<a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
-						<img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
-					</a>
-					<div class="guidebooks-index-page">Zakopane - 56 apartamentów</div>
-				</div>
-
-				<h4 class="h4-index">Polecamy w Zakopanem</h4>
-				@foreach ($apartamentsFirstCity as $apartament)
-					<div style="position: relative">
-						<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
-							<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
-						</a>
-						<div class="col-8 col-sm-11 col-lg-8 semi-transparent semi-transparent2">
-							<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
-							<p class="p-0 m-0 price">{{ __('messages.from') }} {{$apartament->price_value}} PLN{{ __('messages.pernight') }}</p>
-						</div>
-					</div>
-				@endforeach
-				<div class="gray-bar-index text-center">
-					<form action="/search/kafle" method="GET">
-						<input type="hidden" name="region" value="Zakopane">
-						<input type="hidden" name="przyjazd" value="{{$todayDate}}">
-						<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
-						<input type="hidden" name="dzieci" value="0">
-						<input type="hidden" name="dorosli" value="1">
+					@endforeach
+					<div class="gray-bar-index text-center">
 						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów w Zakopanem >">
-					</form>
-				</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-12 col-sm-6 col-md-4">
+				<form action="/search/kafle" method="GET">
+					<input type="hidden" name="region" value="Kościelisko">
+					<input type="hidden" name="przyjazd" value="{{$todayDate}}">
+					<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
+					<input type="hidden" name="dzieci" value="0">
+					<input type="hidden" name="dorosli" value="1">
+					<div class="mb-3" style="position: relative">
+						<input class="w-100" type="image" src="{{asset('images/main/guidebook.png')}}" alt="Submit">
+						<div class="guidebooks-index-page">Kościelisko - 56 apartamentów</div>
+					</div>
+
+					<h4 class="h4-index">Polecamy w Kościelisku</h4>
+					@foreach ($apartamentsFirstCity as $apartament)
+						<div style="position: relative">
+							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
+								<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
+							</a>
+							<div class="col-8 col-sm-11 col-lg-8 semi-transparent semi-transparent2">
+								<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
+								<p class="p-0 m-0 price">{{ __('messages.from') }} {{$apartament->price_value}} PLN{{ __('messages.pernight') }}</p>
+							</div>
+						</div>
+					@endforeach
+					<div class="gray-bar-index text-center">
+						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów w Kościelisku >">
+					</div>
+				</form>
+			</div>
+			<div class="col-12 col-sm-6 col-md-4">
+				<form action="/search/kafle" method="GET">
+					<input type="hidden" name="region" value="Witów">
+					<input type="hidden" name="przyjazd" value="{{$todayDate}}">
+					<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
+					<input type="hidden" name="dzieci" value="0">
+					<input type="hidden" name="dorosli" value="1">
+					<div class="mb-3" style="position: relative">
+						<input class="w-100" type="image" src="{{asset('images/main/guidebook.png')}}" alt="Submit">
+						<div class="guidebooks-index-page">Witów - 56 apartamentów</div>
+					</div>
+
+					<h4 class="h4-index">Polecamy w Witowie</h4>
+					@foreach ($apartamentsFirstCity as $apartament)
+						<div style="position: relative">
+							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
+								<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
+							</a>
+							<div class="col-8 col-sm-11 col-lg-8 semi-transparent semi-transparent2">
+								<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
+								<p class="p-0 m-0 price">{{ __('messages.from') }} {{$apartament->price_value}} PLN{{ __('messages.pernight') }}</p>
+							</div>
+						</div>
+					@endforeach
+					<div class="gray-bar-index text-center">
+						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów w Witowie >">
+					</div>
+				</form>
 			</div>
 		</div>
 
 		<h3 class="h3-index">{{ __('Jak to działa') }}</h3>
 		<div class="row mb-4 mb-md-5">
 			<div class="col-sm-6 pr-3 mb-3 mb-md-0">
-				<img style="position: relative; width: 100%; height: auto;" src="{{ asset('images/main/howItWork1.png') }}">
-				<a class="text-center bold py-2" href="{{route('travelers.index')}}" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 3px solid black; width: 200px;">Dla podróżnych</a>
+				<img style="position: relative; width: 100%; height: auto;" src="{{ asset('images/main/Dla_podrozujacych.jpg') }}">
+				<a class="text-center bold py-2" href="{{route('travelers.index')}}" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 3px solid black; width: 200px; background-color: rgba(255,255,255, 0.5);">Dla podróżnych</a>
 			</div>
 			<div class="col-sm-6 pl-3 mb-sm-3 mb-md-0">
-				<img style="position: relative; width: 100%; height: auto;" src="{{ asset('images/main/howItWork2.png') }}">
-				<a class="text-center bold py-2" href="{{route('owners.index')}}" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 3px solid black; width: 200px;">Dla właścicieli</a>
+				<img style="position: relative; width: 100%; height: auto;" src="{{ asset('images/main/Dla_wlasicieli.jpg') }}">
+				<a class="text-center bold py-2" href="http://wlasciciele-visitzakopane.pl{{--route('owners.index')--}}" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 3px solid black; width: 200px; background-color: rgba(255,255,255, 0.5);">Dla właścicieli</a>
 			</div>
 		</div>
 	</div>

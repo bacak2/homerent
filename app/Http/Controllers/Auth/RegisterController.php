@@ -80,7 +80,34 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'surname' => $data['surname'],
             'email' => $data['email'],
+            'facebook_id' => $data['facebook_id'] ?? null,
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function registerViaFb(Request $request){
+
+        //check if there is a user with this id
+        $userdata = DB::table('users')
+            ->where('facebook_id', $request->input("userID"))
+            ->first();
+
+        if($userdata == null){
+
+            $data['name'] = $request->input("first_name");
+            $data['surname'] = $request->input("last_name");
+            $data['email'] = $request->input("email");
+            $data['password'] = $request->input("email");
+            $data['facebook_id'] = $request->input("userID");
+            $this->create($data);
+
+            return response()->json(['message' => 'Konto zostało utworzone']);
+
+        }
+
+        //już jest taki user
+        else{
+            return response()->json(['message' => 'Konto Homerent powiązane z tym kontem Facebook już istnieje']);
+        }
     }
 }

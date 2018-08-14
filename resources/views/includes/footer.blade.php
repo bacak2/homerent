@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="row">
-                        <div class="col-12 col-md-6 mb-4 mb-md-0">
+                        <!--div class="col-12 col-md-6 mb-4 mb-md-0">
                             <div class="font-16 bold mb-2"><a href="#">Najpopularniejsze miejsca</a></div>
                             <div class="row font-13">
                                 <div class="col-6">
@@ -20,7 +20,7 @@
                                     <div><a href="#">Kraków</a></div>
                                 </div>
                             </div>
-                        </div>
+                        </div-->
 
                         <div class="col-12 col-md-6 mb-4 mb-md-0">
                             <div class="font-16 bold mb-2"><a href="{{route('aboutUs.contact')}}">Pomoc</a></div>
@@ -57,7 +57,13 @@
 
                 <div class="col-12 col-md-3 mb-2">
                     <div class="font-16 bold"><a href="#">Bądź na bieżąco</a></div>
-                    <div class="pt-2 pb-1 pl-2" style="background-color: #ffffff">
+                    <div class="p-2 row mx-0 no-gutters text-center" style="background-color: #ffffff">
+                        <div class="col"><a href="https://www.facebook.com/VisitZakopane/"><img src="{{ asset('images/layout/Facebook_24.png') }}" alt="{{ __('facebook') }}"></a></div>
+                        <div class="col"><a href="https://www.instagram.com/visitzakopane.pl/"><img src="{{ asset('images/layout/Instagram_24.png') }}" alt="{{ __('instagram') }}"></a></div>
+                        <div class="col"><a href="https://twitter.com/Visit_Zakopane"><img src="{{ asset('images/layout/Twitter_24.png') }}" alt="{{ __('twitter') }}"></a></div>
+                        <div class="col"><a href="https://pl.pinterest.com/visitzakopanepl/"><img src="{{ asset('images/layout/Pinterest_24.png') }}" alt="{{ __('pinterest') }}"></a></div>
+                        <div class="col"><a href="https://www.youtube.com/channel/UCMvFBDolqJF1vniBeBeqERA"><img src="{{ asset('images/layout/Youtube 2_24.png') }}" alt="{{ __('youtube') }}"></a></div>
+                        <div class="col"><a href="https://www.linkedin.com/company/662129/"><img src="{{ asset('images/layout/LinkedIn_24.png') }}" alt="{{ __('linkedin') }}"></a></div>
                         <!--div class="g-follow" data-annotation="bubble" data-height="20" data-href="https://plus.google.com/112646535477180334123" data-rel="publisher"></div>
                         <div class="g-ytsubscribe" data-channel="NoclegiVISITzakopane" data-layout="default" data-count="default"></div-->
                     </div>

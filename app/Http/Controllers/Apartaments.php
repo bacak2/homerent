@@ -1,7 +1,7 @@
 <?php
 /**
  *@category Kontroler apartamentów, aplikacji HOMEENT
- *@author Arkadiusz Adamczyk
+ *@author Arkadiusz Adamczyk & Krzysztof Baca
  *@version 1.0
  */
 
@@ -92,11 +92,22 @@ class Apartaments extends Controller
                 $tomorrowDate);
         }
 
+        $guidebooks = DB::table('guidebooks')
+            ->limit(9)
+            ->get();
+
+        $opinionsAmount = DB::table('apartament_opinions')->count();
+
+        $reservationsAmount = DB::table('reservations')->count();
+
         return view('pages.index', [
             'apartaments' => $apartaments,
             'apartamentsFirstCity' => $apartamentsFirstCity,
             'todayDate' => $todayDate,
             'tomorrowDate' => $tomorrowDate,
+            'guidebooks' => $guidebooks,
+            'opinionsAmount' => $opinionsAmount,
+            'reservationsAmount' => $reservationsAmount,
         ]);
     }
 
@@ -828,6 +839,8 @@ class Apartaments extends Controller
                 }
             })
             //->where('apartaments.group_id', 0)
+            ->where('apartaments.apartament_persons', '>=', $request->dorosli)
+            ->where('apartaments.apartament_kids', '>=', $request->dzieci)
             ->groupBy('apartaments.id');
             //->groupBy('apartaments.group_id')
             //->orderBy('apartaments.group_id', 'DESC')
@@ -840,9 +853,9 @@ class Apartaments extends Controller
             ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
             ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
             ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
-            ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
-                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
-            '), 'sub.id_apartament', '=', 'apartaments.id')
+            ->leftjoin(DB::raw('(select group_id, id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation` left join apartaments on id_apartament = apartaments.id group by apartaments.group_id) sub
+            '), 'sub.group_id', '=', 'apartaments.group_id')
             ->leftjoin(DB::raw('(select apartament_id, reservations.created_at as lastReservationDate from `apartaments`
                 right join `reservations` on `apartaments`.`id` = `reservations`.`id`  group by apartament_id) lastReservation
             '), 'lastReservation.apartament_id', '=', 'apartaments.id')
@@ -907,12 +920,13 @@ class Apartaments extends Controller
                 }
             })
             ->where('apartaments.group_id', '>', 0)
+            ->where('apartaments.apartament_persons', '>=', $request->dorosli)
+            ->where('apartaments.apartament_kids', '>=', $request->dzieci)
             //->groupBy('apartaments.id')
             ->groupBy('apartaments.group_id')
             ->orderBy('apartaments.group_id', 'DESC')
             ->unionAll($withoutGroup)
             ->get();
-
             //->paginate($paginate, ['apartaments.id']);
 
         if($view == 'mapa'){

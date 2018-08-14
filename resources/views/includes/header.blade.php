@@ -1,16 +1,21 @@
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<script>
+    (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) return;
         js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0';
+        @if(App::isLocale('pl'))
+        js.src = 'https://connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v3.1&appId=261522604441330';
+        @else
+        js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.1&appId=261522604441330';
+        @endif
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;" >
       <div class="container px-0 px-md-3">
         <a class="navbar-brand" href="{{ url('/') }}">Homent</a>
-			<div class="row mx-auto">        
+		<div class="row mx-auto">
 		    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
 		            <a style="text-decoration: none;" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
 		                <img src="{{ asset("images/flags/".$localeCode.".gif") }}">&nbsp;
@@ -24,6 +29,32 @@
 
         <div class="collapse navbar-collapse" id="navMenuTop">
           <ul class="navbar-nav ml-auto">
+              @desktop
+              <li class="nav-item pointer-none">
+                  <span class="nav-link">
+                      <img src="{{ asset("images/contact/phoneMinIcon.png") }}">
+                      +48 600 49 49 49
+                  </span>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="mailto:info@visitzakopane.pl">
+                      <img src="{{ asset("images/contact/Envelop_24.png") }}">
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{route('aboutUs.contact')}}">{{ __('Kontakt')}}</a>
+              </li>
+              @elsedesktop
+              <li class="nav-item">
+                  <a class="" href="mailto:info@visitzakopane.pl">
+                      <img src="{{ asset("images/contact/Envelop_24.png") }}">
+                  </a>
+                  <a class="" href="tel:+48600494949">
+                      <img src="{{ asset("images/contact/phoneMinIcon.png") }}">
+                  </a>
+                  <a class="nav-link" href="{{route('aboutUs.contact')}}">{{ __('Kontakt')}}</a>
+              </li>
+              @enddesktop
           	@guest
 	            <li class="nav-item">
 	              <a class="nav-link" id="log-in" href="#">{{ __('messages.login')}}</a>

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Session;
 use DB;
 use Lang;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -103,5 +104,34 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         return redirect('/'.Lang::locale());
+    }
+
+
+    public function logViaFb(Request $request){
+
+        //check if there is a user with this id
+        $userdata = DB::table('users')
+            ->where('facebook_id', $request->input("userID"))
+            ->first();
+
+        if($userdata != null){
+
+            Auth::loginUsingId($userdata->id);
+
+            $request = new \Illuminate\Http\Request();
+
+            $request->replace(['email' => $userdata->email]);
+
+            $this->authenticated($request);
+
+            return response()->json(['response' => 'true']);
+
+        }
+
+        //nie ma takiego usera
+        else{
+            return response()->json(['response' => 'false']);
+        }
+
     }
 }

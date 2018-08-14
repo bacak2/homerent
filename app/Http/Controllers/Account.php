@@ -999,4 +999,15 @@ class Account extends Controller
 
     }
 
+    public function newConnectionFb(Request $request){
+
+        DB::table('users')
+            ->where('email', Auth::user()->email)
+            ->update(['facebook_id' => $request->input("userID")]);
+
+        return response()->json([
+            'res' => 'true',
+        ]);
+    }
+
 }

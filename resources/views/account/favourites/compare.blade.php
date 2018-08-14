@@ -159,10 +159,8 @@
 @section('script')
     <script type="text/javascript">
         var middle = 0;
-        var showObjects = Math.floor($("#right-side-compare").width()/150);
-        var favouritesCount = {{$favouritesCount}} - showObjects;
 
-        function compareMonthShow(){
+        function compareShow(){
 
             $('.favourites-box').css({display: 'none'});
             $('#'+middle).css({display:'inline-block'});
@@ -188,20 +186,28 @@
                 $("#compare-bar-next").css({opacity: '1'});
                 //$("#compare-bar").css({'padding-right': '40px'});
             }
-        };
+        }
 
         $(function(){
-            compareMonthShow();
+            showObjects = Math.floor($("#right-side-compare").width()/150);
+            favouritesCount = {{$favouritesCount}} - showObjects;
+            compareShow();
+        });
+
+        $( window ).resize(function() {
+            showObjects = Math.floor($("#right-side-compare").width()/150);
+            favouritesCount = {{$favouritesCount}} - showObjects;
+            compareShow();
         });
 
         $('#compare-bar-next').click(function() {
             if(middle < favouritesCount) middle++;
-            compareMonthShow();
+            compareShow();
         });
 
         $("#compare-bar-prev").on('click', function(){
             if(middle > 0) middle--;
-            compareMonthShow();
+            compareShow();
         });
     </script>
 @endsection

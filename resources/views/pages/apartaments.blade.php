@@ -75,15 +75,17 @@
 		</div>
 	</div>
 	@handheld
-	<div id="stickyReservationPanelMobile">
-		<div class="col-4 col-sm-3 col-md-2 col-lg-1 d-inline-block pr-1 pl-sm-4 ml-sm-3 pl-md-0 ml-md-0">
-			<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButtonMobile.png") }}')">
-				<div  class="btn font-13 py-2 px-3" style="width: 100%" >
-					{{ __('messages.Return') }}
-				</div>
-			</a>
+	<div id="stickyReservationPanelMobile" class="w-100" style="margin-left: auto; margin-right: auto;">
+		<div class="container">
+			<div class="col-4 col-sm-3 col-md-2 d-inline-block pl-0 pr-1">
+				<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButtonMobile.png") }}')">
+					<div  class="btn font-13 py-2 px-3" style="width: 100%" >
+						{{ __('messages.Return') }}
+					</div>
+				</a>
+			</div>
+			<div class="col-8 col-sm-9 col-md-10 d-inline-block px-0" style="margin-left: -5px;"><a id="mobileReservation" href="#stickyReservationPanel" class="btn btn-primary btn-black">Zarezerwuj</a></div>
 		</div>
-		<div class="col-8 col-lg-10 pr-md-5" style="padding-left: 0px;"><a id="mobileReservation" href="#stickyReservationPanel" class="btn btn-primary btn-black">Zarezerwuj</a></div>
 	</div>
 	@endhandheld
 	<div class="row mx-0 back" style="background-image: url( {{ asset("images/apartaments/$apartament->id/1.jpg") }} );">
@@ -508,7 +510,7 @@
 						<h4 id="opinions" class="anchor-destination"><b>{{__('Ocena')}}</b></h4>
 					</div>
 					@if($comments != '')
-						@mobile
+						@handheld
 						<div id="rating-wrapper-mobile" class="col-12 mb-2">
 							<div class="tab">
 								<div id="chooseJourneyType" class="center-h-v font-16" onclick="openJourneyTypes()">▼</div>
@@ -550,7 +552,7 @@
 									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
 								</div>
 								<div class="row bars">
-									<div class="avgBars font-11 col-12 my-3">
+									<div class="avgBars font-11 col-sm-6 my-3">
 										<div id="allPerfect" class="row">
 											<div class="side left">
 												<div>Doskonały</div>
@@ -614,7 +616,7 @@
 											<div class="side left" onclick="openDefault()">Pokaż wszystkie</div>
 										</div>
 									</div>
-									<div class="detail-bars col-9 pl-0">
+									<div class="detail-bars col-9 col-sm-6 pl-0 my-0 my-sm-3">
 										<div class="col-12 font-11 mb-1">
 											Czystość
 											<span class="pull-right rating-opinion-detail"><span id="allCleanliness"></span></span>
@@ -676,7 +678,7 @@
 									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
 								</div>
 								<div class="row bars">
-									<div class="avgBars font-11 col-12 my-3">
+									<div class="avgBars font-11 col-sm-6 my-3">
 										<div id="familyPerfect" class="row">
 											<div class="side left">
 												<div>Doskonały</div>
@@ -740,7 +742,7 @@
 											<div class="side left" onclick="openFamily()">Pokaż wszystkie</div>
 										</div>
 									</div>
-									<div class="detail-bars col-9 pl-0">
+									<div class="detail-bars col-9 col-sm-6 pl-0 my-0 my-sm-3">
 										<div class="col-12 font-11 mb-1">
 											Czystość
 											<span class="pull-right rating-opinion-detail"><span id="familyCleanliness"></span></span>
@@ -802,7 +804,7 @@
 									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
 								</div>
 								<div class="row bars">
-									<div class="avgBars font-11 col-12 my-3">
+									<div class="avgBars font-11 col-sm-6 my-3">
 										<div id="couplesPerfect" class="row">
 											<div class="side left">
 												<div>Doskonały</div>
@@ -866,7 +868,7 @@
 											<div class="side left" onclick="openCouples()">Pokaż wszystkie</div>
 										</div>
 									</div>
-									<div class="detail-bars col-9 pl-0">
+									<div class="detail-bars col-9 col-sm-6 pl-0 my-0 my-sm-3">
 										<div class="col-12 font-11 mb-1">
 											Czystość
 											<span class="pull-right rating-opinion-detail"><span id="couplesCleanliness"></span></span>
@@ -928,7 +930,7 @@
 									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
 								</div>
 								<div class="row bars">
-									<div class="avgBars font-11 col-12 my-3">
+									<div class="avgBars font-11 col-sm-6 my-3">
 										<div id="businessPerfect" class="row">
 											<div class="side left">
 												<div>Doskonały</div>
@@ -992,7 +994,7 @@
 											<div class="side left" onclick="openBusiness()">Pokaż wszystkie</div>
 										</div>
 									</div>
-									<div class="detail-bars col-9 pl-0">
+									<div class="detail-bars col-9 col-sm-6 pl-0 my-0 my-sm-3">
 										<div class="col-12 font-11 mb-1">
 											Czystość
 											<span class="pull-right rating-opinion-detail"><span id="businessCleanliness"></span></span>
@@ -1054,7 +1056,7 @@
 									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
 								</div>
 								<div class="row bars">
-									<div class="avgBars font-11 col-12 my-3">
+									<div class="avgBars font-11 col-sm-6 my-3">
 										<div id="friendsPerfect" class="row">
 											<div class="side left">
 												<div>Doskonały</div>
@@ -1118,7 +1120,7 @@
 											<div class="side left" onclick="openFriends()">Pokaż wszystkie</div>
 										</div>
 									</div>
-									<div class="detail-bars col-9 pl-0">
+									<div class="detail-bars col-9 col-sm-6 pl-0 my-0 my-sm-3">
 										<div class="col-12 font-11 mb-1">
 											Czystość
 											<span class="pull-right rating-opinion-detail"><span id="friendsCleanliness"></span></span>
@@ -1180,7 +1182,7 @@
 									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
 								</div>
 								<div class="row bars">
-									<div class="avgBars font-11 col-12 my-3">
+									<div class="avgBars font-11 col-sm-6 my-3">
 										<div id="alonePerfect" class="row">
 											<div class="side left">
 												<div>Doskonały</div>
@@ -1244,7 +1246,7 @@
 											<div class="side left" onclick="openAlone()">Pokaż wszystkie</div>
 										</div>
 									</div>
-									<div class="detail-bars col-9 pl-0">
+									<div class="detail-bars col-9 col-sm-6 pl-0 my-0 my-sm-3">
 										<div class="col-12 font-11 mb-1">
 											Czystość
 											<span class="pull-right rating-opinion-detail"><span id="aloneCleanliness"></span></span>
@@ -1306,7 +1308,7 @@
 						</div>
 						<div class="col-12 mb-2 row user-comments"></div>
 						<div id="showMoreOpinions" class="col mx-3 center-h-v font-13">Pokaż kolejne ▼</div>
-						@elsemobile
+						@elsehandheld
 						<div id="rating-wrapper" class="col-12 mb-2">
 							<div class="tab">
 								<div class="tablinks" onclick="openJourneyType(event, 'allOpinions', 'Wszystkie opinie')" id="defaultOpen">
@@ -2163,7 +2165,7 @@
 					</div>
 					<div class="col-12 mb-2 row user-comments"></div>
 					<div id="showMoreOpinions" class="col mx-3 center-h-v font-13">Pokaż kolejne ▼</div>
-					@endmobile
+					@endhandheld
 					@else
 						<div class="col-12 mb-2">Apartament nie otrzymał jeszcze żadnych opinii</div>
 					@endif
@@ -2723,7 +2725,7 @@
             $("#"+journeyName+"Staff").text(journeyTypeObj.staffAvg);
             $("#"+journeyName+"Quality_per_price").text(journeyTypeObj.quality_per_priceAvg);
 
-            @mobile
+            @handheld
             //set color of text for total avg rating
             if(journeyTypeObj.totalAvg <= 3 && journeyTypeObj.totalAvg >= 1){
                 $("#"+journeyName+"TotalAvgWrapper").addClass("txt-red");
@@ -2750,7 +2752,7 @@
             else if(journeyTypeObj.totalAvg >= 8){
                 $("#"+journeyName+"Description").text("Doskonały");
             }
-            @elsemobile
+            @elsehandheld
             //set color box for total avg rating
             if(journeyTypeObj.totalAvg <= 3 && journeyTypeObj.totalAvg >= 1){
                 $("#"+journeyName+"TotalAvgWrapper").addClass("rating-red");
@@ -2761,7 +2763,7 @@
             else if(journeyTypeObj.totalAvg > 6){
                 $("#"+journeyName+"TotalAvgWrapper").addClass("rating-green");
             }
-            @endmobile
+            @endhandheld
 
             //set img for total avg rating
             if(journeyTypeObj.totalAvg == null) $("#"+journeyName+"TotalAvgImg").attr("src",'{{ asset("images/opinions/star1.png") }}');
@@ -2920,7 +2922,7 @@
 
         nowSortedComments = allComments;
 		showingCommentsAmount = 0;
-	@mobile
+	@handheld
         function setComments(comments, more){
             //clear last comments
             $("div.user-comments").html('');
@@ -2995,7 +2997,7 @@
 
             }
         }
-	@elsemobile
+	@elsehandheld
 		function setComments(comments, more){
 		    //clear last comments
             $("div.user-comments").html('');
@@ -3177,7 +3179,7 @@
                 html.appendTo('.user-comments');
             };
         }
-    @endmobile
+    @endhandheld
 
 		sortComments(nowSortedComments);
 
@@ -3366,7 +3368,7 @@
 
         var showingJourneyTypes = 1;
 
-		@mobile
+		@handheld
         function openJourneyType(evt, JourneyType, JourneyTypeName) {
             var i, tabcontent, tablinks;
             showingCommentsAmount = 0;
@@ -3417,7 +3419,7 @@
             $("#allOpinionsAfter").text("");
             $(".avgBars > div").removeClass("selected");
         }
-		@endmobile
+		@endhandheld
 
         function openJourneyTypes(){
             if(showingJourneyTypes == 1){
@@ -3434,32 +3436,32 @@
 
         function openDefault() {
             document.getElementById("defaultOpen").click();
-            @mobile document.getElementById("chooseJourneyType").click(); @endmobile
+            @handheld document.getElementById("chooseJourneyType").click(); @endhandheld
             $(".avgBars > div:last-child").hide();
         }
         function openFamily() {
             document.getElementById("familyTab").click();
-            @mobile document.getElementById("chooseJourneyType").click(); @endmobile
+            @handheld document.getElementById("chooseJourneyType").click(); @endhandheld
             $(".avgBars > div:last-child").hide();
         }
         function openCouples() {
             document.getElementById("couplesTab").click();
-            @mobile document.getElementById("chooseJourneyType").click(); @endmobile
+            @handheld document.getElementById("chooseJourneyType").click(); @endhandheld
             $(".avgBars > div:last-child").hide();
         }
         function openBusiness() {
             document.getElementById("businessTab").click();
-            @mobile document.getElementById("chooseJourneyType").click(); @endmobile
+            @handheld document.getElementById("chooseJourneyType").click(); @endhandheld
             $(".avgBars > div:last-child").hide();
         }
         function openFriends() {
             document.getElementById("friendsTab").click();
-            @mobile document.getElementById("chooseJourneyType").click(); @endmobile
+            @handheld document.getElementById("chooseJourneyType").click(); @endhandheld
             $(".avgBars > div:last-child").hide();
         }
         function openAlone() {
             document.getElementById("aloneTab").click();
-            @mobile document.getElementById("chooseJourneyType").click(); @endmobile
+            @handheld document.getElementById("chooseJourneyType").click(); @endhandheld
             $(".avgBars > div:last-child").hide();
         }
 

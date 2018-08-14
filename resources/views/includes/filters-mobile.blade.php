@@ -1,4 +1,4 @@
-                <div class="desktop-none filters-toggle filters-mobile" style="display: none">
+                <div class="d-lg-none filters-toggle filters-mobile font-12" style="display: none">
                     <div class="col-12">
                         <span class="cenaRange">{{ __('messages.Price per stay') }} (PLN)<i class="fa fa-caret-up cenaRange"></i></span>
                         <div class="cenaRange" style="display: none">

@@ -24,6 +24,10 @@ Route::group(
 
         Route::post('logout', 'Auth\LoginController@logout');
 
+        Route::get('/log-via-fb', 'Auth\LoginController@logViaFb');
+
+        Route::get('/register-via-fb', 'Auth\RegisterController@registerViaFb');
+
         Route::view('/regulations', 'pages.regulations');
 
         Route::view('/privacy-policy', 'pages.privacyPolicy');
@@ -287,6 +291,11 @@ Route::group(
             Route::GET('/send-email-to-friends', [
                 'uses' => 'Account@sendMail',
                 'as' => 'account.sendMail'
+            ]);
+
+            Route::GET('/new-connection-fb', [
+                'uses' => 'Account@newConnectionFb',
+                'as' => 'account.newConnectionFb'
             ]);
         });
     });

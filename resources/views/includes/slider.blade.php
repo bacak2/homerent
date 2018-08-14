@@ -1,7 +1,7 @@
 <!-- Slider -->
 <header>
   <div id="mainSliderSearch" class="carousel slide" data-ride="carousel" data-interval="7000">
-      <div class="carousel-inner d-none d-md-block d-lg-block d-xl-block">
+      <div class="carousel-inner d-none d-xl-block">
           <div class="carousel-item active">
               <img class="d-block w-100" src="{{asset('images/slider/1.png')}}" alt="First slide">
           </div>
@@ -56,6 +56,16 @@ $('.pick-date').dateRangePicker(
       }
       $('#przyjazd').val(s1);
       $('#powrot').val(s2);
+    },
+    hoveringTooltip: function(days)
+    {
+        if ('{{ App::getLocale() }}' == 'pl') {
+            if (days == 1) return "";
+            else if (days == 2) return (days-1)+" doba";
+            else if(days > 2 && days <= 5) return (days-1)+" doby";
+            else return (days-1)+" dób";
+        }
+        else return days-1[days];
     }
   });
 

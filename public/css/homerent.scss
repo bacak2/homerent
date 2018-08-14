@@ -5,7 +5,7 @@ $dataItemTopHeight: 40px;
 
 /* hide not working modules */
 
-.sort-by, #opinion-in-account, a[hreflang='en'], a[hreflang='pl'], div#final-additional-services {
+.sort-by, #opinion-in-account, div#final-additional-services{
 	visibility:hidden !important;
 }
 
@@ -603,8 +603,6 @@ div.red-nr-alert{
 #stickyReservationPanelMobile{
 	display: none;
 	position: fixed;
-	width: 100%;
-	left: 0px;
 	top: 6px;
 	z-index: 2000;
 }
@@ -1493,6 +1491,7 @@ label.inline-label{
 .favourites-box{
 	display: none;
 	min-width: 134px;
+	max-width: 150px;
 	margin: 0px 6px;
 }
 
@@ -2095,6 +2094,62 @@ span.error-show{
 	padding: 15px;
 }
 
+.tabcontent-mobile{
+	background-color: rgba(242, 242, 242, 1);
+}
+
+#rating-wrapper-mobile{
+	.tab {
+		float: left;
+		border-right: none;
+		background-color: #fff;
+		width: 100%;
+		height: 100%;
+
+		/* Style the buttons inside the tab */
+		.tablinks {
+			display: block;
+			background-color: rgba(242, 242, 242, 1);
+			color: black;
+			padding: 6px 14px;
+			width: 100%;
+			height: 38px;
+			border: 1px solid #ccc;
+			outline: none;
+			text-align: left;
+			cursor: pointer;
+			transition: 0.3s;
+			font-size: 13px;
+			margin-bottom: 5px;
+
+			div{
+				background-color: rgba(242, 242, 242, 1);
+			}
+
+			img{
+				margin-right: 8px;
+			}
+		}
+	}
+}
+
+#chooseJourneyType{
+	position: absolute;
+	right: 30px;
+	top: 0px;
+	width: 40px;
+	height: 40px;
+}
+
+.tabcontent-mobile {
+	border: 1px solid #ccc;
+}
+
+.totalAvgImg{
+	height: 22px;
+	margin-top: 2px;
+}
+
 @media (min-width: 768px) {
 	.desktop-hidden{
 		visibility: hidden !important;
@@ -2116,15 +2171,17 @@ span.error-show{
 		display: none !important;
 	}
 
+	.pointer-none{
+		pointer-events: none !important;
+	}
+
 	.apartament-info {
 		height: 380px; }
 
 	#topSearch {
-		height: 400px;
-		position: absolute;
 		top: 50px;
 		width: 100%;
-		background-image: none !important; }
+	}
 	#topSearch .container {
 		padding-top: 150px; }
 
@@ -2167,6 +2224,10 @@ span.error-show{
 	#helpful-wraper{
 		position: absolute;
 		bottom: 0px;
+	}
+
+	#enterTerm{
+		float: right;
 	}
 }
 
@@ -2272,62 +2333,6 @@ span.error-show{
 		margin-left: 0px;
 	}
 
-	#rating-wrapper-mobile{
-		.tab {
-			float: left;
-			border-right: none;
-			background-color: #fff;
-			width: 100%;
-			height: 100%;
-
-			/* Style the buttons inside the tab */
-			.tablinks {
-				display: block;
-				background-color: rgba(242, 242, 242, 1);
-				color: black;
-				padding: 6px 14px;
-				width: 100%;
-				height: 38px;
-				border: 1px solid #ccc;
-				outline: none;
-				text-align: left;
-				cursor: pointer;
-				transition: 0.3s;
-				font-size: 13px;
-				margin-bottom: 5px;
-
-				div{
-					background-color: rgba(242, 242, 242, 1);
-				}
-
-				img{
-					margin-right: 8px;
-				}
-			}
-		}
-	}
-
-	.tabcontent-mobile{
-		background-color: rgba(242, 242, 242, 1);
-	}
-
-	#chooseJourneyType{
-		position: absolute;
-		right: 30px;
-		top: 0px;
-		width: 40px;
-		height: 40px;
-	}
-
-	.tabcontent-mobile {
-		border: 1px solid #ccc;
-	}
-
-	.totalAvgImg{
-		height: 22px;
-		margin-top: 2px;
-	}
-
 }
 
 @media (max-width: 316px){
@@ -2345,7 +2350,7 @@ span.error-show{
 	}
 }
 
-@media (min-width: 575px) and (max-width: 767px){
+@media (min-width: 576px) and (max-width: 767px){
 	.description-map-bottom-right.desktop-none{
 		position: relative;
 		right: 0;
@@ -2356,6 +2361,17 @@ span.error-show{
 	#apartamentsforyou .apartament{
 		height: 150px;
 	}
+
+	#topSearch{
+		padding-top: 20px;
+	}
+}
+
+@media (max-width: 575px){
+	.searchCont{
+		padding-top: 20px;
+	}
+
 }
 
 @media (max-width: 767px){
@@ -2462,10 +2478,10 @@ span.error-show{
 	#topSearch{
 		.container{
 			padding-top: 90px;
+			padding-bottom: 70px;
 		}
 	}
     .searchCont{
-        max-width: 100%;
         padding-left: 0px;
         padding-right: 0px;
     }
@@ -2478,10 +2494,6 @@ span.error-show{
 @media (min-width: 768px) and (max-width: 1200px){
 	.tablet-none{
 		display: none !important;
-	}
-
-	#stickyReservationPanelMobile{
-		margin-left: 2rem;
 	}
 
 	#mobileReservation{
@@ -2548,6 +2560,14 @@ span.error-show{
 			display: inline;
 		}
 	}
+
+	#topSearch {
+		height: 400px;
+		position: absolute;
+		top: 50px;
+		width: 100%;
+		background-image: none !important;
+	}
 }
 
 @media (min-width: 991px) and (max-width: 1200px){
@@ -2574,6 +2594,7 @@ span.error-show{
 	#topSearch{
 		.container{
 			padding-top: 130px;
+			padding-bottom: 110px;
 		}
 	}
 

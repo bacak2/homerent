@@ -2,7 +2,7 @@
 @section('title', 'Wyszukiwarka')
 @section('content')
 
-@mobile
+@handheld
 @if(Request::is('*/account/*') && !$request->has('przyjazd')) <div class="results-search" style="display: none"> @endif
      @switch($request->region)
         @case('Kraków') @case('kraków') <div id="topSearch" style="background-image: url('{{asset('images/slider/1.png')}}');"> @break
@@ -10,18 +10,18 @@
         @case('Wrocław') @case('wrocław') <div id="topSearch" style="background-image: url('{{asset('images/slider/3.png')}}');"> @break
         @default <div id="topSearch" style="background-image: url('{{asset('images/slider/1.png')}}');">
      @endswitch
-    <div class="container searchCont" style="padding-top: 20px;">
+    <div class="container searchCont">
         @include('includes.search-form-results')
     </div>
 </div>
 @if(Request::is('*/account/*') && !$request->has('przyjazd')) </div> @endif
-@elsemobile
+@elsehandheld
     <div class="container pt-5 pb-5 results-search" @if(Request::is('*/account/*') && !$request->has('przyjazd')) style="display: none" @endif>
         <div class="col">
             @include('includes.search-form-results')
         </div>
     </div>
-@endmobile
+@endhandheld
 	<div class="container" id="apartamentsforyou">
         @yield('displayResults')
 	</div>

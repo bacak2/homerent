@@ -1,3 +1,9 @@
 RewriteEngine on
-RewriteCond %{REQUEST_URI} !^en
+RewriteCond %{REQUEST_URI} !^pl
 RewriteRule ^(.*)$ pl/$1 [L]
+
+RewriteCond %{HTTP_HOST} !^www\.
+RewriteRule ^(.*)$ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=302]
+
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=302]
