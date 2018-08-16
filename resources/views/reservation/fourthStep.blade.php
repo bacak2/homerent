@@ -157,7 +157,7 @@
                         </div>
                         @endif
                         <div class="col pl-3">
-                            <a href="#" class="btn btn-reservation-gray">Anuluj rezerwację</a>
+                            <button class="btn btn-reservation-gray" id="cancel-reservation">Anuluj rezerwację</button>
                         </div>
                         @else
                         <div class="col pr-0">
@@ -223,7 +223,7 @@
                             <a href="{{route('services.firstStep', [$reservation[0]->apartament_id, $reservation[0]->id, 0])}}" id="add-new-services" class="btn btn-reservation-gray">Dokup usługi</a>
                         </div>
                         <div class="col pl-0 pl-sm-3 pl-md-0 mt-sm-2 mt-md-0">
-                            <a class="btn btn-reservation-gray">Anuluj rezerwację</a>
+                            <button class="btn btn-reservation-gray" id="cancel-reservation">Anuluj rezerwację</button>
                         </div>
                         @endif
                     </div>
@@ -522,6 +522,32 @@
                 },
             });
     });
+
+    $(document).ready(function(){
+
+        $("#cancel-reservation").click(function(){
+            if(confirm("Czy na pewno chcesz anulować rezerwację?")) cancelReservation();
+        });
+
+    });
+
+    function cancelReservation(){
+        var reservationId = {{$reservation[0]->id}};
+        $.ajax({
+            type: "GET",
+            url: '/cancel-reservation',
+            dataType : 'json',
+            data: {
+                reservationId: reservationId,
+            },
+            success: function() {
+                window.location.replace("{{route('index')}}");
+            },
+            error: function(data) {
+                console.log(data);
+            },
+        });
+    }
 </script>
 
 @endsection()

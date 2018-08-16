@@ -38,8 +38,6 @@ Route::group(
 
         Route::get('/apartaments/{link}', 'Apartaments@showApartamentInfo')->name('apartamentInfo');
 
-        Route::get('/apartaments/{link}/{przyjazd}', 'Apartaments@showApartamentInfo')->name('apartamentInfo');
-
         Route::post('/printPdf','Apartaments@printPdf')->name('printPdf');
 
         Route::get('/apartaments-group/{link}', 'Apartaments@showApartamentGroup')->name('apartamentGroup');
@@ -132,6 +130,11 @@ Route::group(
         Route::GET('/sendemail', [
             'uses' => 'Reservations@SendMail',
             'as' => 'reservations.SendMail'
+        ]);
+
+        Route::GET('/cancel-reservation', [
+            'uses' => 'Reservations@CancelReservation',
+            'as' => 'reservations.CancelReservation'
         ]);
 
         Route::GET('/sendContactForm', [

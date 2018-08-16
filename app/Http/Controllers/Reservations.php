@@ -434,6 +434,14 @@ class Reservations extends Controller
         return response()->json(['res' => 'done']);
     }
 
+    //Async cancel reservation
+    public function CancelReservation(Request $request){
+
+        DB::table('reservations')->where('id', $request->reservationId)->delete();
+
+        return response()->json(['res' => 'done']);
+    }
+
     //Gets min apartament price
     public function getPriceFrom($id) {
         $todayDate = date("Y-m-d");

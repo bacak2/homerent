@@ -142,7 +142,14 @@ class Account extends Controller
             ->get();
 
         if($users_reservations_future->isEmpty() && $users_reservations_gone->isEmpty()){
-            return view('account.myReservations-empty');
+
+            $guidebooks = DB::table('guidebooks')
+                ->limit(15)
+                ->get();
+
+            return view('account.myReservations-empty', [
+                'guidebooks' => $guidebooks,
+            ]);
         }
 
         return view('account.myReservations', [

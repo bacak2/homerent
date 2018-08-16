@@ -180,13 +180,19 @@ class Apartaments extends Controller
         if(isset($_COOKIE['lastSeenApartments'])) $cookiesApartments = unserialize($_COOKIE['lastSeenApartments']);
         else $cookiesApartments = [];
 
-        $lastSeen = Apartament::selectRaw('*, apartaments.id, MIN(price_value) AS min_price')
+        $lastSeen = Apartament::selectRaw('*, apartaments.id, MIN(price_value) AS min_price, sub.opinionAmount, sub.ratingAvg')
             ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
             ->join('languages', function($join) {
                 $join->on('apartament_descriptions.language_id','=','languages.id')
                     ->where('languages.id', $this->language->id);
             })
             ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+            ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
+            '), 'sub.id_apartament', '=', 'apartaments.id')
+            ->leftjoin(DB::raw('(select apartament_id, reservations.created_at as lastReservationDate from `apartaments`
+                right join `reservations` on `apartaments`.`id` = `reservations`.`id`  group by apartament_id) lastReservation
+            '), 'lastReservation.apartament_id', '=', 'apartaments.id')
             ->whereIn('apartaments.id', $cookiesApartments)
             ->groupBy('apartaments.id')
             ->limit(4)
@@ -195,13 +201,19 @@ class Apartaments extends Controller
         $countedCookies = $lastSeen->count();
 
     //////rules to change!!!
-        $seeAlso = Apartament::selectRaw('*, apartaments.id, MIN(price_value) AS min_price')
+        $seeAlso = Apartament::selectRaw('*, apartaments.id, MIN(price_value) AS min_price, sub.opinionAmount, sub.ratingAvg')
             ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
             ->join('languages', function($join) {
                 $join->on('apartament_descriptions.language_id','=','languages.id')
                     ->where('languages.id', $this->language->id);
             })
             ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+            ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
+            '), 'sub.id_apartament', '=', 'apartaments.id')
+            ->leftjoin(DB::raw('(select apartament_id, reservations.created_at as lastReservationDate from `apartaments`
+                right join `reservations` on `apartaments`.`id` = `reservations`.`id`  group by apartament_id) lastReservation
+            '), 'lastReservation.apartament_id', '=', 'apartaments.id')
             ->groupBy('apartaments.id')
             ->limit(4)
             ->get();
@@ -1080,13 +1092,19 @@ class Apartaments extends Controller
         if(isset($_COOKIE['lastSeenApartments'])) $cookiesApartments = unserialize($_COOKIE['lastSeenApartments']);
         else $cookiesApartments = [];
 
-        $lastSeen = Apartament::selectRaw('*, apartaments.id, MIN(price_value) AS min_price')
+        $lastSeen = Apartament::selectRaw('*, apartaments.id, MIN(price_value) AS min_price, sub.opinionAmount, sub.ratingAvg')
             ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
             ->join('languages', function($join) {
                 $join->on('apartament_descriptions.language_id','=','languages.id')
                     ->where('languages.id', $this->language->id);
             })
             ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+            ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
+            '), 'sub.id_apartament', '=', 'apartaments.id')
+            ->leftjoin(DB::raw('(select apartament_id, reservations.created_at as lastReservationDate from `apartaments`
+                right join `reservations` on `apartaments`.`id` = `reservations`.`id`  group by apartament_id) lastReservation
+            '), 'lastReservation.apartament_id', '=', 'apartaments.id')
             ->whereIn('apartaments.id', $cookiesApartments)
             ->groupBy('apartaments.id')
             ->limit(4)

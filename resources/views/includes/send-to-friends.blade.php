@@ -4,7 +4,7 @@
         <div class="col-2"><span class="font-14">Linki:</span></div>
         <div class="col-10">
             <ul class="font-13">
-                @if(!Session::get('userFavouritesAll')->isEmpty())
+                @if(Session::get('userFavouritesAll') !== null) {{-- && !Session::get('userFavouritesAll')->isEmpty()) --}}
                     @foreach(Session::get('userFavouritesAll') as $apartament)
                         <li>
                             <span id="link{{ $apartament->id }}">{{route('apartamentInfo', $apartament->apartament_link)}}</span>
@@ -18,7 +18,7 @@
 
     <label for="emails">Adresy e-mail:</label>
     <input id="emails" name="emails" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)">
-    <input id="links" name="links" type="hidden" value="@if(!Session::get('userFavouritesAll')->isEmpty()) @foreach(Session::get('userFavouritesAll') as $apartament){{route('apartamentInfo', $apartament->apartament_link)}},@endforeach @endif">
+    <input id="links" name="links" type="hidden" value="@if(Session::get('userFavouritesAll') !== null) @foreach(Session::get('userFavouritesAll') as $apartament){{route('apartamentInfo', $apartament->apartament_link)}},@endforeach @endif">
     <hr>
     <div style="text-align: center;">
         <button id="send-mail-to-friends" class="btn btn-primary">Wyślij</button>
