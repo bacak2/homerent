@@ -3,7 +3,7 @@
 
             <div class="row d-xl-none" style="margin-bottom: 20px">
                 <div class="col-9 text-mobile-search">
-                    <a href="{{ route('index') }}" style="color: #00afea">Start > </a>@if($_GET['region'] != null)<b>{{ $finds[0]->apartament_city}}</b>,@endif {{__('messages.from')}} {{ $_GET['przyjazd'] }}, {{__('messages.number of nights')}}: {{ $nightsCounter }}, {{__('messages.Persons')}}: {{ $_GET['dorosli']+$_GET['dzieci'] }} {{--__('messages.Filters')--}}
+                    <a href="{{ route('index') }}" style="color: #00afea">Start > </a>@if($request->region != null)<b>{{ $finds[0]->apartament_city}}</b>,@endif {{__('messages.from')}} {{ $_GET['przyjazd'] }}, {{__('messages.number of nights')}}: {{ $nightsCounter }}, {{__('messages.Persons')}}: {{ $_GET['dorosli']+$_GET['dzieci'] }} {{--__('messages.Filters')--}}
                 </div>
                 <div class="col-3">
                     <div  style="position: absolute; right:10px;"><a  class="btn btn-info btn-mobile filters-toggle">{{__('messages.change')}} </a></div>
@@ -142,7 +142,7 @@
                                         <a href="/reservations?link={{ $apartament->apartament_link }}&id={{ $apartament->apartament_id }}&przyjazd={{ $request->przyjazd }}&powrot={{ $request->powrot }}&dorosli={{ $request->dorosli }}&dzieci={{ $request->dzieci }}" style="width: 100%" class="btn btn-primary">{{ __("messages.book") }}</a>
                                     </div>
                                     <div class="container py-1">
-                                        <a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-see-more" style="width: 100%">{{ __("messages.see details") }}</a>
+                                        <a href="/apartaments/{{ $apartament->apartament_link }}?{{ http_build_query(Request::except('page', 'region')) }}" class="btn btn-see-more" style="width: 100%">{{ __("messages.see details") }}</a>
                                     </div>
                                 </div>
                                  <div class="d-block d-xl-none" style="width: 100%; height: 100%">

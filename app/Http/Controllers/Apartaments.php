@@ -113,7 +113,7 @@ class Apartaments extends Controller
 
 
     //Generates view for single apartament
-    public function showApartamentInfo($link) {
+    public function showApartamentInfo($link, Request $request) {
 
         //Find id of an apartment with $link passed to controller
         $linktoid = DB::table('apartament_descriptions')
@@ -584,6 +584,24 @@ class Apartaments extends Controller
                 $tomorrowDate);
         }
 
+        $personsArray = [];
+        if($request->dorosli == null) $personsArray[0] = 'Dorośli';
+        for($i=1; $i<=$apartament->apartament_persons; $i++){
+            $personsArray[$i] = $i;
+        }
+
+        $kidsArray = [];
+        $kidsArray[0] = 'Dzieci';
+        for($i=1; $i<=$apartament->apartament_kids; $i++){
+            $kidsArray[$i] = $i;
+        }
+
+        if(isset($request->przyjazd) && isset($request->powrot)){
+            $request->przyjazd = date("Y-m-d", strtotime(substr($request->przyjazd, 4, 10)));
+            $request->powrot = date("Y-m-d", strtotime(substr($request->powrot, 4, 10)));
+        }
+
+
         return view('pages.apartaments', ['apartament' => $apartament,
             'groups' => $groups,
             'images' => $images,
@@ -616,6 +634,9 @@ class Apartaments extends Controller
             'favouritesAmount' => $favouritesAmount,
             'todayDate' => $todayDate,
             'tomorrowDate' => $tomorrowDate,
+            'request' => $request,
+            'personsArray' => $personsArray,
+            'kidsArray' => $kidsArray,
         ]);
 
     }
@@ -729,6 +750,7 @@ class Apartaments extends Controller
         $request->amount2 = $request->Mamount2 ?? $request->amount2;
         if($request->amount == "1000+") $request->amount = 10000;
         if($request->amount2 == "1000+") $request->amount2 = 10000;
+        $request->input('region') == $request->input('region') ?? '';
         $region = $request->input('region');
 
         //Date Parsing
@@ -956,12 +978,15 @@ class Apartaments extends Controller
         if($view == 'mapa'){
 
             $black = DB::table("apartaments")
-                ->selectRaw('apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+                ->selectRaw('apartaments.*, sub.ratingAvg, sub.opinionAmount, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
                 ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                 ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
                 ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
                 ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
                 ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->leftjoin(DB::raw('(select group_id, id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                        cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation` left join apartaments on id_apartament = apartaments.id group by apartaments.group_id) sub
+                    '), 'sub.group_id', '=', 'apartaments.group_id')
                 ->whereNotIn('apartaments.id', Apartament::select('apartaments.id')
                     ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                     ->leftJoin('languages', function($join) {
@@ -1024,13 +1049,15 @@ class Apartaments extends Controller
 
             //apartaments not available in this term
             $gray = DB::table("apartaments")
-                ->selectRaw('apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+                ->selectRaw('apartaments.*, sub.ratingAvg, sub.opinionAmount, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
                 ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                 ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
                 ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
                 ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
                 ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
-
+                ->leftjoin(DB::raw('(select group_id, id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                        cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation` left join apartaments on id_apartament = apartaments.id group by apartaments.group_id) sub
+                    '), 'sub.group_id', '=', 'apartaments.group_id')
                 ->where('language_id', $this->language->id)
                 ->whereNotIn('apartaments.id', $blueAndBlackIds )
                 ->where(function($query) use ($region){

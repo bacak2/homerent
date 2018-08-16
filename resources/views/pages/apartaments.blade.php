@@ -24,7 +24,7 @@
 				</form>
 				<span class="bold ml-1">{{$apartament->descriptions[0]->apartament_name}}</span>
 			</div>
-			<div class="d-md-none col-4 col-sm-3 col-md-4 d-inline-block pl-0 my-2">
+			<div class="d-md-none col-3 col-md-4 d-inline-block pl-0 pr-0 pr-sm-3 my-2">
 				<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButtonMobile.png") }}')">
 					<div  class="btn font-13 py-2 px-3" style="width: 100%" >
 						{{ __('messages.Return') }}
@@ -166,37 +166,23 @@
 						<div class="form-row">
 							<div class="pick-date form-row w-100">
 								<div class="col-sm-6 pb-2">
-									<input type="text" class="form-control" id="przyjazd" name="przyjazd" placeholder="{{ __('messages.arrive')}}" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
+									<input type="text" class="form-control" id="przyjazd" name="przyjazd" value="{{$request->przyjazd ?? ''}}" placeholder="{{ __('messages.arrive')}}" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
 								</div>
 								<div class="col-sm-6 pb-2">
-									<input type="text" class="form-control" id="powrot" name="powrot" placeholder="{{ __('messages.return')}}" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
+									<input type="text" class="form-control" id="powrot" name="powrot" value="{{$request->powrot ?? ''}}" placeholder="{{ __('messages.return')}}" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
 								</div>
 							</div>
 							<div class="form-row pb-3 w-100">
 								<div class="col-sm-6 pb-2 pr-0 pr-lg-1">
 									<div class="input-group mb-sm-0">
 										<div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}"><i class="fa fa-lg fa-male" aria-hidden="true" placeholder="{{ __('messages.adults')}}"></i></div>
-										<select class="form-control" name='dorosli' style="width: 120px; height: 38px">
-											@for($i=1; $i <= $apartament->apartament_persons; $i++)
-												<option value="{{$i}}">{{$i}}</option>
-											@endfor
-										</select>
+										{{ Form::select('dorosli', $personsArray, $request->dorosli ?? $personsArray[0], array('class'=>'form-control', 'style'=>'width: 120px; height: 38px'))}}
 									</div>
 								</div>
 								<div class="col-sm-6 pb-2 pr-0 pr-lg-1">
 									<div class="input-group mb-sm-0">
 										<div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Kids') }}"><i class="fa fa-child" aria-hidden="true" placeholder="{{ __('messages.kids')}}"></i></div>
-										<select class="form-control" name='dzieci' style="width: 120px; height: 38px">
-											<option value="0">0</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-											<option value="6">6</option>
-											<option value="7">7</option>
-											<option value="8">8</option>
-										</select>
+										{{ Form::select('dzieci', $kidsArray, $request->dzieci ?? $kidsArray[0], array('class'=>'form-control', 'style'=>'width: 120px; height: 38px'))}}
 									</div>
 								</div>
 							</div>
@@ -2540,6 +2526,10 @@
 
                 ajaxConenction();
             });
+
+			@if(isset($request->przyjazd) && isset($request->powrot) && isset($request->dorosli))
+            	ajaxConenction();
+			@endif
 
         });
 

@@ -24,16 +24,35 @@
                             <div class="row list-item-name">
                                 <div class="container py-1 font-weight-bold"><h2 style='font-size: 24px; display: inline; font-weight: bold' itemprop="name">{{ $apartament->group_name }}</h2>
                                     <span class="pull-right">
-                                    @for ($i = 0; $i < 5; $i++)
-                                        <img class="list-item" src='{{ asset("images/results/star_list.png") }}'>
-                                    @endfor
+                                        @for ($i = 0; $i < floor($apartament->ratingAvg/2); $i++)
+                                            <img class="list-item" src='{{ asset("images/results/star_list.png") }}'>
+                                        @endfor
+                                        @if(floor($apartament->ratingAvg/2) != ceil($apartament->ratingAvg/2))
+                                            <img class="list-item" src='{{ asset("images/results/star_list_half.png") }}'>
+                                        @endif
+                                        @for ($i = ceil($apartament->ratingAvg/2); $i < 5; $i++)
+                                            <img class="list-item" src='{{ asset("images/results/star_list_empty.png") }}'>
+                                        @endfor
                                     </span>
                                 </div>
                             </div>
                             <div class="row list-item-address">
                                 <div class="container py-1">{{ $apartament->apartament_district }}
                                     <span class="pull-right">
-                                        <span style="color: green; letter-spacing: -1px;"><b>8,3/10</b> <span style="font-size: 14px">{{ __("messages.Perfect") }}</span></span> <span style="color: blue; font-size: 10px">55 {{ __("messages.reviews_number") }}</span>
+                                        @if($apartament->ratingAvg < 1)
+                                            <div class="row"></div>
+                                        @elseif($apartament->ratingAvg < 2.5)
+                                            <span class="txt-red" style="letter-spacing: -1px;"><b>{{ number_format($apartament->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;<span class="font-14">{{ __("messages.Awful") }}</span></span>
+                                        @elseif($apartament->ratingAvg < 4.5)
+                                            <span class="txt-red" style="letter-spacing: -1px;"><b>{{ number_format($apartament->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;<span class="font-14">{{ __("messages.Bad") }}</span></span>
+                                        @elseif($apartament->ratingAvg < 6.5)
+                                            <span class="txt-yellow" style="letter-spacing: -1px;"><b>{{ number_format($apartament->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;<span class="font-14">{{ __("messages.Average") }}</span></span>
+                                        @elseif($apartament->ratingAvg < 8.5)
+                                            <span class="txt-green" style="letter-spacing: -1px;"><b>{{ number_format($apartament->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;<span class="font-14">{{ __("messages.Very good") }}</span></span>
+                                        @else
+                                            <span class="txt-green" style="letter-spacing: -1px;"><b>{{ number_format($apartament->ratingAvg, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;<span class="font-14">{{ __("messages.Perfect") }}</span></span>
+                                        @endif
+                                        <span style="color: blue; font-size: 10px">{{$apartament->opinionAmount ?? 0}} {{trans_choice('messages.nrReviews', $apartament->opinionAmount ?? 0)}}</span>
                                     </span>
                                 </div>
                             </div>
@@ -170,7 +189,7 @@
                                 <div class="container py-1" ><a href="/reservations?link={{ $apartament->apartament_link }}&id={{ $apartament->apartament_id }}&przyjazd={{ $request->przyjazd }}&powrot={{ $request->powrot }}&dorosli={{ $request->dorosli }}&dzieci={{ $request->dzieci }}"  class="btn btn-primary ml-2" style="width: 100%">{{ __('messages.book') }}</a></div>
                             </div>
                             <div class="row">
-                                <div class="container py-1" ><a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-see-more ml-2" style="width: 100%">{{ __('messages.see details') }}</a></div>
+                                <div class="container py-1" ><a href="/apartaments/{{ $apartament->apartament_link }}?{{ http_build_query(Request::except('page', 'region')) }}" class="btn btn-see-more ml-2" style="width: 100%">{{ __('messages.see details') }}</a></div>
                             </div>
                         </div>
                     </div>

@@ -15,21 +15,22 @@
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;" >
       <div class="container px-0 px-md-3">
         <a class="navbar-brand" href="{{ url('/') }}">Homent</a>
-		<div class="row mx-auto">
-		    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-		            <a style="text-decoration: none;" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-		                <img src="{{ asset("images/flags/".$localeCode.".gif") }}">&nbsp;
-		            </a>
-		    @endforeach
-		</div>
-
-       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenuTop" aria-controls="navMenuTop" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenuTop" aria-controls="navMenuTop" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navMenuTop">
           <ul class="navbar-nav ml-auto">
               @desktop
+              <li class="nav-item">
+                  <div class="row mx-auto" style="padding-top: 8px">
+                      @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                          <a style="text-decoration: none;" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                              <img src="{{ asset("images/flags/".$localeCode.".gif") }}">&nbsp;
+                          </a>
+                      @endforeach
+                  </div>
+              </li>
               <li class="nav-item pointer-none">
                   <span class="nav-link">
                       <img src="{{ asset("images/contact/phoneMinIcon.png") }}">
@@ -46,6 +47,13 @@
               </li>
               @elsedesktop
               <li class="nav-item">
+                  <div class="d-inline" style="padding-top: 8px">
+                      @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                          <a style="text-decoration: none;" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                              <img src="{{ asset("images/flags/".$localeCode.".gif") }}">&nbsp;
+                          </a>
+                      @endforeach
+                  </div>
                   <a class="" href="mailto:info@visitzakopane.pl">
                       <img src="{{ asset("images/contact/Envelop_24.png") }}">
                   </a>
