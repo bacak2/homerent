@@ -35,4 +35,21 @@ class Reservation extends Model
         }
         */
     }
+
+    //Checks availabity for each apartment in date
+    public function checkAvailabity($id, $arrival, $departure){
+        $availabity = DB::Table('apartaments')
+            ->select('apartaments.id')
+            ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+            ->where('apartaments.id','=',$id)
+            ->whereNotIn('apartaments.id', function($query) use($arrival, $departure){
+                $query->select('apartaments.id')
+                    ->from('apartaments')
+                    ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                    ->whereRaw('((reservation_arrive_date + INTERVAL 1 DAY between ? and ?) or (reservation_departure_date - INTERVAL 1 DAY between ? and ?))',[$arrival, $departure, $arrival, $departure]);
+            })
+
+            ->first();
+        return $availabity;
+    }
 }

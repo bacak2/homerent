@@ -103,7 +103,11 @@
         </div>
         <div class="col-md-3 col-lg-2 px-lg-0">
             <div>
-                <a class="btn btn-black" href="tel:713333222"><img src="{{ asset("images/account/phone.png") }}"></a>
+                @desktop
+                    <button class="phone-to-expand btn btn-black"><img src="{{ asset("images/account/phone.png") }}"><span class="phone-addition-text"></span></button>
+                @elsedesktop
+                    <a class="btn btn-black" href="tel:713333222"><img src="{{ asset("images/account/phone.png") }}"></a>
+                @enddesktop
                 <a class="btn btn-black" href="mailto:ja@ja.pl"><img src="{{ asset("images/account/envelope.png") }}"></a>
                 <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a>
                 <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
@@ -195,6 +199,24 @@
         }
         else {
             $(this).html('<i style="font-size:16px; font-weight: bold" class="fa">&#xf100;</i>');
+        }
+    });
+
+    $(".phone-to-expand").click(function() {
+        if($(this).hasClass("phone-expanded")){
+            $(this).removeClass("phone-expanded");
+            $(this).find(".phone-addition-text").text("");
+        }
+        else{
+            $(this).addClass("phone-expanded");
+            $(this).find(".phone-addition-text").text("Zadzwoń 713333222");
+        }
+    });
+
+    $(window).on("click", function(event){
+        if($(".phone-to-expand").has(event.target).length == 0 && !$(".phone-to-expand").is(event.target)){
+            $(".phone-to-expand").removeClass("phone-expanded");
+            $(".phone-addition-text").text("");
         }
     });
 

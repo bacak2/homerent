@@ -122,7 +122,7 @@ body	{
 	left: 12px;
 }
 
-.nav-item:hover, input[type="submit"]:hover{
+.nav-item:hover, input[type="submit"]:hover, #expand-price:hover{
 	cursor: pointer;
 }
 
@@ -2148,6 +2148,11 @@ span.error-show{
 .totalAvgImg{
 	height: 22px;
 	margin-top: 2px;
+}
+
+.phone-expanded{
+	position: relative;
+	z-index: 2000;
 }
 
 @media (min-width: 768px) {

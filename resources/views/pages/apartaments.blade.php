@@ -154,7 +154,7 @@
 				</div>
 				<div id="stickyReservationPanel" class="col-12 col-md-4 ml-0">
 					<div class="col transparent mt-2 mb-2 pb-1 pt-1">
-						<div class="row">
+						<div class="row" id="lowestPricePerNight">
 							<div class="col-8">{{ __('messages.lowestpricepnight')}}</div>
 							<div class="col-4 text-right">
 								<p><b>{{ $priceFrom }} zł</b></p>
@@ -164,19 +164,20 @@
 						{!! Form::hidden('link', $apartament->descriptions[0]->apartament_link) !!}
 						{!! Form::hidden('id', $apartament->id) !!}
 						<div class="form-row">
-							<div class="pick-date form-row w-100">
-								<div class="col-sm-6 pb-2">
-									<input type="text" class="form-control" id="przyjazd" name="przyjazd" value="{{$request->przyjazd ?? ''}}" placeholder="{{ __('messages.arrive')}}" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
+
+							<div class="pick-date form-row w-100 t-datepicker">
+								<div class="col-sm-6 pb-2 t-check-in">
+									{{--<input type="text" class="form-control t-check-in" id="przyjazd" name="przyjazd" value="{{$request->przyjazd ?? ''}}" placeholder="{{ __('messages.arrive')}}" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>--}}
 								</div>
-								<div class="col-sm-6 pb-2">
-									<input type="text" class="form-control" id="powrot" name="powrot" value="{{$request->powrot ?? ''}}" placeholder="{{ __('messages.return')}}" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>
+								<div class="col-sm-6 pb-2 t-check-out">
+									{{--<input type="text" class="form-control t-check-out" id="powrot" name="powrot" value="{{$request->powrot ?? ''}}" placeholder="{{ __('messages.return')}}" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required>--}}
 								</div>
 							</div>
 							<div class="form-row pb-3 w-100">
 								<div class="col-sm-6 pb-2 pr-0 pr-lg-1">
 									<div class="input-group mb-sm-0">
 										<div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}"><i class="fa fa-lg fa-male" aria-hidden="true" placeholder="{{ __('messages.adults')}}"></i></div>
-										{{ Form::select('dorosli', $personsArray, $request->dorosli ?? $personsArray[0], array('class'=>'form-control', 'style'=>'width: 120px; height: 38px'))}}
+										{{ Form::select('dorosli', $personsArray, $request->dorosli ?? $personsArray[""], array('class'=>'form-control', 'style'=>'width: 120px; height: 38px', 'required'=>'required', 'oninvalid'=>"this.setCustomValidity('Proszę wybrać liczbę osób')", 'oninput'=>"this.setCustomValidity('')"))}}
 									</div>
 								</div>
 								<div class="col-sm-6 pb-2 pr-0 pr-lg-1">
@@ -186,25 +187,27 @@
 									</div>
 								</div>
 							</div>
-
 						</div>
-
 						<div class="res-info">
 							<div class="row">
 								<div class="col-8">
 									{{ __('messages.Chosen nights')}}
 								</div>
 								<div class="col-4">
-									<p align="right"><b><input class="form-control" id="ilenocy" name="ilenocy" readonly style="width: 50px"></input></b></p>
+									<p align="right"><b><input class="form-control" id="ilenocy" name="ilenocy" readonly style="width: 50px"></b></p>
 								</div>
 							</div>
-							<div class="row">
+							<div id="is-Av-panel" class="row">
 								<div class="col-6">
 									<h3>{{ __('messages.fprice') }}</h3>
 								</div>
-								<div class="col-6 text-right">
+								<div class="col-6 text-right is-Av-panel">
 									<h3><b><span id="price"></span></b></h3>
 								</div>
+								<div class="col font-13">Szczegóły <span id="expand-price" class="font-11">(rozwiń) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'></span></div>
+								<div id="price-details" class="col-12 font-13" style="display: none"></div>
+							</div>
+							<div class="row">
 								<div class="col-12 text-center font-weight-bold">
 									<p class="termin"></p>
 									<div id="not-Av-panel" class="p-2">
@@ -2169,7 +2172,26 @@
 			</span>
 		</div>
 	</div>
+	<script type="text/javascript">
+        $(document).ready(function(){
+            $('.t-datepicker').tDatePicker({
+                autoClose: true,
+                numCalendar : 2,
+                dateCheckIn: '{{$request->przyjazd ?? ''}}',
+                dateCheckOut: '{{$request->powrot ?? ''}}',
+                titleCheckIn: 'Data przyjazdu',
+				titleCheckOut: 'Data wyjazdu',
+				titleToday: 'Dzisiaj',
+				titleDateRange: 'Doba',
+				titleDateRanges: 'Doby',
+				iconDate: '',
+				titleDays: ['Pn','Wt','Śr','Cz','Pt','Sb','Nd'],
+				titleMonths: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
+            });
 
+            $("input").prop('required',true);
+        });
+	</script>
 	<script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language=PL" type="text/javascript"></script>
 	<script type="text/javascript">
 
@@ -2424,45 +2446,7 @@
 			var firstArrival = '2018-01-01';
 			var firstDeparture = '2018-01-01';
 
-            $.fn.changeVal = function (v) {
-                return $(this).val(v).trigger("change");
-            }
-
-            $('.pick-date').dateRangePicker(
-                {
-                    separator : ' do ',
-                    autoClose: true,
-                    startOfWeek: 'monday',
-                    language:'{{ App::getLocale() }}',
-                    startDate: new Date(),
-                    customOpenAnimation: function(cb)
-                    {
-                        $(this).fadeIn(100, cb);
-                    },
-                    customCloseAnimation: function(cb)
-                    {
-                        $(this).fadeOut(100, cb);
-                    },
-
-                    getValue: function()
-                    {
-                        if ($('#przyjazd').val() && $('#powrot').val() )
-                            return $('#przyjazd').val() + ' do ' + $('#powrot').val();
-                        else
-                            return '';
-                    },
-
-                    setValue: function(s,s1,s2)
-                    {
-                        $('#przyjazd').val(s1);
-                        $('#powrot').val(s2);
-                        ajaxConenction();
-                    }
-                });
-
             function ajaxConenction(){
-                var dateInc = $("#przyjazd");
-                var dateOut = $("#powrot");
                 var id = {{ $apartament->id }};
 
                 $.ajax({
@@ -2470,22 +2454,30 @@
                     url: '/test',
                     dataType : 'json',
                     data: {
-                        przyjazd: dateInc.val(),
-                        powrot: dateOut.val(),
+                        przyjazd: dateInc,
+                        powrot: dateOut,
                         id: id,
                     },
                     success: function(data) {
-
                         $('#ilenocy').val(data.days_number);
 
                         if(data.is_available) {
                             $('.termin').css('color','green');
                             $('#not-Av-panel').hide();
+                            $('#is-Av-panel').show();
                             if (data.message == 1) $('.termin').text("Apartament dostępny");
                             else $('.termin').text("Apartment is available");
                             $('#price').text(data.price+" PLN");
                             $('.res-info').show(1000);
                             $('.res-btn').show();
+							$("#lowestPricePerNight").hide();
+                            $('#expand-price').html("(rozwiń) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'>");
+                            $('#price-details').hide();
+                            $("#price-details").text("");
+                            for(var i=0, n = data.detailPrice.length; i < n; i ++) {
+                                $("#price-details").append("<div>" + moment(data.detailPrice[i].date_of_price, "YYYY-MM-DD").format("DD.MM   ddd") + "<span class='pull-right'>" + data.detailPrice[i].price_value + " PLN</span></div>");
+                            }
+                            $("#price-details").append("<div class='mt-2 mb-3'>Opłata za obsługę<span class='pull-right'>"+data.servicesPrice+" PLN</span></div>");
 
 							@handheld
 								$("#mobileReservation").on('click', function(){
@@ -2496,9 +2488,11 @@
                         else {
                             $('.termin').css('color','red');
                             $('#not-Av-panel').show();
+                            $('#is-Av-panel').hide();
                             $('.res-info').show(1000);
                             $('.termin').hide();
                             $('.res-btn').hide();
+                            $("#lowestPricePerNight").show();
                             firstArrival = data.firstArrival;
                             firstDeparture = data.firstDeparture;
 
@@ -2520,6 +2514,19 @@
                 });
             }
 
+            $('.t-datepicker').on('afterCheckOut',function(e, dataDate) {
+                checkIn = new Date(dataDate[0]);
+                checkInMonth = checkIn.getMonth();
+                if(checkInMonth < 10) checkInMonth = "0"+checkInMonth;
+                dateInc = checkIn.getFullYear()+"-"+checkInMonth+"-"+checkIn.getDate();
+
+                checkOut = new Date(dataDate[1]);
+                checkOutMonth = checkOut.getMonth();
+                if(checkOutMonth < 10) checkOutMonth = "0"+checkOutMonth;
+                dateOut = checkOut.getFullYear()+"-"+checkOutMonth+"-"+checkOut.getDate();
+                ajaxConenction();
+            });
+
             $('#firstFreeDate').click(function() {
                 $('#przyjazd').val(firstArrival);
                 $('#powrot').val(firstDeparture);
@@ -2530,6 +2537,12 @@
 			@if(isset($request->przyjazd) && isset($request->powrot) && isset($request->dorosli))
             	ajaxConenction();
 			@endif
+
+            $('#expand-price').click(function() {
+                $('#price-details').toggle();
+                if($('#price-details').is(":visible")) $("#expand-price").html("(zwiń) <img src='{{ asset("images/apartment_detal/arrow_up_24.png") }}'>");
+                else $("#expand-price").html("(rozwiń) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'>");
+            });
 
         });
 

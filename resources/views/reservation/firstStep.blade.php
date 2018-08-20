@@ -193,7 +193,7 @@
                                 <div class="col"><div style="background-image: url('{{ asset('images/reservations/dottedLine.png') }}');background-repeat: no-repeat; height: 1px; position: relative; top: 50%;"></div></div>
                             </div>
                             <div class="form-group row">
-                                <div class="offset-sm-4 col-sm-8"><a href="http://facebook.com"><img src="{{ asset('images/fb-log.png') }}"></a></div>
+                                <div class="offset-sm-4 col-sm-8"><div class="fb-login-button" data-width="278px" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkLoginState();"></div></div>
                             </div>
                         @endguest
 

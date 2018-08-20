@@ -597,7 +597,7 @@ class Apartaments extends Controller
         }
 
         $personsArray = [];
-        if($request->dorosli == null) $personsArray[0] = 'Dorośli';
+        if($request->dorosli == null) $personsArray[""] = 'Dorośli';
         for($i=1; $i<=$apartament->apartament_persons; $i++){
             $personsArray[$i] = $i;
         }
@@ -607,12 +607,6 @@ class Apartaments extends Controller
         for($i=1; $i<=$apartament->apartament_kids; $i++){
             $kidsArray[$i] = $i;
         }
-
-        if(isset($request->przyjazd) && isset($request->powrot)){
-            $request->przyjazd = date("Y-m-d", strtotime(substr($request->przyjazd, 4, 10)));
-            $request->powrot = date("Y-m-d", strtotime(substr($request->powrot, 4, 10)));
-        }
-
 
         return view('pages.apartaments', ['apartament' => $apartament,
             'groups' => $groups,
@@ -875,6 +869,7 @@ class Apartaments extends Controller
             //->where('apartaments.group_id', 0)
             ->where('apartaments.apartament_persons', '>=', $request->dorosli)
             ->where('apartaments.apartament_kids', '>=', $request->dzieci)
+            ->orderBy('min_price', 'ASC')
             ->groupBy('apartaments.id');
             //->groupBy('apartaments.group_id')
             //->orderBy('apartaments.group_id', 'DESC')
@@ -958,7 +953,7 @@ class Apartaments extends Controller
             ->where('apartaments.apartament_kids', '>=', $request->dzieci)
             //->groupBy('apartaments.id')
             ->groupBy('apartaments.group_id')
-            ->orderBy('apartaments.group_id', 'DESC')
+            //->orderBy('apartaments.group_id', 'DESC')
             ->unionAll($withoutGroup)
             ->get();
             //->paginate($paginate, ['apartaments.id']);
@@ -1167,6 +1162,16 @@ class Apartaments extends Controller
 
         if(count($availabity) > 0) {
             $is_available = TRUE;
+
+            $detailPrice = DB::Table('apartament_prices')
+                ->select('price_value', 'date_of_price')
+                ->where('apartament_id',$id)
+                ->where('date_of_price','>=',$przyjazd)
+                ->where('date_of_price','<',$powrot)
+                ->get();
+
+            $servicesPrice = $availabity[0]->basic_service_price+$availabity[0]->final_cleaning_price;
+            $totalPrice[0]->total_price = $totalPrice[0]->total_price+$servicesPrice;
         }
         else  {
             $is_available = FALSE;
@@ -1214,6 +1219,8 @@ class Apartaments extends Controller
             'firstFreeAvailability' => $firstFreeAvailability ?? 0,
             'firstArrival' => $firstArrival ?? 0,
             'firstDeparture' => $firstDeparture ?? 0,
+            'detailPrice' => $detailPrice ?? 0,
+            'servicesPrice' => $servicesPrice ?? 0,
         ]);
     }
 

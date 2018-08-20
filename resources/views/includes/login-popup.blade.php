@@ -37,10 +37,10 @@
                 </div>
                 <div class="form-group">
                     <div class="row font-12">
-                        <div class="col-6">
+                        {{--<div class="col-6">
                             <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> <span class="">Zapamiętaj</span>
-                        </div>
-                        <div class="col-6 pull-right" style="text-align: right;"> <a href="{{--route('password.request')--}}">Nie pamiętasz hasła?</a></div>
+                        </div>--}}
+                        <div class="col-6 pull-right" style="text-align: right;"> <a href="{{route('password.request')}}">Nie pamiętasz hasła?</a></div>
                     </div>
                 </div>
                 <div class="form-group">
