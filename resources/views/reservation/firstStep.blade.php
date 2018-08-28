@@ -36,7 +36,7 @@
 <div class="container font-m-13">
     <div class="row reservation-item py-2 mx-0">
         <div class="col-lg-2 mobile-none pr-0">
-            <img class="apartament img-fluid d-md-none d-lg-flex" src='{{ asset("images/apartaments/$apartament->id/1.jpg") }}'>
+            <img class="apartament img-fluid d-md-none d-lg-flex" src='{{ asset("images/apartaments/$apartament->id/main.jpg") }}'>
         </div>
         <div class="col-lg-10 col-sm-12">
             <div class="row">

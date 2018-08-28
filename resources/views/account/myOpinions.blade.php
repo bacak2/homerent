@@ -29,7 +29,7 @@
     {{--end header--}}
     @foreach($users_opinions as $opinion)
         <div class="user-opinion-row row py-3 my-3 my-md-0 mr-md-0">
-            <div class="col-lg-2 col-4 pl-md-0 pl-lg-3"><img src='{{ asset("images/apartaments/$opinion->apartament_id/1.jpg") }}') style="width: 100%;"></div>
+            <div class="col-lg-2 col-4 pl-md-0 pl-lg-3"><img src='{{ asset("images/apartaments/$opinion->apartament_id/main.jpg") }}') style="width: 100%;"></div>
             <div class="col-lg-3 col-8 pl-3 pl-md-0 pl-lg-3">
                 <span class="font-16 txt-blue" style="font-weight: bold"><a href="/apartaments/{{ $opinion->apartament_link }}">{{ $opinion->apartament_name }}</a></span><br>
                 <span class="font-12">

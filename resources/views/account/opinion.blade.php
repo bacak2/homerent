@@ -14,7 +14,7 @@
         <div class="col-md-5 col-lg-4 pr-0 pl-0 pl-md-3 mt-2 mt-md-0">
             <div class="mb-2 font-12">Recenzja dotyczy:</div>
             <div class="row mb-2 p-1 p-md-3 mx-0" id="opinion-box">
-                <div class="col-4 px-0"><img class="img-fluid" src='{{ asset("images/apartaments/$apartament->id/1.jpg") }}'></div>
+                <div class="col-4 px-0"><img class="img-fluid" src='{{ asset("images/apartaments/$apartament->id/main.jpg") }}'></div>
                 <div class="col-8 pl-4 pr-0">
                     {{ $apartament->apartament_name }}
                     <span class="row"><b>{{ $apartament->apartament_city }}</b> ({{ $apartament->apartament_district }})</span>

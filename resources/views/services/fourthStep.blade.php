@@ -65,7 +65,7 @@
     @endif
     <div class="row reservation-item py-2">
         <div class="col-lg-2 mobile-none">
-            <div class="apartament " style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; margin-bottom: 0px; width: 180px; height: 110px;">
+            <div class="apartament " style="background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover; margin-bottom: 0px; width: 180px; height: 110px;">
             </div>
         </div>
         <div class="col-lg-10 col-sm-12">

@@ -93,12 +93,12 @@
     @endif
     <div class="row reservation-item font-m-13 py-2 mx-0">
         <div class="col-lg-2 pr-0 d-none d-lg-block">
-            <img class="img-fluid" src='{{ asset("images/apartaments/$apartament->id/1.jpg") }}'>
+            <img class="img-fluid" src='{{ asset("images/apartaments/$apartament->id/main.jpg") }}'>
         </div>
         <div class="col-lg-10 col-sm-12">
             <div class="row">
                 <div class="col-4 pr-0 d-block d-lg-none">
-                    <img class="img-fluid" src='{{ asset("images/apartaments/$apartament->id/1.jpg") }}'>
+                    <img class="img-fluid" src='{{ asset("images/apartaments/$apartament->id/main.jpg") }}'>
                 </div>
                 <div class="col-8 col-lg-3">
                     <div class="txt-blue font-22-reservation font-m-13"><b>{{ $apartament->descriptions[0]->apartament_name }}</b></div>

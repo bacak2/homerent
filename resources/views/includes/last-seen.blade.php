@@ -6,7 +6,7 @@
             <div style="overflow: auto;" class="col-12 col-sm-6 col-md-4 col-lg-3">
         @endif
                 <div class="map-img-wrapper">
-                    <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
+                    <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
                         <div class="map-see-more ">
                             <div class="container py-1">
                                 <a href="/apartaments/{{ $apartament->apartament_link }}?{{ http_build_query(Request::except('page', 'region')) }}" class="btn btn-primary" style="width: 100%">{{ __("messages.book") }}</a>

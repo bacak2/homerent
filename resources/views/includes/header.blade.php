@@ -81,7 +81,7 @@
                               @if(Session::get('userFavouritesCount') != 0)
                                   @foreach(Session::get('userFavourites') as $favourite)
                                       <div class="row">
-                                          <div class="col-3" style="background-image: url('{{ asset("images/apartaments/$favourite->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; margin-left: 15px; padding-left: 0px; max-height: 52px;"></div>
+                                          <div class="col-3" style="background-image: url('{{ asset("images/apartaments/$favourite->id/main.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; margin-left: 15px; padding-left: 0px; max-height: 52px;"></div>
                                           <div class="col-8 row" style="margin-right: -20px">
                                               <div class="col-12 font-13 txt-blue"><a href="/apartaments/{{$favourite->apartament_link}}">{{$favourite->apartament_name}}</a></div>
                                               <div class="col-12 font-11 bold">{{$favourite->apartament_address}}</div>

@@ -11,7 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $i=0;
+        //seeder to add prices
+        /*$i=0;
         while ($i<365){
             DB::table('apartament_prices')->insert([
                 'apartament_id' => 9,
@@ -22,6 +23,18 @@ class DatabaseSeeder extends Seeder
             ]);
 
             $i++;
+        }*/
+
+        //seeder to add names of photo from all dir
+        //add main.jpg and mail.jpg after this seed
+        $apartamentId = 9;
+        $dirName = "/home/adminartplus/Pulpit/htdocs/Homerent/httpdocs/public/images/apartaments/$apartamentId";
+        $scanned_directory = array_diff(scandir($dirName), array('..', '.'));
+        foreach($scanned_directory as $photoName){
+            DB::table('apartament_photos')->insert([
+                'apartament_id' => $apartamentId,
+                'photo_link' => $photoName,
+            ]);
         }
     }
 }

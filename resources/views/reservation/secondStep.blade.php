@@ -634,7 +634,7 @@
                 <div class="reservation-item p-3">
                     <div class="row ">
                         <div class="col-4">
-                            <div class="apartament " style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; margin-bottom: 0px; width: 100px; height: 60px;">
+                            <div class="apartament " style="background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover; margin-bottom: 0px; width: 100px; height: 60px;">
                             </div>
                         </div>
                         <div class="col-8">

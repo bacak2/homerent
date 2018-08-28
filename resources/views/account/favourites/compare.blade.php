@@ -64,7 +64,7 @@
             @foreach ($finds as $apartament)
                 @if($apartament->group_name == null)
                 <div class="favourites-box" id="{{$loop->iteration-1}}">
-                    <div style="width: 100%; background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover;"></div>
+                    <div style="width: 100%; background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover;"></div>
                     <div>od {{ $apartament->min_price }} PLN</div>
                     <div>{{ $apartament->apartament_name }}</div>
                     <div>{{ $apartament->apartament_address }}</div>

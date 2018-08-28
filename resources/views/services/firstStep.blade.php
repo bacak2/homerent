@@ -139,7 +139,7 @@
                 <div class="reservation-item p-3">
                     <div class="row ">
                         <div class="col-4 pr-0">
-                            <img class="img-fluid" src='{{ asset("images/apartaments/$apartament->id/1.jpg") }}'>
+                            <img class="img-fluid" src='{{ asset("images/apartaments/$apartament->id/main.jpg") }}'>
                         </div>
                         <div class="col-8">
                             <div class="txt-blue"><b>{{ $apartament->descriptions[0]->apartament_name}}</b></div>

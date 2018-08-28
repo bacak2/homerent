@@ -88,7 +88,7 @@
 		</div>
 	</div>
 	@endhandheld
-	<div class="row back" style="background-image: url( {{ asset('images/apartaments/'.$groupDescription[0]->id.'/1.jpg') }} );">
+	<div class="row back" style="background-image: url( {{ asset('images/apartaments/'.$groupDescription[0]->id.'/main.jpg') }} );">
 		<div class="container">
 			<div class="row apartament-info" >
 				<div class="col-md-8">
@@ -307,7 +307,7 @@
 						@foreach ($apartaments as $apartament)
 							<div style="overflow: auto;" class="col-md-6 col-sm-12" itemscope itemtype="http://schema.org/Hotel">
 								<div class="map-img-wrapper">
-									<div class="apartament img-group-detail" style="background-image: url('{{ asset("images/apartaments/$apartament->id/1.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
+									<div class="apartament img-group-detail" style="background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
 										<div class="map-see-more mobile-none">
 											<div class="container py-1">
 												<a href="#" style="width: 100%; color: black" class="btn btn-primary">{{ __("messages.book") }}</a>
