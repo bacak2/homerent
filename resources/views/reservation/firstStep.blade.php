@@ -42,7 +42,7 @@
             <div class="row">
                 <div class="col-lg-5 col-sm-6 pl-2">
                     <div class="txt-blue font-22-reservation"><b>{{ $apartament->descriptions[0]->apartament_name}}</b></div>
-                    <div class="my-2 my-md-0">{{ $apartament->apartament_city}} ({{ $apartament->apartament_district }})</div>
+                    <div class="my-2 my-md-0">{{ $apartament->apartament_city}} @if($apartament->apartament_district != null)({{ $apartament->apartament_district }})@endif</div>
                     <div>{{ $apartament->apartament_address }}</div>
                     @notmobile
                     <div>
@@ -141,7 +141,7 @@
                         </div>
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format($cleaning, 2, '.', ' ') }} PLN</span></div></div>
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right"><span id="additional-services">0.00</span> PLN</span></div></div>
-                        <div class="row mb-3"><div class="col-8">{{ __('messages.Payment for service') }}: <img src='{{ asset("images/reservations/infoIcon.png") }}'></div><div class="col-4"><span class="pull-right">{{ number_format($basicService, 2, '.', ' ') }} PLN</span></div></div>
+                        {{--<div class="row mb-3"><div class="col-8">{{ __('messages.Payment for service') }}: <img src='{{ asset("images/reservations/infoIcon.png") }}'></div><div class="col-4"><span class="pull-right">{{ number_format($basicService, 2, '.', ' ') }} PLN</span></div></div>--}}
                         <div class="row mb-3 mr-3" id="couponDiv" style="display: none"><div class="col-4">Kupon rabatowy:</div><div class="col-4"><input type="text" style="width:100%; max-height: 30px" class="font-11"></div><div class="col-3"><button class="btn btn-mobile">Zrealizuj kupon</button></div><div class="col-1"><span id="cancelCoupon" class="font-11" style="color: #007bff">Anuluj</span></div></div>
                         <div class="row mb-3 font-22-reservation"><div class="col-5"><b>{{ __('messages.fprice') }}</b></div><div class="col-7"><span class="pull-right"><b><span id="total-price">{{ number_format($request->fullPrice, 2, '.', ' ') }}</span> PLN</b></span></div></div>
                         <div class="row mb-2" id="couponQuestion"><div class="col-12 font-11" id="coupon" style="color: #007bff">Posiadasz kupon rabatowy?</div></div>

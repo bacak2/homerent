@@ -23,52 +23,26 @@
 </header>
 
 <script type="text/javascript">
+        $('.t-datepicker').tDatePicker({
+            autoClose: true,
+            numCalendar: @handheld 1 @elsehandheld 2 @endhandheld,
+            titleCheckIn: 'Data przyjazdu',
+            titleCheckOut: 'Data wyjazdu',
+            titleToday: 'Dzisiaj',
+            titleDateRange: 'Doba',
+            titleDateRanges: 'Doby',
+            iconDate: '<i class="fa fa-lg fa-calendar" aria-hidden="true"></i>',
+            titleDays: ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb', 'Nd'],
+            titleMonths: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+        });
 
-$('.pick-date').dateRangePicker(
-  {
-    separator : ' do ',
-    autoClose: true,
-    startOfWeek: 'monday',
-    language:'{{ App::getLocale() }}',
-    startDate: new Date(),
-    format: 'ddd DD.MM.YYYY',  //more formats at http://momentjs.com/docs/#/displaying/format/
-    customOpenAnimation: function(cb)
-    {
-      $(this).fadeIn(100, cb);
-    },
-    customCloseAnimation: function(cb)
-    {
-      $(this).fadeOut(100, cb);
-    },
-
-    getValue: function()
-    {
-      if ($('#przyjazd').val() && $('#powrot').val() )
-        return $('#przyjazd').val() + ' to ' + $('#powrot').val();
-      else
-        return '';
-    },
-    setValue: function(s,s1,s2)
-    {
-      if ('{{ App::getLocale() }}' == 'pl') {
-          s1 = s1.replace('Mon', 'Pon').replace('Tue', 'Wto').replace('Wed', 'Śro').replace('Thu', 'Czw').replace('Fri', 'Pią').replace('Sat', 'Sob').replace('Sun', 'Nie');
-          s2 = s2.replace('Mon', 'Pon').replace('Tue', 'Wto').replace('Wed', 'Śro').replace('Thu', 'Czw').replace('Fri', 'Pią').replace('Sat', 'Sob').replace('Sun', 'Nie');
-      }
-      $('#przyjazd').val(s1);
-      $('#powrot').val(s2);
-    },
-    hoveringTooltip: function(days)
-    {
-        if ('{{ App::getLocale() }}' == 'pl') {
-            if (days == 1) return "";
-            else if (days == 2) return (days-1)+" doba";
-            else if(days > 2 && days <= 5) return (days-1)+" doby";
-            else return (days-1)+" dób";
-        }
-        else return days-1[days];
-    }
-  });
-
+        $("#wyszukiwarka").submit(function( event ) {
+            var getDates = $('.t-datepicker').tDatePicker('getDates')
+            if(getDates[0] == null){
+                event.preventDefault();
+                alert("Proszę wybrać termin pobytu");
+            }
+        });
 
 var options = {
 	url: function(phrase) {

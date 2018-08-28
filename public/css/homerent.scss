@@ -651,6 +651,17 @@ button {
 	z-index: 200 !important;
 	}
 
+div.easy-autocomplete{
+	height: 100%;
+	#region{
+		height: 100%;
+	}
+}
+
+select.h-100.form-control:not([size]):not([multiple]) {
+	height: calc(2.25rem + 4px) !important;
+}
+
 .input-group-addon {
 		min-width: 40px;
 	    text-align:left;
@@ -2376,7 +2387,6 @@ span.error-show{
 	.searchCont{
 		padding-top: 20px;
 	}
-
 }
 
 @media (max-width: 767px){
@@ -2741,6 +2751,13 @@ span.error-show{
 		width: 1000px;
 		border: solid black 1px;
 		background-color: #fff;
+	}
+
+	.h-custom-search{
+		height: 100%;
+		select{
+			height: 100% !important;
+		}
 	}
 }
 

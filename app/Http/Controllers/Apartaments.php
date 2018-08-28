@@ -35,9 +35,8 @@ class Apartaments extends Controller
     public function showIndex()
     {
         $todayDate = date("Y-m-d");
+        $tomorrowDate = date("Y-m-d", strtotime($todayDate . ' +1 day'));
 
-        //DB::connection()->enableQueryLog();
-        //dd(DB::getQueryLog());
         $apartaments = DB::table('apartaments')
             ->selectRaw('distinct(apartaments.id), apartament_descriptions.apartament_name, 
                           apartament_descriptions.apartament_link, apartament_photos.photo_link, MIN(apartament_prices.price_value) AS price_value')
@@ -54,7 +53,7 @@ class Apartaments extends Controller
             })
             ->join('apartament_photos','apartaments.apartament_default_photo_id', '=', 'apartament_photos.id')
             ->groupBy('apartaments.id','apartament_descriptions.id','apartament_descriptions.apartament_name','apartament_descriptions.apartament_link','apartament_photos.photo_link')
-            ->limit(16)
+            ->limit(8)
             ->get();
 
         $apartamentsFirstCity = DB::table('apartaments')
@@ -73,41 +72,75 @@ class Apartaments extends Controller
             })
             ->join('apartament_photos','apartaments.apartament_default_photo_id', '=', 'apartament_photos.id')
             ->where('apartament_city', 'Zakopane')
-            ->groupBy('apartaments.id','apartament_descriptions.id','apartament_descriptions.apartament_name','apartament_descriptions.apartament_link','apartament_photos.photo_link')
-            ->limit(2)
-            ->get();
+            ->groupBy('apartaments.id','apartament_descriptions.id','apartament_descriptions.apartament_name','apartament_descriptions.apartament_link','apartament_photos.photo_link');
 
-        $todayDate = date("D d.m.Y");
-        $tomorrowDate = date('D d.m.Y', strtotime($todayDate . ' +1 day'));
+        $apartamentsFirstCityAmount = $apartamentsFirstCity->get()->count();
+        $apartamentsFirstCity = $apartamentsFirstCity->limit(2)->get();
 
-        if(Lang::locale() == 'pl'){
-            $todayDate = str_replace(
-                array("Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun"),
-                array("Pon", "Wto", "Śro", "Czw", "Pią", "Sob", "Nie"),
-                $todayDate);
+        $apartamentsSecondCity = DB::table('apartaments')
+            ->selectRaw('distinct(apartaments.id), apartament_descriptions.apartament_name, 
+                          apartament_descriptions.apartament_link, apartament_photos.photo_link, MIN(apartament_prices.price_value) AS price_value')
+            ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            ->join('languages', function($join) {
+                $join->on('apartament_descriptions.language_id','=','languages.id')
+                    ->where('languages.id', $this->language->id);
+            })
+            ->join('apartament_prices', function($join) use($todayDate) {
+                $join->on('apartament_prices.apartament_id','=','apartaments.id')
 
-            $tomorrowDate = str_replace(
-                array("Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun"),
-                array("Pon", "Wto", "Śro", "Czw", "Pią", "Sob", "Nie"),
-                $tomorrowDate);
-        }
+                    ->Where('apartament_prices.date_of_price','>=',$todayDate);
+
+            })
+            ->join('apartament_photos','apartaments.apartament_default_photo_id', '=', 'apartament_photos.id')
+            ->where('apartament_city', 'Kościelisko')
+            ->groupBy('apartaments.id','apartament_descriptions.id','apartament_descriptions.apartament_name','apartament_descriptions.apartament_link','apartament_photos.photo_link');
+
+        $apartamentsSecondCityAmount = $apartamentsSecondCity->get()->count();
+        $apartamentsSecondCity = $apartamentsSecondCity->limit(2)->get();
+
+        $apartamentsThirdCity = DB::table('apartaments')
+            ->selectRaw('distinct(apartaments.id), apartament_descriptions.apartament_name, 
+                          apartament_descriptions.apartament_link, apartament_photos.photo_link, MIN(apartament_prices.price_value) AS price_value')
+            ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            ->join('languages', function($join) {
+                $join->on('apartament_descriptions.language_id','=','languages.id')
+                    ->where('languages.id', $this->language->id);
+            })
+            ->join('apartament_prices', function($join) use($todayDate) {
+                $join->on('apartament_prices.apartament_id','=','apartaments.id')
+
+                    ->Where('apartament_prices.date_of_price','>=',$todayDate);
+
+            })
+            ->join('apartament_photos','apartaments.apartament_default_photo_id', '=', 'apartament_photos.id')
+            ->where('apartament_city', 'Witów')
+            ->groupBy('apartaments.id','apartament_descriptions.id','apartament_descriptions.apartament_name','apartament_descriptions.apartament_link','apartament_photos.photo_link');
+
+        $apartamentsThirdCityAmount = $apartamentsThirdCity->get()->count();
+        $apartamentsThirdCity = $apartamentsThirdCity->limit(2)->get();
 
         $guidebooks = DB::table('guidebooks')
             ->limit(9)
             ->get();
 
         $opinionsAmount = DB::table('apartament_opinions')->count();
-
         $reservationsAmount = DB::table('reservations')->count();
+        $allApartamentsAmount = DB::table('reservations')->count();
 
         return view('pages.index', [
             'apartaments' => $apartaments,
             'apartamentsFirstCity' => $apartamentsFirstCity,
+            'apartamentsSecondCity' => $apartamentsSecondCity,
+            'apartamentsThirdCity' => $apartamentsThirdCity,
             'todayDate' => $todayDate,
             'tomorrowDate' => $tomorrowDate,
             'guidebooks' => $guidebooks,
             'opinionsAmount' => $opinionsAmount,
             'reservationsAmount' => $reservationsAmount,
+            'allApartamentsAmount' => $allApartamentsAmount,
+            'apartamentsFirstCityAmount' => $apartamentsFirstCityAmount,
+            'apartamentsSecondCityAmount' => $apartamentsSecondCityAmount,
+            'apartamentsThirdCityAmount' => $apartamentsThirdCityAmount,
         ]);
     }
 
@@ -582,19 +615,8 @@ class Apartaments extends Controller
 
         $isInFavourites = $isInFavourites->id ?? 0;
 
-        $todayDate = date("D d.m.Y");
-        $tomorrowDate = date('D d.m.Y', strtotime($todayDate . ' +1 day'));
-        if(Lang::locale() == 'pl'){
-            $todayDate = str_replace(
-                array("Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun"),
-                array("Pon", "Wto", "Śro", "Czw", "Pią", "Sob", "Nie"),
-                $todayDate);
-
-            $tomorrowDate = str_replace(
-                array("Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun"),
-                array("Pon", "Wto", "Śro", "Czw", "Pią", "Sob", "Nie"),
-                $tomorrowDate);
-        }
+        $todayDate = date("Y-m-d");
+        $tomorrowDate = date('Y-m-d', strtotime($todayDate . ' +1 day'));
 
         $personsArray = [];
         if($request->dorosli == null) $personsArray[""] = 'Dorośli';
@@ -648,7 +670,7 @@ class Apartaments extends Controller
     }
 
     //Generates view for group of apartments
-    public function showApartamentGroup($link) {
+    public function showApartamentGroup($link, Request $request) {
 
         //Find id of an apartment with $link passed to controller
         $linktoid = DB::table('apartament_groups')
@@ -677,17 +699,22 @@ class Apartaments extends Controller
         //suma wszystkich łóżek
         $beds = $groupDescription[0]->apartament_single_beds+$groupDescription[0]->apartament_double_beds;
 
-        $apartaments = DB::table("apartaments")->selectRaw('*, apartaments.id, MIN(price_value) AS min_price')
+        $apartaments = DB::table("apartaments")
+            ->selectRaw('*, apartaments.id, MIN(price_value) AS min_price, sub.opinionAmount, sub.ratingAvg')
             ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
             ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
             ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
             ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+            ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
+            '), 'sub.id_apartament', '=', 'apartaments.id')
             ->where('apartaments.group_id', $id)
             ->where('language_id', $this->language->id)
             ->groupBy('apartaments.id')
             ->paginate(12);
 
         $apartamentsAmount = $apartaments->count();
+        $maxPersons = $apartaments->where('apartament_persons', $apartaments->max('apartament_persons'))->first()->apartament_persons;
 
         $idApartments = array();
         foreach($apartaments as $apartament){
@@ -723,6 +750,21 @@ class Apartaments extends Controller
             ->limit(4)
             ->get();
 
+        $todayDate = date("Y-m-d");
+        $tomorrowDate = date('Y-m-d', strtotime($todayDate . ' +1 day'));
+
+        $personsArray = [];
+        if($request->dorosli == null) $personsArray[""] = 'Dorośli';
+        for($i=1; $i<=$maxPersons; $i++){
+            $personsArray[$i] = $i;
+        }
+
+        $kidsArray = [];
+        $kidsArray[0] = 'Dzieci';
+        for($i=1; $i<=8; $i++){
+            $kidsArray[$i] = $i;
+        }
+
         return view('pages.apartamentsGroup', [
             'apartaments' => $apartaments,
             'idApartments' => $idApartments,
@@ -735,6 +777,10 @@ class Apartaments extends Controller
             'lastSeen' => $lastSeen,
             'countedCookies' => $countedCookies,
             'seeAlso' => $seeAlso,
+            'todayDate' => $todayDate,
+            'tomorrowDate' => $tomorrowDate,
+            'personsArray' => $personsArray,
+            'kidsArray' => $kidsArray,
         ]);
 
     }
@@ -759,14 +805,8 @@ class Apartaments extends Controller
         $request->input('region') == $request->input('region') ?? '';
         $region = $request->input('region');
 
-        //Date Parsing
-        $arriveToChange = explode(' ', $request->input('przyjazd'));
-        $arriveToChange = str_replace('.', '-', $arriveToChange[1]);
-        $departureToChange = explode(' ', $request->input('powrot'));
-        $departureToChange = str_replace('.', '-', $departureToChange[1]);
-
-        $arriveDate = date("Y-m-d", strtotime($arriveToChange));
-        $returnDate = date("Y-m-d", strtotime($departureToChange));
+        $arriveDate = $request->input('t-start');
+        $returnDate = $request->input('t-end');
         $dprz = strtotime($arriveDate);
         $dpwr = strtotime($returnDate);
         $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
@@ -776,7 +816,7 @@ class Apartaments extends Controller
                 $paginate = 16;
                 break;
             case 'lista':
-                $paginate = 8;
+                $paginate = 16;
                 break;
             case 'mapa':
                 $paginate = 100;
@@ -870,7 +910,9 @@ class Apartaments extends Controller
             ->where('apartaments.apartament_persons', '>=', $request->dorosli)
             ->where('apartaments.apartament_kids', '>=', $request->dzieci)
             ->orderBy('min_price', 'ASC')
-            ->groupBy('apartaments.id');
+            ->groupBy('apartaments.id')
+            ->get();
+            //->get();
             //->groupBy('apartaments.group_id')
             //->orderBy('apartaments.group_id', 'DESC')
             //->paginate($paginate, ['apartaments.id']);
@@ -954,9 +996,37 @@ class Apartaments extends Controller
             //->groupBy('apartaments.id')
             ->groupBy('apartaments.group_id')
             //->orderBy('apartaments.group_id', 'DESC')
-            ->unionAll($withoutGroup)
+            //->unionAll($withoutGroup)
             ->get();
             //->paginate($paginate, ['apartaments.id']);
+
+        $countedObjects = 0;
+        $countedApartaments = 0;
+
+        switch($request->sort){
+            case 2: $finds = $finds->sortBy('min_price'); break;
+            case 3: $finds = $finds->sortByDesc('ratingAvg'); break;
+            case 4: $finds = $finds->sortByDesc('opinionAmount'); break;
+            case 5: case 1: default: $finds = $finds->sortBy('group_id'); break;
+        }
+
+        $findsCollection = collect();
+        foreach($finds as $find){
+            $findsCollection->push($find);
+            $countedObjects++;
+            $singleApartaments = $withoutGroup->where('group_id', $find->group_id);
+            switch($request->sort){
+                case 2: $singleApartaments = $singleApartaments->sortBy('min_price'); break;
+                case 3: $singleApartaments = $singleApartaments->sortByDesc('ratingAvg'); break;
+                case 4: $singleApartaments = $singleApartaments->sortByDesc('opinionAmount'); break;
+                case 5: case 1: default: $singleApartaments = $singleApartaments->sortBy('group_id'); break;
+            }
+            foreach($singleApartaments as $singleApartament){
+                $findsCollection->push($singleApartament);
+                $countedApartaments++;
+            }
+        }
+
 
         if($view == 'mapa'){
             $idFinds = array();
@@ -965,19 +1035,11 @@ class Apartaments extends Controller
             }
         }
 
-        $countedObjects = 0;
-        $countedApartaments = 0;
-        foreach($finds as $find){
-            if($find->group_name != NULL && $find->group_id > 0) $countedObjects++;
-            else if($find->group_id == 0){
-                $countedApartaments++;
-                $countedObjects++;
-            }
-            else $countedApartaments++;
-        }
-
-        $finds = $finds->all();
-        $finds = new Paginator($finds, $paginate);
+        //$finds = $finds->all();
+        //$finds = new Paginator($finds, $paginate);
+        $findsCollection = $findsCollection->all();
+        $findsCollection = new Paginator($findsCollection, $paginate);
+        $findsCollection->setPath($view);
 
         $black = 0;
         $gray = 0;
@@ -1111,11 +1173,13 @@ class Apartaments extends Controller
         if($favouritesAmount->isEmpty()) $favouritesAmount = 0;
         else $favouritesAmount = 1;
 
+        $sortSelectArray = array(1=>__('messages.Best fit'), 2=>__('messages.Lowest price'), 3=>__('messages.Top rated'), 4=>__('messages.Most popular'), 5=>__('messages.Closest'));
+
         return view("pages.results-".$view, [
             'region' => $region,
             'arive_date' => $arriveDate,
             'return_date' => $returnDate,
-            'finds' => $finds,
+            'finds' => $findsCollection,
             'countedObjects' => $countedObjects,
             'countedApartaments' => $countedApartaments,
             'request' => $request,
@@ -1125,6 +1189,7 @@ class Apartaments extends Controller
             'lastSeen' => $lastSeen,
             'countedCookies' => $countedCookies,
             'favouritesAmount' => $favouritesAmount,
+            'sortSelectArray' => $sortSelectArray,
         ]);
     }
 
@@ -1226,12 +1291,12 @@ class Apartaments extends Controller
 
     public function checkGroupAvailability(Request $request)
     {
+        $dorosli = $request->input('dorosli') ?? 1;
         $przyjazd = $request->input('przyjazd');
         $powrot = $request->input('powrot');
         $dprz = strtotime($przyjazd);
         $dpwr = strtotime($powrot);
         $nightsCounter = ($dpwr - $dprz) / (60 * 60 * 24);
-
         $ids = $request->input('ids');
         $is_available = FALSE;
 
@@ -1240,6 +1305,7 @@ class Apartaments extends Controller
             $availabity = DB::Table('apartaments')
                 ->leftJoin('reservations', 'apartaments.id', '=', 'reservations.apartament_id')
                 ->leftJoin('apartament_descriptions', 'apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                ->where('apartaments.apartament_persons', '>=', $dorosli)
                 ->where('apartaments.id', '=', $currentId)
                 ->whereNotIn('apartaments.id', function ($query) use ($przyjazd, $powrot) {
                     $query->select('apartaments.id')
@@ -1253,6 +1319,13 @@ class Apartaments extends Controller
                 $is_available = TRUE;
                 $id = $currentId;
                 $link = $availabity[0]->apartament_link;
+                $detailPrice = DB::Table('apartament_prices')
+                    ->select('price_value', 'date_of_price')
+                    ->where('apartament_id',$id)
+                    ->where('date_of_price','>=',$przyjazd)
+                    ->where('date_of_price','<',$powrot)
+                    ->get();
+                $servicesPrice = $availabity[0]->basic_service_price+$availabity[0]->final_cleaning_price;
                 break;
             }
         }
@@ -1264,6 +1337,7 @@ class Apartaments extends Controller
                 ->where('date_of_price', '>=', $przyjazd)
                 ->where('date_of_price', '<', $powrot)
                 ->get();
+            $totalPrice[0]->total_price = $totalPrice[0]->total_price+$servicesPrice;
             }
 
         else  {
@@ -1321,6 +1395,9 @@ class Apartaments extends Controller
             'firstArrival' => $firstArrival ?? 0,
             'firstDeparture' => $firstDeparture ?? 0,
             'link' => $link ?? '',
+            'id' => $id,
+            'detailPrice' => $detailPrice ?? 0,
+            'servicesPrice' => $servicesPrice ?? 0,
         ]);
     }
 

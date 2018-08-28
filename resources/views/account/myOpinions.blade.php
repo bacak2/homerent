@@ -33,7 +33,7 @@
             <div class="col-lg-3 col-8 pl-3 pl-md-0 pl-lg-3">
                 <span class="font-16 txt-blue" style="font-weight: bold"><a href="/apartaments/{{ $opinion->apartament_link }}">{{ $opinion->apartament_name }}</a></span><br>
                 <span class="font-12">
-                    {{ $opinion->apartament_city }} ({{ $opinion->apartament_district }})<br>
+                    {{ $opinion->apartament_city }} @if($opinion->apartament_district)({{ $opinion->apartament_district }})@endif<br>
                     {{ $opinion->apartament_address }}
                 </span>
             </div>

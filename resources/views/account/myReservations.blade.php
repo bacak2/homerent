@@ -41,7 +41,7 @@
         <div class="col-4 col-lg-2 px-3 px-md-0 mb-md-2 mb-lg-0"><img src='{{ asset("images/apartaments/$reservation->apartament_id/1.jpg") }}') style="width: 100%"></div>
         <div class="col-8 col-lg-2">
             {{ $reservation->apartament_name }}<br>
-            <b>{{ $reservation->apartament_city }}</b> ({{ $reservation->apartament_district }})<br>
+            <b>{{ $reservation->apartament_city }}</b> @if($reservation->apartament_district != null)({{ $reservation->apartament_district }})@endif<br>
             {{ $reservation->apartament_address }}
         </div>
         <div class="col-4 col-md-2 my-2 my-md-0 pl-md-0 pl-lg-3">
@@ -127,7 +127,7 @@
             <div class="col-4 col-lg-2 px-3 px-md-0 mb-md-2 mb-lg-0"><img src='{{ asset("images/apartaments/$reservation->apartament_id/1.jpg") }}') style="width: 100%; opacity : 0.30;"></div>
             <div class="col-8 col-lg-2">
                 {{ $reservation->apartament_name }}<br>
-                <b>{{ $reservation->apartament_city }}</b> ({{ $reservation->apartament_district }})<br>
+                <b>{{ $reservation->apartament_city }}</b> @if($reservation->apartament_district != null)({{ $reservation->apartament_district }})@endif<br>
                 {{ $reservation->apartament_address }}
             </div>
             <div class="col-4 col-md-2 my-2 my-md-0 pl-md-0 pl-lg-3">

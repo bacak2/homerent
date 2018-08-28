@@ -28,7 +28,7 @@ class Reservation extends Model
             Mail::send('includes.mail_pl', $apartamentsDescription[0], function($message) use ($apartamentsDescription){
                 $message->to($apartamentsDescription[0]['email'])
                     ->subject('Potwierdzenie rejestracji');
-                $message->from('kontakt@visitzakopane.pl','Homerent');
+                $message->from('kontakt@visitzakopane.pl','Otozakopane');
             });
 
             DB::table('reservations')->where('id', $reservations_id)->update(['email_sended' => 1]);

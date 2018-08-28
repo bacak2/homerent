@@ -50,7 +50,7 @@
                         <div class="col-12">
                             <label>
                                 <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }} required="required" oninvalid="setCustomValidity('Zaakceptuj regulamin')" oninput="setCustomValidity('')">
-                                {{ __('Akceptuję') }} <a href="/regulations" target="blank">regulamin</a> serwisu Homent
+                                {{ __('Akceptuję') }} <a href="/regulations" target="blank">regulamin</a> serwisu Otozakopane
                             </label>
                         </div>
                     <!--div class="col-6 pull-right" style="text-align: right;"> <a href="{{--route('password.request')--}}">Nie pamiętasz hasła?</a></div-->

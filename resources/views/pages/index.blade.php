@@ -25,11 +25,11 @@
 					<div class="gray-bar-index">
 						<form action="/search/kafle" method="GET">
 							<input type="hidden" name="region" value="">
-							<input type="hidden" name="przyjazd" value="{{$todayDate}}">
-							<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
+							<input type="hidden" name="t-start" value="{{$todayDate}}">
+							<input type="hidden" name="t-end" value="{{$tomorrowDate}}">
 							<input type="hidden" name="dzieci" value="0">
 							<input type="hidden" name="dorosli" value="1">
-							<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów dla Ciebie >">
+							<input class="hrefSubmit" type="submit" style="color: #0066CC" value="Pozostałe apartamenty dla Ciebie >">
 						</form>
 					</div>
 				</div>
@@ -76,13 +76,13 @@
 			<div class="col-12 col-sm-6 col-md-4">
 				<form action="/search/kafle" method="GET">
 					<input type="hidden" name="region" value="Zakopane">
-					<input type="hidden" name="przyjazd" value="{{$todayDate}}">
-					<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
+					<input type="hidden" name="t-start" value="{{$todayDate}}">
+					<input type="hidden" name="t-end" value="{{$tomorrowDate}}">
 					<input type="hidden" name="dzieci" value="0">
 					<input type="hidden" name="dorosli" value="1">
 					<div class="mb-3" style="position: relative">
 						<input class="w-100" type="image" src="{{asset('images/main/guidebook.png')}}" alt="Zakopane">
-						<div class="guidebooks-index-page">Zakopane - 56 apartamentów</div>
+						<div class="guidebooks-index-page">Zakopane - {{$apartamentsFirstCityAmount}} {{trans_choice('messages.apartaments', $apartamentsFirstCityAmount)}}</div>
 					</div>
 
 					<h4 class="h4-index">Polecamy w Zakopanem</h4>
@@ -98,24 +98,24 @@
 						</div>
 					@endforeach
 					<div class="gray-bar-index text-center">
-						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów w Zakopanem >">
+						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="{{$apartamentsFirstCityAmount}} {{trans_choice('messages.other apartaments', $apartamentsFirstCityAmount)}} w Zakopanem >">
 					</div>
 				</form>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4">
 				<form action="/search/kafle" method="GET">
 					<input type="hidden" name="region" value="Kościelisko">
-					<input type="hidden" name="przyjazd" value="{{$todayDate}}">
-					<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
+					<input type="hidden" name="t-start" value="{{$todayDate}}">
+					<input type="hidden" name="t-end" value="{{$tomorrowDate}}">
 					<input type="hidden" name="dzieci" value="0">
 					<input type="hidden" name="dorosli" value="1">
 					<div class="mb-3" style="position: relative">
 						<input class="w-100" type="image" src="{{asset('images/main/guidebook.png')}}" alt="Submit">
-						<div class="guidebooks-index-page">Kościelisko - 56 apartamentów</div>
+						<div class="guidebooks-index-page">Kościelisko - {{$apartamentsSecondCityAmount}} {{trans_choice('messages.apartaments', $apartamentsSecondCityAmount)}}</div>
 					</div>
 
 					<h4 class="h4-index">Polecamy w Kościelisku</h4>
-					@foreach ($apartamentsFirstCity as $apartament)
+					@foreach ($apartamentsSecondCity as $apartament)
 						<div style="position: relative">
 							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
 								<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
@@ -127,24 +127,24 @@
 						</div>
 					@endforeach
 					<div class="gray-bar-index text-center">
-						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów w Kościelisku >">
+						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="{{$apartamentsSecondCityAmount}} {{trans_choice('messages.other apartaments', $apartamentsSecondCityAmount)}} w Kościelisku >">
 					</div>
 				</form>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4">
 				<form action="/search/kafle" method="GET">
 					<input type="hidden" name="region" value="Witów">
-					<input type="hidden" name="przyjazd" value="{{$todayDate}}">
-					<input type="hidden" name="powrot" value="{{$tomorrowDate}}">
+					<input type="hidden" name="t-start" value="{{$todayDate}}">
+					<input type="hidden" name="t-end" value="{{$tomorrowDate}}">
 					<input type="hidden" name="dzieci" value="0">
 					<input type="hidden" name="dorosli" value="1">
 					<div class="mb-3" style="position: relative">
 						<input class="w-100" type="image" src="{{asset('images/main/guidebook.png')}}" alt="Submit">
-						<div class="guidebooks-index-page">Witów - 56 apartamentów</div>
+						<div class="guidebooks-index-page">Witów - {{$apartamentsThirdCityAmount}} {{trans_choice('messages.apartaments', $apartamentsThirdCityAmount)}}</div>
 					</div>
 
 					<h4 class="h4-index">Polecamy w Witowie</h4>
-					@foreach ($apartamentsFirstCity as $apartament)
+					@foreach ($apartamentsThirdCity as $apartament)
 						<div style="position: relative">
 							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
 								<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
@@ -156,7 +156,7 @@
 						</div>
 					@endforeach
 					<div class="gray-bar-index text-center">
-						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="235 innych apartamentów w Witowie >">
+						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="{{$apartamentsThirdCityAmount}} {{trans_choice('messages.other apartaments', $apartamentsThirdCityAmount)}} w Witowie >">
 					</div>
 				</form>
 			</div>

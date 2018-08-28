@@ -19,7 +19,6 @@
 	<link rel="stylesheet" href="{{ asset('vendor/easy-autocomplete/dist/easy-autocomplete.themes.min.css') }}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css">
-
 	{{-- JS --}}
 	<script type="text/javascript" src="{{ asset('vendor/moment/moment.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>

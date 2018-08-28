@@ -143,7 +143,7 @@
                         </div>
                         <div class="col-8">
                             <div class="txt-blue"><b>{{ $apartament->descriptions[0]->apartament_name}}</b></div>
-                            <div>{{ $apartament->apartament_city}}({{ $apartament->apartament_district }})</div>
+                            <div>{{ $apartament->apartament_city}}@if($apartament->apartament_district != null)({{ $apartament->apartament_district }})@endif</div>
                             <div class="mb-2">{{ $apartament->apartament_address }}</div>
                             <hr class="desktop-none">
                         </div>

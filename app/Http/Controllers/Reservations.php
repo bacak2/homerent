@@ -15,6 +15,7 @@ use Auth;
 use Crypt;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Redirect;
 
 class Reservations extends Controller
 {
@@ -37,6 +38,8 @@ class Reservations extends Controller
         $powrotDb = explode(" ", $request->powrot);
         $powrotDb = $powrotDb[1] ?? $powrotDb[0];
         $request->powrot = $powrotDb = date("Y-m-d", strtotime($powrotDb));
+        if(isset($_GET['t-start'])) $request->przyjazd = $przyjazdDb = $_GET['t-start'];
+        if(isset($_GET['t-end'])) $request->powrot = $powrotDb = $_GET['t-end'];
         $dprz = strtotime($przyjazdDb);
         $dpwr = strtotime($powrotDb);
         $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
@@ -120,7 +123,13 @@ class Reservations extends Controller
         $availability = $reservation->checkAvailabity($request->id, $request->przyjazdDb, $request->powrotDb);
 
         if($availability == null){
-            return redirect()->route('reservations.unavailable', [$request]);
+            return redirect()->route('reservations.unavailable', [
+                'id' => $request->id,
+                't-start' => $request->przyjazdDb,
+                't-end' => $request->powrotDb,
+                'dorosli' => $request->dorosli,
+                'dzieci' => $request->dzieci,
+            ]);
         }
 
         $filtered = array();
@@ -237,7 +246,13 @@ class Reservations extends Controller
         $availability = $reservation->checkAvailabity($request->id, $request->przyjazdDb, $request->powrotDb);
 
         if($availability == null){
-            return redirect()->route('reservations.unavailable', [$request]);
+            return redirect()->route('reservations.unavailable', [
+                'id' => $request->id,
+                't-start' => $request->przyjazdDb,
+                't-end' => $request->powrotDb,
+                'dorosli' => $request->dorosli,
+                'dzieci' => $request->dzieci,
+            ]);
         }
 
         $request->phone = "$request->prefix"." $request->phone";
@@ -479,14 +494,13 @@ class Reservations extends Controller
 
         $apartament = DB::table('apartament_descriptions')
             ->leftJoin('apartaments','apartaments.id', '=', 'apartament_descriptions.apartament_id')
-            ->where('apartament_link', $request->link)
+            ->where('apartaments.id', $request->id)
             ->where('language_id', 1)
             ->first();
 
         $region = $apartament->apartament_city;
-        $arriveDate = $request->przyjazdDb;
-        $returnDate = $request->powrotDb;
-        $request->przyjazd = substr($request->przyjazd, 0, 13);
+        $arriveDate = $_GET['t-start'];
+        $returnDate = $_GET['t-end'];
 
         $apartmentsSimilar = DB::table("apartaments")
             ->selectRaw('lastReservation.lastReservationDate, sub.opinionAmount, sub.ratingAvg, apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')

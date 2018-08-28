@@ -998,7 +998,7 @@ class Account extends Controller
             Mail::send('includes.mail_send-to-friends', ['test'=>$links], function($message) use ($email){
                 $message->to($email)
                     ->subject('Linki do ulubionych apartamentów');
-                $message->from('kontakt@visitzakopane.pl','Homerent');
+                $message->from('kontakt@visitzakopane.pl','Otozakopane');
             });
         }
 

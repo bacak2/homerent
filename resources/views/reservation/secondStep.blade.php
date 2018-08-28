@@ -578,7 +578,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-5 not-full-width mx-0">
+                <div class="row mt-5 not-full-width mx-0" id="paymentMethod">
                     <h2 class="h2-reservation">{{ __('messages.Method of payment') }}</h2>
                     <div class="col-lg-12 col-sm-12 pb-3 mb-3" style="border-bottom: dashed">
                         <div class="row reservation-payment-method pt-2 pb-4 mb-3">
@@ -621,11 +621,11 @@
                         </div>
                         <div class="row mb-4 pt-4 pt-md-0">
                             <input id="accept1" name="accept1" type="checkbox" class="required">
-                            <label for="accept1" class="inline-label">{{ __('messages.I accept the terms of use') }} Homent</label>
+                            <label for="accept1" class="inline-label">{{ __('messages.I accept the terms of use') }} Otozakopane</label>
                         </div>
                         <div class="row mb-4">
                             <input id="accept2" name="accept2" type="checkbox">
-                            <label for="accept2" class="inline-label">{{ __('messages.I would like to receive information about promotions from') }} Homent</label>
+                            <label for="accept2" class="inline-label">{{ __('messages.I would like to receive information about promotions from') }} Otozakopane</label>
                         </div>
                     </div>
                 </div>
@@ -639,7 +639,7 @@
                         </div>
                         <div class="col-8">
                             <div class="txt-blue"><b>{{ $apartament->descriptions[0]->apartament_name}}</b></div>
-                            <div>{{ $apartament->apartament_city}}({{ $apartament->apartament_district }})</div>
+                            <div>{{ $apartament->apartament_city}}@if($apartament->apartament_district != null)({{ $apartament->apartament_district }})@endif</div>
                             <div class="mb-2">{{ $apartament->apartament_address }}</div>
                             <hr class="desktop-none">
                         </div>
@@ -669,7 +669,7 @@
                                 {{--trans_choice('messages.adult persons',$request->dorosli)}}, {{$request->dzieci}} dzieci--}}
                             </ul>
                         @endforeach
-                        <div class="row mb-2"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{ number_format($request->payment_basic_service, 2, ',', ' ') }}  PLN</span></div></div>
+                        {{--<div class="row mb-2"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{ number_format($request->payment_basic_service, 2, ',', ' ') }}  PLN</span></div></div>--}}
                         <div class="row mb-2" style="font-size: 18px"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{ number_format($request->fullPrice, 2, ',', ' ') }}  PLN</b></span></div></div>
                     </div>
                 </div>
@@ -768,7 +768,7 @@
                     return false;
                 }
                 else {
-                    if (checkSame() || $("input[name='dontWantAccount']").is(":checked") @auth|| 1==1 @endauth ){
+                    if (checkSame() == true || $("input[name='dontWantAccount']").is(":checked") @auth|| 1==1 @endauth ){
                         if($('#accept0').is(":checked") && $('#accept1').is(":checked")){
                             if($('input[type=radio]:checked').length > 0) isValid = true;
                             else{
@@ -818,7 +818,6 @@
                 $('div#notAvDescription').html('<div>Najpierw wybierz sposób zapłaty</div>');
             }
 
-            console.log(isValid);
         });
 
         $("#slider-range").slider({
@@ -891,14 +890,17 @@
             // Check the initial Poistion of the Sticky Header
             var stickyHeaderTop = $('#stickyheader').offset().top;
             var stickyHeaderRight = $('#stickyheader').offset().left;
+            var paymentMethodTop = $('#paymentMethod').offset().top;
 
             $(window).scroll(function(){
-                if( $(window).scrollTop() > stickyHeaderTop ) {
+                if( $(window).scrollTop() > stickyHeaderTop && $(window).scrollTop() < paymentMethodTop) {
                     $('#stickyheader').css({position: 'fixed', top: '0px', left: stickyHeaderRight});
                 } else {
-                    $('#stickyheader').css({position: 'static', top: '0px', left: stickyHeaderRight});
+                    if($(window).scrollTop() < stickyHeaderTop) $('#stickyheader').css({position: 'static', top: '0px', left: stickyHeaderRight});
+                    else $('#stickyheader').css({position: 'absolute', top: paymentMethodTop, left: stickyHeaderRight});
                 }
             });
+
         });
 
         $(function(){

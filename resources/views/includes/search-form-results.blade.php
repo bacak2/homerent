@@ -1,31 +1,23 @@
 <div class="col">
     <form class="wyszukiwarka" action="{{$request->getPathInfo()}}" method="GET" >
     <div class="form-row">
-      <div class="col-lg-3 mb-2 mb-sm-0">
+      <div class="col-lg-3 mb-2 mb-lg-0">
         <input type="text" class="form-control" id="region" name="region" placeholder="{{ __('messages.forexample')}}" value="{{ $_GET['region'] ?? '' }}">
       </div>
-      <div class="form-inline col-lg-5 form-row pick-date py-sm-3 py-lg-0 pr-md-0 pr-lg-0">
-          <div class="col-sm-6 mb-2 mb-sm-0">
-              <div class="input-group mb-2 mb-sm-0">
-                  <div class="input-group-addon"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i></div>
-                  <input type="text" class="form-control" id="przyjazd" name="przyjazd" placeholder="{{ __('messages.arrive')}}" value="{{ $_GET['przyjazd'] ?? ''}}" required style="margin-right: 1px">
-              </div>
-          </div>
-          <div class="col-sm-6 mb-2 mb-sm-0 pr-md-0 pr-lg-2">
-              <div class="input-group mb-2 mb-sm-0">
-                  <div class="input-group-addon"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i></div>
-                  <input type="text" class="form-control" id="powrot" name="powrot" placeholder="{{ __('messages.return')}}"  value="{{ $_GET['powrot'] ?? ''}}" required style="margin-right: 1px">
-              </div>
+      <div class="form-inline col-lg-5 px-1 mb-2 mb-lg-0">
+          <div class="w-100 t-datepicker">
+              <div class="t-check-in" style="background-color: #fff"></div>
+              <div class="t-check-out" style="background-color: #fff"></div>
           </div>
       </div>
       <div class="col-12 col-sm">
-          <div class="input-group mb-2 mb-sm-0">
+          <div class="input-group mb-2 mb-lg-0 h-custom-search">
             <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}"><i class="fa fa-lg fa-male" aria-hidden="true"></i></div>
             {{ Form::select('dorosli', array(1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8), $request->dorosli, array('class'=>'form-control'))}}
           </div>
       </div>
       <div class="col-12 col-sm">
-        <div class="input-group mb-2 mb-sm-0">
+        <div class="input-group mb-2 mb-lg-0 h-custom-search">
           <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Kids') }}"><i class="fa fa-child" aria-hidden="true"></i></div>
             {{ Form::select('dzieci', array(0=>0, 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8), $request->dzieci, array('class'=>'form-control'))}}
         </div>

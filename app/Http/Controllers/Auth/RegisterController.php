@@ -107,7 +107,7 @@ class RegisterController extends Controller
 
         //już jest taki user
         else{
-            return response()->json(['message' => 'Konto Homerent powiązane z tym kontem Facebook już istnieje']);
+            return response()->json(['message' => 'Konto Otozakopane powiązane z tym kontem Facebook już istnieje']);
         }
     }
 }

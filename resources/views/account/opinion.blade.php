@@ -376,15 +376,15 @@
     <div class="col-lg-7 col-sm-12 pb-3 mt-4" style="border-bottom: black 3px dashed">
         <div class="row mb-4 pb-3 pb-md-0 pb-lg-3">
             <input id="accept1" name="accept1" type="checkbox" required>
-            <label for="accept1" class="inline-label">{{ __('* Disclamer o tym, że to mają być recenzje oparte na doświadczeniach - treść do ułożenia.') }} Homent</label>
+            <label for="accept1" class="inline-label">{{ __('* Disclamer o tym, że to mają być recenzje oparte na doświadczeniach - treść do ułożenia.') }} Otozakopane</label>
         </div>
         <div class="row mb-4">
             <input id="accept2" name="accept2" type="checkbox">
-            <label for="accept2" class="inline-label">{{ __('messages.Opublikuj na mojej tablicy w Facebook') }} Homent</label>
+            <label for="accept2" class="inline-label">{{ __('messages.Opublikuj na mojej tablicy w Facebook') }} Otozakopane</label>
         </div>
         <div class="row mb-4">
             <input id="anonymously" name="anonymously" type="checkbox">
-            <label for="anonymously" class="inline-label">{{ __('messages.Chcę wystawić recenzję w serwisie nazwa_serwisu.pl anonimowo.') }} Homent</label>
+            <label for="anonymously" class="inline-label">{{ __('messages.Chcę wystawić recenzję w serwisie nazwa_serwisu.pl anonimowo.') }} Otozakopane</label>
             <span class="mt-4 mt-md-2" style="margin-left: 16px; font-size: 10px; color: darkgrey;">
                 Nie publikujemy nigdzie nazwisk osób wystawiających recenzje. Podajemy jedynie imiona oraz kraj/miasto pochodzenia. Takie informacje są bardziej wiarygodne dla innych podróżnych. Jeśli jednak nie chcesz ich publikować, oznacz tę opcję.
             </span>

@@ -547,7 +547,7 @@
                 </div>
             </span>
             @endguest
-            <div class="row mt-5">
+            <div class="row mt-5" id="messageForOwner">
                 <div class="col-lg-12 col-sm-12">
                     <h2 class="h2-reservation">{{ __('messages.Message for the owner') }}</h2>
                     <div class="form-group row">
@@ -589,7 +589,7 @@
                     </div>
                     <div class="col-8">
                                 <div class="txt-blue"><b>{{ $apartament->descriptions[0]->apartament_name}}</b></div>
-                                <div>{{ $apartament->apartament_city}}({{ $apartament->apartament_district }})</div>
+                                <div>{{ $apartament->apartament_city}}@if($apartament->apartament_district != null)({{ $apartament->apartament_district }})@endif</div>
                                 <div class="mb-2">{{ $apartament->apartament_address }}</div>
                                 <hr class="desktop-none">
                     </div>
@@ -673,7 +673,7 @@
                     location.reload();
                 },
                 error: function() {
-                    console.log("Error in connection with controller");
+                    console.log("Error in connection with where  laraveller");
                 },
             });
         }
@@ -708,14 +708,8 @@
                     return false;
                 }
                 else {
-                    if (checkSame() || $("input[name='dontWantAccount']").is(":checked") @auth|| 1==1 @endauth ){
-                        if($('#accept0').is(":checked") && $('#accept1').is(":checked")){
-                            if($('input[type=radio]:checked').length > 0) isValid = true;
-                            else{
-                                isValid = false;
-                                return false;
-                            }
-                        }
+                    if (checkSame() == true || $("input[name='dontWantAccount']").is(":checked") @auth|| 1==1 @endauth ){
+                        if($('input[type=radio]:checked').length > 0) isValid = true;
                         else
                         {
                             isValid = false;
@@ -752,6 +746,8 @@
                 $('#nextAv').text('Zamów');
                 $('div#notAvDescription').html('<div>Najpierw wybierz sposób zapłaty</div>');
             }
+
+            console.log(isValid);
         });
 
         $("#slider-range").slider({
@@ -824,12 +820,14 @@
             // Check the initial Poistion of the Sticky Header
             var stickyHeaderTop = $('#stickyheader').offset().top;
             var stickyHeaderRight = $('#stickyheader').offset().left;
+            var messageForOwnerTop = $('#messageForOwner').offset().top -50;
 
             $(window).scroll(function(){
-                if( $(window).scrollTop() > stickyHeaderTop ) {
+                if( $(window).scrollTop() > stickyHeaderTop && $(window).scrollTop() < messageForOwnerTop) {
                     $('#stickyheader').css({position: 'fixed', top: '0px', left: stickyHeaderRight});
                 } else {
-                    $('#stickyheader').css({position: 'static', top: '0px', left: stickyHeaderRight});
+                    if($(window).scrollTop() < stickyHeaderTop) $('#stickyheader').css({position: 'static', top: '0px', left: stickyHeaderRight});
+                    else $('#stickyheader').css({position: 'absolute', top: messageForOwnerTop, left: stickyHeaderRight});
                 }
             });
         });

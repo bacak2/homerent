@@ -14,7 +14,7 @@
 </script>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;" >
       <div class="container px-0 px-md-3">
-        <a class="navbar-brand" href="{{ url('/') }}">Homent</a>
+        <a class="navbar-brand" href="{{ url('/') }}">Otozakopane</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenuTop" aria-controls="navMenuTop" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -85,7 +85,7 @@
                                           <div class="col-8 row" style="margin-right: -20px">
                                               <div class="col-12 font-13 txt-blue"><a href="/apartaments/{{$favourite->apartament_link}}">{{$favourite->apartament_name}}</a></div>
                                               <div class="col-12 font-11 bold">{{$favourite->apartament_address}}</div>
-                                              <div class="col-12 font-11">{{$favourite->apartament_address_2}}</div>
+                                              <div class="col-12 font-11"> {{$favourite->apartament_address_2}}</div>
                                           </div>
                                           <div class=""><img src="{{ asset("images/favourites/heart.png") }}"></div>
                                       </div>
