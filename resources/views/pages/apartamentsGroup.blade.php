@@ -88,9 +88,9 @@
 		</div>
 	</div>
 	@endhandheld
-	<div class="row back" style="background-image: url( {{ asset('images/apartaments/'.$groupDescription[0]->id.'/main.jpg') }} );">
+	<div class="row back" style="background-image: url( {{ asset('images/apartaments/'.$groupDescription[0]->id.'/main_big.jpg') }} );">
 		<div class="container">
-			<div class="row apartament-info" >
+			<div class="row apartament-info">
 				<div class="col-md-8">
 					<div class="col transparent mt-2 mb-2 pb-1 pt-1 ">
 						<h1 style="font-size: 26px"><b>{{  $groupDescription[0]->group_name or '' }}</b><span class="pull-right">{{$apartamentsAmount}} {{trans_choice('messages.nrApartmentsInKomplex', $apartamentsAmount)}}</span></h1>
@@ -310,7 +310,7 @@
 									<div class="apartament img-group-detail" style="background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
 										<div class="map-see-more mobile-none">
 											<div class="container py-1">
-												<a href="#" style="width: 100%; color: black" class="btn btn-primary">{{ __("messages.book") }}</a>
+												<a href="/apartaments/{{ $apartament->apartament_link }}" style="width: 100%; color: black" class="btn btn-primary">{{ __("messages.book") }}</a>
 											</div>
 											<div class="container py-1">
 												<a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-see-more" style="width: 100%; color: black">{{ __("messages.see details") }}</a>
@@ -320,8 +320,7 @@
 											<a style=" display: inline-block; width: 100%; height: 100%" href="/apartaments/{{ $apartament->apartament_link }}"></a>
 										</div>
 									</div>
-									<div class="add-to-favourities"><a href="#"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Add to favorites') }}" src='{{ asset("images/results/heart.png") }}'></a></div>
-
+									<div class="add-to-favourities"><span onClick="addToFavourites({{$apartament->id}}, {{Auth::user()->id ?? 0}})"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Add to favorites') }}" src='{{ asset("images/results/heart.png") }}'></span></div>
 									<div class="map-description-top">{{ $apartament->min_price }} PLN</div>
 									<div class="map-description-bottom">{{ __("messages.Breakfast included") }}</div>
 									<div class="description-bottom-right d-none d-sm-inline-block">
@@ -355,6 +354,7 @@
 									<span style="font-size: 17px" itemprop="name">{{ $apartament->apartament_name }}</span>
 									<span style="display:block; font-size: 11px">{{ $apartament->apartament_district }}</span>
 									<span style="display:block; font-size: 11px" itemprop="streetAddress">{{ $apartament->apartament_address }}</span>
+									@if($apartament->apartament_district == null)<span style="display:block; font-size: 11px">&nbsp;</span>@endif
 									<div class="mt-2">
 										<div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.people') }}" style="background-image: url('{{ asset("images/results/person.png") }}');"> <span>{{ $apartament->apartament_persons }}</span> </div>
 										<div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.single beds') }}" style="background-image: url('{{ asset("images/results/doubleBed.png") }}');"> <span>{{ $apartament->apartament_double_beds }}</span> </div>
@@ -382,19 +382,50 @@
 			</div>
 				<span id="similarApartments" class="mobile-none" style="width: 100%">
 				@if($countedCookies > 0)
-						<h2 class="pb-2" style="margin-top: 40px; font-size: 26px">{{__('Osoby, które oglądały ten obiekt oglądały również')}}</h2>
+						<h2 class="pb-2 bold" style="margin-top: 40px; font-size: 26px">{{__('Osoby, które oglądały ten obiekt oglądały również')}}</h2>
 						@include('includes.see-also-apartment')
 					@endif
 			</span>
 				<span class="mobile-none" style="width: 100%">
 				@if($countedCookies > 0)
-						<h2 class="pb-2" style="margin-top: 40px; font-size: 26px">{{__('messages.lastSeen')}}</h2>
+						<h2 class="pb-2 bold" style="margin-top: 40px; font-size: 26px">{{__('messages.lastSeen')}}</h2>
 						@include('includes.last-seen-apartment-detail')
 					@endif
 			</span>
 		</div>
 
 	</div>
+
+	<div id="send-news">
+		<span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br>
+		<div class="row">
+			<div class="col-2"><span class="font-14">Link:</span></div>
+			<div class="col-10">
+				<ul class="font-13">
+					<li>
+						<span id="link">{{Request::url()}}</span>
+						<span class="txt-blue copy-to-clipboard" onclick="copyToClipboard('#link')">Skopiuj</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<label for="emails2">Adresy e-mail:</label>
+		<input id="emails2" name="emails2" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)">
+		<input id="links" name="links" type="hidden" value="{{Request::url()}}">
+		<hr>
+		<div style="text-align: center;">
+			<button id="send-mail-with-news" class="btn btn-primary">Wyślij</button>
+			<button class="btn btn-default close-send-news-friends">Anuluj</button>
+		</div>
+		<div id="close-send-news" class="close-send-news-friends">x</div>
+	</div>
+
+	<div id="confirm-send-news-friends" class="text-center">
+		<br><span style="font-size: 24px; font-weight: bold">Wiadomość e-mail została wysłana</span><br><br><br>
+		<button class="btn btn-default close-confirm-news">OK</button>
+	</div>
+
 	<script type="text/javascript">
         $(document).ready(function(){
             $('.t-datepicker').tDatePicker({
@@ -413,8 +444,8 @@
         	});
 
 			@if(isset($_GET['t-start']) && isset($_GET['t-end']) && isset($request->dorosli))
-                dateInc = $('input[name=t-start]').val();
-            	dateOut = $('input[name=t-end]').val();
+                dateInc = '{{$_GET['t-start'] ?? ''}}';
+            	dateOut = '{{$_GET['t-end'] ?? ''}}';
             	ajaxConenction();
 			@endif
         });
@@ -525,7 +556,11 @@
             ajaxConenction();
         });
 	</script>
-		<script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language=PL" type="text/javascript"></script>
+	@if(\App::environment('production'))
+	<script src="https://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language=PL" type="text/javascript"></script>
+	@else
+	<script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language=PL" type="text/javascript"></script>
+	@endif
 		<script type="text/javascript">
 
             var mapa;
@@ -646,5 +681,111 @@
                 });
 			</script>
 			@endhandheld
+
+	<script>
+        $(".send-news-friends").click(function() {
+            $("#send-news").show();
+            $("#send-to").hide();
+            if($("#truncate-favourites").css("display") != "none") $("#truncate-favourites").hide();
+        });
+
+        $(".close-send-news-friends").click(function() {
+            $("#send-news").hide();
+        });
+
+        $(".close-confirm-news").click(function() {
+            $("#confirm-send-news-friends").hide();
+        });
+
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+
+        $("#send-mail-with-news").on('click', function(){
+            sendMailWithNews();
+        });
+
+        function sendMailWithNews(){
+
+            mailWithNewsSended();
+
+            $.ajax({
+                type: "GET",
+                url: '/send-news-to-friends',
+                dataType : 'json',
+                data: {
+                    emails2: $("#emails2").val(),
+                    link: $("#link").val(),
+                },
+                success: function() {
+                    //
+                },
+                error: function(data) {
+                    console.log(data);
+                },
+            });
+        }
+
+        function mailWithNewsSended(){
+            $('#send-news').hide();
+            $('#confirm-send-news-friends').show();
+        }
+
+        function addToFavourites(apartamentId, userId){
+
+            if(userId == 0) alert("Aby dodać apartament do ulubionych musisz się zalogować");
+
+            else{
+                $.ajax({
+                    type: "GET",
+                    url: '/addToFavourites/'+apartamentId+'/'+userId,
+                    dataType : 'json',
+                    data: {
+                        apartamentId: apartamentId,
+                        userId: userId,
+                    },
+                    success: function(responseMessage) {
+
+                        $("#deleteApartamentFromFavourites").show();
+                        $("#addApartamentToFavourites").hide();
+
+                        if(responseMessage[0] == 1) {
+                            var htmlForeach = '';
+                            var htmlForeach2 = '';
+                            var foreachLinks = '';
+
+                            for (var i = 0; i < responseMessage[2].length; i++) {
+                                htmlForeach += '<div class="row"> <div class="col-3" style="background-image: url(\'{{ url('/') }}/images/apartaments/' + responseMessage[2][i].id + '/main.jpg\'); background-size: cover; position: relative; margin-bottom: 0px; margin-left: 15px; padding-left: 0px; max-height: 52px;"></div> <div class="col-8 row" style="margin-right: -20px"> <div class="col-12 font-13 txt-blue"><a href="/apartaments/' + responseMessage[2][i].apartament_link + '">' + responseMessage[2][i].apartament_name + '</a></div> <div class="col-12 font-11 bold">' + responseMessage[2][i].apartament_address + '</div> <div class="col-12 font-11">' + responseMessage[2][i].apartament_address_2 + '</div> </div> <div class=""><img src="{{ asset("images/favourites/heart.png") }}"></div> </div> <hr>';
+                            }
+
+                            html = $('<span id="favourites-nav" onclick="$(\'#favourites-bar\').toggle();" class="nav-link">{{ __('messages.My favourites') }} (' + responseMessage[1] + ')</span> <div id="favourites-bar" style="border-bottom: 1px solid black; background-image: url({{ asset('images/account/favouritesPopup.png') }}); background-repeat: no-repeat; background-position: left top; display: none; position: absolute; left: 8px; width: 320px; z-index: 2000;"> <div class="p-3 pt-4"> <span class="bold" style="font-size: 24px">Ulubione (' + responseMessage[1] + ')</span> <a class="font-11" onclick="clearFavouritesPopup()" href="#">Wyczyść listę</a> ' + htmlForeach + '<a class="btn btn-black px-2" href="{{route('myFavourites')}}">Wszystkie (' + responseMessage[1] + ')</a> <a class="btn btn-black px-2" href="{{route('myFavouritesCompare')}}">Porównaj</a> <button class="send-to-friends btn btn-black px-2" onclick="$(\'#favourites-bar\').hide(); $(\'#send-to\').show();">Wyślij</button> </div> </div>');
+                            $('#fav-nav').html('');
+                            html.appendTo('#fav-nav');
+
+                            for (var i = 0; i < responseMessage[3].length; i++) {
+                                htmlForeach2 += '<li> <span id="link'+responseMessage[3][i].id+'">{{ url('/') }}/pl/apartaments/'+responseMessage[3][i].apartament_link+'</span> <span class="txt-blue copy-to-clipboard" onclick="copyToClipboard(\'#link'+responseMessage[3][i].id+'\')">Skopiuj</span> </li>';
+                                foreachLinks += '{{ url('/') }}/pl/apartaments/'+responseMessage[3][i].apartament_link+',';
+                            }
+
+                            html2 = $('<span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br><div class="row"><div class="col-2"><span class="font-14">Linki:</span></div><div class="col-10"><ul class="font-13">'+ htmlForeach2 +'</ul></div></div><label for="emails">Adresy e-mail:</label><input id="emails" name="emails" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)"><input id="links" name="links" type="hidden" value="'+foreachLinks+'"><hr><button onclick="sendMailToFriends()" class="btn btn-default">Wyślij</button><button onClick="closeSendTo()" class="btn btn-default">Anuluj</button><div onClick="closeSendTo()" id="close-send-to" class="close-send-to">x</div>');
+                            $('#send-to').html('');
+                            html2.appendTo('#send-to');
+                        }
+
+                        if(responseMessage[0] == 1) responseAlert = "Apartament dodano do ulubionych";
+                        else responseAlert = "Apartament znajduje się już w ulubionych";
+                        alert(responseAlert);
+                    },
+                    error: function() {
+                        console.log( "Error in connection with controller");
+                    },
+                });
+            }
+        }
+	</script>
 
 @endsection

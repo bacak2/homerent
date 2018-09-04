@@ -83,11 +83,11 @@
                 <div class="col-lg-7 col-sm-6 pl-2">
                     <div class="row">
                         <div class="col-4 col-md-3 pr-0 pr-md-3">{{ __('messages.arrival') }}:</div>
-                        <div class="col-8 col-md-9 pl-0 pl-md-3"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($request->przyjazd))) }} (po 15:00)</b></div>
+                        <div class="col-8 col-md-9 pl-0 pl-md-3"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($_GET['t-start']))) }} (po 15:00)</b></div>
                     </div>
                     <div class="row my-2 my-md-0">
                         <div class="col-4 col-md-3 pr-0 pr-md-3">{{ __('messages.departure') }}:</div>
-                        <div class="col-8 col-md-9 pl-0 pl-md-3"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($request->powrot))) }}  (przed 12:00)</b></div>
+                        <div class="col-8 col-md-9 pl-0 pl-md-3"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($_GET['t-end']))) }}  (przed 12:00)</b></div>
                     </div>
                     <div class="row mb-2 mb-md-0">
                         <div class="col-4 col-md-5 col-lg-3 pr-0 pr-md-3">{{ ucfirst(__('messages.number of nights')) }}:</div>

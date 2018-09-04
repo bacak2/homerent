@@ -63,7 +63,7 @@
                 </div>
                 <div class="row"><b>Dane: </b> VISITzakopane.pl, ul. Tetmajera 35 lok. 12, 34-500 Zakopane, Poland</div>
                 <div class="row"><b>Tytuł przelewu: </b> Rezerwacja nr {{$reservation[0]->id}}</div>
-                <div class="row"><b>Kwota: </b> całość {{$reservation[0]->payment_to_pay}} PLN lub zaliczka 100,00 PLN</div>
+                <div class="row"><b>Kwota: </b> całość {{$reservation[0]->payment_to_pay}} PLN lub zaliczka 100.00 PLN</div>
             </div>
         </div>
         @endif
@@ -85,7 +85,7 @@
                         <div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
                             <img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/favourites/Pdf_file.png')}}">
                         </div>
-                        <a href="{{route('aboutUs.printPdf', 1)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">Zapisz</a>
+                        <a href="{{route('reservations.printPdf', $reservation[0]->id)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">Zapisz</a>
                     </div>
                 </span>
             </div>
@@ -404,7 +404,41 @@
         </div>
     </div>
 </div>
+
+    <div id="send-news">
+        <span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br>
+        <div class="row">
+            <div class="col-2"><span class="font-14">Link:</span></div>
+            <div class="col-10">
+                <ul class="font-13">
+                    <li>
+                        <span id="link">{{route('reservations.confirmation', ['idReservation'=>$reservation[0]->id])}}</span>
+                        <span class="txt-blue copy-to-clipboard" onclick="copyToClipboard('#link')">Skopiuj</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <label for="emails2">Adresy e-mail:</label>
+        <input id="emails2" name="emails2" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)">
+        <input id="links" name="links" type="hidden" value="{{route('reservations.confirmation', ['idReservation'=>$reservation[0]->id])}}">
+        <hr>
+        <div style="text-align: center;">
+            <button id="send-mail-with-news" class="btn btn-primary">Wyślij</button>
+            <button class="btn btn-default close-send-news-friends">Anuluj</button>
+        </div>
+        <div id="close-send-news" class="close-send-news-friends">x</div>
+    </div>
+
+    <div id="confirm-send-news-friends" class="text-center">
+        <br><span style="font-size: 24px; font-weight: bold">Wiadomość e-mail została wysłana</span><br><br><br>
+        <button class="btn btn-default close-confirm-news">OK</button>
+    </div>
+@if(\App::environment('production'))
+<script src="https://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language={{$language}}" type="text/javascript"></script>
+@else
 <script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language={{$language}}" type="text/javascript"></script>
+@endif
 <script type="text/javascript">
 
     var mapa;
@@ -550,4 +584,58 @@
     }
 </script>
 
-@endsection()
+    <script>
+        $(".send-news-friends").click(function() {
+            $("#send-news").show();
+            $("#send-to").hide();
+            if($("#truncate-favourites").css("display") != "none") $("#truncate-favourites").hide();
+        });
+
+        $(".close-send-news-friends").click(function() {
+            $("#send-news").hide();
+        });
+
+        $(".close-confirm-news").click(function() {
+            $("#confirm-send-news-friends").hide();
+        });
+
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+
+        $("#send-mail-with-news").on('click', function(){
+            sendMailWithNews();
+        });
+
+        function sendMailWithNews(){
+
+            mailWithNewsSended();
+
+            $.ajax({
+                type: "GET",
+                url: '/send-news-to-friends',
+                dataType : 'json',
+                data: {
+                    emails2: $("#emails2").val(),
+                    link: $("#link").val(),
+                },
+                success: function() {
+                    //
+                },
+                error: function(data) {
+                    console.log(data);
+                },
+            });
+        }
+
+        function mailWithNewsSended(){
+            $('#send-news').hide();
+            $('#confirm-send-news-friends').show();
+        }
+    </script>
+
+@endsection

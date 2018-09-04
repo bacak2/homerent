@@ -16,6 +16,7 @@ use Auth;
 use Illuminate\Support\Facades\Session;
 use Barryvdh\DomPDF\Facade as PDF;
 use Lang;
+use Config;
 
 class Apartaments extends Controller
 {
@@ -688,10 +689,11 @@ class Apartaments extends Controller
             ->get();
 
         //Generates an array of images gallery
-        $images = DB::table('apartaments')
+        $images = DB::table('apartament_groups')
             ->select('apartament_photos.photo_link','apartaments.id')
+            ->join('apartaments','apartaments.group_id','=','apartament_groups.group_id')
             ->join('apartament_photos','apartaments.id','=','apartament_photos.apartament_id')
-            ->where('apartament_id', $id)
+            ->where('apartament_groups.group_id', $id)
             ->get();
 
         $priceFrom = $this->getPriceFrom($id);
@@ -1033,13 +1035,28 @@ class Apartaments extends Controller
             foreach($finds as $find){
                 array_push($idFinds, $find->id);
             }
+
+            //set lat & lon
+            switch($request->region){
+                case "Kościelisko": $coordinates = '49.2902935, 19.8895826'; break;
+                case "Witów": $coordinates = '49.3210546, 19.8265185'; break;
+                case "Zakopane": default: $coordinates = '49.292166,19.952385'; break;
+            }
         }
 
         //$finds = $finds->all();
         //$finds = new Paginator($finds, $paginate);
-        $findsCollection = $findsCollection->all();
+        //$findsCollection = $findsCollection->all();
+        //dd($findsCollection);
         $findsCollection = new Paginator($findsCollection, $paginate);
         $findsCollection->setPath($view);
+        /*
+        $page = 1 ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $findsCollection;
+        $perPage = 4;
+        $options = [];
+        $findsCollection = new Paginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+        */
 
         $black = 0;
         $gray = 0;
@@ -1190,6 +1207,7 @@ class Apartaments extends Controller
             'countedCookies' => $countedCookies,
             'favouritesAmount' => $favouritesAmount,
             'sortSelectArray' => $sortSelectArray,
+            'coordinates' => $coordinates ?? '',
         ]);
     }
 
@@ -1258,7 +1276,7 @@ class Apartaments extends Controller
                              reservations.reservation_departure_date as departure
                             ")
                     ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
-                    ->where('apartaments.id','=', 1)
+                    ->where('apartaments.id','=', $id)
                     ->whereNotIn('apartaments.id', function($query) use($arrival, $departure){
                         $query->select('apartaments.id')
                             ->from('apartaments')
@@ -1451,7 +1469,11 @@ class Apartaments extends Controller
     }
 
     public function printPdf(Request $request){
-        $pdf = PDF::loadHTML('<div style="width: 500px; font-family: DejaVu Sans;">'.$request->wskazowkiContent.'</div>')
+        $pdf = PDF::setOptions([
+            'logOutputFile' => storage_path('public/tmp/log.htm'),
+            'tempDir' => storage_path('public/tmp/')
+            ])
+            ->loadHTML('<div style="width: 500px; font-family: DejaVu Sans;">'.$request->wskazowkiContent.'</div>')
             ->setPaper('a4', 'landscape')->setWarnings(false);
         return $pdf->download('Wskazówki_dojazdu.pdf');
     }

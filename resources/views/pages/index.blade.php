@@ -81,7 +81,7 @@
 					<input type="hidden" name="dzieci" value="0">
 					<input type="hidden" name="dorosli" value="1">
 					<div class="mb-3" style="position: relative">
-						<input class="w-100" type="image" src="{{asset('images/main/guidebook.png')}}" alt="Zakopane">
+						<input class="w-100" type="image" src="{{asset('images/main/guidebook1.png')}}" alt="Zakopane">
 						<div class="guidebooks-index-page">Zakopane - {{$apartamentsFirstCityAmount}} {{trans_choice('messages.apartaments', $apartamentsFirstCityAmount)}}</div>
 					</div>
 
@@ -110,7 +110,7 @@
 					<input type="hidden" name="dzieci" value="0">
 					<input type="hidden" name="dorosli" value="1">
 					<div class="mb-3" style="position: relative">
-						<input class="w-100" type="image" src="{{asset('images/main/guidebook.png')}}" alt="Submit">
+						<input class="w-100" type="image" src="{{asset('images/main/guidebook2.png')}}" alt="Submit">
 						<div class="guidebooks-index-page">Kościelisko - {{$apartamentsSecondCityAmount}} {{trans_choice('messages.apartaments', $apartamentsSecondCityAmount)}}</div>
 					</div>
 
@@ -139,7 +139,7 @@
 					<input type="hidden" name="dzieci" value="0">
 					<input type="hidden" name="dorosli" value="1">
 					<div class="mb-3" style="position: relative">
-						<input class="w-100" type="image" src="{{asset('images/main/guidebook.png')}}" alt="Submit">
+						<input class="w-100" type="image" src="{{asset('images/main/guidebook3.png')}}" alt="Submit">
 						<div class="guidebooks-index-page">Witów - {{$apartamentsThirdCityAmount}} {{trans_choice('messages.apartaments', $apartamentsThirdCityAmount)}}</div>
 					</div>
 

@@ -16,17 +16,23 @@ use Crypt;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Redirect;
+use Barryvdh\DomPDF\Facade as PDF;
+use View;
 
 class Reservations extends Controller
 {
     //Site language from database
     protected $language = 1;
+    protected $languageCode = 'pl';
 
     public function __construct()
     {
         $temp = \App::getLocale();
-        $language = DB::table('languages')->select('id', 'language_code')->where('language_code',$temp)->first();
+        $this->languageCode = $temp;
+        $language = DB::table('languages')->select('id')->where('language_code',$temp)->first();
         $this->language = $language;
+        if ($this->language->id == 1) setlocale(LC_TIME, "pl_PL.utf8");
+        else setlocale(LC_TIME, "en_EN");
     }
 
     public function firstStep(Request $request){
@@ -393,18 +399,21 @@ class Reservations extends Controller
         }
     }
 
-    public function fourthStep($idAparment, $idReservation, $status = 1){
-        $id = $idAparment;
+    public function fourthStep($idReservation, $status = 1){
+
+        $reservation = DB::table('reservations')->where('id', $idReservation)->get();
+
+        $id = $reservation[0]->apartament_id;
 
         $apartament = Apartament::with(array('descriptions' => function($query)
         {
             $query->where('language_id', $this->language->id);
         }))->find($id);
 
-        $reservation = DB::table('reservations')->where('id', $idReservation)->get();
-
-        //$reservationModel = new Reservation();
-        //$reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
+        if(\App::environment('production')) {
+            $reservationModel = new Reservation();
+            $reservationModel->sendMail($idReservation, $this->language->id);
+        }
 
         $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $idReservation)->get();
 
@@ -415,7 +424,7 @@ class Reservations extends Controller
         return view('reservation.fourthStep', [
             'apartament' => $apartament,
             'reservation' => $reservation,
-            'language' => $this->language->language_code,
+            'language' => $this->languageCode,
             'servicesDetails' => $servicesDetails ?? 0,
             'availableServices' => $availableServices ?? 0,
         ]);
@@ -433,15 +442,17 @@ class Reservations extends Controller
 
         $reservation = DB::table('reservations')->where('id', $_GET['idReservation'])->get();
 
-        //$reservationModel = new Reservation();
-        //$reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
+        if(\App::environment('production')) {
+            $reservationModel = new Reservation();
+            $reservationModel->sendMail($reservation[0]->apartament_id, $this->language->id);
+        }
 
         $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $_GET['idReservation'])->get();
 
         return view('reservation.fourthStep', [
             'apartament' => $apartament,
             'reservation' => $reservation,
-            'language' => $this->language->language_code,
+            'language' => $this->languageCode,
             'servicesDetails' => $servicesDetails,
         ]);
 
@@ -451,22 +462,24 @@ class Reservations extends Controller
         echo "OK";
 
         if($request->operation_status == 'completed'){
-            //DB::table('reservations')->where('id', $request->control)->update(['payment_to_pay' => DB::raw("payment_to_pay - $request->operation_amount"), 'reservation_status' => DB::raw("IF (payment_to_pay - $request->operation_amount < 0, 1, 0)"), 'updated_at' => date("Y-m-d H:i:s")]);
             DB::table('reservations')->where('id', $request->control)->update(['payment_to_pay' => DB::raw("payment_to_pay - $request->operation_amount"), 'reservation_status' => 1, 'updated_at' => date("Y-m-d H:i:s")]);
         }
 
-        //$reservation = DB::table('reservations')->where('id', $request->control)->get();
-
-        //$reservationModel = new Reservation();
-        //$reservationModel->sendMail($reservation[0]->apartament_id, $reservation[0]->id, $this->language->id);
-
+        if(\App::environment('production')) {
+            $reservation = DB::table('reservations')->where('id', $request->control)->get();
+            $reservationModel = new Reservation();
+            $reservationModel->sendMail($reservation[0]->apartament_id, $this->language->id);
+        }
+        exit();
     }
 
     //Async send mail
     public function SendMail(Request $request){
-        $request->reservationId;
-        $reservationModel = new Reservation();
-        //$reservationModel->sendMail($request->reservationId, $this->language->id);
+        if(\App::environment('production')) {
+            $request->reservationId;
+            $reservationModel = new Reservation();
+            $reservationModel->sendMail($request->reservationId, $this->language->id);
+        }
         return response()->json(['res' => 'done']);
     }
 
@@ -560,6 +573,76 @@ class Reservations extends Controller
             'apartament' => $apartament,
             'request' => $request,
         ]);
+    }
+
+    public function confirmation($idReservation){
+
+        $reservation = DB::table('reservations')
+            ->select('reservations.*', 'apartament_descriptions.apartament_name')
+            ->leftJoin('apartament_descriptions', 'reservations.apartament_id', 'apartament_descriptions.apartament_id')
+            ->where('reservations.id', $idReservation)
+            ->where('language_id', 1)
+            ->get();
+
+        $id = $reservation[0]->apartament_id;
+
+        $apartament = Apartament::with(array('descriptions' => function($query)
+        {
+            $query->where('language_id', $this->language->id);
+        }))->find($id);
+
+        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $idReservation)->get();
+
+        $availableServices = DB::table('additional_services')->where('id_apartament', $id)
+            ->whereNotIn('id', DB::table('reservation_additional_services')->select('id_service')->where('id_reservation', $idReservation))
+            ->get();
+
+        return view('reservation.confirmation', [
+            'apartament' => $apartament,
+            'reservation' => $reservation,
+            'language' => $this->languageCode,
+            'servicesDetails' => $servicesDetails,
+            'availableServices' => $availableServices,
+        ]);
+    }
+
+    public function printPdf($idReservation){
+
+        $reservation = DB::table('reservations')
+            ->select('reservations.*', 'apartament_descriptions.apartament_name')
+            ->leftJoin('apartament_descriptions', 'reservations.apartament_id', 'apartament_descriptions.apartament_id')
+            ->where('reservations.id', $idReservation)
+            ->where('language_id', 1)
+            ->get();
+
+        $id = $reservation[0]->apartament_id;
+
+        $apartament = Apartament::with(array('descriptions' => function($query)
+        {
+            $query->where('language_id', $this->language->id);
+        }))->find($id);
+
+        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $idReservation)->get();
+
+        $availableServices = DB::table('additional_services')->where('id_apartament', $id)
+            ->whereNotIn('id', DB::table('reservation_additional_services')->select('id_service')->where('id_reservation', $idReservation))
+            ->get();
+
+        /*$html = View::make('reservation.confirmation', [
+            'apartament' => $apartament,
+            'reservation' => $reservation,
+            'language' => $this->languageCode,
+            'servicesDetails' => $servicesDetails,
+            'availableServices' => $availableServices,
+            ])
+            ->render();
+        */
+        $html = '';
+
+        //$pdf = PDF::loadHTML('<div style="width: 100%; font-family: DejaVu Sans;"><div style="font-size: 12px">'.$reservation->apartament_name.'</div></div>')
+            //->setPaper('a4', 'landscape')->setWarnings(false);
+        $pdf = PDF::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false);
+        return $pdf->download('Potwierdzenie rezerwacji '.$reservation->apartament_name.'.pdf');
     }
 
 }

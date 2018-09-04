@@ -94,14 +94,15 @@
     <input id="emails2" name="emails2" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)">
     <input id="links" name="links" type="hidden" value="{{Request::url()}}">
     <hr>
-    <button id="send-mail-with-news" class="btn btn-default">Wyślij</button>
-    <button class="btn btn-default close-send-news-friends">Anuluj</button>
-
+    <div style="text-align: center;">
+        <button id="send-mail-with-news" class="btn btn-primary">Wyślij</button>
+        <button class="btn btn-default close-send-news-friends">Anuluj</button>
+    </div>
     <div id="close-send-news" class="close-send-news-friends">x</div>
 </div>
 
-<div id="confirm-send-news-friends">
-    <span style="font-size: 24px; font-weight: bold">Wiadomość e-mail została wysłana</span><br>
+<div id="confirm-send-news-friends" class="text-center">
+    <br><span style="font-size: 24px; font-weight: bold">Wiadomość e-mail została wysłana</span><br><br><br>
     <button class="btn btn-default close-confirm-news">OK</button>
 </div>
 
@@ -142,7 +143,7 @@
             dataType : 'json',
             data: {
                 emails2: $("#emails2").val(),
-                link: $("#link").val(),
+                link: $("#link").text(),
             },
             success: function() {
                 //

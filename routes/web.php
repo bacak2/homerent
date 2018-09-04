@@ -81,7 +81,7 @@ Route::group(
             'as' => 'reservations.thirdStep'
         ]);
 
-        Route::GET('/reservations-fourth-step/{idAparment}/{idReservation}', [
+        Route::GET('/reservations-fourth-step/{idReservation}', [
             'uses' => 'Reservations@fourthStep',
             'as' => 'reservations.fourthStep'
         ]);
@@ -91,9 +91,19 @@ Route::group(
             'as' => 'reservations.afterOnlinePaymentPOST'
         ]);
 
-        Route::POST('/reservations-fourth-step/{idAparment}/{idReservation}', [
+        Route::POST('/reservations-fourth-step/{idReservation}', [
             'uses' => 'Reservations@fourthStep',
             'as' => 'reservations.fourthStepAfterDotpay'
+        ]);
+
+        Route::GET('/reservations/confirmation/{idReservation}', [
+            'uses' => 'Reservations@confirmation',
+            'as' => 'reservations.confirmation'
+        ]);
+
+        Route::GET('/reservations/print-pdf/{idReservation}', [
+            'uses' => 'Reservations@printPdf',
+            'as' => 'reservations.printPdf'
         ]);
 
         Route::get('/services/{idAparment}/{idReservation}/{idService}', [
@@ -136,7 +146,7 @@ Route::group(
             'as' => 'reservations.CancelReservation'
         ]);
 
-        Route::GET('/sendContactForm', [
+        Route::post('/sendContactForm', [
             'uses' => 'AboutUs@SendMail',
             'as' => 'aboutUs.SendMail'
         ]);
@@ -191,6 +201,11 @@ Route::group(
             'as' => 'aboutUs.contact'
         ]);
 
+        Route::GET('/contact/report/{idComment}', [
+            'uses' => 'AboutUs@report',
+            'as' => 'aboutUs.report'
+        ]);
+
         Route::GET('/contact/{faqToShow}', [
             'uses' => 'AboutUs@faq',
             'as' => 'aboutUs.faq'
@@ -221,6 +236,11 @@ Route::group(
         Route::GET('/send-news-to-friends', [
             'uses' => 'AboutUs@sendMailWithNews',
             'as' => 'aboutUs.sendMailWithNews'
+        ]);
+
+        Route::GET('/send-guidebook-to-friends', [
+            'uses' => 'AboutUs@sendMailWithGuidebook',
+            'as' => 'aboutUs.sendMailWithGuidebook'
         ]);
 
         Route::prefix('/account')->group(function () {
@@ -268,12 +288,12 @@ Route::group(
 
             Route::GET('/opinion/{reservationId}','Opinions@deleteOpinion');
 
-            Route::GET('/my-reservations/{idAparment}/{idReservation}', [
+            Route::GET('/my-reservations/{idReservation}', [
                 'uses' => 'Account@reservationDetail',
                 'as' => 'account.reservationDetail'
             ]);
 
-            Route::GET('/my-reservations/{idAparment}/{idReservation}/opinion', [
+            Route::GET('/my-reservations/{idReservation}/opinion', [
                 'uses' => 'Account@reservationOpinion',
                 'as' => 'account.opinion'
             ]);

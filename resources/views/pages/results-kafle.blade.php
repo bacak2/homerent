@@ -40,7 +40,7 @@
                 @if($apartament->group_id > 0 && $apartament->group_name != NULL)
                     <div style="overflow: auto;" class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" itemscope itemtype="http://schema.org/Hotel">
                         <div class="map-img-wrapper">
-                            <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
+                            <div class="apartament" style="background-image: url('{{ asset("images/apartaments_group/$apartament->group_id/main.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
                                 <div class="map-see-more">
                                     <div class="container py-1">
                                         <a href="/apartaments-group/{{ $apartament->group_link }}" class="btn btn-see-more" style="width: 100%">{{ __("messages.see details") }}</a>
@@ -82,6 +82,7 @@
                             <span style="font-size: 17px" itemprop="name">{{ $apartament->group_name }}</span>
                             <span style="display:block; font-size: 11px">{{ $apartament->apartament_district }}</span>
                             <span style="display:block; font-size: 11px" itemprop="streetAddress">{{ $apartament->apartament_address }}</span>
+                            @if($apartament->apartament_district == null)<span style="display:block; font-size: 11px">&nbsp;</span>@endif
                             <div class="mt-2">
                                 <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.people') }}" style="background-image: url('{{ asset("images/results/person.png") }}');"> <span>{{ $apartament->apartament_persons }}</span> </div>
                                 <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.double beds') }}" style="background-image: url('{{ asset("images/results/doubleBed.png") }}');"> <span>{{ $apartament->apartament_double_beds }}</span> </div>
@@ -129,7 +130,7 @@
                             <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
                                 <div class="map-see-more ">
                                     <div class="container py-1">
-                                        <a href="/reservations?link={{ $apartament->apartament_link }}&id={{ $apartament->apartament_id }}&przyjazd={{$_GET['t-start']}}&powrot={{$_GET['t-end']}}&dorosli={{ $request->dorosli }}&dzieci={{ $request->dzieci }}" style="width: 100%" class="btn btn-primary">{{ __("messages.book") }}</a>
+                                        <a href="/reservations?link={{ $apartament->apartament_link }}&id={{ $apartament->apartament_id }}&t-start={{$_GET['t-start']}}&t-end={{$_GET['t-end']}}&dorosli={{ $request->dorosli }}&dzieci={{ $request->dzieci }}" style="width: 100%" class="btn btn-primary">{{ __("messages.book") }}</a>
                                     </div>
                                     <div class="container py-1">
                                         <a href="/apartaments/{{ $apartament->apartament_link }}?{{ http_build_query(Request::except('page', 'region')) }}" class="btn btn-see-more" style="width: 100%">{{ __("messages.see details") }}</a>
@@ -175,6 +176,7 @@
                             <span style="font-size: 17px" itemprop="name">{{ $apartament->apartament_name }}</span>
                             <span style="display:block; font-size: 11px">{{ $apartament->apartament_district }}</span>
                             <span style="display:block; font-size: 11px" itemprop="streetAddress">{{ $apartament->apartament_address }}</span>
+                            @if($apartament->apartament_district == null)<span style="display:block; font-size: 11px">&nbsp;</span>@endif
                             <div class="mt-2">
                                 <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.people') }}" style="background-image: url('{{ asset("images/results/person.png") }}');"> <span>{{ $apartament->apartament_persons }}</span> </div>
                                 <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.double beds') }}" style="background-image: url('{{ asset("images/results/doubleBed.png") }}');"> <span>{{ $apartament->apartament_double_beds }}</span> </div>

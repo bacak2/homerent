@@ -4,7 +4,7 @@
     <div class="form-logowanie container">
         <div class="log">
             <h2 style="padding-bottom: 10px;">Zaloguj się</h2>
-            <center><a href="http://facebook.com"><img src="{{ asset('images/fb-log.png') }}"></a></center>
+            <center><div class="fb-login-button" data-width="278px" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkLoginState();"></div></center>
             <p class="form">Nie publikujemy na tablicy bez Twojej zgody</p>
             <p class="form">Logując się przez Facebooka otrzymujesz <b>5% zniżki</b> na pierwszą rezerwację</p>
 
@@ -23,7 +23,7 @@
 
                 </div>
                 <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                    <label for="password" class="col-md-4 control-label">Password</label>
+                    <label for="password" class="col-md-4 control-label">Hasło</label>
                     <input id="password" type="password" class="form-control" name="password" required>
 
                     @if ($errors->has('password'))
@@ -32,14 +32,10 @@
                                     </span>
                     @endif
                 </div>
-                <label>
-                    <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                </label>
-
                 <input type="submit" id="submit" value="Zaloguj">
             </form><br><br>
-            <a style="text-decoration:none; color:black" href="{{ route('password.request') }}">
-                Forgot Your Password?
+            <a href="{{ route('password.request') }}">
+                Zapomniałem hasła
             </a>
         </div>
     </div>

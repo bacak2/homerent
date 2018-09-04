@@ -14,7 +14,7 @@
         <tr><td><br></td></tr>
         <tr><td colspan="2"></td></tr>
         <tr>
-            <td><img src="{{ $message->embed(public_path().'/images/apartaments/'.$apartament_id.'/mail.jpg') }}"></td>
+            <td><img style="width: 160px; height: 88px" src="{{ $message->embed(public_path().'/images/apartaments/'.$apartament_id.'/mail.jpg') }}"></td>
             <td colspan="2">
                 <span style="color: #007bff; font-size: 20px;"><b>{{$apartament_name}}</b></span><br>
                 <span style="font-size: 15px">{{$apartament_city}}, {{$apartament_district}}</span><br>
@@ -87,7 +87,7 @@
         <tr><td colspan="3"><hr style="border: 0 none;  border-top: 2px dashed black;  background: none;"></td></tr>
         <tr><td></td><td colspan="2" style="font-size: 11px">Kontakt: 22/565 66 66 (pn-pt 9:00-17:00), <span style="color: #8fdf82">kontakt@visitzakopane.pl</span></td></tr>
         <tr><td colspan="3"><hr style="border: 0 none;  border-top: 2px dashed black;  background: none;"></td></tr>
-        <tr><td colspan="3"><span style="font-size: 11px; color: gray">Ta wiadomość została wysłana przez Homerent.</span></td></tr>
+        <tr><td colspan="3"><span style="font-size: 11px; color: gray">Ta wiadomość została wysłana przez Otozakopane.</span></td></tr>
     </table>
 
 </div>

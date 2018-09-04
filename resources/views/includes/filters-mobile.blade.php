@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-12 udogodnienia" style="display: none">
                         <p>
-                            <label>{!! Form::checkbox('SPA', null, null, ['id' => 'spa']) !!}<img src='{{ asset("images/results/Bathtub_24.png") }}'">{{ __('Spa') }}</label>
+                            <label>{!! Form::checkbox('spa', null, null, ['id' => 'spa']) !!}<img src='{{ asset("images/results/Bathtub_24.png") }}'">{{ __('Spa') }}</label>
                         </p>
                         <p>
                             <label>{!! Form::checkbox('zwierzeta', null, null, ['id' => 'zwierzeta']) !!}<img src='{{ asset("images/results/Dog_24.png") }}'">{{ __('messages.Acceptance of animals') }}</label>                        </p>

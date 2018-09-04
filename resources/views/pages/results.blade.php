@@ -5,10 +5,10 @@
 @handheld
 @if(Request::is('*/account/*') && !$request->has('przyjazd')) <div class="results-search" style="display: none"> @endif
      @switch($request->region)
-        @case('Kraków') @case('kraków') <div id="topSearch" style="background-image: url('{{asset('images/slider/1.png')}}');"> @break
-        @case('Zakopane') @case('zakopane') <div id="topSearch" style="background-image: url('{{asset('images/slider/2.png')}}');"> @break
-        @case('Wrocław') @case('wrocław') <div id="topSearch" style="background-image: url('{{asset('images/slider/3.png')}}');"> @break
-        @default <div id="topSearch" style="background-image: url('{{asset('images/slider/1.png')}}');">
+        @case('Kościelisko') @case('kościelisko') <div id="topSearch" style="background-image: url('{{asset('images/slider/1.jpg')}}');"> @break
+        @case('Zakopane') @case('zakopane') <div id="topSearch" style="background-image: url('{{asset('images/slider/2.jpg')}}');"> @break
+        @case('Witów') @case('witów') <div id="topSearch" style="background-image: url('{{asset('images/slider/3.jpg')}}');"> @break
+        @default <div id="topSearch" style="background-image: url('{{asset('images/slider/1.jpg')}}');">
      @endswitch
     <div class="container searchCont">
         @include('includes.search-form-results')

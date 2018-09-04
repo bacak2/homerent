@@ -14,26 +14,26 @@ class Reservation extends Model
     }
 
     public function sendMail($reservations_id, $language){
-        /*
-        $apartamentsDescription = DB::table('reservations')
-            ->select('*', 'reservations.updated_at')
-            ->join('apartaments','apartaments.id','=','reservations.apartament_id')
-            ->join('apartament_descriptions','apartaments.id','=','apartament_descriptions.apartament_id')
-            ->where('reservations.id', $reservations_id)
-            ->where('language_id', $language)
-            ->get();
-        $apartamentsDescription = collect($apartamentsDescription)->map(function($x){ return (array) $x; })->toArray();
+        if(\App::environment('production')){
+            $apartamentsDescription = DB::table('reservations')
+                ->select('*', 'reservations.updated_at')
+                ->join('apartaments','apartaments.id','=','reservations.apartament_id')
+                ->join('apartament_descriptions','apartaments.id','=','apartament_descriptions.apartament_id')
+                ->where('reservations.id', $reservations_id)
+                ->where('language_id', $language)
+                ->get();
+            $apartamentsDescription = collect($apartamentsDescription)->map(function($x){ return (array) $x; })->toArray();
 
-        if($apartamentsDescription[0]['email_sended'] != 1){
-            Mail::send('includes.mail_pl', $apartamentsDescription[0], function($message) use ($apartamentsDescription){
-                $message->to($apartamentsDescription[0]['email'])
-                    ->subject('Potwierdzenie rejestracji');
-                $message->from('kontakt@visitzakopane.pl','Otozakopane');
-            });
+            if($apartamentsDescription[0]['email_sended'] != 1){
+                Mail::send('includes.mail_pl', $apartamentsDescription[0], function($message) use ($apartamentsDescription){
+                    $message->to($apartamentsDescription[0]['email'])
+                        ->subject('Potwierdzenie rezerwacji');
+                    $message->from('kontakt@visitzakopane.pl','Otozakopane');
+                });
 
-            DB::table('reservations')->where('id', $reservations_id)->update(['email_sended' => 1]);
+                DB::table('reservations')->where('id', $reservations_id)->update(['email_sended' => 1]);
+            }
         }
-        */
     }
 
     //Checks availabity for each apartment in date

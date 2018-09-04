@@ -14,10 +14,10 @@ var htmlMin = require('gulp-htmlmin');
 
 var config = {
     dist: 'dist/',
-    src: '/src',
-    cssin: 'src/css/**/*.css',
+    src: '/public',
+    cssin: 'public/css/**/*.css',
     cssout: 'dist/css/',
-    jsin: 'src/js/**/*.js',
+    jsin: 'public/js/**/*.js',
     jsout: 'dist/js/',
     cssoutname: 'style.css'
 }
@@ -56,7 +56,7 @@ gulp.task('minifyCss', function() {
 });
 
 gulp.task('minifyJs', function() {
-    return gulp.src('src/js/**/*.js')
+    return gulp.src('public/js/**/*.js')
             .pipe(concat('script.js'))
             .pipe(uglify())
             .pipe(gulp.dest('dist/js'));
@@ -73,7 +73,7 @@ gulp.task('img', function(){
 });
 
 gulp.task('html', function(){
-   return gulp.src('src/*.html')
+   return gulp.src('resources/views/**/*.php')
            .pipe(htmlReplace({
                 'css': 'css/style.css',
                 'js': 'js/script.js'

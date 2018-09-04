@@ -530,7 +530,7 @@
                         </div>
                     @endif
                     <div class="form-group row mx-0">
-                        <div class="offset-md-3">
+                        <div {{--class="offset-md-3"--}}>
                             <input id="dontWantAccount" name="dontWantAccount" type="checkbox">
                         </div>
                         {!! Form::label('dontWantAccount', __('messages.dontWantAccount'), ['style'=>'font-size: 10px']) !!}

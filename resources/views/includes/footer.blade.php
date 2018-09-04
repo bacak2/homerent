@@ -27,7 +27,7 @@
                             <div class="font-13"><a href="{{route('aboutUs.contact').'#faq'}}">Często zadawane pytania</a></div>
                             <div class="font-13"><a href="/guidebooks">Przewodniki</a></div>
                             <div class="font-13"><a href="{{route('travelers.index')}}">Dla podróżnych</a></div>
-                            <div class="font-13"><a href="{{route('owners.index')}}">Dla właścicieli</a></div>
+                            <div class="font-13"><a href="http://wlasciciele-visitzakopane.pl{{--route('owners.index')--}}">Dla właścicieli</a></div>
                         </div>
                     </div>
                     <div class="row mobile-none">

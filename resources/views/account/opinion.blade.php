@@ -17,7 +17,7 @@
                 <div class="col-4 px-0"><img class="img-fluid" src='{{ asset("images/apartaments/$apartament->id/main.jpg") }}'></div>
                 <div class="col-8 pl-4 pr-0">
                     {{ $apartament->apartament_name }}
-                    <span class="row"><b>{{ $apartament->apartament_city }}</b> ({{ $apartament->apartament_district }})</span>
+                    <span class="row"><b>{{ $apartament->apartament_city }}</b> @if($apartament->apartament_district != null)({{ $apartament->apartament_district }}) @endif</span>
                     <span class="row">{{ $apartament->apartament_address }}</span>
                     <span class="font-11 row">Przyjazd: <b> {{ strftime("%a, %d %b %Y", strtotime($reservation[0]->reservation_arrive_date))}}</b></span>
                     <span class="font-11 row">Wyjazd: <b> {{ strftime("%a, %d %b %Y", strtotime($reservation[0]->reservation_departure_date))}}</b></span>

@@ -93,7 +93,7 @@
                                   @endforeach
                               @endif
                               <a class="btn btn-primary px-2" href="{{route('myFavourites')}}">Wszystkie ({{Session::get('userFavouritesCount')}})</a>
-                              <a class="btn btn-primary px-2" href="{{route('myFavouritesCompare')}}">Porównaj</a>
+                              <a class="btn btn-primary px-2 d-none d-xl-inline-block" href="{{route('myFavouritesCompare')}}">Porównaj</a>
                               <button class="send-to-friends btn btn-primary px-2" onclick="$('#favourites-bar').hide()">Wyślij</button>
                           </div>
                       </div>

@@ -1,3 +1,9 @@
+<?php
+function mikrooo(){
+    list($z1, $se) = explode(" ",microtime()); return ((float)$z1 + (float)$se);
+}
+$start = mikrooo();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +15,7 @@
 	<link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="{{ asset('css/homerent.css') }}" rel="stylesheet">
-	<link href="{{ asset('vendor/jquery-date-range-picker/src/daterangepicker.css') }}" rel="stylesheet">
+	{{--<link href="{{ asset('vendor/jquery-date-range-picker/src/daterangepicker.css') }}" rel="stylesheet">--}}
 	<link href="{{ asset('vendor/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/fotorama.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/t-datepicker.min.css') }}" rel="stylesheet">
@@ -17,8 +23,8 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="{{ asset('vendor/easy-autocomplete/dist/easy-autocomplete.min.css')}}"> 
 	<link rel="stylesheet" href="{{ asset('vendor/easy-autocomplete/dist/easy-autocomplete.themes.min.css') }}">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css">
+	{{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.css">--}}
+	{{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.print.css">
 	{{-- JS --}}
 	<script type="text/javascript" src="{{ asset('vendor/moment/moment.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
@@ -28,15 +34,13 @@
     {{--<script type="text/javascript" src="{{ asset('vendor/jquery-date-range-picker/dist/jquery.daterangepicker.min.js') }}"></script>--}}
 	<script type="text/javascript" src="{{ asset('vendor/fotorama/fotorama.js') }}"></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/locale/pl.js"></script>
+	{{--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>--}}
+	{{--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/locale/pl.js"></script>--}}
 	<script type="text/javascript" src="https://apis.google.com/js/platform.js" async defer>{lang: 'pl'}</script>
 	<script type="text/javascript" src="{{ asset('js/facebookConnection.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/t-datepicker.min.js') }}"></script>
 	{{-- JS AUTOCOMPLETE --}}
-        <script src="{{ asset('vendor/easy-autocomplete/dist/jquery.easy-autocomplete.min.js')}}"></script> 
-	<link rel="stylesheet" href="{{ asset('vendor/easy-autocomplete/dist/easy-autocomplete.min.css')}}"> 
-	<link rel="stylesheet" href="{{ asset('vendor/easy-autocomplete/dist/easy-autocomplete.themes.min.css') }}"> 
+    <script src="{{ asset('vendor/easy-autocomplete/dist/jquery.easy-autocomplete.min.js')}}"></script>
 
 <body>
 	{{-- HEADER --}}
@@ -60,5 +64,9 @@
 	@endauth
 
 	@yield('scripts')
+<?php
+$stop = mikrooo(); $czas = $stop - $start;
+echo "<!--Czas generowania strony : ".$czas." sek-->";
+?>
 </body>
 </html>

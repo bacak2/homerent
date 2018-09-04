@@ -55,6 +55,7 @@
                     <span style="font-size: 17px" itemprop="name">{{ $apartament->apartament_name }}</span>
                     <span style="display:block; font-size: 11px">{{ $apartament->apartament_district }}</span>
                     <span style="display:block; font-size: 11px" itemprop="streetAddress">{{ $apartament->apartament_address }}</span>
+                    @if($apartament->apartament_district == null)<span style="display:block; font-size: 11px">&nbsp;</span>@endif
                     <div class="mt-2">
                         <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.people') }}" style="background-image: url('{{ asset("images/results/person.png") }}');"> <span>{{ $apartament->apartament_persons }}</span> </div>
                         <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.double beds') }}" style="background-image: url('{{ asset("images/results/doubleBed.png") }}');"> <span>{{ $apartament->apartament_double_beds }}</span> </div>

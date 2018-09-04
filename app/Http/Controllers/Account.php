@@ -14,7 +14,7 @@ use App\{Apartament, Apartament_description, Apartament_group, Reservation, User
 use Auth;
 use Mail;
 use Illuminate\Pagination\Paginator;
-
+use Session;
 
 class Account extends Controller
 {
@@ -27,6 +27,8 @@ class Account extends Controller
         $temp = \App::getLocale();
         $language = DB::table('languages')->select('id', 'language_code')->where('language_code',$temp)->first();
         $this->language = $language;
+        if ($this->language->id == 1) setlocale(LC_TIME, "pl_PL.utf8");
+        else setlocale(LC_TIME, "en_EN");
     }
 
     public function index()
@@ -540,16 +542,16 @@ class Account extends Controller
         return response()->json([$allOpinions, $userOpinion, $familyOpinions, $couplesOpinions, $businessOpinions, $withFriendsOpinions, $aloneOpinions, $allStars, $familyStars, $couplesStars, $businessStars, $withFriendsStars, $aloneStars]);
     }
 
-    public function reservationDetail($idAparment, $idReservation){
+    public function reservationDetail($idReservation){
 
-        $id = $idAparment;
+        $reservation = DB::table('reservations')->where('id', $idReservation)->get();
+
+        $id = $reservation[0]->apartament_id;
 
         $apartament = Apartament::with(array('descriptions' => function($query)
         {
             $query->where('language_id', $this->language->id);
         }))->find($id);
-
-        $reservation = DB::table('reservations')->where('id', $idReservation)->get();
 
         $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $idReservation)->get();
 
@@ -567,16 +569,16 @@ class Account extends Controller
 
     }
 
-    public function reservationOpinion($idAparment, $idReservation){
+    public function reservationOpinion($idReservation){
 
-        $id = $idAparment;
+        $reservation = DB::table('reservations')->where('id', $idReservation)->get();
+
+        $id = $reservation[0]->apartament_id;
 
         $apartament = Apartament::with(array('descriptions' => function($query)
         {
             $query->where('language_id', $this->language->id);
         }))->find($id);
-
-        $reservation = DB::table('reservations')->where('id', $idReservation)->get();
 
         return view('account.opinion', [
             'apartament' => $apartament,
@@ -601,14 +603,24 @@ class Account extends Controller
             array_push($whereInData, $value->apartament_id);
         }
 
-        if(count($request->all()) == 0) {
+        //set geo coordinates
+        if($request->route()->getName() == 'myFavouritesMap'){
+            switch($request->region){
+                case "Kościelisko": $coordinates = '49.2902935, 19.8895826'; break;
+                case "Witów": $coordinates = '49.3210546, 19.8265185'; break;
+                case "Zakopane": default: $coordinates = '49.292166,19.952385'; break;
+            }
+        }
+
+
+        if(count($request->all()) == 0 && $request->route()->getName() != 'myFavouritesMap') {
 
             $finds = DB::table("apartaments")
                 ->selectRaw('sub.opinionAmount, sub.ratingAvg, apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
                 ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                 ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
                 cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
-            '), 'sub.id_apartament', '=', 'apartaments.id')
+                '), 'sub.id_apartament', '=', 'apartaments.id')
                 ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
                 ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
                 //->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
@@ -619,7 +631,381 @@ class Account extends Controller
 
             $favouritesCount = $finds->count();
         }
+        elseif(count($request->all()) == 0 && $request->route()->getName() == 'myFavouritesMap') {
+            $finds = DB::table("apartaments")
+                ->selectRaw('lastReservation.lastReservationDate, sub.opinionAmount, sub.ratingAvg, apartament_groups.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+                ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+                ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
+                ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
+                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->leftjoin(DB::raw('(select group_id, id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation` left join apartaments on id_apartament = apartaments.id group by apartaments.group_id) sub
+            '), 'sub.group_id', '=', 'apartaments.group_id')
+                ->leftjoin(DB::raw('(select apartament_id, reservations.created_at as lastReservationDate from `apartaments`
+                right join `reservations` on `apartaments`.`id` = `reservations`.`id`  group by apartament_id) lastReservation
+            '), 'lastReservation.apartament_id', '=', 'apartaments.id')
+                ->where('language_id', $this->language->id)
+                ->whereIn('apartaments.id', $whereInData)
+                ->groupBy('apartaments.group_id')
+                ->get();
 
+            $findsWithoutGroup = DB::table("apartaments")
+                ->selectRaw('sub.opinionAmount, sub.ratingAvg, apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+                ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
+                '), 'sub.id_apartament', '=', 'apartaments.id')
+                ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+                ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
+                //->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->whereIn('apartaments.id', $whereInData)
+                ->where('language_id', $this->language->id)
+                ->where('group_id', 0)
+                ->groupBy('apartaments.id')
+                ->get();
+
+            $favouritesCount = Session::get('userFavouritesAll')->count();
+            return view('account.favourites.mapa', [
+                'finds' => $finds,
+                'findsWithoutGroup' => $findsWithoutGroup,
+                'favouritesCount' => $favouritesCount,
+                'request' => $request,
+                'coordinates' => $coordinates,
+                'black' => [],
+                'blackGroups' => [],
+                'gray' => [],
+                'grayGroups' => [],
+            ]);
+
+        }
+        elseif($request->route()->getName() == 'myFavouritesMap'){
+            $request->amount = $request->Mamount ?? $request->amount;
+            $request->amount2 = $request->Mamount2 ?? $request->amount2;
+            if($request->amount == "1000+") $request->amount = 10000;
+            if($request->amount2 == "1000+") $request->amount2 = 10000;
+            $request->input('region') == $request->input('region') ?? '';
+            $region = $request->input('region');
+
+            $arriveDate = $request->input('t-start');
+            $returnDate = $request->input('t-end');
+            $dprz = strtotime($arriveDate);
+            $dpwr = strtotime($returnDate);
+            $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
+
+            $whereData = [];
+            if ($request->has('spa')) array_push($whereData, ['apartaments.apartament_spa', '1']);
+            if ($request->has('garaz')) array_push($whereData, ['apartaments.apartament_parking', '1']);
+            if ($request->has('kominek')) array_push($whereData, ['apartaments.apartament_fireplace', '1']);
+            if ($request->has('balkon')) array_push($whereData, ['apartaments.apartament_balcony', '1']);
+            if ($request->has('zwierzeta')) array_push($whereData, ['apartaments.apartament_animals', '1']);
+
+            $finds = DB::table("apartaments")
+                ->selectRaw('lastReservation.lastReservationDate, sub.opinionAmount, sub.ratingAvg, apartament_groups.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+                ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+                ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
+                ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
+                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->leftjoin(DB::raw('(select group_id, id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation` left join apartaments on id_apartament = apartaments.id group by apartaments.group_id) sub
+            '), 'sub.group_id', '=', 'apartaments.group_id')
+                ->leftjoin(DB::raw('(select apartament_id, reservations.created_at as lastReservationDate from `apartaments`
+                right join `reservations` on `apartaments`.`id` = `reservations`.`id`  group by apartament_id) lastReservation
+            '), 'lastReservation.apartament_id', '=', 'apartaments.id')
+                ->whereNotIn('apartaments.id', Apartament::select('apartaments.id')
+                    ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                    ->leftJoin('languages', function($join) {
+                        $join->on('apartament_descriptions.language_id','=','languages.id');
+                    })
+
+                    ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                    ->where(function($query) use ($region){
+                        if($region == NULL){
+                            //
+                        }
+                        else{
+                            $query->where('apartament_descriptions.apartament_name',$region)
+                                ->orWhere('apartaments.apartament_city',$region);
+                        }
+                    })
+                    ->where(function($query) use ($arriveDate,$returnDate) {
+                        $query->whereRaw('((reservation_arrive_date + INTERVAL 1 DAY between ? and ?) or (reservation_departure_date - INTERVAL 1 DAY between ? and ?))',[$arriveDate, $returnDate, $arriveDate, $returnDate]);
+                        //$query->whereRaw('(? between reservation_arrive_date and reservation_departure_date) OR (? between reservation_arrive_date and reservation_departure_date)',[$arriveDate,$returnDate]);
+                    })
+                    ->where(function($query) use ($request){
+                        if ($request->has('1room')) $query->where('apartament_rooms_number', '1');
+                        if ($request->has('2rooms')) $query->orWhere('apartament_rooms_number', '2');
+                        if ($request->has('3rooms')) $query->orWhere('apartament_rooms_number', '3');
+                        if ($request->has('4rooms')) $query->orWhere('apartament_rooms_number', '>', '3');
+                    })
+                    ->where(function($query) use ($request){
+                        $query->where(function($query) use ($request){
+                            if ($request->has('doubleBed'))$query->where('apartament_double_beds', '>', '0');
+                        })
+                            ->where(function($query) use ($request){
+                                if ($request->has('1bed')) $query->orwhere('apartament_single_beds', '1');
+                                if ($request->has('2beds')) $query->orWhere('apartament_single_beds', '2');
+                                if ($request->has('3beds')) $query->orWhere('apartament_single_beds', '>', '2');
+                            });
+                    })
+                    ->distinct('apartaments.id'))
+                ->where('language_id', $this->language->id)
+                ->whereBetween('price_value', array($request->amount ?? 0, $request->amount2 ?? 10000))
+                ->whereBetween('date_of_price', array($arriveDate, $returnDate))
+                ->where($whereData)
+                ->where(function($query) use ($region){
+                    if($region == NULL){
+                        //
+                    }
+                    else{
+                        $query->where('apartament_descriptions.apartament_name',$region)
+                            ->orWhere('apartaments.apartament_city',$region);
+                    }
+                })
+                ->where('apartaments.group_id', '>', 0)
+                ->where('apartaments.apartament_persons', '>=', $request->dorosli)
+                ->where('apartaments.apartament_kids', '>=', $request->dzieci)
+                ->whereIn('apartaments.id', $whereInData)
+                ->groupBy('apartaments.group_id')
+                ->get();
+
+            $idFindsGroups = array();
+            foreach($finds as $find){
+                array_push($idFindsGroups , $find->group_id);
+            }
+
+            $blackGroups = DB::table("apartaments")
+                ->selectRaw('apartament_groups.*, sub.ratingAvg, sub.opinionAmount, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+                ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+                ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
+                ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
+                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->leftjoin(DB::raw('(select group_id, id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                        cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation` left join apartaments on id_apartament = apartaments.id group by apartaments.group_id) sub
+                    '), 'sub.group_id', '=', 'apartaments.group_id')
+                ->whereNotIn('apartaments.id', Apartament::select('apartaments.id')
+                    ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                    ->leftJoin('languages', function($join) {
+                        $join->on('apartament_descriptions.language_id','=','languages.id');
+                    })
+
+                    ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                    ->where(function($query) use ($region){
+                        if($region == NULL){
+                            //
+                        }
+                        else{
+                            $query->where('apartament_descriptions.apartament_name',$region)
+                                ->orWhere('apartaments.apartament_city',$region);
+                        }
+                    })
+                    ->where(function($query) use ($arriveDate,$returnDate) {
+                        $query->whereRaw('((reservation_arrive_date + INTERVAL 1 DAY between ? and ?) or (reservation_departure_date - INTERVAL 1 DAY between ? and ?))',[$arriveDate, $returnDate, $arriveDate, $returnDate]);
+                        //$query->whereRaw('(? between reservation_arrive_date and reservation_departure_date) OR (? between reservation_arrive_date and reservation_departure_date)',[$arriveDate,$returnDate]);
+                    })
+                    ->where(function($query) use ($request){
+                        if ($request->has('1room')) $query->where('apartament_rooms_number', '1');
+                        if ($request->has('2rooms')) $query->orWhere('apartament_rooms_number', '2');
+                        if ($request->has('3rooms')) $query->orWhere('apartament_rooms_number', '3');
+                        if ($request->has('4rooms')) $query->orWhere('apartament_rooms_number', '>', '3');
+                    })
+                    ->where(function($query) use ($request){
+                        $query->where(function($query) use ($request){
+                            if ($request->has('doubleBed'))$query->where('apartament_double_beds', '>', '0');
+                        })
+                            ->where(function($query) use ($request){
+                                if ($request->has('1bed')) $query->orwhere('apartament_single_beds', '1');
+                                if ($request->has('2beds')) $query->orWhere('apartament_single_beds', '2');
+                                if ($request->has('3beds')) $query->orWhere('apartament_single_beds', '>', '2');
+                            });
+                    })
+                    ->distinct('apartaments.id'))
+                ->where('language_id', $this->language->id)
+                ->whereBetween('date_of_price', array($arriveDate, $returnDate))
+                ->whereNotIn('apartaments.group_id', $idFindsGroups)
+                ->where(function($query) use ($region){
+                    if($region == NULL){
+                        //
+                    }
+                    else{
+                        $query->where('apartament_descriptions.apartament_name',$region)
+                            ->orWhere('apartaments.apartament_city',$region);
+                    }
+                })
+                ->whereIn('apartaments.id', $whereInData)
+                ->where('apartaments.group_id', '>', 0)
+                ->groupBy('apartaments.group_id')
+                ->get();
+
+            $blackGroupsIds = array();
+            foreach($blackGroups as $blackId){
+                array_push($blackGroupsIds, $blackId->group_id);
+            }
+
+            $blueAndBlackGroupsIds = array_merge($blackGroupsIds, $idFindsGroups);
+
+            //apartaments not available in this term
+            $grayGroups = DB::table("apartaments")
+                ->selectRaw('apartament_groups.*, sub.ratingAvg, sub.opinionAmount, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+                ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+                ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
+                ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
+                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->leftjoin(DB::raw('(select group_id, id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                        cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation` left join apartaments on id_apartament = apartaments.id group by apartaments.group_id) sub
+                    '), 'sub.group_id', '=', 'apartaments.group_id')
+                ->where('language_id', $this->language->id)
+                ->whereNotIn('apartaments.group_id', $blueAndBlackGroupsIds)
+                ->where(function($query) use ($region){
+                    if($region == NULL){
+                        //
+                    }
+                    else{
+                        $query->where('apartament_descriptions.apartament_name',$region)
+                            ->orWhere('apartaments.apartament_city',$region);
+                    }
+                })
+                ->whereIn('apartaments.id', $whereInData)
+                ->where('apartaments.group_id', '!=', 0)
+                ->groupBy('apartaments.id')
+                ->get();
+//dd($grayGroups[0]->apartaments_amount);
+//////////////////////////////////////////////////////////////////////////
+            $findsWithoutGroup = DB::table("apartaments")
+                ->selectRaw('sub.opinionAmount, sub.ratingAvg, apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+                ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
+                '), 'sub.id_apartament', '=', 'apartaments.id')
+                ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+                ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
+                //->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->whereIn('apartaments.id', $whereInData)
+                ->where('language_id', $this->language->id)
+                ->where('group_id', 0)
+                ->groupBy('apartaments.id')
+                ->get();
+
+            $idFinds = array();
+            foreach($findsWithoutGroup as $find){
+                array_push($idFinds, $find->id);
+            }
+
+            $black = DB::table("apartaments")
+                ->selectRaw('apartaments.*, sub.ratingAvg, sub.opinionAmount, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+                ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+                ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
+                ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
+                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->leftjoin(DB::raw('(select group_id, id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                        cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation` left join apartaments on id_apartament = apartaments.id group by apartaments.group_id) sub
+                    '), 'sub.group_id', '=', 'apartaments.group_id')
+                ->whereNotIn('apartaments.id', Apartament::select('apartaments.id')
+                    ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                    ->leftJoin('languages', function($join) {
+                        $join->on('apartament_descriptions.language_id','=','languages.id');
+                    })
+
+                    ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                    ->where(function($query) use ($region){
+                        if($region == NULL){
+                            //
+                        }
+                        else{
+                            $query->where('apartament_descriptions.apartament_name',$region)
+                                ->orWhere('apartaments.apartament_city',$region);
+                        }
+                    })
+                    ->where(function($query) use ($arriveDate,$returnDate) {
+                        $query->whereRaw('((reservation_arrive_date + INTERVAL 1 DAY between ? and ?) or (reservation_departure_date - INTERVAL 1 DAY between ? and ?))',[$arriveDate, $returnDate, $arriveDate, $returnDate]);
+                        //$query->whereRaw('(? between reservation_arrive_date and reservation_departure_date) OR (? between reservation_arrive_date and reservation_departure_date)',[$arriveDate,$returnDate]);
+                    })
+                    ->where(function($query) use ($request){
+                        if ($request->has('1room')) $query->where('apartament_rooms_number', '1');
+                        if ($request->has('2rooms')) $query->orWhere('apartament_rooms_number', '2');
+                        if ($request->has('3rooms')) $query->orWhere('apartament_rooms_number', '3');
+                        if ($request->has('4rooms')) $query->orWhere('apartament_rooms_number', '>', '3');
+                    })
+                    ->where(function($query) use ($request){
+                        $query->where(function($query) use ($request){
+                            if ($request->has('doubleBed'))$query->where('apartament_double_beds', '>', '0');
+                        })
+                            ->where(function($query) use ($request){
+                                if ($request->has('1bed')) $query->orwhere('apartament_single_beds', '1');
+                                if ($request->has('2beds')) $query->orWhere('apartament_single_beds', '2');
+                                if ($request->has('3beds')) $query->orWhere('apartament_single_beds', '>', '2');
+                            });
+                    })
+                    ->distinct('apartaments.id'))
+                ->where('language_id', $this->language->id)
+                ->whereBetween('date_of_price', array($arriveDate, $returnDate))
+                ->whereNotIn('apartaments.id', $idFinds)
+                ->where(function($query) use ($region){
+                    if($region == NULL){
+                        //
+                    }
+                    else{
+                        $query->where('apartament_descriptions.apartament_name',$region)
+                            ->orWhere('apartaments.apartament_city',$region);
+                    }
+                })
+                ->whereIn('apartaments.id', $whereInData)
+                ->where('apartaments.group_id', 0)
+                ->groupBy('apartaments.id')
+                ->get();
+
+            $blackIds = array();
+            foreach($black as $blackId){
+                array_push($blackIds, $blackId->id);
+            }
+
+            $blueAndBlackIds = array_merge($blackIds, $idFinds);
+
+            //apartaments not available in this term
+            $gray = DB::table("apartaments")
+                ->selectRaw('apartaments.*, sub.ratingAvg, sub.opinionAmount, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+                ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+                ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
+                ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
+                ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
+                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+                ->leftjoin(DB::raw('(select group_id, id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
+                        cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation` left join apartaments on id_apartament = apartaments.id group by apartaments.group_id) sub
+                    '), 'sub.group_id', '=', 'apartaments.group_id')
+                ->where('language_id', $this->language->id)
+                ->whereNotIn('apartaments.id', $blueAndBlackIds)
+                ->where(function($query) use ($region){
+                    if($region == NULL){
+                        //
+                    }
+                    else{
+                        $query->where('apartament_descriptions.apartament_name',$region)
+                            ->orWhere('apartaments.apartament_city',$region);
+                    }
+                })
+                ->whereIn('apartaments.id', $whereInData)
+                ->where('apartaments.group_id', 0)
+                ->groupBy('apartaments.id')
+                ->get();
+
+            $favouritesCount = Session::get('userFavouritesAll')->count();
+
+            return view('account.favourites.mapa', [
+                'finds' => $finds,
+                'findsWithoutGroup' => $findsWithoutGroup,
+                'favouritesCount' => $favouritesCount,
+                'request' => $request,
+                'coordinates' => $coordinates,
+                'black' => $black ?? 0,
+                'blackGroups' => $blackGroups ?? 0,
+                'gray' => $gray ?? 0,
+                'grayGroups' => $grayGroups ?? 0,
+            ]);
+        }
         else {
 
             switch($request->route()->getName()) {
@@ -643,14 +1029,8 @@ class Account extends Controller
             if($request->amount2 == "1000+") $request->amount2 = 10000;
             $region = $request->input('region');
 
-            //Date Parsing
-            $arriveToChange = explode(' ', $request->input('przyjazd'));
-            $arriveToChange = str_replace('.', '-', $arriveToChange[1]);
-            $departureToChange = explode(' ', $request->input('powrot'));
-            $departureToChange = str_replace('.', '-', $departureToChange[1]);
-
-            $arriveDate = date("Y-m-d", strtotime($arriveToChange));
-            $returnDate = date("Y-m-d", strtotime($departureToChange));
+            $arriveDate = $request->input('t-start');
+            $returnDate = $request->input('t-end');
             $dprz = strtotime($arriveDate);
             $dpwr = strtotime($returnDate);
             $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
@@ -660,7 +1040,7 @@ class Account extends Controller
                     $paginate = 16;
                     break;
                 case 'lista':
-                    $paginate = 8;
+                    $paginate = 16;
                     break;
                 case 'mapa':
                     $paginate = 100;
@@ -677,16 +1057,19 @@ class Account extends Controller
             if ($request->has('balkon')) array_push($whereData, ['apartaments.apartament_balcony', '1']);
             if ($request->has('zwierzeta')) array_push($whereData, ['apartaments.apartament_animals', '1']);
 
-            $withoutGroup = DB::table("apartaments")
-                ->selectRaw('sub.opinionAmount, sub.ratingAvg, apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
+            $finds = DB::table("apartaments")
+                ->selectRaw('lastReservation.lastReservationDate, sub.opinionAmount, sub.ratingAvg, apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
                 ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                 ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
                 ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
                 ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
+                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
                 ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
                 cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
-                '), 'sub.id_apartament', '=', 'apartaments.id')
-                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
+            '), 'sub.id_apartament', '=', 'apartaments.id')
+                ->leftjoin(DB::raw('(select apartament_id, reservations.created_at as lastReservationDate from `apartaments`
+                right join `reservations` on `apartaments`.`id` = `reservations`.`id`  group by apartament_id) lastReservation
+            '), 'lastReservation.apartament_id', '=', 'apartaments.id')
                 ->whereNotIn('apartaments.id', Apartament::select('apartaments.id')
                     ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
                     /*->leftJoin('apartament_prices', function($join) {
@@ -748,85 +1131,19 @@ class Account extends Controller
                     }
                 })
                 //->where('apartaments.group_id', 0)
+                ->where('apartaments.apartament_persons', '>=', $request->dorosli)
+                ->where('apartaments.apartament_kids', '>=', $request->dzieci)
                 ->whereIn('apartaments.id', $whereInData)
-                ->groupBy('apartaments.id');
-
-            $finds = DB::table("apartaments")
-                ->selectRaw('sub.opinionAmount, sub.ratingAvg, apartament_groups.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
-                ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
-                ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
-                ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
-                ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
-                ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
-                cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
-                '), 'sub.id_apartament', '=', 'apartaments.id')
-                ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
-                ->whereNotIn('apartaments.id', Apartament::select('apartaments.id')
-                    ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
-                    /*->leftJoin('apartament_prices', function($join) {
-                        $join->on('apartament_prices.apartament_id','=','apartaments.id')
-                            ->where('price_value', DB::raw("(select min(`price_value`) from apartament_prices where apartament_id = 1)"));
-                    })
-                    */
-                    ->leftJoin('languages', function($join) {
-                        $join->on('apartament_descriptions.language_id','=','languages.id');
-                    })
-
-                    ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
-                    ->where(function($query) use ($region){
-                        if($region == NULL){
-                            //
-                        }
-                        else{
-                            $query->where('apartament_descriptions.apartament_name',$region)
-                                ->orWhere('apartaments.apartament_city',$region);
-                        }
-                    })
-                    ->where(function($query) use ($arriveDate,$returnDate) {
-                        $query->whereRaw('((reservation_arrive_date + INTERVAL 1 DAY between ? and ?) or (reservation_departure_date - INTERVAL 1 DAY between ? and ?))',[$arriveDate, $returnDate, $arriveDate, $returnDate]);
-                        //$query->whereRaw('(? between reservation_arrive_date and reservation_departure_date) OR (? between reservation_arrive_date and reservation_departure_date)',[$arriveDate,$returnDate]);
-                    })
-                    ->where(function($query) use ($request){
-                        if ($request->has('1room')) $query->where('apartament_rooms_number', '1');
-                        if ($request->has('2rooms')) $query->orWhere('apartament_rooms_number', '2');
-                        if ($request->has('3rooms')) $query->orWhere('apartament_rooms_number', '3');
-                        if ($request->has('4rooms')) $query->orWhere('apartament_rooms_number', '>', '3');
-                    })
-                    ->where(function($query) use ($request){
-                        $query->where(function($query) use ($request){
-                            if ($request->has('doubleBed'))$query->where('apartament_double_beds', '>', '0');
-                        })
-                            ->where(function($query) use ($request){
-                                if ($request->has('1bed')) $query->orwhere('apartament_single_beds', '1');
-                                if ($request->has('2beds')) $query->orWhere('apartament_single_beds', '2');
-                                if ($request->has('3beds')) $query->orWhere('apartament_single_beds', '>', '2');
-                            });
-                    })
-                    ->distinct('apartaments.id'))
-                ->where('language_id', $this->language->id)
-                ->whereBetween('price_value', array($request->amount ?? 0, $request->amount2 ?? 10000))
-                ->whereBetween('date_of_price', array($arriveDate, $returnDate))
-                ->where($whereData)
-                /*->where(function($query) use ($request) {
-                    if($request->amount2 == "+1000") $query->where('price_value', '>', $request->amount);
-                    else $query->whereBetween('price_value', array($request->amount, $request->amount2));
-                })
-                */
-                ->where(function($query) use ($region){
-                    if($region == NULL){
-                        //
-                    }
-                    else{
-                        $query->where('apartament_descriptions.apartament_name',$region)
-                            ->orWhere('apartaments.apartament_city',$region);
-                    }
-                })
-                ->where('apartaments.group_id', '>', 0)
-                ->whereIn('apartaments.id', $whereInData)
-                ->groupBy('apartaments.group_id')
-                ->orderBy('apartaments.group_id', 'DESC')
-                ->unionAll($withoutGroup)
+                ->orderBy('min_price', 'ASC')
+                ->groupBy('apartaments.id')
                 ->get();
+
+            switch($request->sort){
+                case 2: $finds = $finds->sortBy('min_price'); break;
+                case 3: $finds = $finds->sortByDesc('ratingAvg'); break;
+                case 4: $finds = $finds->sortByDesc('opinionAmount'); break;
+                case 5: case 1: default: $finds = $finds->sortBy('group_id'); break;
+            }
 
             //->paginate($paginate, ['apartaments.id']);
 
@@ -837,16 +1154,7 @@ class Account extends Controller
                 }
             }
 
-            $countedObjects = 0;
-            $countedApartaments = 0;
-            foreach($finds as $find){
-                if($find->group_name != NULL && $find->group_id > 0) $countedObjects++;
-                else if($find->group_id == 0){
-                    $countedApartaments++;
-                    $countedObjects++;
-                }
-                else $countedApartaments++;
-            }
+            $favouritesCount = $finds->count();
 
             $finds = $finds->all();
             $finds = new Paginator($finds, $paginate);
@@ -949,16 +1257,18 @@ class Account extends Controller
 
             }
 
-            if ($countedObjects === 0) return view('pages.results-none', ['nightsCounter' => $nightsCounter, 'request' => $request]);
+            if ($favouritesCount === 0) return view('pages.results-none', ['nightsCounter' => $nightsCounter, 'request' => $request]);
 
-            $favouritesCount = $countedApartaments;
         }
+
+        $sortSelectArray = array(1=>__('messages.Best fit'), 2=>__('messages.Lowest price'), 3=>__('messages.Top rated'), 4=>__('messages.Most popular'), 5=>__('messages.Closest'));
 
         if ($request->route()->getName() == 'myFavourites') {
             return view('account.favourites.kafle', [
                 'finds' => $finds,
                 'favouritesCount' => $favouritesCount,
                 'request' => $request,
+                'sortSelectArray' => $sortSelectArray,
             ]);
         }
         else if($request->route()->getName() == 'myFavouritesList'){
@@ -966,15 +1276,7 @@ class Account extends Controller
                 'finds' => $finds,
                 'favouritesCount' => $favouritesCount,
                 'request' => $request,
-            ]);
-        }
-        else if($request->route()->getName() == 'myFavouritesMap'){
-            return view('account.favourites.mapa', [
-                'finds' => $finds,
-                'favouritesCount' => $favouritesCount,
-                'request' => $request,
-                //'black' => $black ?? 0,
-                //'gray' => $gray ?? 0,
+                'sortSelectArray' => $sortSelectArray,
             ]);
         }
         else if($request->route()->getName() == 'myFavouritesCompare'){
@@ -982,6 +1284,7 @@ class Account extends Controller
                 'finds' => $finds,
                 'favouritesCount' => $favouritesCount,
                 'request' => $request,
+                'sortSelectArray' => $sortSelectArray,
             ]);
         }
 
@@ -994,12 +1297,14 @@ class Account extends Controller
 
         $links = explode(',', $request->links);
 
-        foreach($emails as $email){
-            Mail::send('includes.mail_send-to-friends', ['test'=>$links], function($message) use ($email){
-                $message->to($email)
-                    ->subject('Linki do ulubionych apartamentów');
-                $message->from('kontakt@visitzakopane.pl','Otozakopane');
-            });
+        if(\App::environment('production')){
+            foreach($emails as $email){
+                Mail::send('includes.mail_send-to-friends', ['test'=>$links], function($message) use ($email){
+                    $message->to($email)
+                        ->subject('Linki do ulubionych apartamentów');
+                    $message->from('kontakt@visitzakopane.pl','Otozakopane');
+                });
+            }
         }
 
         return response()->json('true');

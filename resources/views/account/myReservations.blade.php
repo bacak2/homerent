@@ -109,12 +109,12 @@
                     <a class="btn btn-black" href="tel:713333222"><img src="{{ asset("images/account/phone.png") }}"></a>
                 @enddesktop
                 <a class="btn btn-black" href="mailto:ja@ja.pl"><img src="{{ asset("images/account/envelope.png") }}"></a>
-                <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a>
+                <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.reservationDetail',['idReservation' => $reservation->id]) }}">Szczegóły</a>
                 <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
                 <div class="more row mobile-none">
                     <div class="btn-toggle col-1" style="height: 100%"> <i style="font-size:16px; font-weight: bold" class="fa">&#xf100;</i></div>
                     <div class="col-1" style="display: none;">
-                        <a href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a><br>
+                        <a href="{{ route('account.reservationDetail',['idReservation' => $reservation->id]) }}">Szczegóły</a><br>
                         <a href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
                     </div>
                 </div>
@@ -172,15 +172,15 @@
                             <span class="bold pull-right" style="font-size: 22px">{{round($reservation->total_rating)}}</span>
                         </div>
                     @else
-                        <a class="btn btn-black mobile-none" style="padding-left:2.5rem; padding-right:2.5rem;" href="{{ route('account.opinion',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Oceń</a>
-                        <a class="btn btn-black font-12 px-4 desktop-none" style="width: 120px; border: 1px solid rgba(121, 121, 121, 1); padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.opinion',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Oceń</a>
+                        <a class="btn btn-black mobile-none" style="padding-left:2.5rem; padding-right:2.5rem;" href="{{ route('account.opinion',['idReservation' => $reservation->id]) }}">Oceń</a>
+                        <a class="btn btn-black font-12 px-4 desktop-none" style="width: 120px; border: 1px solid rgba(121, 121, 121, 1); padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.opinion',['idReservation' => $reservation->id]) }}">Oceń</a>
                     @endif
-                    <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a>
+                    <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.reservationDetail',['idReservation' => $reservation->id]) }}">Szczegóły</a>
                     <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
                     <div class="more row mobile-none">
                         <div class="btn-toggle col-1" style="height: 100%"> <i style="font-size:16px; font-weight: bold" class="fa">&#xf100;</i></div>
                         <div class="col-1" style="display: none;">
-                            <a href="{{ route('account.reservationDetail',['idAparment' => $reservation->apartament_id, 'idReservation' => $reservation->id]) }}">Szczegóły</a><br>
+                            <a href="{{ route('account.reservationDetail',['idReservation' => $reservation->id]) }}">Szczegóły</a><br>
                             <a href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
                         </div>
                     </div>

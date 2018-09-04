@@ -56,7 +56,7 @@
                 </div>
                 <div class="row"><b>Dane: </b> VISITzakopane.pl, ul. Tetmajera 35 lok. 12, 34-500 Zakopane, Poland</div>
                 <div class="row"><b>Tytuł przelewu: </b> Rezerwacja nr {{$reservation[0]->id}}</div>
-                <div class="row"><b>Kwota: </b> całość {{$reservation[0]->payment_to_pay}} PLN lub zaliczka 100,00 PLN</div>
+                <div class="row"><b>Kwota: </b> całość {{$reservation[0]->payment_to_pay}} PLN lub zaliczka 100.00 PLN</div>
             </div>
         </div>
         @endif

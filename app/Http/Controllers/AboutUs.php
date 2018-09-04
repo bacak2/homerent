@@ -19,12 +19,16 @@ class AboutUs extends Controller
 {
     //Site language from database
     protected $language = 1;
+    protected $geo_lat = '49.28789339999999';
+    protected $geo_lon = '19.9524993';
 
     public function __construct()
     {
         $temp = \App::getLocale();
         $language = DB::table('languages')->select('id', 'language_code')->where('language_code',$temp)->first();
         $this->language = $language;
+        if ($this->language->id == 1) setlocale(LC_TIME, "pl_PL");
+        else setlocale(LC_TIME, "en_EN");
     }
 
     public function index(){
@@ -63,17 +67,36 @@ class AboutUs extends Controller
     public function contact(){
         return view('about-us.contact',[
             'language' => $this->language->language_code,
-            'geo_lat' => '49.28789339999999',
-            'geo_lon' => '19.9524993',
+            'geo_lat' => $this->geo_lat,
+            'geo_lon' => $this->geo_lon,
         ]);
     }
 
     public function faq($faqToShow){
         return view('about-us.contact',[
             'language' => $this->language->language_code,
-            'geo_lat' => '49.28789339999999',
-            'geo_lon' => '19.9524993',
+            'geo_lat' => $this->geo_lat,
+            'geo_lon' => $this->geo_lon,
             'faqToShow' => $faqToShow,
+        ]);
+    }
+
+    public function report($idComment){
+
+        $comment = DB::table('apartament_opinions')
+            ->where('id', $idComment)
+            ->first();
+
+        $commentToReport = $comment->cons ?? $comment->pros;
+        if(strlen($commentToReport) > 20) $commentToReport = substr($commentToReport, 0, 20)."...";
+        else $commentToReport = substr($commentToReport, 0, 20);
+
+        return view('about-us.contact',[
+            'language' => $this->language->language_code,
+            'geo_lat' => $this->geo_lat,
+            'geo_lon' => $this->geo_lon,
+            'idComment' => $idComment,
+            'commentToReport' => $commentToReport,
         ]);
     }
 
@@ -82,25 +105,46 @@ class AboutUs extends Controller
 
         $emails = explode(',', str_replace(' ', '', $request->emails2));
 
-        $links = explode(',', $request->links);
+        if(\App::environment('production')){
+            foreach($emails as $email){
+                Mail::send('includes.mail_send-to-friends', ['link'=>$request->link], function($message) use ($email){
+                    $message->to($email)
+                        ->subject('Link do aktualności');
+                    $message->from('kontakt@visitzakopane.pl','Otozakopane');
+                });
+            }
+        }
 
-        foreach($emails as $email){
-            Mail::send('includes.mail_send-to-friends', ['test'=>$links], function($message) use ($email){
-                $message->to($email)
-                    ->subject('Link do aktualności');
-                $message->from('kontakt@visitzakopane.pl','Otozakopane');
-            });
+    }
+    //Async send mail
+    public function sendMailWithGuidebook(Request $request){
+
+        $emails = explode(',', str_replace(' ', '', $request->emails2));
+
+        if(\App::environment('production')){
+            foreach($emails as $email){
+                Mail::send('includes.mail_guidebook-send-to-friends', ['link'=>$request->link], function($message) use ($email){
+                    $message->to($email)
+                        ->subject('Przewodnik');
+                    $message->from('kontakt@visitzakopane.pl','Otozakopane');
+                });
+            }
         }
 
     }
 
+    //sending mail from contact form
     public function SendMail(Request $request){
 
-        Mail::send('includes.mail_contact-form', [], function($message) use ($request){
-            $message->to('krzysztof.baca@artplus.pl')
-                ->subject('Formularz kontaktowy');
-            $message->from('kontakt@visitzakopane.pl','Otozakopane');
-        });
+        if(\App::environment('production')) {
+            Mail::send('includes.mail_contact-form', ['request'=>$request], function ($message) use ($request) {
+                $message->to('krzysztof.baca@artplus.pl')
+                    ->subject('Formularz kontaktowy');
+                $message->from($request->contactEmail, 'Użytkownik serwisu Otozakopane');
+            });
+        }
+
+        return redirect()->route("aboutUs.contact")->with('status', 'Zdjęcie dodano pomyślnie');
 
     }
 

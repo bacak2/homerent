@@ -3,10 +3,10 @@
 @section('fav-title', 'Porównanie')
 
 @section('icons-active')
-    <a class="btn" href="{{ route('myFavourites') }}"><img data-toggle="tooltip" data-placement="bottom" title="Kafle" alt="Kafle" src='{{ asset("images/results/kafle.png") }}'></a>
-    <a class="btn" href="{{ route('myFavouritesList') }}"><img data-toggle="tooltip" data-placement="bottom" title="Lista" alt="Lista" src='{{ asset("images/results/lista.png") }}'></a>
-    <a class="btn" href="{{ route('myFavouritesMap') }}"><img data-toggle="tooltip" data-placement="bottom" title="Mapa" alt="Mapa" src='{{ asset("images/results/mapa.png") }}'></a>
-    <a class="active bold" href="{{ route('myFavouritesCompare') }}">Porównaj</a>
+    <a class="btn" href="{{ route('myFavourites') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Kafle" alt="Kafle" src='{{ asset("images/results/kafle.png") }}'></a>
+    <a class="btn" href="{{ route('myFavouritesList') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Lista" alt="Lista" src='{{ asset("images/results/lista.png") }}'></a>
+    <a class="btn" href="{{ route('myFavouritesMap') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Mapa" alt="Mapa" src='{{ asset("images/results/mapa.png") }}'></a>
+    <a class="active bold" href="{{ route('myFavouritesCompare') }}?{{ http_build_query(Request::except('_token')) }}">Porównaj</a>
 @endsection
 
 @section('compare-content')
@@ -26,10 +26,10 @@
             <div>Zobacz szczegóły i zarezerwuj</div>
             <div class="font-18"><b>O apartamencie</b></div>
             <div>Max liczba osób:</div>
-            <div>Ilość pokoi:</div>
-            <div>Ilość pokoi nieprzechodnich:</div>
-            <div>Ilość łóżek podwójnych:</div>
-            <div>Ilość łóżek pojedynczych:</div>
+            <div>Liczba pokoi:</div>
+            <div style="display: none">Liczba pokoi nieprzechodnich:</div>
+            <div>Liczba łóżek podwójnych:</div>
+            <div>Liczba łóżek pojedynczych:</div>
             <div>Suma łóżek:</div>
             <div>Metraż:</div>
             <div>Piętro:</div>
@@ -62,7 +62,6 @@
             <span id="compare-bar" class="ml-4" style="display: inherit;">
             <div id="compare-bar-prev" class="compare-bar-arrays" style="background-image: url({{ asset("images/apartment_detal/calendar-prev.png") }}"></div>
             @foreach ($finds as $apartament)
-                @if($apartament->group_name == null)
                 <div class="favourites-box" id="{{$loop->iteration-1}}">
                     <div style="width: 100%; background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover;"></div>
                     <div>od {{ $apartament->min_price }} PLN</div>
@@ -100,7 +99,6 @@
                     <div>
                         <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('Metraż') }}"> <span class="description-below-living-area">{{ $apartament->apartament_living_area }} m²</span> </div>
                         <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.people') }}" style="background-image: url('{{ asset("images/results/person.png") }}');"> <span>{{ $apartament->apartament_persons }}</span> </div>
-                        <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.kids') }}" style="background-image: url('{{ asset("images/results/child.png") }}');"> <span>{{ $apartament->apartament_kids }}</span> </div>
                         <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('łóżek') }}" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>{{ $apartament->apartament_single_beds + $apartament->apartament_double_beds }}</span> </div>
                     </div>
                     <div>
@@ -109,7 +107,7 @@
                     <div></div>
                     <div>{{ $apartament->apartament_persons }}</div>
                     <div>{{ $apartament->apartament_rooms_number }}</div>
-                    <div>{{ $apartament->apartament_intransitive_rooms }}</div>
+                    <div style="display: none">{{ $apartament->apartament_intransitive_rooms }}</div>
                     <div>{{ $apartament->apartament_double_beds }}</div>
                     <div>{{ $apartament->apartament_single_beds }}</div>
                     <div>{{ $apartament->apartament_double_beds + $apartament->apartament_single_beds }}</div>
@@ -147,7 +145,6 @@
                     <div>Zwierzęta są akceptowane na życzenie. Mogą obowiązywać dodatkowe opłaty</div>
                     <div>Cena zakwaterowania nie obejmuje opłaty za zużycie energii elektrycznej.</div>
                 </div>
-                @endif
             @endforeach
             <div id="compare-bar-next" class="compare-bar-arrays" style="background-image: url({{ asset("images/apartment_detal/calendar-next.png") }}"></div>
 		    </span>

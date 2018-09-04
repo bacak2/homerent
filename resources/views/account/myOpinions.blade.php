@@ -116,7 +116,7 @@
                             Przekazując informacje na temat pobytu w tym obiekcie pomagasz innym podróżnym podejmować lepsze decyzje.
                         </div>
                         <div class="col-4" style="padding-right: 0px">
-                            <a class="btn btn-black pull-right font-12" href="{{ route('account.opinion',['idAparment' => $opinion->apartament_id, 'idReservation' => $opinion->id]) }}">Oceń</a>
+                            <a class="btn btn-black pull-right font-12" href="{{ route('account.opinion',['idReservation' => $opinion->id]) }}">Oceń</a>
                         </div>
                     </div>
                 @endif

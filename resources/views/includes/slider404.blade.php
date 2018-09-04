@@ -3,16 +3,16 @@
   <div id="mainSliderSearch" class="carousel slide" data-ride="carousel" data-interval="7000">
       <div class="carousel-inner d-none d-md-block d-lg-block d-xl-block">
           <div class="carousel-item active">
-              <img class="d-block w-100" src="/images/slider/1.png" alt="First slide">
+              <img class="d-block w-100" src="/images/slider/1.jpg" alt="First slide">
           </div>
           <div class="carousel-item">
-              <img class="d-block w-100" src="/images/slider/2.png" alt="Second slide">
+              <img class="d-block w-100" src="/images/slider/2.jpg" alt="Second slide">
           </div>
           <div class="carousel-item">
-              <img class="d-block w-100" src="/images/slider/3.png" alt="Third slide">
+              <img class="d-block w-100" src="/images/slider/3.jpg" alt="Third slide">
           </div>
       </div>
-      <div id="topSearch" style="background-image: url('/images/slider/1.png');">
+      <div id="topSearch" style="background-image: {{url('/images/slider/1.jpg')}}">
         <h1 class="container" style="padding-top: 0px; color: white; font-size: 32px; font-weight: bold;">Strona, której szukasz nie istnieje</h1>
         <div class="container searchCont" style="padding-top: 60px;">
               <span style="color: white; font-size: 32px; font-weight: bold;">Szukaj wśród 34 678 noclegów w Polsce</span>

@@ -313,7 +313,7 @@ class Services extends Controller
                 'payment_to_pay' => DB::raw('payment_to_pay +'.$toPay),
                 'payment_additional_services' => DB::raw('payment_additional_services +'.$toPay)
             ));
-
+//return 0;
         if($request->payment_method == 2 || $request->payment_method == 4) {
             return redirect()->action(
                 'Reservations@fourthStep', [
@@ -340,10 +340,11 @@ class Services extends Controller
             $query->where('language_id', $this->language->id);
         }))->find($id);
 
-        $reservation = DB::table('reservations')->where('id', $idReservation)->get();
-
-        //$reservationModel = new Reservation();
-        //$reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
+        if(\App::environment('production')) {
+            $reservation = DB::table('reservations')->where('id', $idReservation)->get();
+            $reservationModel = new Reservation();
+            $reservationModel->sendMail($idReservation, $this->language->id);
+        }
 
         $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $idReservation)->get();
 
@@ -370,10 +371,11 @@ class Services extends Controller
             $query->where('language_id', $this->language->id);
         }))->find($id);
 
-        $reservation = DB::table('reservations')->where('id', $_GET['idReservation'])->get();
-
-        //$reservationModel = new Reservation();
-        //$reservationModel->sendMail($idAparment, $idReservation, $this->language->id);
+        if(\App::environment('production')) {
+            $reservation = DB::table('reservations')->where('id', $_GET['idReservation'])->get();
+            $reservationModel = new Reservation();
+            $reservationModel->sendMail($reservation[0]->apartament_id, $this->language->id);
+        }
 
         $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $_GET['idReservation'])->get();
 
@@ -390,22 +392,26 @@ class Services extends Controller
         echo "OK";
 
         if($request->operation_status == 'completed'){
-            //DB::table('reservations')->where('id', $request->control)->update(['payment_to_pay' => DB::raw("payment_to_pay - $request->operation_amount"), 'reservation_status' => DB::raw("IF (payment_to_pay - $request->operation_amount < 0, 1, 0)"), 'updated_at' => date("Y-m-d H:i:s")]);
             DB::table('reservations')->where('id', $request->control)->update(['payment_to_pay' => DB::raw("payment_to_pay - $request->operation_amount"), 'reservation_status' => 1, 'updated_at' => date("Y-m-d H:i:s")]);
         }
 
-        //$reservation = DB::table('reservations')->where('id', $request->control)->get();
+        if(\App::environment('production')) {
+            $reservation = DB::table('reservations')->where('id', $request->control)->get();
+            $reservationModel = new Reservation();
+            $reservationModel->sendMail($reservation[0]->apartament_id, $reservation[0]->id, $this->language->id);
+        }
 
-        //$reservationModel = new Reservation();
-        //$reservationModel->sendMail($reservation[0]->apartament_id, $reservation[0]->id, $this->language->id);
-
+        exit();
     }
 
     //Async send mail
     public function SendMail(Request $request){
-        $request->reservationId;
-        $reservationModel = new Reservation();
-        //$reservationModel->sendMail($request->reservationId, $this->language->id);
+
+        if(\App::environment('production')) {
+            $request->reservationId;
+            $reservationModel = new Reservation();
+            $reservationModel->sendMail($request->reservationId, $this->language->id);
+        }
         return response()->json(['res' => 'done']);
     }
 

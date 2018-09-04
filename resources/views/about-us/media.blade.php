@@ -212,7 +212,7 @@
 
             </div>
         </div>
-        <div class="col-md-6 col-lg-5">
+        <div class="col-md-6 col-lg-4">
             <div style="color: #0066CC; font-size: 24px; font-weight: bold">Skontaktuj się z nami</div>
             <div style="padding: 20px; border: 1px solid rgba(121, 121, 121, 1); background-color: rgba(242, 242, 242, 1);">
                 <div class="row my-2">

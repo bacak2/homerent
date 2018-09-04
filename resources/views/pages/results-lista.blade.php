@@ -12,7 +12,7 @@
                 @if($apartament->group_id > 0 && $apartament->group_name != NULL)
                     <div class="row list-item" itemscope itemtype="http://schema.org/Hotel">
                         <div class="col-lg-3 col-md-12 col-sm-6 col-xl-3">
-                            <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; max-width: 285px; max-height: 149px;"></div>
+                            <div class="apartament" style="background-image: url('{{ asset("images/apartaments_group/$apartament->group_id/main.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px; max-width: 285px; max-height: 149px;"></div>
                         </div>
                         <div class="col-lg-7 col-md-12">
                             <div class="row list-item-name">
@@ -81,6 +81,8 @@
                                         ?>
                                         {{ __("messages.Last reservation") }} {{$hours}} {{ __("messages.hours ago") }}
                                     </div>
+                                 @else
+                                    <div class="col-6">&nbsp;</div>
                                 @endif
                             </div>
                         </div>
@@ -172,6 +174,8 @@
                                         ?>
                                         {{ __("messages.Last reservation") }} {{$hours}} {{ __("messages.hours ago") }}
                                     </div>
+                                @else
+                                    <div class="col-6">&nbsp;</div>
                                 @endif
                             </div>
                         </div>

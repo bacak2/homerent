@@ -66,13 +66,13 @@
                         <span class="udogodnienia">{{ __('messages.Facilities') }}<i class="fa fa-caret-down udogodnienia"></i></span>
                         <div class="udogodnienia">
                             <p>
-                                <label>{!! Form::checkbox('SPA', null, null, ['id' => 'spa']) !!}<img src='{{ asset("images/results/Bathtub_24.png") }}'">{{ __('SPA') }}</label>
+                                <label>{!! Form::checkbox('spa', null, null, ['id' => 'spa']) !!}<img src='{{ asset("images/results/Bathtub_24.png") }}'">{{ __('SPA') }}</label>
                             </p>
                             <p>
                                 <label>{!! Form::checkbox('zwierzeta', null, null, ['id' => 'zwierzeta']) !!}<img src='{{ asset("images/results/Dog_24.png") }}'">{{ __('messages.Acceptance of animals') }}</label>
                             </p>
                             <p>
-                                <label>{!! Form::checkbox('garaz/parking', null, null, ['id' => 'garaz']) !!}<img src='{{ asset("images/results/parking3.png") }}'">{{ __('messages.Garage/Parking') }}</label>
+                                <label>{!! Form::checkbox('garaz', null, null, ['id' => 'garaz']) !!}<img src='{{ asset("images/results/parking3.png") }}'">{{ __('messages.Garage/Parking') }}</label>
                             </p>
                             <p>
                                 <label>{!! Form::checkbox('kominek', null, null, ['id' => 'kominek']) !!}<img src='{{ asset("images/results/Fireplace_24.png") }}'">{{ __('messages.Fireplace') }}</label>
@@ -83,6 +83,7 @@
                         </div>
                     </div>
                     <div class="col-3">
+                        {{--
                         <span class="dzielnica">{{ __('messages.District') }}<i class="fa fa-caret-up dzielnica"></i></span>
                         <div class="dzielnica" style="display: none;">
 
@@ -94,6 +95,7 @@
                             </p>
 
                         </div>
+                        --}}
                     </div>
                 </div>
                     <hr>

@@ -88,7 +88,7 @@
 		</div>
 	</div>
 	@endhandheld
-	<div class="row mx-0 back" style="background-image: url( {{ asset("images/apartaments/$apartament->id/main.jpg") }} );">
+	<div class="row mx-0 back" style="background-image: url( {{ asset("images/apartaments/$apartament->id/main_big.jpg") }} );">
 		<div class="container">
 			<div class="row apartament-info" >
 				<div class="col-md-8">
@@ -2168,6 +2168,35 @@
 			</span>
 		</div>
 	</div>
+	<div id="send-news">
+		<span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br>
+		<div class="row">
+			<div class="col-2"><span class="font-14">Link:</span></div>
+			<div class="col-10">
+				<ul class="font-13">
+					<li>
+						<span id="link">{{Request::url()}}</span>
+						<span class="txt-blue copy-to-clipboard" onclick="copyToClipboard('#link')">Skopiuj</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<label for="emails2">Adresy e-mail:</label>
+		<input id="emails2" name="emails2" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)">
+		<input id="links" name="links" type="hidden" value="{{Request::url()}}">
+		<hr>
+		<div style="text-align: center;">
+			<button id="send-mail-with-news" class="btn btn-primary">Wyślij</button>
+			<button class="btn btn-default close-send-news-friends">Anuluj</button>
+		</div>
+		<div id="close-send-news" class="close-send-news-friends">x</div>
+	</div>
+
+	<div id="confirm-send-news-friends" class="text-center">
+		<br><span style="font-size: 24px; font-weight: bold">Wiadomość e-mail została wysłana</span><br><br><br>
+		<button class="btn btn-default close-confirm-news">OK</button>
+	</div>
 	<script type="text/javascript">
         $(document).ready(function(){
             $('.t-datepicker').tDatePicker({
@@ -2186,8 +2215,8 @@
             });
 
 			@if(isset($_GET['t-start']) && isset($_GET['t-end']) && isset($request->dorosli))
-                dateInc = $('input[name=t-start]').val();
-            	dateOut = $('input[name=t-end]').val();
+                dateInc = '{{$_GET['t-start']}}';
+            	dateOut = '{{$_GET['t-end']}}';
                 ajaxConenction();
 			@endif
         });
@@ -2292,7 +2321,11 @@
             else $("#expand-price").html("(rozwiń) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'>");
         });
 	</script>
+	@if(\App::environment('production'))
+	<script src="https://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language=PL" type="text/javascript"></script>
+	@else
 	<script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language=PL" type="text/javascript"></script>
+	@endif
 	<script type="text/javascript">
 
         var mapa;
@@ -3023,7 +3056,7 @@
 				if(comments[i]['user_name'] == 0) html22 = $('<div class="col-12 user-data-detail"></div>').append($('<div class="row font-16">Anonimowy</div><div class="row font-11" style="margin-top: 3px;">Opinia z: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div>'));
 				else html22 = $('<div class="col-12 user-data-detail"></div>').append($('<div class="row font-16"><b>'+comments[i]['user_name']+'</b></div><div class="row font-16">'+comments[i]['user_country']+', '+comments[i]['user_city']+'</div><div class="row font-11" style="margin-top: 3px;">Opinia z: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div>'));
 				html2 = $('<div style="margin-bottom: 16px;"></div>').append(html21).append(html22);
-                html3 = $('<div style="clear: both; max-width: 200px; width: 200px;" class="col-12 row"></div>').append('<button class="btn btn-opinion-gray font-11 mr-2 px-1 py-0" onclick="increaseHelpful('+comments[i]['id']+')"><img style="position: relative;top: 6px;" src={{ asset("images/opinions/thumb.png") }}><span class="ml-1">Pomocna</span><br><span class="ml-3">opinia</span></button><a class="btn btn-opinion-gray ml-2 font-11" href="#"><img src={{ asset("images/opinions/flag.png") }}></a>');
+                html3 = $('<div style="clear: both; max-width: 200px; width: 200px;" class="col-12 row"></div>').append('<button class="btn btn-opinion-gray font-11 mr-2 px-1 py-0" onclick="increaseHelpful('+comments[i]['id']+')"><img style="position: relative;top: 6px;" src={{ asset("images/opinions/thumb.png") }}><span class="ml-1">Pomocna</span><br><span class="ml-3">opinia</span></button><a class="btn btn-opinion-gray ml-2 font-11" href="/contact/report/'+comments[i]['id']+'"><img src={{ asset("images/opinions/flag.png") }}></a>');
                 htmlLeft = $('<div class="col-3 user-data"></div>').append(html2).append(html3);
 
                 if(comments[i]['total_rating'] > 6) ratingColor = "green";
@@ -3508,5 +3541,59 @@
 @if($favouritesAmount == 0 && Auth::check())
 	@include('includes.favourites-first-added-popup')
 @endif
+
+	<script>
+        $(".send-news-friends").click(function() {
+            $("#send-news").show();
+            $("#send-to").hide();
+            if($("#truncate-favourites").css("display") != "none") $("#truncate-favourites").hide();
+        });
+
+        $(".close-send-news-friends").click(function() {
+            $("#send-news").hide();
+        });
+
+        $(".close-confirm-news").click(function() {
+            $("#confirm-send-news-friends").hide();
+        });
+
+        function copyToClipboard(element) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val($(element).text()).select();
+            document.execCommand("copy");
+            $temp.remove();
+        }
+
+        $("#send-mail-with-news").on('click', function(){
+            sendMailWithNews();
+        });
+
+        function sendMailWithNews(){
+
+            mailWithNewsSended();
+
+            $.ajax({
+                type: "GET",
+                url: '/send-news-to-friends',
+                dataType : 'json',
+                data: {
+                    emails2: $("#emails2").val(),
+                    link: $("#link").val(),
+                },
+                success: function() {
+                    //
+                },
+                error: function(data) {
+                    console.log(data);
+                },
+            });
+        }
+
+        function mailWithNewsSended(){
+            $('#send-news').hide();
+            $('#confirm-send-news-friends').show();
+        }
+	</script>
 
 @endsection
