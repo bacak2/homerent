@@ -1,5 +1,5 @@
 <div class="col">
-    <form class="wyszukiwarka" action="{{$request->getPathInfo()}}" method="GET" >
+    <form id="wyszukiwarka" class="wyszukiwarka" action="{{$request->getPathInfo()}}" method="GET" >
     <div class="form-row">
       <div class="col-lg-3 mb-2 mb-lg-0">
         <input type="text" class="form-control" id="region" name="region" placeholder="{{ __('messages.forexample')}}" value="{{ $_GET['region'] ?? '' }}">
@@ -40,6 +40,11 @@
                             <div id="slider-range"></div>
                             <input type="text" id="amount2" name="amount2" readonly>
                         </div>
+                        {{--<div class="row">
+                            <div class="col"><input id="firstPrice" class="w-100" type="number" min="0" max="1000" step="50"></div>
+                            <div id="priceSlider" class="col mt-2"></div>
+                            <div class="col"><input id="secondPrice" class="w-100" type="number" min="0" max="1000" step="50"></div>
+                        </div>--}}
                     </div>
                     <div class="col-3">
                         <span class="lpokoi">{{ __('messages.Number of rooms') }}<i class="fa fa-caret-down lpokoi"></i></span>

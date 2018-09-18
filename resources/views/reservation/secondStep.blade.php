@@ -566,6 +566,7 @@
                             <div class="col-xs-3 col-sm-12">
                                 <span class="font-m-14">{{ __('messages.Expected time') }}:</span>
                                 <input id="godzinaPrzyjazdu" value="15:00" name="godzinaPrzyjazdu" class="slider-time" style="width: 60px; margin-bottom: 20px">
+                                <div id=""></div>
                             </div>
                             <div class="col-lg-8 col-sm-10 col-lg-offset-3">
                                 <div id="time-range">
@@ -820,7 +821,7 @@
 
         });
 
-        $("#slider-range").slider({
+        /*$("#slider-range").slider({
             range: false,
             value: 900,
             min: 0,
@@ -836,6 +837,47 @@
 
                 $('.slider-time').val(hours1 + ':' + minutes1);
             }
+        });*/
+
+        var slider = document.getElementById("slider-range");
+        godzinaPrzyjazdu = document.getElementById('godzinaPrzyjazdu');
+        var initialStartMinute = 900;
+
+        slider = noUiSlider.create(slider,{
+            start:[initialStartMinute],
+            step:30,
+            range:{
+                'min':0,
+                'max':1440
+            }
+        });
+
+        var convertValuesToTime = function(values,handle){
+            var hours = 0,
+                minutes = 0;
+
+            if(handle === 0){
+                hours = convertToHour(values[0]);
+                minutes = convertToMinute(values[0],hours);
+                $("#godzinaPrzyjazdu").val(formatHoursAndMinutes(hours,minutes));
+                return;
+            }
+        };
+
+        var convertToHour = function(value){
+            return Math.floor(value / 60);
+        };
+        var convertToMinute = function(value,hour){
+            return value - hour * 60;
+        };
+        var formatHoursAndMinutes = function(hours,minutes){
+            if(hours.toString().length == 1) hours = '0' + hours;
+            if(minutes.toString().length == 1) minutes = '0' + minutes;
+            return hours+':'+minutes;
+        };
+
+        slider.on('update',function(values,handle){
+            convertValuesToTime(values,handle);
         });
 
         function scorePassword(pass) {

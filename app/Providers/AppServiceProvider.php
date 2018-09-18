@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (env('APP_ENV') === 'production') {
+            \Debugbar::disable();
+        }
     }
 
     /**
@@ -25,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
     {
          if (env('APP_ENV') === 'production') {
             $this->app['url']->forceScheme('https');
-        }
+         }
     }
 }

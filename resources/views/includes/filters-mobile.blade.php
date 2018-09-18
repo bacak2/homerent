@@ -1,12 +1,12 @@
-                <div class="d-lg-none filters-toggle filters-mobile font-12" style="display: none">
+                <div class="d-xl-none filters-toggle filters-mobile font-12" style="display: none">
                     <div class="col-12">
                         <span class="cenaRange">{{ __('messages.Price per stay') }} (PLN)<i class="fa fa-caret-up cenaRange"></i></span>
-                        <div class="cenaRange" style="display: none">
-                            <input type="text" id="Mamount" name="Mamount" readonly>
-                            <div id="Mslider-range"></div>
-                            <input type="text" id="Mamount2" name="Mamount2" readonly>
+                        <div class="cenaRange row" style="display: none">
+                            <div class="col"><input class="w-100" type="text" id="Mamount" name="Mamount" readonly></div>
+                            <div id="priceSlider" class="col-6 mt-1"></div>
+                            <div class="col"><input class="w-100" type="text" id="Mamount2" name="Mamount2" readonly></div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="col-12">
                         <span class="lpokoi">{{ __('messages.Number of rooms') }}<i class="fa fa-caret-up lpokoi"></i></span>
                         <div class="lpokoi" style="display: none">
@@ -25,7 +25,7 @@
                             {!! Form::checkbox('m4rooms', null, null, ['id' => 'm4rooms', 'style'=>'display:none']) !!}
                             <label for="m4rooms">
                                 <div class="filter-img more" style="background-image: url('{{ asset("images/results/houseNumber.png") }}');"> <span>4+</span> </div>
-                            </label>                            
+                            </label>
                         </div>
                     </div>
                     <div class="col-12">

@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer>
+<footer class="noprint">
     <div class="pt-5 pb-3 bg-footer">
         <div class="container">
             <div class="row">
@@ -33,7 +33,7 @@
                     <div class="row mobile-none">
                         <div class="col-12 mt-4">
                             <div class="font-16 bold mb-2">Podróżuj razem z nami</div>
-                            <div class="font-13">orem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus</div>
+                            <div class="font-13">Marzysz o niezapomnianych wakacjach w stolicy Tatr? Nasze apartamenty w Zakopanem zapewnią Ci wszystko czego potrzebujesz! Odpoczynek i piękne widoki już na Ciebie czekają.</div>
                         </div>
                     </div>
                 </div>

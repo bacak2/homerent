@@ -122,7 +122,7 @@ body	{
 	left: 12px;
 }
 
-.nav-item:hover, input[type="submit"]:hover, #expand-price:hover{
+.nav-item:hover, input[type="submit"]:hover, #expand-price:hover, .print-me{
 	cursor: pointer;
 }
 
@@ -779,13 +779,13 @@ select.h-100.form-control:not([size]):not([multiple]) {
 	}
 
 	.apartament {
-		height: 180px;
+		height: 176px;
 		width: 100%;
 		margin-bottom: 5px;
         background-repeat: no-repeat;
 		background-position: center;    
 		resize: both;
-    	background-size: auto 100%;
+    	background-size: 100% 100%;
 	}
 }
 
@@ -796,7 +796,7 @@ select.h-100.form-control:not([size]):not([multiple]) {
 	bottom: 10px;
 	background-color: rgba(0, 0, 0, 0.6);
 	color: white;
-	padding: 5px 10px 5px 5px;
+	padding: 5px;
 }
 
 .map-count{
@@ -822,6 +822,7 @@ select.h-100.form-control:not([size]):not([multiple]) {
 	position: absolute;
 	right: 5px;
 	bottom: 2px;
+	padding-right: 6px;
 }
 
 .description-map-bottom-right{
@@ -957,8 +958,11 @@ select.h-100.form-control:not([size]):not([multiple]) {
 	cursor: pointer;
 }
 
-ul.pagination > li > a, ul.pagination > li > span {
+ul.pagination > li:not(:last-child) > a, ul.pagination > li:not(:last-child) > span {
 	margin: 0 5px 0 0 !important;
+}
+
+ul.pagination > li > a, ul.pagination > li > span {
 	border: 1px solid black;
 }
 
@@ -980,20 +984,29 @@ ul.pagination li a,  ul.pagination li span{
 }
 
 ul.pagination {
-	li.active
+	li
 		{
-		span {
-	background-color: white;
-	color: black;
+		a{
+			background-color: #f7f3ef;
+			color: #1b8ce8 !important;
 		}
 	}
 }
 
 ul.pagination{
-	li{
+	li.active{
 		a {
-	background-color: #f7f3ef;
-	color: #1b8ce8 !important;
+			background-color: #fff;
+			color: #000 !important;
+		}
+	}
+}
+
+ul.pagination{
+	li.disabled{
+		span{
+			background-color: #f7f3ef;
+			color: #1b8ce8;
 		}
 	}
 }
@@ -1175,7 +1188,7 @@ div > span > i.fa{
 	margin-right: 5px;
 }
 
-.dropdown-menu {
+.dropdown-menu, .filters-toggle.filters-mobile {
 	input[type=checkbox]:not(:checked) + label, input[type=checkbox]:not(:checked) + span.district {
 		color: gray;
 	}
@@ -2349,6 +2362,10 @@ span.error-show{
 		margin-left: 0px;
 	}
 
+	.map-description-top, .map-count, .map-description-bottom{
+		left: 2px !important;
+	}
+
 }
 
 @media (max-width: 316px){
@@ -2439,7 +2456,7 @@ span.error-show{
 
 	#apartamentsforyou{
 		.apartament {
-			background-size: 100% 100%;
+			background-size: 100% auto;
 		}
 	}
 
@@ -2545,6 +2562,7 @@ span.error-show{
 		min-height: 50px;
 		padding-top: 7%;
 	}
+	.description-bottom-right{right: 0;}
 }
 
 @media (min-width: 1200px){
@@ -2759,6 +2777,25 @@ span.error-show{
 			height: 100% !important;
 		}
 	}
+}
+
+@media print
+{
+	@page {
+		size: A4;
+		margin: 1mm;
+	}
+
+	html, body {
+		width: 1024px;
+	}
+
+	body {
+		margin: 1em auto;
+	}
+
+	.noprint {display:none;}
+
 }
 
 /*# sourceMappingURL=homerent.css.map */

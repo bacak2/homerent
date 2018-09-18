@@ -3,7 +3,7 @@
 
             <div class="row d-xl-none" style="margin-bottom: 20px">
                 <div class="col-9 text-mobile-search">
-                    <a href="{{ route('index') }}" style="color: #00afea">Start > </a>@if($request->region != null)<b>{{ $finds[0]->apartament_city}}</b>,@endif {{__('messages.from')}} {{ $_GET['t-start'] }}, {{__('messages.number of nights')}}: {{ $nightsCounter }}, {{__('messages.Persons')}}: {{ $_GET['dorosli']+$_GET['dzieci'] }} {{--__('messages.Filters')--}}
+                    <a href="{{ route('index') }}" style="color: #00afea">Start > </a>@if(isset($request->region) && (ucfirst($request->region) == 'Zakopane' || ucfirst($request->region) == 'Kościelisko' || ucfirst($request->region) == 'Witów'))<b>{{ $request->region }},</b>@endif {{__('messages.from')}} {{ $_GET['t-start'] }}, {{__('messages.number of nights')}}: {{ $nightsCounter }}, {{__('messages.Persons')}}: {{ $_GET['dorosli']+$_GET['dzieci'] }} {{--__('messages.Filters')--}}
                 </div>
                 <div class="col-3">
                     <div  style="position: absolute; right:10px;"><a  class="btn btn-info btn-mobile filters-toggle">{{__('messages.change')}} </a></div>
@@ -12,11 +12,8 @@
                     @include('includes.filters-mobile')
                 @endhandheld
             </div>
-
-
-
             <div class="row d-xl-none">
-                <div class="col-8"><h1 class="pb-2" style="display: inline; font-size: 24px">{{ $finds[0]->apartament_city}} <span class="d-xl-none">({{ $countedApartaments }})</span></h1><span class="pb-2 d-none d-xl-inline"> ({{ $countedApartaments }} {{trans_choice('messages.apartaments', $countedApartaments)}})</span></div>
+                <div class="col-8"><h1 class="pb-2" style="display: inline; font-size: 24px">@if(isset($request->region) && (ucfirst($request->region) == 'Zakopane' || ucfirst($request->region) == 'Kościelisko' || ucfirst($request->region) == 'Witów')){{ $request->region }}@endif<span class="d-xl-none">({{ $countedApartaments }})</span></h1><span class="pb-2 d-none d-xl-inline"> ({{ $countedApartaments }} {{trans_choice('messages.apartaments', $countedApartaments)}})</span></div>
                 <div class="col-4 inline-wrapper text-right d-xl-none"> <div style="position: absolute; right:10px;"   class="btn-group"><a class="btn btn-selected btn-mobile" href="/search/kafle?{{ http_build_query(Request::except('page')) }}">{{__('messages.Offers')}}</a><a class="btn btn-info btn-mobile" href="/search/mapa?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a></div></div>
             </div>
 
@@ -24,7 +21,7 @@
             <div class="row d-none d-xl-flex">
                 <div class="col-lg-6 col-md-12"><h1 style="font-size: 28px" class="pb-2">{{ $countedApartaments }} {{trans_choice('messages.apartaments', $countedApartaments)}} w {{ $countedObjects }} {{trans_choice('messages.objects', $countedObjects)}}</h1></div>
                 <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12">{{__('messages.Sort by')}}:
-                    {{ Form::select('sort', $sortSelectArray, $request->sort ?? 1, array('class'=>'input-sm', 'id'=>'u1001_input', 'onchange'=>'this.form.submit()'))}}
+                    {{ Form::select('sort', $sortSelectArray, $request->sort ?? 1, array('class'=>'input-sm', 'id'=>'u1001_input', 'onchange'=>'submitSort()'))}}
                 </div>
                 <div class="col-12 col-lg-3 col-md-5 col-sm-12 col-xs-12 inline-wrapper text-right"> <a class="btn" href="/search/kafle?{{ http_build_query(Request::except('page')) }}"><img class="active" data-toggle="tooltip" data-placement="bottom" title="Kafle" alt="Kafle" src='{{ asset("images/results/kafle.png") }}'></a> <a class="btn" href="/search/lista?{{ http_build_query(Request::except('page')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Lista" alt="Lista" src='{{ asset("images/results/lista.png") }}'></a> <a class="btn" href="/search/mapa?{{ http_build_query(Request::except('page')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Mapa" alt="Mapa" src='{{ asset("images/results/mapa.png") }}'></a></div>
             </div>
@@ -43,11 +40,11 @@
                             <div class="apartament" style="background-image: url('{{ asset("images/apartaments_group/$apartament->group_id/main.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
                                 <div class="map-see-more">
                                     <div class="container py-1">
-                                        <a href="/apartaments-group/{{ $apartament->group_link }}" class="btn btn-see-more" style="width: 100%">{{ __("messages.see details") }}</a>
+                                        <a href="/apartaments-group/{{ $apartament->group_link }}?{{ http_build_query(Request::except('page', 'region', '_token')) }}" class="btn btn-see-more" style="width: 100%">{{ __("messages.see details") }}</a>
                                     </div>
                                 </div>
                                 <div class="d-block d-lg-none" style="width: 100%; height: 100%">
-                                    <a style=" display: inline-block; width: 100%; height: 100%" href="/apartaments-group/{{ $apartament->group_link }}"></a>
+                                    <a style=" display: inline-block; width: 100%; height: 100%" href="/apartaments-group/{{ $apartament->group_link }}?{{ http_build_query(Request::except('page', 'region', '_token')) }}"></a>
                                 </div>
                             </div>
                             <div class="komplex-description-top">{{ $apartament->apartaments_amount }} {{trans_choice('messages.nrApartmentsInKomplex', $apartament->apartaments_amount)}} {{__('messages.from')}} {{ $apartament->min_price }} PLN</div>
@@ -137,7 +134,7 @@
                                     </div>
                                 </div>
                                  <div class="d-block d-xl-none" style="width: 100%; height: 100%">
-                                     <a style=" display: inline-block; width: 100%; height: 100%" href="/apartaments/{{ $apartament->apartament_link }}"></a>
+                                     <a style=" display: inline-block; width: 100%; height: 100%" href="/apartaments/{{ $apartament->apartament_link }}?{{ http_build_query(Request::except('page', 'region')) }}"></a>
                                 </div>
                             </div>
                             <div class="add-to-favourities"><span onClick="addToFavourites({{$apartament->id}}, {{Auth::user()->id ?? 0}})"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Add to favorites') }}" src='{{ asset("images/results/heart.png") }}'></span></div>
@@ -220,7 +217,7 @@
                     @endif
             @endforeach
          </div>
-<div id="pagination" class="mobile-none" style="text-align: right">{{ $finds->appends(['dorosli' => $request->dorosli, 'dzieci' => $request->dzieci, 't-end' => $_GET['t-end'], 't-start' => $_GET['t-start'], 'region' => $request->region])->links() }}</div>
+<div id="pagination" class="mobile-none" style="text-align: right">{{ $finds->appends(['dorosli' => $request->dorosli, 'dzieci' => $request->dzieci, 't-end' => $_GET['t-end'], 't-start' => $_GET['t-start'], 'region' => $request->region, 'sort' => $request->sort ?? ''])->links('vendor.pagination.simple-default', ['elements' => $elements, 'view' => $view]) }}</div>
 </div>
 
 <span class="mobile-none">
@@ -231,22 +228,24 @@
 </span>
 
 <script type="text/javascript">
-    if($(window).width() < 767) {
-        $('#pagination').hide();
-        $(function () {
-            $('.infinite-scroll').jscroll({
-                autoTrigger: true,
-                debug: true,
-                loadingHtml: '<div class="text-center"><img class="img-loader" src="{{ asset('images/results/loader.gif') }}" alt="Loading..." /></div>',
-                padding: 0,
-                nextSelector: '.pagination li.active + li a',
-                contentSelector: '.infinite-scroll',
-                callback: function () {
-                    $('ul.pagination').remove();
-                }
+    @mobile
+        @if($elements > 1)
+            $('#pagination').hide();
+            $(function () {
+                $('.infinite-scroll').jscroll({
+                    autoTrigger: true,
+                    debug: true,
+                    loadingHtml: '<div class="text-center"><img class="img-loader" src="{{ asset('images/results/loader.gif') }}" alt="Loading..." /></div>',
+                    padding: 0,
+                    nextSelector: '.pagination > li.nextPage > a',
+                    contentSelector: '.infinite-scroll',
+                    callback: function () {
+                        $('ul.pagination').remove();
+                    }
+                });
             });
-        });
-    }
+        @endif
+    @endmobile
 
     function addToFavourites(apartamentId, userId){
 
@@ -304,6 +303,31 @@
 
     function closeSendTo(){
         $("#send-to").hide();
+    }
+
+    function submitSort(){
+        if($("#u1001_input").val() == 5){
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        $('<input>').attr('type', 'hidden')
+                            .attr('name', "latitude")
+                            .attr('value', position.coords.latitude)
+                            .appendTo('#wyszukiwarka');
+
+                        $('<input>').attr('type', 'hidden')
+                            .attr('name', "longitude")
+                            .attr('value', position.coords.longitude)
+                            .appendTo('#wyszukiwarka');
+                        $("#wyszukiwarka").submit();
+                    }
+                );
+            }else{
+                alert("Geolokacja nie jest obsługiwana przez Twoją przeglądarkę.");
+                return false;
+            }
+        }
+        else $("#wyszukiwarka").submit();
     }
 
 </script>

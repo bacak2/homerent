@@ -12,7 +12,7 @@
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: white;" >
+<nav class="navbar navbar-expand-lg navbar-light noprint" style="background-color: white;" >
       <div class="container px-0 px-md-3">
         <a class="navbar-brand" href="{{ url('/') }}">Otozakopane</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenuTop" aria-controls="navMenuTop" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,7 +47,7 @@
               </li>
               @elsedesktop
               <li class="nav-item">
-                  <div class="d-inline" style="padding-top: 8px">
+                  <div class="d-inline d-lg-inline-block" style="padding-top: 8px">
                       @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                           <a style="text-decoration: none;" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                               <img src="{{ asset("images/flags/".$localeCode.".gif") }}">&nbsp;
@@ -60,7 +60,7 @@
                   <a class="" href="tel:+48600494949">
                       <img src="{{ asset("images/contact/phoneMinIcon.png") }}">
                   </a>
-                  <a class="nav-link" href="{{route('aboutUs.contact')}}">{{ __('Kontakt')}}</a>
+                  <a class="nav-link d-lg-inline" href="{{route('aboutUs.contact')}}">{{ __('Kontakt')}}</a>
               </li>
               @enddesktop
           	@guest

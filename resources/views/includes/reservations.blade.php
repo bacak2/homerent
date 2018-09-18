@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="container">
-		<div class="row mx-0 no-gutters">
+		<div class="row mx-0 no-gutters noprint">
 			<div class="col-4 col-lg-9">
 				<a href="{{ url()->previous() }}" class="btn btn-link font-13 pl-0">« {{ __('messages.Return') }}</a>
 			</div>

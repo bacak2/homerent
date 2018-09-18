@@ -2,7 +2,7 @@
 
 @section('reservation.content')
     @if(!(Request::is('*/my-reservations*')))
-        <div class="container flex-box mb-2">
+        <div class="container flex-box mb-2 noprint">
             <div class="mobile-none font-12" id="Rpath">
                 <div class="reservation-path">
                     <img src='{{ asset("images/reservations/fullBlack.png") }}'>
@@ -72,7 +72,7 @@
             <div class="col-8 col-md-6">
                 <h1 class="h1-reservation">{{ __('messages.reservation') }} (nr {{$reservation[0]->id}})</h1>
             </div>
-            <div class="col-4 col-md-6">
+            <div class="col-4 col-md-6 noprint">
                 <span class="pull-right">
                     <div class="d-inline-block">
                         <div class="d-inline-block send-news-friends mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
@@ -81,11 +81,11 @@
                         <div class="d-none d-md-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">Wyślij znajomemu</div>
                     </div>
                     <div class="d-none d-md-inline-block">|</div>
-                    <div class="d-none d-md-inline-block">
-                        <div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
-                            <img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/favourites/Pdf_file.png')}}">
+                    <div class="d-none d-md-inline-block" onclick="window.print();">
+                        <div class="d-inline-block mr-1 print-me" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
+                            <img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/favourites/Print-Button_24.png')}}">
                         </div>
-                        <a href="{{route('reservations.printPdf', $reservation[0]->id)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">Zapisz</a>
+                        <span class="d-inline-block font-13 txt-blue print-me" style="margin-top: 6px;">Drukuj</span>
                     </div>
                 </span>
             </div>
@@ -131,7 +131,7 @@
                         <div class="row mb-2"><div class="col-4"><b>Zapłacono:</b></div><div class="col-8"><b>{{$reservation[0]->payment_full_amount}} PLN </b><span class="font-12">({{date("d.m.Y", strtotime($reservation[0]->updated_at))}})</span></div></div>
                         <div class="row mb-2" style="font-size: 12px;"><div class="col-4">Koszt pobytu:</div><div class="col-4">{{$reservation[0]->payment_full_amount}} PLN*</div><div class="col-4"><a href="#details">Szczegóły ↓</a></div></div>
                     @endif
-                    <div class="row mb-2">
+                    <div class="row mb-2 noprint">
                         @if($availableServices->count() == 0 && $reservation[0]->payment_to_pay > 0)
                         <div class="col pr-0">
                             <form name="do_platnosci" method="POST" action="https://ssl.dotpay.pl/test_payment/">
@@ -219,10 +219,10 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="col">
+                        <div class="col noprint">
                             <a href="{{route('services.firstStep', [$reservation[0]->apartament_id, $reservation[0]->id, 0])}}" id="add-new-services" class="btn btn-reservation-gray">Dokup usługi</a>
                         </div>
-                        <div class="col pl-0 pl-sm-3 pl-md-0 mt-sm-2 mt-md-0">
+                        <div class="col pl-0 pl-sm-3 pl-md-0 mt-sm-2 mt-md-0 noprint">
                             <button class="btn btn-reservation-gray" id="cancel-reservation">Anuluj rezerwację</button>
                         </div>
                         @endif
@@ -280,11 +280,11 @@
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Cancellation / prepayment') }}:</div><div class="col-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</div></div>
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Animals') }}:</div><div class="col-8">Zwierzęta są akceptowane na życzenie. Mogą obowiązywać dodatkowe opłaty</div></div>
                     <div class="row mb-3 fs12"><div class="col-4">{{ __('messages.Payment for stay') }}:</div><div class="col-8">Cena zakwaterowania nie obejmuje opłaty za zużycie energii elektrycznej oraz opłaty klimatycznej.</div></div>
-                    <div class="row mx-0 mb-3 mb-lg-0"><a class="btn btn-more-info font-13" href="{{ route('apartamentInfo', ['link' => $apartament->descriptions[0]->apartament_link ]) }}">Więcej informacji o obiekcie</a></div>
+                    <div class="row mx-0 mb-3 mb-lg-0 noprint"><a class="btn btn-more-info font-13" href="{{ route('apartamentInfo', ['link' => $apartament->descriptions[0]->apartament_link ]) }}">Więcej informacji o obiekcie</a></div>
         </div>
 
         <div class="col-lg-8 col-sm-12">
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs noprint">
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#showMap">Mapa</a>
                 </li>
@@ -293,14 +293,14 @@
                 </li>
             </ul>
             <div class="tab-content">
-                <div id="showMap" class="tab-pane active">
+                <div id="showMap" class="tab-pane active noprint">
                     <form name="wskazowki" action="#" onsubmit="znajdz_wskazowki(); return false;">
                         <div class="row">
                             <div class="col-12" style="font-size: 16px"><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></div>
                             <div class="col-12 mb-4" style="font-size: 14px">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}</div>
                             <div class="col-12 mb-2" style="font-size: 14px">GPS: {{ $apartament->apartament_gps }}</div>
                         </div>
-                        <div class="row my-2 mx-0" style="position: relative;">
+                        <div class="row my-2 mx-0 noprint" style="position: relative;">
                             <span class="col-12 px-0"style="font-size: 14px; margin-top: 5px">Wskazówki dojazdu: </span>
                             <div class="col-6 col-md-3 px-0">
                                 <input class="font-12" name="skad" id="skad" style="width: 100%; height: 100%" placeholder="Lokalizacja początkowa" type="text">
@@ -365,7 +365,7 @@
             {{--<div class="row mb-3 fs12"><div class="col-7">{{ __('messages.Payment for service') }}:</div><div class="col-5"><span class="pull-right">{{$reservation[0]->payment_basic_service}} PLN</span></div></div>--}}
             <div class="row mb-3 font-m-16 font-18"><div class="col-7"><b>{{ __('messages.fprice') }}</b></div><div class="col-5"><span class="pull-right"><b>{{$reservation[0]->payment_full_amount}} PLN</b></span></div></div>
         </div>
-        <div class="col-md-6 col-lg-4 col-sm-12">
+        <div class="col-md-6 col-lg-4 col-sm-12 noprint">
             @if($availableServices->count() != 0 || $servicesDetails->count() != 0)
                 <h2 class="mb-3 h2-reservation">Usługi dodatkowe</h2>
                 @if($availableServices->count() != 0)
@@ -617,11 +617,11 @@
 
             $.ajax({
                 type: "GET",
-                url: '/send-news-to-friends',
+                url: '/account/send-email-to-friends-confirmation',
                 dataType : 'json',
                 data: {
-                    emails2: $("#emails2").val(),
-                    link: $("#link").val(),
+                    emails: $("#emails2").val(),
+                    link: $("#link").text(),
                 },
                 success: function() {
                     //

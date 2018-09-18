@@ -81,7 +81,7 @@
 					<input type="hidden" name="dzieci" value="0">
 					<input type="hidden" name="dorosli" value="1">
 					<div class="mb-3" style="position: relative">
-						<input class="w-100" type="image" src="{{asset('images/main/guidebook1.png')}}" alt="Zakopane">
+						<input class="w-100" type="image" src="{{asset('images/main/guidebook1.jpg')}}" alt="Zakopane">
 						<div class="guidebooks-index-page">Zakopane - {{$apartamentsFirstCityAmount}} {{trans_choice('messages.apartaments', $apartamentsFirstCityAmount)}}</div>
 					</div>
 
@@ -89,7 +89,7 @@
 					@foreach ($apartamentsFirstCity as $apartament)
 						<div style="position: relative">
 							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
-								<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
+								<img style="width:99%; height: 210px;" src="{{asset("images/apartaments/$apartament->id/polecane.jpg")}}">
 							</a>
 							<div class="col-8 col-sm-11 col-lg-8 semi-transparent semi-transparent2">
 								<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
@@ -110,7 +110,7 @@
 					<input type="hidden" name="dzieci" value="0">
 					<input type="hidden" name="dorosli" value="1">
 					<div class="mb-3" style="position: relative">
-						<input class="w-100" type="image" src="{{asset('images/main/guidebook2.png')}}" alt="Submit">
+						<input class="w-100" type="image" src="{{asset('images/main/guidebook2.jpg')}}" alt="Submit">
 						<div class="guidebooks-index-page">Kościelisko - {{$apartamentsSecondCityAmount}} {{trans_choice('messages.apartaments', $apartamentsSecondCityAmount)}}</div>
 					</div>
 
@@ -118,7 +118,7 @@
 					@foreach ($apartamentsSecondCity as $apartament)
 						<div style="position: relative">
 							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
-								<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
+								<img style="width:99%; height: 210px;" src="{{asset("images/apartaments/$apartament->id/polecane.jpg")}}">
 							</a>
 							<div class="col-8 col-sm-11 col-lg-8 semi-transparent semi-transparent2">
 								<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>
@@ -139,7 +139,7 @@
 					<input type="hidden" name="dzieci" value="0">
 					<input type="hidden" name="dorosli" value="1">
 					<div class="mb-3" style="position: relative">
-						<input class="w-100" type="image" src="{{asset('images/main/guidebook3.png')}}" alt="Submit">
+						<input class="w-100" type="image" src="{{asset('images/main/guidebook3.jpg')}}" alt="Submit">
 						<div class="guidebooks-index-page">Witów - {{$apartamentsThirdCityAmount}} {{trans_choice('messages.apartaments', $apartamentsThirdCityAmount)}}</div>
 					</div>
 
@@ -147,7 +147,7 @@
 					@foreach ($apartamentsThirdCity as $apartament)
 						<div style="position: relative">
 							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
-								<img style="width:99%" src="{{asset("images/apartaments/$apartament->id/main.jpg")}}">
+								<img style="width:99%; height: 210px;" src="{{asset("images/apartaments/$apartament->id/polecane.jpg")}}">
 							</a>
 							<div class="col-8 col-sm-11 col-lg-8 semi-transparent semi-transparent2">
 								<h4 style="font-size: 18px;" itemprop="name">{{$apartament->apartament_name}}</h4>

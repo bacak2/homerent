@@ -106,6 +106,11 @@ Route::group(
             'as' => 'reservations.printPdf'
         ]);
 
+        Route::get('/check-coupon', [
+            'uses' => 'Reservations@checkCoupon',
+            'as' => 'reservations.checkCoupon'
+        ]);
+
         Route::get('/services/{idAparment}/{idReservation}/{idService}', [
             'uses' => 'Services@firstStep',
             'as' => 'services.firstStep'
@@ -315,6 +320,11 @@ Route::group(
             Route::GET('/send-email-to-friends', [
                 'uses' => 'Account@sendMail',
                 'as' => 'account.sendMail'
+            ]);
+
+            Route::GET('/send-email-to-friends-confirmation', [
+                'uses' => 'Account@sendMailConfirmation',
+                'as' => 'account.sendMailConfirmation'
             ]);
 
             Route::GET('/new-connection-fb', [

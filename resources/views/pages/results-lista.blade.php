@@ -3,7 +3,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-12"><h1 class="pb-2" style="font-size: 28px">{{ $countedApartaments }} {{trans_choice('messages.apartaments', $countedApartaments)}} w {{ $countedObjects }} {{trans_choice('messages.objects', $countedObjects)}}</h1></div>
                 <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12">{{__('messages.Sort by')}}:
-                    {{ Form::select('sort', $sortSelectArray, $request->sort ?? 1, array('class'=>'input-sm', 'id'=>'u1001_input', 'onchange'=>'this.form.submit()'))}}
+                    {{ Form::select('sort', $sortSelectArray, $request->sort ?? 1, array('class'=>'input-sm', 'id'=>'u1001_input', 'onchange'=>'submitSort()'))}}
                 </div>
                 <div class="col-12 col-lg-3 col-md-5 col-sm-12 col-xs-12 inline-wrapper text-right"> <a class="btn" href="/search/kafle?{{ http_build_query(Request::except('page')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Kafle" alt="Kafle" src='{{ asset("images/results/kafle.png") }}'></a> <a class="btn" href="/search/lista?{{ http_build_query(Request::except('page')) }}"><img class="active" data-toggle="tooltip" data-placement="bottom" title="Lista" alt="Lista" src='{{ asset("images/results/lista.png") }}'></a> <a class="btn" href="/search/mapa?{{ http_build_query(Request::except('page')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Mapa" alt="Mapa" src='{{ asset("images/results/mapa.png") }}'></a></div>
             </div>
@@ -72,7 +72,7 @@
                                     <div class="col-6 list-item-last-reservation">
                                         <?php
                                         $date1 = new DateTime($apartament->lastReservationDate);
-                                        $date2 = new DateTime('2006-04-14T11:30:00');
+                                        $date2 = new DateTime('now');
 
                                         $diff = $date2->diff($date1);
 
@@ -91,7 +91,7 @@
                                 <div class="container py-1 text-right font-weight-bold"><h3 style="font-size: 26px">{{__('messages.from')}} {{ $apartament->min_price }} zł</h3></div>
                             </div>
                             <div class="row">
-                                <div class="container py-1" ><a href="/apartaments-group/{{ $apartament->group_link }}" class="btn btn-see-more ml-2" style="width: 100%">{{ __('messages.see apartments') }}</a></div>
+                                <div class="container py-1" ><a href="/apartaments-group/{{ $apartament->group_link }}?{{ http_build_query(Request::except('page', 'region', '_token')) }}" class="btn btn-see-more ml-2" style="width: 100%">{{ __('messages.see apartments') }}</a></div>
                             </div>
                             <div class="row">
                                 <div class="container py-1 text-right font-weight-bold"><h4 style="font-size: 18px">{{ $apartament->apartaments_amount }} {{trans_choice('messages.nrApartmentsInKomplex', $apartament->apartaments_amount)}}</h4></div>
@@ -194,7 +194,7 @@
                 @endif
             @endforeach
             
-<div style="text-align: right">{{ $finds->appends(['dorosli' => $request->dorosli, 'dzieci' => $request->dzieci, 't-end' => $_GET['t-end'], 't-start' => $_GET['t-start'], 'region' => $request->region])->links() }}</div>
+<div style="text-align: right">{{ $finds->appends(['dorosli' => $request->dorosli, 'dzieci' => $request->dzieci, 't-end' => $_GET['t-end'], 't-start' => $_GET['t-start'], 'region' => $request->region, 'sort' => $request->sort ?? ''])->links('vendor.pagination.simple-default', ['elements' => $elements, 'view' => $view]) }}</div>
 <span class="mobile-none">
 @if($countedCookies > 0)
     <h3 class="pb-2" style="margin-top: 40px; font-size: 26px">{{__('messages.lastSeen')}}</h3>
@@ -259,6 +259,31 @@
 
     function closeSendTo(){
         $("#send-to").hide();
+    }
+
+    function submitSort(){
+        if($("#u1001_input").val() == 5){
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        $('<input>').attr('type', 'hidden')
+                            .attr('name', "latitude")
+                            .attr('value', position.coords.latitude)
+                            .appendTo('#wyszukiwarka');
+
+                        $('<input>').attr('type', 'hidden')
+                            .attr('name', "longitude")
+                            .attr('value', position.coords.longitude)
+                            .appendTo('#wyszukiwarka');
+                        $("#wyszukiwarka").submit();
+                    }
+                );
+            }else{
+                alert("Geolokacja nie jest obsługiwana przez Twoją przeglądarkę.");
+                return false;
+            }
+        }
+        else $("#wyszukiwarka").submit();
     }
 </script>
 

@@ -303,9 +303,9 @@
 						<span class="anchor-destination"></span>
 						<h4 id="map" class="bold">{{__('Apartamenty w kompleksie')}} ({{$apartamentsAmount}})</h4>
 					</div>
-					<div class="col-12 mb-2 row">
+					<div class="row mx-0 mb-2 w-100">
 						@foreach ($apartaments as $apartament)
-							<div style="overflow: auto;" class="col-md-6 col-sm-12" itemscope itemtype="http://schema.org/Hotel">
+							<div style="overflow: auto;" class="col-sm-6" itemscope itemtype="http://schema.org/Hotel">
 								<div class="map-img-wrapper">
 									<div class="apartament img-group-detail" style="background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
 										<div class="map-see-more mobile-none">
@@ -366,27 +366,44 @@
 											<div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="Parking" style="background-image: url('{{ asset("images/results/parking.png") }}');"> </div>
 										@endif
 									</div>
-									<div class="description-map-bottom-right desktop-none">
-										@for ($i = 0; $i < 5; $i++)
-											<img src="{{ asset("images/results/star.png") }}">
-										@endfor
-										<br>
-										<span style="color: green; margin-right: 10px">{{ __("messages.Perfect") }}</span>
-										<span style="color: blue">55 {{ __("messages.reviews_number") }}</span>
-									</div>
+                                    <div class="description-map-bottom-right d-sm-none desktop-none">
+                                        @for ($i = 0; $i < floor($apartament->ratingAvg/2); $i++)
+                                            <img src='{{ asset("images/results/star.png") }}'>
+                                        @endfor
+                                        @if(floor($apartament->ratingAvg/2) != ceil($apartament->ratingAvg/2))
+                                            <img src='{{ asset("images/results/star_half.png") }}'>
+                                        @endif
+                                        @for ($i = ceil($apartament->ratingAvg/2); $i < 5; $i++)
+                                            <img src='{{ asset("images/results/star_empty.png") }}'>
+                                        @endfor
+                                        <br>
+                                        @if($apartament->ratingAvg < 1)
+                                            <span class="opinion-to-left" style="margin-right: 10px;"></span>
+                                        @elseif($apartament->ratingAvg < 2.5)
+                                            <span class="opinion-to-left txt-red" style="margin-right: 10px;">{{ __("messages.Awful") }}</span>
+                                        @elseif($apartament->ratingAvg < 4.5)
+                                            <span class="opinion-to-left txt-red" style="margin-right: 10px;">{{ __("messages.Bad") }}</span>
+                                        @elseif($apartament->ratingAvg < 6.5)
+                                            <span class="opinion-to-left txt-yellow" style="margin-right: 10px;">{{ __("messages.Average") }}</span>
+                                        @elseif($apartament->ratingAvg < 8.5)
+                                            <span class="opinion-to-left txt-green" style="margin-right: 10px;">{{ __("messages.Very good") }}</span>
+                                        @else
+                                            <span class="opinion-to-left txt-green" style="margin-right: 10px;">{{ __("messages.Perfect") }}</span>
+                                        @endif
+
+                                        <span class="txt-blue nr-reviews-right">{{$apartament->opinionAmount ?? 0}} {{trans_choice('messages.nrReviews', $apartament->opinionAmount ?? 0)}}</span>
+                                    </div>
 								</div>
 							</div>
 						@endforeach
 					</div>
 				</div>
 			</div>
-				<span id="similarApartments" class="mobile-none" style="width: 100%">
-				@if($countedCookies > 0)
-						<h2 class="pb-2 bold" style="margin-top: 40px; font-size: 26px">{{__('Osoby, które oglądały ten obiekt oglądały również')}}</h2>
-						@include('includes.see-also-apartment')
-					@endif
+				<span id="similarApartments" class="mx-3 w-100">
+				<h2 class="pb-2 bold" style="margin-top: 40px; font-size: 26px">{{__('Osoby, które oglądały ten obiekt oglądały również')}}</h2>
+				@include('includes.see-also-apartment')
 			</span>
-				<span class="mobile-none" style="width: 100%">
+				<span class="mobile-none mx-3 w-100">
 				@if($countedCookies > 0)
 						<h2 class="pb-2 bold" style="margin-top: 40px; font-size: 26px">{{__('messages.lastSeen')}}</h2>
 						@include('includes.last-seen-apartment-detail')
@@ -427,6 +444,7 @@
 	</div>
 
 	<script type="text/javascript">
+        moment.locale('pl');
         $(document).ready(function(){
             $('.t-datepicker').tDatePicker({
                 autoClose: true,

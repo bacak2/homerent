@@ -2198,6 +2198,7 @@
 		<button class="btn btn-default close-confirm-news">OK</button>
 	</div>
 	<script type="text/javascript">
+		moment.locale('pl');
         $(document).ready(function(){
             $('.t-datepicker').tDatePicker({
                 autoClose: true,

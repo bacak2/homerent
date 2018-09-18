@@ -3,7 +3,7 @@
 @section('content')
 
 @handheld
-@if(Request::is('*/account/*') && !$request->has('przyjazd')) <div class="results-search" style="display: none"> @endif
+@if(Request::is('*/account/*') && !$request->has('t-start')) <div class="results-search" style="display: none"> @endif
      @switch($request->region)
         @case('Kościelisko') @case('kościelisko') <div id="topSearch" style="background-image: url('{{asset('images/slider/1.jpg')}}');"> @break
         @case('Zakopane') @case('zakopane') <div id="topSearch" style="background-image: url('{{asset('images/slider/2.jpg')}}');"> @break
@@ -34,7 +34,7 @@
 <script type="text/javascript">
     $('.t-datepicker').tDatePicker({
         autoClose: true,
-        numCalendar: 2,
+        numCalendar : @handheld 1 @elsehandheld 2 @endhandheld,
         dateCheckIn: '{{$_GET['t-start'] ?? ''}}',
         dateCheckOut: '{{$_GET['t-end'] ?? ''}}',
         titleCheckIn: 'Data przyjazdu',
@@ -97,6 +97,55 @@
         $("#Mamount").val('0');
         $("#Mamount2").val('1000+');
     }
+
+@handheld
+    var priceSlider = document.getElementById('priceSlider');
+    var firstPrice = document.getElementById('Mamount');
+    var secondPrice = document.getElementById('Mamount2');
+    var inputs = [firstPrice, secondPrice];
+    noUiSlider.create(priceSlider, {
+        range: {
+            'min': 0,
+            '5%': 50,
+            '10%': 100,
+            '15%': 150,
+            '20%': 200,
+            '25%': 250,
+            '30%': 300,
+            '35%': 350,
+            '40%': 400,
+            '45%': 450,
+            '50%': 500,
+            '60%': 600,
+            '70%': 700,
+            '80%': 800,
+            '90%': 900,
+            'max': 1000
+        },
+        snap: true,
+        start: [{{$request->Mamount ?? 0 }}, @if($request->Mamount2 == '1000+') {{1000}} @else {{$request->Mamount2 ?? 1000}} @endif],
+        format: wNumb({
+            decimals: 0,
+        }),
+    });
+
+    priceSlider.noUiSlider.on('update', function( values, handle ) {
+        if(values[handle] == 1000) values[handle] = '1000+';
+        inputs[handle].value = values[handle];
+    });
+
+    function setSliderHandle(i, value) {
+        var r = [null,null];
+        r[i] = value;
+        priceSlider.noUiSlider.set(r);
+    }
+
+    inputs.forEach(function(input, handle) {
+        input.addEventListener('change', function(){
+            setSliderHandle(handle, this.value);
+        });
+    });
+@endhandheld
 
     function rangeBar(){
 

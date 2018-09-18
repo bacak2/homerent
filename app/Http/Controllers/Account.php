@@ -612,9 +612,7 @@ class Account extends Controller
             }
         }
 
-
-        if(count($request->all()) == 0 && $request->route()->getName() != 'myFavouritesMap') {
-
+        if(!isset($_GET['t-start']) && $request->route()->getName() != 'myFavouritesMap') {
             $finds = DB::table("apartaments")
                 ->selectRaw('sub.opinionAmount, sub.ratingAvg, apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
                 ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
@@ -628,10 +626,18 @@ class Account extends Controller
                 ->where('language_id', $this->language->id)
                 ->groupBy('apartaments.id')
                 ->get();
-
+            if(isset($request->sort)){
+                switch($request->sort){
+                    case 2: $finds = $finds->sortBy('min_price'); break;
+                    case 3: $finds = $finds->sortByDesc('ratingAvg'); break;
+                    case 4: $finds = $finds->sortByDesc('opinionAmount'); break;
+                    case 5: $finds = $finds->sortBy("(ABS(apartament_geo_lat - $request->latitude)+ABS(apartament_geo_lan - $request->longitude))"); break;
+                    case 1: default: $finds = $finds->sortBy('group_id'); break;
+                }
+            }
             $favouritesCount = $finds->count();
         }
-        elseif(count($request->all()) == 0 && $request->route()->getName() == 'myFavouritesMap') {
+        elseif(!isset($_GET['t-start']) && $request->route()->getName() == 'myFavouritesMap') {
             $finds = DB::table("apartaments")
                 ->selectRaw('lastReservation.lastReservationDate, sub.opinionAmount, sub.ratingAvg, apartament_groups.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
                 ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
@@ -872,7 +878,7 @@ class Account extends Controller
                 ->where('apartaments.group_id', '!=', 0)
                 ->groupBy('apartaments.id')
                 ->get();
-//dd($grayGroups[0]->apartaments_amount);
+
 //////////////////////////////////////////////////////////////////////////
             $findsWithoutGroup = DB::table("apartaments")
                 ->selectRaw('sub.opinionAmount, sub.ratingAvg, apartaments.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
@@ -1131,8 +1137,8 @@ class Account extends Controller
                     }
                 })
                 //->where('apartaments.group_id', 0)
-                ->where('apartaments.apartament_persons', '>=', $request->dorosli)
-                ->where('apartaments.apartament_kids', '>=', $request->dzieci)
+                ->where('apartaments.apartament_persons', '>=', $request->dorosli ?? 0)
+                ->where('apartaments.apartament_kids', '>=', $request->dzieci ?? 0)
                 ->whereIn('apartaments.id', $whereInData)
                 ->orderBy('min_price', 'ASC')
                 ->groupBy('apartaments.id')
@@ -1295,13 +1301,34 @@ class Account extends Controller
 
         $emails = explode(',', str_replace(' ', '', $request->emails));
 
-        $links = explode(',', $request->links);
+        $link = $request->links;
 
         if(\App::environment('production')){
             foreach($emails as $email){
-                Mail::send('includes.mail_send-to-friends', ['test'=>$links], function($message) use ($email){
+                Mail::send('includes.mail_send-to-friends', ['link'=>$link], function($message) use ($email){
                     $message->to($email)
                         ->subject('Linki do ulubionych apartamentów');
+                    $message->from('kontakt@visitzakopane.pl','Otozakopane');
+                });
+            }
+        }
+
+        return response()->json('true');
+
+    }
+
+    //Async send mail
+    public function sendMailConfirmation(Request $request){
+
+        $emails = explode(',', str_replace(' ', '', $request->emails));
+
+        $link = $request->link;
+
+        if(\App::environment('production')){
+            foreach($emails as $email){
+                Mail::send('includes.mail_send-to-friends-confirmation', ['link'=>$link], function($message) use ($email){
+                    $message->to($email)
+                        ->subject('Link do rezerwacji znajomego');
                     $message->from('kontakt@visitzakopane.pl','Otozakopane');
                 });
             }

@@ -9,6 +9,12 @@
     <a class="active bold" href="{{ route('myFavouritesCompare') }}?{{ http_build_query(Request::except('_token')) }}">Porównaj</a>
 @endsection
 
+@section('icons-active-mobile')
+    @tablet
+    <div class="btn-group col mb-4"><a class="btn btn-mobile" href="{{ route('myFavourites') }}?{{ http_build_query(Request::except('page')) }}">{{__('Kafle')}}</a><a class="btn btn-mobile" href="{{ route('myFavouritesMap') }}?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a><a class="btn btn-selected btn-mobile" href="{{ route('myFavouritesCompare') }}?{{ http_build_query(Request::except('_token')) }}">Porównaj</a></div>
+    @endtablet
+@endsection
+
 @section('compare-content')
 
     <div class="row favourites-compare">
@@ -81,19 +87,19 @@
                         </div>
                         <div class="row font-11">
                             @if($apartament->ratingAvg < 1)
-                                <div class="col-5 pr-0"></div>
+                                <div class="col-7 pr-0"></div>
                             @elseif($apartament->ratingAvg < 2.5)
-                                <div class="col-5 pr-0 txt-red">{{ __("messages.Awful") }}</div>
+                                <div class="col-7 pr-0 txt-red">{{ __("messages.Awful") }}</div>
                             @elseif($apartament->ratingAvg < 4.5)
-                                <div class="col-5 pr-0 txt-red">{{ __("messages.Bad") }}</div>
+                                <div class="col-7 pr-0 txt-red">{{ __("messages.Bad") }}</div>
                             @elseif($apartament->ratingAvg < 6.5)
-                                <div class="col-5 pr-0 txt-yellow">{{ __("messages.Average") }}</div>
+                                <div class="col-7 pr-0 txt-yellow">{{ __("messages.Average") }}</div>
                             @elseif($apartament->ratingAvg < 8.5)
-                                <div class="col-5 pr-0 txt-green">{{ __("messages.Very good") }}</div>
+                                <div class="col-7 pr-0 txt-green">{{ __("messages.Very good") }}</div>
                             @else
-                                <div class="col-5 pr-0 txt-green">{{ __("messages.Perfect") }}/div>
+                                <div class="col-7 pr-0 txt-green">{{ __("messages.Perfect") }}</div>
                             @endif
-                            <div class="col-6 txt-blue">{{$apartament->opinionAmount ?? 0}} {{trans_choice('messages.nrReviews', $apartament->opinionAmount ?? 0)}}</div>
+                            <div class="col-5 px-0 txt-blue">{{$apartament->opinionAmount ?? 0}} {{trans_choice('messages.nrReviews', $apartament->opinionAmount ?? 0)}}</div>
                         </div>
                     </div>
                     <div>

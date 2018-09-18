@@ -24,15 +24,14 @@ class Reservations extends Controller
     //Site language from database
     protected $language = 1;
     protected $languageCode = 'pl';
+    protected $idReservationOtozakopane;
+    protected $idReservationVisit;
 
     public function __construct()
     {
         $temp = \App::getLocale();
-        $this->languageCode = $temp;
-        $language = DB::table('languages')->select('id')->where('language_code',$temp)->first();
+        $language = DB::table('languages')->select('id', 'language_code')->where('language_code',$temp)->first();
         $this->language = $language;
-        if ($this->language->id == 1) setlocale(LC_TIME, "pl_PL.utf8");
-        else setlocale(LC_TIME, "en_EN");
     }
 
     public function firstStep(Request $request){
@@ -198,6 +197,11 @@ class Reservations extends Controller
 
         $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', session()->getId())->get();
 
+        if($request->session()->get('couponValue') != null){
+            $request->payment_all_nights = $request->payment_all_nights - $request->session()->get('couponValue');
+            $request->session()->forget('couponValue');
+        }
+
         $request->fullPrice = $request->payment_all_nights + $request->servicesPrice + $request->payment_basic_service + $request->payment_final_cleaning;
 
         if(Auth::user()){
@@ -249,8 +253,8 @@ class Reservations extends Controller
     public function thirdStep(Request $request)
     {
         $reservation = new Reservation();
-        $availability = $reservation->checkAvailabity($request->id, $request->przyjazdDb, $request->powrotDb);
-
+        //$availability = $reservation->checkAvailabity($request->id, $request->przyjazdDb, $request->powrotDb);
+        $availability = 1;
         if($availability == null){
             return redirect()->route('reservations.unavailable', [
                 'id' => $request->id,
@@ -376,16 +380,56 @@ class Reservations extends Controller
         }
 
         $dataSet = $reservationData + $userData;
-        $idReservation = DB::table('reservations')->insertGetId($dataSet);
+
+        $visitDataSet[] = [
+            'apartament_id'  => "666",
+            'reservation_persons' => "1",
+            'reservation_kids' => "0",
+            'reservation_wplacona_zaliczka' => "0",
+            'reservation_druga_wplata' => "0",
+            'zapl_gotowka_pln' => "0",
+            'zapl_karta_pln' => "0",
+            'zapl_gotowka_eur' => "0",
+            'zapl_karta_eur' => "0",
+            'zapl_karta_waw_pln' => "0",
+            'zapl_karta_waw_eur' => "0",
+            'konsultant_id' => "0",
+            'reservation_data_waznosci_2' => '0000-00-00 00:00:00.000000',
+            'reservation_data_waznosci_sort' => '0000-00-00 00:00:00.000000',
+            'reservation_services' => "0",
+            'reservation_consultant' => "0",
+            'reservation_parking_or_garage' => "0",
+            'reservation_wyjechal_date' => '0000-00-00 00:00:00.000000',
+            'reservation_przyjechal_date' => '0000-00-00 00:00:00.000000',
+            'reservation_wyjechal_caretaker' => "0",
+            'add_to_caretaker_account' => "0",
+            'wirtualne_pieniadze' => "0",
+            'wystawiono_faktury' => "0",
+            'want_invoice' => "0",
+
+        ];
+
+        //adding reservation if there is no otozakopane
+        //$this->idReservationOtozakopane = DB::table('reservations')->insertGetId($dataSet);
+
+        //something like transaction - do both function or none
+        try{
+            $this->idReservationOtozakopane = DB::connection('mysql')->table('reservations')->insertGetId($dataSet);
+            $this->idReservationVisit = DB::connection('mysql2')->table('visit_reservations')->insertGetId($visitDataSet);
+        }catch(\Exception $e){
+            if($this->idReservationOtozakopane != false) DB::connection('mysql')->table('reservations')->where('id', $this->idReservationOtozakopane)->delete();
+            if($this->idReservationVisit != false) DB::connection('mysql2')->table('aaaTestIntegracji')->where('id', $this->idReservationVisit)->delete();
+            return $e->getMessage();
+        }
 
         //change reservation_id of additional services to real id
-        DB::table('reservation_additional_services')->where('id_reservation', session()->getId())->update(['id_reservation' => $idReservation]);
+        DB::table('reservation_additional_services')->where('id_reservation', session()->getId())->update(['id_reservation' => $this->idReservationOtozakopane]);
 
         if($request->payment_method == 2 || $request->payment_method == 4) {
             return redirect()->action(
                 'Reservations@fourthStep', [
                     'idAparment' => $request->id,
-                    'idReservation' => $idReservation,
+                    'idReservation' => $this->idReservationOtozakopane,
                 ]
             );
         }
@@ -627,22 +671,47 @@ class Reservations extends Controller
         $availableServices = DB::table('additional_services')->where('id_apartament', $id)
             ->whereNotIn('id', DB::table('reservation_additional_services')->select('id_service')->where('id_reservation', $idReservation))
             ->get();
-
-        /*$html = View::make('reservation.confirmation', [
-            'apartament' => $apartament,
-            'reservation' => $reservation,
-            'language' => $this->languageCode,
-            'servicesDetails' => $servicesDetails,
-            'availableServices' => $availableServices,
-            ])
-            ->render();
-        */
         $html = '';
-
-        //$pdf = PDF::loadHTML('<div style="width: 100%; font-family: DejaVu Sans;"><div style="font-size: 12px">'.$reservation->apartament_name.'</div></div>')
-            //->setPaper('a4', 'landscape')->setWarnings(false);
         $pdf = PDF::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false);
         return $pdf->download('Potwierdzenie rezerwacji '.$reservation->apartament_name.'.pdf');
+    }
+
+    public function checkCoupon(Request $request){
+
+        $coupon = DB::table('reservation_promotion_codes')
+            ->select('*')
+            ->where('promotion_code_code', $request->couponCode)
+            ->first();
+
+        if($coupon == null){
+            return response()->json([
+                'response' => false,
+                'error' => 'Podano nieprawidłowy kod',
+            ]);
+        }
+        else if($coupon->usage_times == 1 && $coupon->is_used == 1){
+            return response()->json([
+                'response' => false,
+                'error' => 'Kupon został już wcześniej wykorzystany',
+            ]);
+        }
+        else if($coupon->usage_times == 1){
+
+            DB::table('reservation_promotion_codes')->where('id', $coupon->id)->update(['is_used' => 1]);
+            $request->session()->put('couponValue', $coupon->promotion_code_value);
+
+            return response()->json([
+                'response' => true,
+                'amount' => $coupon->promotion_code_value,
+            ]);
+        }
+        else{
+            $request->session()->put('couponValue', $coupon->promotion_code_value);
+            return response()->json([
+                'response' => true,
+                'amount' => $coupon->promotion_code_value,
+            ]);
+        }
     }
 
 }
