@@ -1,9 +1,9 @@
 <div class="col">
   <form id="wyszukiwarka" class="wyszukiwarka" action="/search/kafle" method="GET" >
     <div class="form-row">
-      <div class="col-lg-3 mb-2 mb-lg-0">
+      <div class="col-lg-2 col-xl-3 mb-2 mb-lg-0">
         {{--<input type="text" class="form-control" id="region" name="region" placeholder="{{ __('messages.forexample')}}">--}}
-        <select class="form-control font-14" name='region' style="min-width: 200px">
+        <select class="form-control font-14" name='region' style="min-width: 95px">
           <option value="Zakopane" selected="selected">Zakopane</option>
           <option value="Zakopane Centrum">Zakopane Centrum</option>
           <option value="Zakopane Pardałówka">Zakopane Pardałówka</option>
@@ -13,7 +13,7 @@
           <option value="Witów">Witów</option>
         </select>
       </div>
-      <div class="form-inline col-lg-4 px-1 mb-2 mb-lg-0">
+      <div class="form-inline col-lg-5 col-xl-4 px-1 mb-2 mb-lg-0">
           <div class="w-100 t-datepicker">
               <div class="t-check-in" style="background-color: #fff" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Proszę"></div>
               <div class="t-check-out" style="background-color: #fff"></div>
@@ -38,7 +38,7 @@
       <div class="col-12 col-sm">
         <div class="input-group mb-2 mb-lg-0 h-custom-search">
           <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Kids') }}"><i class="fa fa-child" aria-hidden="true" placeholder="{{ __('messages.kids')}}"></i></div>
-              <select class="form-control font-14" name='dzieci' style="min-width: 75px">
+              <select class="form-control font-14" name='dzieci' style="min-width: 95px">
                 <option value="0" selected="selected">Dzieci</option>
                 <option value="1">1</option>
                 <option value="2">2</option>

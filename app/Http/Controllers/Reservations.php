@@ -238,6 +238,15 @@ class Reservations extends Controller
         //suma wszystkich łóżek
         $beds = $apartament->apartament_single_beds+$apartament->apartament_double_beds;
 
+        if($this->language->language_code == "PL"){
+            $countries = DB::table('countries')->orderBy('pl')->pluck('pl', 'pl');
+            $defaultCountry = 'Polska';
+        }
+        else{
+            $countries = DB::table('countries')->orderBy('en')->pluck('en', 'en');
+            $defaultCountry = 'Poland';
+        }
+
         return view('reservation.secondStep', [
             'apartament' => $apartament,
             'images' => $images,
@@ -246,6 +255,8 @@ class Reservations extends Controller
             'request' => $request,
             'accountData' => $accountData,
             'servicesDetails' => $servicesDetails,
+            'countries' => $countries,
+            'defaultCountry' => $defaultCountry,
         ]);
 
     }
@@ -326,7 +337,7 @@ class Reservations extends Controller
             'payment_additional_services' => $request->payment_additional_services,
             'payment_basic_service' => $request->payment_basic_service,
             'reservation_status' => 0,
-            'created_at' => date('Y-m-d')
+            'created_at' => date('Y-m-d H:i:s')
         ];
 
         if(isset($request->idActive) && is_numeric($request->idActive)){
@@ -381,44 +392,67 @@ class Reservations extends Controller
 
         $dataSet = $reservationData + $userData;
 
+        $visitApartamentId = DB::table('visitzakopane_apartaments_ids')
+            ->select('visitzakopane_id')
+            ->where('otozakopane_id', $request->id)
+            ->first();
+
         $visitDataSet[] = [
-            'apartament_id'  => "666",
-            'reservation_persons' => "1",
-            'reservation_kids' => "0",
-            'reservation_wplacona_zaliczka' => "0",
-            'reservation_druga_wplata' => "0",
-            'zapl_gotowka_pln' => "0",
-            'zapl_karta_pln' => "0",
-            'zapl_gotowka_eur' => "0",
-            'zapl_karta_eur' => "0",
-            'zapl_karta_waw_pln' => "0",
-            'zapl_karta_waw_eur' => "0",
-            'konsultant_id' => "0",
+            'apartament_id'  => $visitApartamentId->visitzakopane_id,
+            'reservation_date_p' => $request->przyjazdDb,
+            'reservation_date_k' => $request->powrotDb,
+            'reservation_data' => date('Y-m-d H:i:s'),
+            'reservation_status' => '12', //rezerwacja obca
+            'reservation_persons' => '1',
+            'reservation_kids' => '0',
+            'reservation_kids_age' => '0',
+            'reservation_wplacona_zaliczka' => '0',
+            'reservation_druga_wplata' => '0',
+            'zapl_gotowka_pln' => '0',
+            'zapl_karta_pln' => '0',
+            'zapl_gotowka_eur' => '0',
+            'zapl_karta_eur' => '0',
+            'zapl_karta_waw_pln' => '0',
+            'zapl_karta_waw_eur' => '0',
+            'wplata_rezydenta_pln' => '0',
+            'wplata_rezydenta_eur' => '0',
+            'reservation_number' => '0',
+            'konsultant_id' => '0',
             'reservation_data_waznosci_2' => '0000-00-00 00:00:00.000000',
             'reservation_data_waznosci_sort' => '0000-00-00 00:00:00.000000',
-            'reservation_services' => "0",
-            'reservation_consultant' => "0",
-            'reservation_parking_or_garage' => "0",
+            'reservation_services' => '0',
+            'reservation_consultant' => '0',
+            'reservation_parking_or_garage' => '0',
             'reservation_wyjechal_date' => '0000-00-00 00:00:00.000000',
             'reservation_przyjechal_date' => '0000-00-00 00:00:00.000000',
-            'reservation_wyjechal_caretaker' => "0",
-            'add_to_caretaker_account' => "0",
-            'wirtualne_pieniadze' => "0",
-            'wystawiono_faktury' => "0",
-            'want_invoice' => "0",
-
+            'reservation_wyjechal_caretaker' => '0',
+            'reservation_attentions' => '0',
+            'reservation_departure_time' => '0',
+            'add_to_caretaker_account' => '0',
+            'wirtualne_pieniadze' => '0',
+            'wirtualne_pieniadze_opis' => '',
+            'wystawiono_faktury' => '0',
+            'gosc_zagraniczny' => '0',
+            'ceny_pobytu_by_day' => '0',
+            'used_promotion' => '0',
+            'want_invoice' => '0',
+            'ankieta_unique' => '0',
+            'platnosci_unique' => '0',
+            'kod_promocyjny' => '0',
+            'from_portal' => 'Otozakopane',
         ];
 
-        //adding reservation if there is no otozakopane
+        //adding reservation if there is no visitzakopane
         //$this->idReservationOtozakopane = DB::table('reservations')->insertGetId($dataSet);
 
         //something like transaction - do both function or none
         try{
-            $this->idReservationOtozakopane = DB::connection('mysql')->table('reservations')->insertGetId($dataSet);
-            $this->idReservationVisit = DB::connection('mysql2')->table('visit_reservations')->insertGetId($visitDataSet);
+            $this->idReservationOtozakopane = $idReservation = DB::connection('mysql')->table('reservations')->insertGetId($dataSet);
+            DB::connection('mysql2')->table('visit_reservations')->insert($visitDataSet, 'reservation_id');
+            $this->idReservationVisit = DB::connection('mysql2')->getPdo()->lastInsertId();
         }catch(\Exception $e){
             if($this->idReservationOtozakopane != false) DB::connection('mysql')->table('reservations')->where('id', $this->idReservationOtozakopane)->delete();
-            if($this->idReservationVisit != false) DB::connection('mysql2')->table('aaaTestIntegracji')->where('id', $this->idReservationVisit)->delete();
+            if($this->idReservationVisit != false) DB::connection('mysql2')->table('visit_reservations')->where('reservation_id', $this->idReservationVisit)->delete();
             return $e->getMessage();
         }
 

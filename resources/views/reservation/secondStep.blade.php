@@ -218,7 +218,7 @@
                                             <div class="form-group row">
                                                 {!! Form::label('country', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
                                                 <div class="col-sm-9">
-                                                    {!! Form::select('country', array('Polska' => __('Polska'), 'Niemcy' => __('Niemcy')), 'Polska', array('class' => 'col-sm-12 col-lg-3')) !!}
+                                                    {!! Form::select('country', $countries, $defaultCountry, array('class' => 'col-sm-12 col-lg-3')) !!}
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -443,7 +443,7 @@
                     <div class="form-group row">
                         {!! Form::label('country', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
                         <div class="col-sm-9">
-                            {!! Form::select('country', array('Polska' => __('Polska'), 'Niemcy' => __('Niemcy')), 'Polska', array('class' => 'col-sm-12 col-lg-3')) !!}
+                            {!! Form::select('country', $countries, $defaultCountry, array('class' => 'col-sm-12 col-lg-3')) !!}
                         </div>
                     </div>
                     <div class="form-group row">

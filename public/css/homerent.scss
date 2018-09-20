@@ -766,9 +766,14 @@ select.h-100.form-control:not([size]):not([multiple]) {
 			font-size: 18px;
 			font-weight: bold;
 		}
-
+		h4{
+			font-family: fantasy;
+			font-weight: bold;
+		}
 		p.price {
 			font-size: 16px;
+			font-family: fantasy;
+			font-weight: bold;
 		}
 
 	}
@@ -1403,6 +1408,15 @@ label.inline-label{
 	font-size: 12px;
 	position: absolute;
 	left: 16px;
+}
+
+#stickyReservationPanel{
+	.t-datepicker{
+		.t-dates{
+			padding-left: 0.3em;
+			padding-right: 0em;
+		}
+	}
 }
 
 @media (min-width: 575px){
@@ -2403,6 +2417,12 @@ span.error-show{
 @media (max-width: 575px){
 	.searchCont{
 		padding-top: 20px;
+	}
+	.t-datepicker{
+		.t-dates{
+			padding-left: 0.3em;
+			padding-right: 0em;
+		}
 	}
 }
 

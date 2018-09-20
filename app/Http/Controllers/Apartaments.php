@@ -35,6 +35,13 @@ class Apartaments extends Controller
     //Generates homepage view
     public function showIndex()
     {
+        try{
+            $test = DB::connection('mysql2')->table('visit_ankiety')->first();
+            //dd($test);
+        }catch(\Exception $e){
+            return $e->getMessage();
+        }
+
         $todayDate = date("Y-m-d");
         $tomorrowDate = date("Y-m-d", strtotime($todayDate . ' +1 day'));
 
@@ -879,7 +886,8 @@ class Apartaments extends Controller
                 }
                 else{
                     $query->where('apartament_descriptions.apartament_name',$region)
-                        ->orWhere('apartaments.apartament_city',$region);
+                        ->orWhere('apartaments.apartament_city',$region)
+                        ->orWhere('apartaments.apartament_district',$region);
                 }
             })
             ->where(function($query) use ($arriveDate,$returnDate) {
@@ -918,7 +926,8 @@ class Apartaments extends Controller
                 }
                 else{
                     $query->where('apartament_descriptions.apartament_name',$region)
-                        ->orWhere('apartaments.apartament_city',$region);
+                        ->orWhere('apartaments.apartament_city',$region)
+                        ->orWhere('apartaments.apartament_district',$region);
                 }
             })
             //->where('apartaments.group_id', 0)
@@ -963,7 +972,8 @@ class Apartaments extends Controller
                     }
                     else{
                         $query->where('apartament_descriptions.apartament_name',$region)
-                            ->orWhere('apartaments.apartament_city',$region);
+                            ->orWhere('apartaments.apartament_city',$region)
+                            ->orWhere('apartaments.apartament_district',$region);
                     }
                 })
                 ->where(function($query) use ($arriveDate,$returnDate) {
@@ -1002,7 +1012,8 @@ class Apartaments extends Controller
                 }
                 else{
                     $query->where('apartament_descriptions.apartament_name',$region)
-                        ->orWhere('apartaments.apartament_city',$region);
+                        ->orWhere('apartaments.apartament_city',$region)
+                        ->orWhere('apartaments.apartament_district',$region);
                 }
             })
             ->where('apartaments.group_id', '>', 0)
@@ -1087,7 +1098,8 @@ class Apartaments extends Controller
                         }
                         else{
                             $query->where('apartament_descriptions.apartament_name',$region)
-                                ->orWhere('apartaments.apartament_city',$region);
+                                ->orWhere('apartaments.apartament_city',$region)
+                                ->orWhere('apartaments.apartament_district',$region);
                         }
                     })
                     ->where(function($query) use ($arriveDate,$returnDate) {
@@ -1120,7 +1132,8 @@ class Apartaments extends Controller
                     }
                     else{
                         $query->where('apartament_descriptions.apartament_name',$region)
-                            ->orWhere('apartaments.apartament_city',$region);
+                            ->orWhere('apartaments.apartament_city',$region)
+                            ->orWhere('apartaments.apartament_district',$region);
                     }
                 })
                 ->where('apartaments.group_id', '>', 0)
@@ -1153,7 +1166,8 @@ class Apartaments extends Controller
                     }
                     else{
                         $query->where('apartament_descriptions.apartament_name',$region)
-                            ->orWhere('apartaments.apartament_city',$region);
+                            ->orWhere('apartaments.apartament_city',$region)
+                            ->orWhere('apartaments.apartament_district',$region);
                     }
                 })
                 ->where('apartaments.group_id', '!=', 0)
@@ -1190,7 +1204,8 @@ class Apartaments extends Controller
                         }
                         else{
                             $query->where('apartament_descriptions.apartament_name',$region)
-                                ->orWhere('apartaments.apartament_city',$region);
+                                ->orWhere('apartaments.apartament_city',$region)
+                                ->orWhere('apartaments.apartament_district',$region);
                         }
                     })
                     ->where(function($query) use ($arriveDate,$returnDate) {
@@ -1223,7 +1238,8 @@ class Apartaments extends Controller
                     }
                     else{
                         $query->where('apartament_descriptions.apartament_name',$region)
-                            ->orWhere('apartaments.apartament_city',$region);
+                            ->orWhere('apartaments.apartament_city',$region)
+                            ->orWhere('apartaments.apartament_district',$region);
                     }
                 })
                 ->where('apartaments.group_id', 0)
@@ -1256,7 +1272,8 @@ class Apartaments extends Controller
                     }
                     else{
                         $query->where('apartament_descriptions.apartament_name',$region)
-                            ->orWhere('apartaments.apartament_city',$region);
+                            ->orWhere('apartaments.apartament_city',$region)
+                            ->orWhere('apartaments.apartament_district',$region);
                     }
                 })
                 ->where('apartaments.group_id', 0)
@@ -1312,7 +1329,8 @@ class Apartaments extends Controller
                     }
                     else{
                         $query->where('apartament_descriptions.apartament_name',$region)
-                            ->orWhere('apartaments.apartament_city',$region);
+                            ->orWhere('apartaments.apartament_city',$region)
+                            ->orWhere('apartaments.apartament_district',$region);
                     }
                 })
                 ->groupBy('apartaments.id')
@@ -1610,6 +1628,7 @@ class Apartaments extends Controller
         else if ($request->nieKryteria == 1){
             $finds = DB::Table('apartaments')
                 ->where('apartament_city', '=', $request->region)
+                ->orWhere('apartaments.apartament_district', $request->region)
                 ->get();
         }
         return response()->json($finds);

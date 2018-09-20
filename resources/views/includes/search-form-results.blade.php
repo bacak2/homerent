@@ -2,7 +2,7 @@
     <form id="wyszukiwarka" class="wyszukiwarka" action="{{$request->getPathInfo()}}" method="GET" >
     <div class="form-row">
       <div class="col-lg-3 mb-2 mb-lg-0">
-        <input type="text" class="form-control" id="region" name="region" placeholder="{{ __('messages.forexample')}}" value="{{ $_GET['region'] ?? '' }}">
+        {{ Form::select('region', array('Zakopane'=>'Zakopane', 'Zakopane Centrum'=>'Zakopane Centrum', 'Zakopane Pardałówka'=>'Zakopane Pardałówka', 'Zakopane Nosal'=>'Zakopane Nosal', 'Zakopane Szymoszkowa'=>'Zakopane Szymoszkowa', 'Kościelisko'=>'Kościelisko', 'Witów'=>'Witów'), $request->region, array('class'=>'form-control'))}}
       </div>
       <div class="form-inline col-lg-5 px-1 mb-2 mb-lg-0">
           <div class="w-100 t-datepicker">
