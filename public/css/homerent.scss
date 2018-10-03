@@ -102,6 +102,7 @@ body	{
 	top: 12px;
 	left: 2px;
 	padding: 4px 12px;
+	text-shadow: 1px 1px 0 black;
 }
 
 .guidebooks-top-description{
@@ -113,6 +114,7 @@ body	{
 	top: 12px;
 	left: 0;
 	padding: 4px 12px;
+	text-shadow: 1px 1px 0 black;
 }
 
 .guidebooks-bottom-description{
@@ -765,15 +767,18 @@ select.h-100.form-control:not([size]):not([multiple]) {
 		h1 {
 			font-size: 18px;
 			font-weight: bold;
+			text-shadow: 1px 1px 0 black;
 		}
 		h4{
 			font-family: fantasy;
 			font-weight: bold;
+			text-shadow: 1px 1px 0 black;
 		}
 		p.price {
 			font-size: 16px;
 			font-family: fantasy;
 			font-weight: bold;
+			text-shadow: 1px 1px 0 black;
 		}
 
 	}

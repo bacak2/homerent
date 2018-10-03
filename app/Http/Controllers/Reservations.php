@@ -87,7 +87,9 @@ class Reservations extends Controller
 
         //get avilable services
         $additionalServices = DB::table('additional_services')
-            ->where('id_apartament',$id)
+            ->join('additional_service_descriptions','service_type_id','=','additional_services.service_type')
+            ->where('id_apartament', $id)
+            ->where('language_id', $this->language->id)
             ->get();
 
         //suma wszystkich łóżek
@@ -173,7 +175,12 @@ class Reservations extends Controller
         foreach($collectionOfServices as $service){
             foreach($service as $key => $value){
                 if ($key == 0) continue;
-                $serviceDetails = DB::table('additional_services')->select('name', 'price', 'with_options')->where('id', $key)->first();
+                $serviceDetails = DB::table('additional_services')
+                    ->select('name', 'price', 'with_options', 'service_type')
+                    ->join('additional_service_descriptions','service_type_id','=','additional_services.service_type')
+                    ->where('id', $key)
+                    ->where('language_id', $this->language->id)
+                    ->first();
                 $withOptions = $serviceDetails->with_options;
                 if($withOptions == 0){
                     $price = $serviceDetails->price;
@@ -185,7 +192,7 @@ class Reservations extends Controller
                 $servicesData = array(
                     'id_reservation' => session()->getId(),
                     'id_service' => $key,
-                    'name' => $serviceDetails->name,
+                    'service_type' => $serviceDetails->service_type,
                     'price' => $price,
                     'nights' => $service[$key][2] ?? 0,
                     'adults' => $service[$key][1] ?? 0,
@@ -195,7 +202,11 @@ class Reservations extends Controller
             }
         }
 
-        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', session()->getId())->get();
+        $servicesDetails = DB::table('reservation_additional_services')
+            ->join('additional_service_descriptions','reservation_additional_services.service_type','=','additional_service_descriptions.service_type_id')
+            ->where('id_reservation', session()->getId())
+            ->where('language_id', $this->language->id)
+            ->get();
 
         if($request->session()->get('couponValue') != null){
             $request->payment_all_nights = $request->payment_all_nights - $request->session()->get('couponValue');
@@ -264,8 +275,8 @@ class Reservations extends Controller
     public function thirdStep(Request $request)
     {
         $reservation = new Reservation();
-        //$availability = $reservation->checkAvailabity($request->id, $request->przyjazdDb, $request->powrotDb);
-        $availability = 1;
+        $availability = $reservation->checkAvailabity($request->id, $request->przyjazdDb, $request->powrotDb);
+
         if($availability == null){
             return redirect()->route('reservations.unavailable', [
                 'id' => $request->id,
@@ -493,10 +504,17 @@ class Reservations extends Controller
             $reservationModel->sendMail($idReservation, $this->language->id);
         }
 
-        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $idReservation)->get();
+        $servicesDetails = DB::table('reservation_additional_services')
+            ->join('additional_service_descriptions','reservation_additional_services.service_type','=','additional_service_descriptions.service_type_id')
+            ->where('id_reservation', $idReservation)
+            ->where('language_id', $this->language->id)
+            ->get();
 
-        $availableServices = DB::table('additional_services')->where('id_apartament', $id)
+        $availableServices = DB::table('additional_services')
+            ->join('additional_service_descriptions','service_type_id','=','additional_services.service_type')
+            ->where('id_apartament', $id)
             ->whereNotIn('id', DB::table('reservation_additional_services')->select('id_service')->where('id_reservation', $idReservation))
+            ->where('language_id', $this->language->id)
             ->get();
 
         return view('reservation.fourthStep', [
@@ -720,13 +738,13 @@ class Reservations extends Controller
         if($coupon == null){
             return response()->json([
                 'response' => false,
-                'error' => 'Podano nieprawidłowy kod',
+                'error' => __('messages.Invalid code provided'),
             ]);
         }
         else if($coupon->usage_times == 1 && $coupon->is_used == 1){
             return response()->json([
                 'response' => false,
-                'error' => 'Kupon został już wcześniej wykorzystany',
+                'error' => __('messages.The coupon has already been used'),
             ]);
         }
         else if($coupon->usage_times == 1){

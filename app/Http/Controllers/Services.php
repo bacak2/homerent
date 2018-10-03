@@ -20,6 +20,7 @@ class Services extends Controller
 {
     //Site language from database
     protected $language = 1;
+    protected $reservationId;
 
     public function __construct()
     {
@@ -37,10 +38,16 @@ class Services extends Controller
             $query->where('language_id', $this->language->id);
         }))->find($id);
 
-        $additionalServices = DB::table('reservation_additional_services')->where('id_reservation', $idReservation)->get();
+        $additionalServices = DB::table('reservation_additional_services')
+            ->join('additional_service_descriptions','reservation_additional_services.service_type','=','additional_service_descriptions.service_type_id')
+            ->where('id_reservation', $idReservation)
+            ->where('language_id', $this->language->id)
+            ->get();
 
         $availableServices = DB::table('additional_services')->where('id_apartament', $id)
+            ->join('additional_service_descriptions','service_type_id','=','additional_services.service_type')
             ->whereNotIn('id', DB::table('reservation_additional_services')->select('id_service')->where('id_reservation', $idReservation))
+            ->where('language_id', $this->language->id)
             ->get();
 
         //Generates an array of images gallery
@@ -57,7 +64,11 @@ class Services extends Controller
         $basicService = 50;
 
         $reservationDetails = DB::table('reservations')->where('id', $idReservation)->first();
-        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $idReservation)->get();
+        $servicesDetails = DB::table('reservation_additional_services')
+            ->join('additional_service_descriptions','reservation_additional_services.service_type','=','additional_service_descriptions.service_type_id')
+            ->where('id_reservation', $idReservation)
+            ->where('language_id', $this->language->id)
+            ->get();
 
         return view('services.firstStep', [
             'apartament' => $apartament,
@@ -112,14 +123,22 @@ class Services extends Controller
                 }
             }
         }
-
-        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', session()->getId())->get();
+        $servicesDetails = DB::table('reservation_additional_services')
+            ->join('additional_service_descriptions','reservation_additional_services.service_type','=','additional_service_descriptions.service_type_id')
+            ->where('id_reservation', session()->getId())
+            ->where('language_id', $this->language->id)
+            ->get();
         if($servicesDetails->count() > 0) DB::table('reservation_additional_services')->where('id_reservation', session()->getId())->delete();
 
         foreach($collectionOfServices as $service){
             foreach($service as $key => $value){
                 if ($key == 0) continue;
-                $serviceDetails = DB::table('additional_services')->select('name', 'price', 'with_options')->where('id', $key)->first();
+                $serviceDetails = DB::table('additional_services')
+                    ->select('name', 'price', 'with_options', 'service_type')
+                    ->join('additional_service_descriptions','service_type_id','=','additional_services.service_type')
+                    ->where('id', $key)
+                    ->where('language_id', $this->language->id)
+                    ->first();
                 $withOptions = $serviceDetails->with_options;
                 if($withOptions == 0){
                     $price = $serviceDetails->price;
@@ -131,7 +150,7 @@ class Services extends Controller
                 $servicesData = array(
                     'id_reservation' => session()->getId(),
                     'id_service' => $key,
-                    'name' => $serviceDetails->name,
+                    'service_type' => $serviceDetails->service_type,
                     'price' => $price,
                     'nights' => $service[$key][2] ?? 0,
                     'adults' => $service[$key][1] ?? 0,
@@ -141,7 +160,11 @@ class Services extends Controller
             }
         }
 
-        $servicesDetailsNowOrdered = DB::table('reservation_additional_services')->where('id_reservation', session()->getId())->get();
+        $servicesDetailsNowOrdered = DB::table('reservation_additional_services')
+            ->join('additional_service_descriptions','reservation_additional_services.service_type','=','additional_service_descriptions.service_type_id')
+            ->where('id_reservation', session()->getId())
+            ->where('language_id', $this->language->id)
+            ->get();
         $priceToPay = 0;
 
         foreach($servicesDetailsNowOrdered as $service){
@@ -152,13 +175,22 @@ class Services extends Controller
                 $priceToPay += $service->price;
             }
             elseif($service->with_options == 3){
-                echo 'trzy';
+                echo 'test';
             }
         }
 
+        $this->reservationId = $request->reservation_id;
+
         $servicesDetails = DB::table('reservation_additional_services')
-            ->where('id_reservation', $request->reservation_id)
-            ->orWhere('id_reservation', session()->getId())
+            ->join('additional_service_descriptions','reservation_additional_services.service_type','=','additional_service_descriptions.service_type_id')
+            ->where(function($q) {
+                $q->where('id_reservation', $this->reservationId)
+                    ->where('language_id', $this->language->id);
+            })
+            ->orWhere(function($q) {
+                $q->where('id_reservation', session()->getId())
+                    ->where('language_id', $this->language->id);
+            })
             ->get();
 
         $apartament = Apartament::with(array('descriptions' => function($query)
@@ -175,6 +207,15 @@ class Services extends Controller
             $accountData = 0;
         }
 
+        if($this->language->language_code == "PL"){
+            $countries = DB::table('countries')->orderBy('pl')->pluck('pl', 'pl');
+            $defaultCountry = 'Polska';
+        }
+        else{
+            $countries = DB::table('countries')->orderBy('en')->pluck('en', 'en');
+            $defaultCountry = 'Poland';
+        }
+
         return view('services.secondStep', [
             'apartament' => $apartament,
             'servicesDetails' => $servicesDetails,
@@ -182,6 +223,8 @@ class Services extends Controller
             'reservationDetails' => $reservationDetails,
             'request' => $request,
             'accountData' => $accountData,
+            'countries' => $countries,
+            'defaultCountry' => $defaultCountry,
         ]);
     }
 

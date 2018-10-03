@@ -1,43 +1,43 @@
 @extends ('pages.results')
-@section('title', 'Dla podróżujących')
+@section('title', __('messages.For travelers2'))
 
 @section('content')
 <div class="container">
     <div class="img-container" style="position: relative">
         <img style="width: 100%; height: auto; min-height: 270px;" src='{{ asset("images/for_travelers/mainImg.png") }}'>
         <span style="position: absolute; left: 30px; bottom: 30px">
-            <h1 class="h1-owners">Informacje dla podróżujących</h1>
+            <h1 class="h1-owners">{{__('messages.Information for travelers')}}</h1>
         </span>
     </div>
 
-    <h2 class="mt-4 mb-1 h2-owners">Dlaczego warto</h2>
+    <h2 class="mt-4 mb-1 h2-owners">{{__('messages.Why it is worth it')}}</h2>
     <div class="row mt-3">
         <div class="col-sm-12 col-md-4 mb-3">
             <div class="row mb-1">
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/procent.png") }}'></div>
-                <div class="col-8"><h3 class="h3-owners">Tanio</h3><span class="font-13">Ok. 50 % taniej niż za hotel.</span></div>
+                <div class="col-8"><h3 class="h3-owners">{{__('messages.cheap')}}</h3><span class="font-13">{{__('messages.travelersWhy1')}}</span></div>
             </div>
         </div>
         <div class="col-sm-12 col-md-4 mb-3">
             <div class="row mb-1">
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/time.png") }}'></div>
-                <div class="col-8"><h3 class="h3-owners">Szybko</h3><span class="font-13">Zarezerwuj od razu i tylko czekaj na wyjazd.</span></div>
+                <div class="col-8"><h3 class="h3-owners">{{__('messages.fast')}}</h3><span class="font-13">{{__('messages.travelersWhy2')}}</span></div>
             </div>
         </div>
         <div class="col-sm-12 col-md-4">
             <div class="row mb-1">
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/up.png") }}'></div>
-                <div class="col-8"><h3 class="h3-owners">Bezpiecznie</h3><span class="font-13">Zaufało nam 23 765 klientów. Znajdź obiekt i sprawdź opinie</span></div>
+                <div class="col-8"><h3 class="h3-owners">{{__('messages.safe')}}</h3><span class="font-13">{{__('messages.safeExp')}} {{ countAllReservations() }} {{__('messages.travelersWhy3')}}</span></div>
             </div>
         </div>
     </div>
 
-    <h2 class="mt-4 h2-owners">Jak to działa</h2>
+    <h2 class="mt-4 h2-owners">{{__('messages.How it works')}}</h2>
     <div class="row mt-3">
         <div id="guide-1" class="col-sm-12 col-md-4 mb-3">
             <div class="row mb-1">
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/Search_96.png") }}'></div>
-                <div class="col-6"><h3 class="h3-owners @mobile txt-blue @endmobile">Znajdź nocleg spośród 14 587 obiektów</h3></div>
+                <div class="col-6"><h3 class="h3-owners @mobile txt-blue @endmobile">{{__('messages.Find accommodation from')}} {{ countAllApartments() }} {{__('messages.objects2')}}</h3></div>
                 <div class="col-2 mobile-none" style="position: relative">
                     <img src='{{ asset("images/for_travelers/arrow.png") }}' style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);">
                 </div>
@@ -53,7 +53,7 @@
         <div id="guide-2" class="col-sm-12 col-md-4 mb-3">
             <div class="row mb-1">
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/Check_96.png") }}'></div>
-                <div class="col-6"><h3 class="h3-owners @mobile txt-blue @endmobile">Zarezerwuj wybrany obiekt</h3></div>
+                <div class="col-6"><h3 class="h3-owners @mobile txt-blue @endmobile">{{__('messages.Book chosen object')}}</h3></div>
                 <div class="col-2 mobile-none" style="position: relative">
                     <img src='{{ asset("images/for_travelers/arrow.png") }}' style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);">
                 </div>
@@ -63,22 +63,22 @@
         <span class="d-md-none">
             <div class="guide-2-popup guide-mobile-popup col-sm-12 col-md-4 mb-3">
                 <span class="font-13">
-                    Znajdź interesujący Cię obiekt, przeczytaj informacje na jego temat. Możesz od razu sprawdzić, co znajduje się w okolicy - zarówno poprzez funkcjonalność Street View, jak i listę obiektów dostępnych obok (np: restauracje, centra handlowe, czy centra zabaw).
+                    {{__('messages.TravelersInfo1')}}
                 </span>
-                <img style="width: 100%" src='{{ asset('images/for_travelers/pop2-inside.png') }}'>
+                <img style="width: 100%" src='{{ asset('images/for_travelers/pop2-inside-').App::getLocale().'.png' }}'>
             </div>
         </span>
 
         <div id="guide-3" class="col-sm-12 col-md-4 mb-3">
             <div class="row mb-1">
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/User_Message_1_96.png") }}'></div>
-                <div class="col-8"><h3 class="h3-owners @mobile txt-blue @endmobile">Podziel się opinią</h3></div>
+                <div class="col-8"><h3 class="h3-owners @mobile txt-blue @endmobile">{{__('messages.Share your opinion')}}</h3></div>
             </div>
         </div>
 
         <span class="d-md-none">
             <div class="guide-3-popup guide-mobile-popup col-sm-12 col-md-4 mb-3">
-                <img style="width: 100%" src='{{ asset('images/for_travelers/pop3-inside.png') }}'>
+                <img style="width: 100%" src='{{ asset('images/for_travelers/pop3-inside-').App::getLocale().'.png' }}'>
             </div>
         </span>
     </div>
@@ -96,11 +96,11 @@
         <div class="guide-2-popup guide-popup px-4" style="background-image: url('{{ asset('images/for_travelers/popup2.png') }}');">
             <div class="row" style="margin: 40px 10px 0px 10px;">
                 <div class="col-4 @handheld font-11 @endhandheld" style="position: relative;">
-                    Znajdź interesujący Cię obiekt, przeczytaj informacje na jego temat. Możesz od razu sprawdzić, co znajduje się w okolicy - zarówno poprzez funkcjonalność Street View, jak i listę obiektów dostępnych obok (np: restauracje, centra handlowe, czy centra zabaw).
+                    {{__('messages.TravelersInfo1')}}
                     <br><br>
-                    Wybierz interesujący Cię obiekt i zarezerwuj.
+                    {{__('messages.TravelersInfo2')}}
                     <br><br>
-                    Nad bezpieczeństwem rezerwacji czuwają:
+                    {{__('messages.TravelersInfo3')}}
                     <span style="position: absolute; bottom: 10px; left: 6px;">
                         <img src='{{ asset('images/for_travelers/miniIcon.png') }}'>
                         <img src='{{ asset('images/for_travelers/miniIcon.png') }}'>
@@ -108,7 +108,7 @@
                     </span>
                 </div>
                 <div class="col-8">
-                    <img style="margin: 20px 40px 30px 40px; width: 100%" src='{{ asset('images/for_travelers/pop2-inside.png') }}'>
+                    <img style="margin: 20px 40px 30px 40px; width: 100%" src='{{ asset('images/for_travelers/pop2-inside-').App::getLocale().'.png' }}'>
                 </div>
             </div>
         </div>
@@ -116,7 +116,7 @@
 
     <div class="row">
         <div class="guide-3-popup guide-popup px-4" style="background-image: url('{{ asset('images/for_travelers/popup3.png') }}');">
-            <img style="margin: 40px 0px; border: 1px solid black; width: 100%" src='{{ asset('images/for_travelers/pop3-inside.png') }}'>
+            <img style="margin: 40px 0px; border: 1px solid black; width: 100%" src='{{ asset('images/for_travelers/pop3-inside-').App::getLocale().'.png' }}'>
         </div>
     </div>
 </span>
@@ -160,7 +160,7 @@
         </div>
     </div>
 
-    <h2 class="mt-4 h2-owners">Media o nas</h2>
+    <h2 class="mt-4 h2-owners">{{__('messages.Media about us')}}</h2>
     <div class="row mb-5">
         <div class="col-sm-12 col-md-4">
             <div class="row mb-4">
@@ -194,7 +194,7 @@
         </div>
     </div>
 
-    <h2 class="mt-4 h2-owners">Pomoc</h2>
+    <h2 class="mt-4 h2-owners">{{__('messages.help')}}</h2>
     <div class="row mb-3">
         <div class="col-12 col-md-4">
             <div class="mb-2"><a href="#" class="font-16 font-m-13">Tytuł artykułu lorem ipsum</a></div>
@@ -207,22 +207,22 @@
             <div class="row mobile-none" style="margin-bottom: 28px">
                 <div class="col-12">
                     <div style="width:100%; min-height: 125px; background-color: #cfcfcf; border: 1px solid black; padding: 12px 20px">
-                        <h4 style="font-size: 24px; font-weight: bold; margin-bottom: 15px">Masz pytania? Skontaktuj się z nami</h4>
+                        <h4 style="font-size: 24px; font-weight: bold; margin-bottom: 15px">{{__('messages.Do you have any questions? Contact with us')}}</h4>
                         <div class="mr-2" style="float: left"><img src='{{ asset("images/for_travelers/Call_48.png") }}'></div>
-                        <a href="mailto: kontakt@visitzakopane.pl" class="btn btn-black pull-right" style="width: 170px">Napisz do nas</a>
-                        <span style="font-size: 20px;">tel: +22 111 11 11, 600-000-000</span><br>
-                        <span class="font-13" style="display: inline-block">pn-pt, 8:00-18:00</span>
+                        <a href="mailto: kontakt@visitzakopane.pl" class="btn btn-black pull-right" style="width: 170px">{{__('messages.Write to us')}}</a>
+                        <span style="font-size: 20px;">{{__('messages.phoneShort')}}: +22 111 11 11, 600-000-000</span><br>
+                        <span class="font-13" style="display: inline-block">{{__('messages.monToFri')}}, 8:00-18:00</span>
                     </div>
                 </div>
             </div>
             <div class="row desktop-none mt-4" style="margin-bottom: 28px">
                 <div style="width:100%; min-height: 125px; background-color: #cfcfcf; border: 1px solid black; width: 408px; padding: 16px 20px">
-                    <h4 style="font-size: 18px; font-weight: bold; margin-bottom: 15px">Masz pytania? Skontaktuj się z nami</h4>
+                    <h4 style="font-size: 18px; font-weight: bold; margin-bottom: 15px">{{__('messages.Do you have any questions? Contact with us')}}</h4>
                     <div class="mr-2" style="float: left"><img src='{{ asset("images/for_owners/icon2.png") }}'></div>
-                    <span class="font-13 bold" style="display: inline-block">tel: +22 111 11 11, 600-000-000</span>
-                    <span class="font-13" style="display: inline-block;">pn-pt, 8:00-18:00</span>
+                    <span class="font-13 bold" style="display: inline-block">{{__('messages.phoneShort')}}: +22 111 11 11, 600-000-000</span>
+                    <span class="font-13" style="display: inline-block;">{{__('messages.monToFri')}}, 8:00-18:00</span>
                     <div style="clear: both"></div>
-                    <button class="btn btn-black mt-4" style="width: 100%">Napisz do nas</button>
+                    <button class="btn btn-black mt-4" style="width: 100%">{{__('messages.Write to us')}}</button>
                 </div>
             </div>
         </div>

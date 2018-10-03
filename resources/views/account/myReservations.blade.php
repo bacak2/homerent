@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <div class="row mt-4 mb-2">
-        <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>Rezerwacje</b></h1></div>
+        <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>{{__('messages.My reservations')}}</b></h1></div>
         {{--
         <div class="col-lg-3 col-12 inline-wrapper text-right">
             <div class="btn-group pull-left">
@@ -34,7 +34,7 @@
         --}}
     </div>
     <div class="row col-12 mb-4">
-        <span class="font-11">* Właściciel może pobrać na miejscu dodatkowe opłaty - np: opłatę klimatyczną, parking itd  (sprawdź opis oferty).</span>
+        <span class="font-11">* {{__('messages.AdditionalCostExp')}}.</span>
     </div>
     @foreach($users_reservations_future as $reservation)
     <div class="row minH-90 py-3">
@@ -51,25 +51,25 @@
                     <div style="">{{ lcfirst(strftime("%b", strtotime($reservation->reservation_arrive_date))) }}</div>
                 </div>
                 <div class="col-6">
-                    <div class="row font-11">Przyjazd:</div>
-                    <div class="row">za {{ (strtotime($reservation->reservation_arrive_date) - strtotime($current_data)) / (60*60*24) }} dni</div>
+                    <div class="row font-11">{{__('messages.arrive')}}:</div>
+                    <div class="row">{{__('messages.inDays')}} {{ ceil((strtotime($reservation->reservation_arrive_date) - strtotime($current_data)) / (60*60*24)) }} {{__('messages.days2')}}</div>
                 </div>
             </div>
         </div>
         <div class="col-4 col-md-1 my-2 my-md-0 px-md-0 px-lg-3"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.number of nights') }}" src="{{ asset("images/account/moon.png") }}"> {{ $reservation->reservation_nights }}</div>
         <div class="col-4 col-md-2 col-lg-1 my-2 my-md-0">
             @if($reservation->reservation_status == 0)
-                <div class="row font-11">Rezerwacja wstępna:</div>
+                <div class="row font-11">{{__('messages.Pre-booking')}}:</div>
                 <div class="row">{{ strtolower(strftime("%d %b %Y", strtotime($reservation->created_at))) }}</div>
                 <!--wygasa za -->
             @else
-                <div class="row font-11">Rezerwacja:</div>
+                <div class="row font-11">{{__('messages.reservation')}}:</div>
                 <div class="row">{{ strtolower(strftime("%d %b %Y", strtotime($reservation->created_at))) }}</div>
             @endif
         </div>
         <div class="col-4 col-md-2 col-lg-1 px-3 px-md-1">
             <div class="row">
-                <div class="col-12 font-11">Opłata za pobyt:</div>
+                <div class="col-12 font-11">{{__('messages.Payment for stay')}}:</div>
                 <div class="col-12">{{$reservation->payment_full_amount}} PLN</div>
             </div>
         </div>
@@ -77,27 +77,27 @@
             @if($reservation->reservation_status == 0)
                 <div class="row">
                     <div class="col-6 col-md-12 pr-0 pr-md-3">
-                        <div class="font-11">Zaliczka:</div>
+                        <div class="font-11">{{__('messages.Advance')}}:</div>
                         <div class="">{{$reservation->payment_full_amount - $reservation->payment_to_pay}} PLN</div>
                     </div>
                     <div class="col-6 col-md-12 pr-0 pr-md-3">
-                        <div class="font-11">Do zapłaty:</div>
+                        <div class="font-11">{{__('messages.To pay')}}:</div>
                         <div class="">{{$reservation->payment_to_pay}} PLN</div>
                     </div>
                 </div>
             @elseif($reservation->reservation_status == 1 && $reservation->payment_to_pay > 0)
                 <div class="row">
                     <div class="col-6 col-md-12 pr-0 pr-md-3">
-                        <div class="font-11">Zaliczka:</div>
+                        <div class="font-11">{{__('messages.Advance')}}:</div>
                         <div>{{$reservation->payment_full_amount - $reservation->payment_to_pay}} PLN</div>
                     </div>
                     <div class="col-6 col-md-12 pr-0 pr-md-3">
-                        <div class="font-11">Na miejscu:</div>
+                        <div class="font-11">{{__('messages.At location')}}:</div>
                         <div>{{$reservation->payment_to_pay}} PLN</div>
                     </div>
                 </div>
             @else
-                <div class="font-11">Do zapłaty:</div>
+                <div class="font-11">{{__('messages.To pay')}}:</div>
                 <div>{{$reservation->payment_to_pay}} PLN</div>
             @endif
         </div>
@@ -109,13 +109,13 @@
                     <a class="btn btn-black" href="tel:713333222"><img src="{{ asset("images/account/phone.png") }}"></a>
                 @enddesktop
                 <a class="btn btn-black" href="mailto:ja@ja.pl"><img src="{{ asset("images/account/envelope.png") }}"></a>
-                <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.reservationDetail',['idReservation' => $reservation->id]) }}">Szczegóły</a>
-                <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
+                <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.reservationDetail',['idReservation' => $reservation->id]) }}">{{__('messages.Details')}}</a>
+                <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">{{__('messages.Book again')}}</a>
                 <div class="more row mobile-none">
                     <div class="btn-toggle col-1" style="height: 100%"> <i style="font-size:16px; font-weight: bold" class="fa">&#xf100;</i></div>
                     <div class="col-1" style="display: none;">
-                        <a href="{{ route('account.reservationDetail',['idReservation' => $reservation->id]) }}">Szczegóły</a><br>
-                        <a href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
+                        <a href="{{ route('account.reservationDetail',['idReservation' => $reservation->id]) }}">{{__('messages.Details')}}</a><br>
+                        <a href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">{{__('messages.Book again')}}</a>
                     </div>
                 </div>
             </div>
@@ -137,30 +137,30 @@
                         <div style="">{{ lcfirst(strftime("%b", strtotime($reservation->reservation_arrive_date))) }}</div>
                     </div>
                     <div class="col-6">
-                        <div class="row font-11">Przyjazd:</div>
+                        <div class="row font-11">{{__('messages.arrive')}}:</div>
                         <?php
                         $daysAgo = abs((strtotime($reservation->reservation_arrive_date) - strtotime($current_data)) / (60*60*24));
-                        if ($daysAgo < 30) $daysAgo = $daysAgo." dni";
-                        else $daysAgo = ceil($daysAgo/30)." m-ce";
+                        if ($daysAgo < 30) $daysAgo = $daysAgo." ".__('messages.days2');
+                        else $daysAgo = ceil($daysAgo/30)." ".__('messages.monthsShort');
                         ?>
-                        <div class="row">{{$daysAgo}} temu</div>
+                        <div class="row">{{$daysAgo}} {{__('messages.ago')}}</div>
                     </div>
                 </div>
             </div>
             <div class="col-4 col-md-1 my-2 my-md-0 px-md-0 px-lg-3"><img data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.number of nights') }}" src="{{ asset("images/account/moon.png") }}"> {{ $reservation->reservation_nights }}</div>
             <div class="col-4 col-md-2 col-lg-1 my-2 my-md-0">
-                <div class="row font-11">Rezerwacja:</div>
+                <div class="row font-11">{{__('messages.reservation')}}:</div>
                 <div class="row">{{ strtolower(strftime("%d %b %Y", strtotime($reservation->created_at))) }}</div>
             </div>
             <div class="col-4 col-md-2 col-lg-1 px-3 px-md-1">
                 <div class="row">
-                    <div class="col-12 font-11">Opłata za pobyt:</div>
+                    <div class="col-12 font-11">{{__('messages.Payment for stay')}}:</div>
                     <div class="col-12">{{$reservation->payment_full_amount}} PLN</div>
                 </div>
             </div>
             <div class="col-8 col-md-2 col-lg-1 px-3 px-md-1">
                 <div class="row">
-                    <div class="col-12 font-11">Do zapłaty:</div>
+                    <div class="col-12 font-11">{{__('messages.To pay')}}:</div>
                     <div class="col-12">{{$reservation->payment_to_pay}} PLN</div>
                 </div>
             </div>
@@ -168,20 +168,20 @@
                 <div>
                     @if($reservation->total_rating != null)
                         <div class="btn d-inline-block p-1 @if($reservation->total_rating <= 3) rating-red @elseif($reservation->total_rating <= 5) rating-yellow @else rating-green @endif" style="width: 120px; border: 1px solid rgba(121, 121, 121, 1);">
-                            <span class="font-11 pull-left mt-2">Oceniłeś na:</span>
+                            <span class="font-11 pull-left mt-2">{{__('messages.You assessed on')}}:</span>
                             <span class="bold pull-right" style="font-size: 22px">{{round($reservation->total_rating)}}</span>
                         </div>
                     @else
-                        <a class="btn btn-black mobile-none" style="padding-left:2.5rem; padding-right:2.5rem;" href="{{ route('account.opinion',['idReservation' => $reservation->id]) }}">Oceń</a>
-                        <a class="btn btn-black font-12 px-4 desktop-none" style="width: 120px; border: 1px solid rgba(121, 121, 121, 1); padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.opinion',['idReservation' => $reservation->id]) }}">Oceń</a>
+                        <a class="btn btn-black mobile-none" style="padding-left:2.5rem; padding-right:2.5rem;" href="{{ route('account.opinion',['idReservation' => $reservation->id]) }}">{{__('messages.Review')}}</a>
+                        <a class="btn btn-black font-12 px-4 desktop-none" style="width: 120px; border: 1px solid rgba(121, 121, 121, 1); padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.opinion',['idReservation' => $reservation->id]) }}">{{__('messages.Review')}}</a>
                     @endif
-                    <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.reservationDetail',['idReservation' => $reservation->id]) }}">Szczegóły</a>
-                    <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
+                    <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('account.reservationDetail',['idReservation' => $reservation->id]) }}">{{__('messages.Details')}}</a>
+                    <a class="btn btn-black font-12 px-1 desktop-none" style="padding-bottom: .7rem; padding-top: .7rem" href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">{{__('messages.Book again')}}</a>
                     <div class="more row mobile-none">
                         <div class="btn-toggle col-1" style="height: 100%"> <i style="font-size:16px; font-weight: bold" class="fa">&#xf100;</i></div>
                         <div class="col-1" style="display: none;">
-                            <a href="{{ route('account.reservationDetail',['idReservation' => $reservation->id]) }}">Szczegóły</a><br>
-                            <a href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">Rezerwuj ponownie</a>
+                            <a href="{{ route('account.reservationDetail',['idReservation' => $reservation->id]) }}">{{__('messages.Details')}}</a><br>
+                            <a href="{{ route('apartamentInfo',['link' => $reservation->apartament_link]) }}">{{__('messages.Book again')}}</a>
                         </div>
                     </div>
                 </div>
@@ -209,7 +209,7 @@
         }
         else{
             $(this).addClass("phone-expanded");
-            $(this).find(".phone-addition-text").text("Zadzwoń 713333222");
+            $(this).find(".phone-addition-text").text("{{__('messages.Call')}} 713333222");
         }
     });
 

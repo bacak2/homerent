@@ -43,7 +43,7 @@
                   </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="{{route('aboutUs.contact')}}">{{ __('Kontakt')}}</a>
+                  <a class="nav-link" href="{{route('aboutUs.contact')}}">{{ __('messages.Contact')}}</a>
               </li>
               @elsedesktop
               <li class="nav-item">
@@ -60,7 +60,7 @@
                   <a class="" href="tel:+48600494949">
                       <img src="{{ asset("images/contact/phoneMinIcon.png") }}">
                   </a>
-                  <a class="nav-link d-lg-inline" href="{{route('aboutUs.contact')}}">{{ __('Kontakt')}}</a>
+                  <a class="nav-link d-lg-inline" href="{{route('aboutUs.contact')}}">{{ __('messages.Contact')}}</a>
               </li>
               @enddesktop
           	@guest
@@ -76,8 +76,8 @@
                       <span id="favourites-nav" @if(Session::get('userFavouritesCount') != 0) onclick="$('#favourites-bar').toggle();" @else onclick="window.location.href='{{route("myFavourites")}}'" @endif class="nav-link">{{ __('messages.My favourites') }} ({{Session::get('userFavouritesCount') ?? 0}})</span>
                       <div id="favourites-bar" style="border-bottom: 1px solid black; background-image: url('{{ asset('images/account/favouritesPopup.png') }}'); background-repeat: no-repeat; background-position: left top; display: none; position: absolute; left: 8px; width: 320px; z-index: 2000;">
                           <div class="p-3 pt-4">
-                              <span class="bold" style="font-size: 24px">Ulubione ({{Session::get('userFavouritesCount')}})</span>
-                              <a id="clear-favourites-in-header" class="font-11" href="#">Wyczyść listę</a>
+                              <span class="bold" style="font-size: 24px">{{ __('messages.My favourites')}} ({{Session::get('userFavouritesCount')}})</span>
+                              <a id="clear-favourites-in-header" class="font-11" href="#">{{ __('messages.Clear list')}}</a>
                               @if(Session::get('userFavouritesCount') != 0)
                                   @foreach(Session::get('userFavourites') as $favourite)
                                       <div class="row">
@@ -92,9 +92,9 @@
                                       <hr>
                                   @endforeach
                               @endif
-                              <a class="btn btn-primary px-2" href="{{route('myFavourites')}}">Wszystkie ({{Session::get('userFavouritesCount')}})</a>
-                              <a class="btn btn-primary px-2 d-none d-xl-inline-block" href="{{route('myFavouritesCompare')}}">Porównaj</a>
-                              <button class="send-to-friends btn btn-primary px-2" onclick="$('#favourites-bar').hide()">Wyślij</button>
+                              <a class="btn btn-primary px-2" href="{{route('myFavourites')}}">{{ __('messages.All')}} ({{Session::get('userFavouritesCount')}})</a>
+                              <a class="btn btn-primary px-2 d-none d-xl-inline-block" href="{{route('myFavouritesCompare')}}">{{ __('messages.Compare')}}</a>
+                              <button class="send-to-friends btn btn-primary px-2" onclick="$('#favourites-bar').hide()">{{ __('messages.Send')}}</button>
                           </div>
                       </div>
                     </span>

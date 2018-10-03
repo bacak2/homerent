@@ -6,26 +6,26 @@
 <div class="container">
 @if($users_opinions->isEmpty())
     <div class="row mt-4 mb-2">
-        <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>Opinie</b></h1></div>
+        <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>{{__('messages.my opinions')}}</b></h1></div>
     </div>
     <div class="row mt-4 mb-2">
-        <div class="col-12">Nie możesz jeszcze dodawać opinii.</div>
+        <div class="col-12">{{__('messages.You cannot add opinions yet')}}.</div>
     </div>
 @else
     <div class="row mt-4 mb-2">
         <div class="col-12 pl-md-0 pl-lg-3">
-            <span style="font-size: 28px"><b>Moje opinie</b></span>
+            <span style="font-size: 28px"><b>{{__('messages.my opinions')}}</b></span>
             @if($opinionToAdd > 0)
                 <div class="btn-group user-opinion mr-3">
-                    <a class="btn @if($buttonCheck == 1) btn-selected @endif btn-info btn-mobile" href="{{route('myOpinions')}}">{{__('Wszystkie')}}</a>
-                    <a class="btn @if($buttonCheck == 2) btn-selected @endif btn-info btn-mobile" href="{{route('myOpinionsToAdd')}}">{{__('Do wystawienia')}}<div class="red-nr-alert">{{$opinionToAdd}}</div></a>
+                    <a class="btn @if($buttonCheck == 1) btn-selected @endif btn-info btn-mobile" href="{{route('myOpinions')}}">{{__('messages.All')}}</a>
+                    <a class="btn @if($buttonCheck == 2) btn-selected @endif btn-info btn-mobile" href="{{route('myOpinionsToAdd')}}">{{__('messages.To be issued')}}<div class="red-nr-alert">{{$opinionToAdd}}</div></a>
                 </div>
             @endif
         </div>
     </div>
 
     {{--table header--}}
-        <div class="row d-none d-lg-flex" style="font-size: 20px"><div class="col-lg-6"></div><div class="col-lg-2 px-lg-2" style="margin-left: -15px;"><b>Średnia ocen</b></div><div class="col-lg-4 px-lg-0"><b>Twoja ocena</b></div></div>
+        <div class="row d-none d-lg-flex" style="font-size: 20px"><div class="col-lg-6"></div><div class="col-lg-2 px-lg-2" style="margin-left: -15px;"><b>{{__('messages.Rating average')}}</b></div><div class="col-lg-4 px-lg-0"><b>{{__('messages.Your rating')}}</b></div></div>
     {{--end header--}}
     @foreach($users_opinions as $opinion)
         <div class="user-opinion-row row py-3 my-3 my-md-0 mr-md-0">
@@ -38,10 +38,10 @@
                 </span>
             </div>
             <div class="col-lg-1 col-12 pl-md-0 pl-lg-3">
-                <div class="font-11 d-md-inline-block d-lg-block">Pobyt:</div>
-                <div class="font-12 d-md-inline-block d-lg-block">{{ abs((strtotime($opinion->reservation_arrive_date) - strtotime($current_data)) / (60*60*24)) }} dni temu</div>
+                <div class="font-11 d-md-inline-block d-lg-block">{{__('messages.Stay')}}:</div>
+                <div class="font-12 d-md-inline-block d-lg-block">{{ abs((strtotime($opinion->reservation_arrive_date) - strtotime($current_data)) / (60*60*24)) }} {{__('messages.days ago')}}</div>
             </div>
-            <div class="col-12 mt-2 desktop-none">Średnia ocen:</div>
+            <div class="col-12 mt-2 desktop-none">{{__('messages.Rating average')}}:</div>
             <div class="col-md-4 col-lg-2 px-3 px-md-0">
                 <div class="row mx-0 font-11">
                     @for ($i = 0; $i < floor($opinion->ratingAvg/2); $i++)
@@ -71,7 +71,7 @@
             </div>
             <div class="col-md-8 col-lg-4 px-3 px-md-0">
                 @if($opinion->total_rating > 0)
-                    <div class="col-12 px-0 mt-2 desktop-none">Twoja ocena:</div>
+                    <div class="col-12 px-0 mt-2 desktop-none">{{__('messages.Your rating')}}:</div>
                     <div class="row px-3 pr-md-0">
                         <div class="col-6">
                             <div class="row font-11">
@@ -86,24 +86,24 @@
                                 @endfor
                             </div>
                             @if($opinion->total_rating < 2.5)
-                                <div class="row txt-red"><b>{{ number_format($opinion->total_rating, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;Okropny</div>
+                                <div class="row txt-red"><b>{{ number_format($opinion->total_rating, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Awful") }}</div>
                             @elseif($opinion->total_rating < 4.5)
-                                <div class="row txt-red"><b>{{ number_format($opinion->total_rating, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;Zły</div>
+                                <div class="row txt-red"><b>{{ number_format($opinion->total_rating, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Bad") }}</div>
                             @elseif($opinion->total_rating < 6.5)
-                                <div class="row txt-yellow"><b>{{ number_format($opinion->total_rating, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;Średni</div>
+                                <div class="row txt-yellow"><b>{{ number_format($opinion->total_rating, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Average") }}</div>
                             @elseif($opinion->total_rating < 8.5)
-                                <div class="row txt-green"><b>{{ number_format($opinion->total_rating, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;Bardzo dobry</div>
+                                <div class="row txt-green"><b>{{ number_format($opinion->total_rating, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Very good") }}</div>
                             @else
-                                <div class="row txt-green"><b>{{ number_format($opinion->total_rating, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;Doskonały</div>
+                                <div class="row txt-green"><b>{{ number_format($opinion->total_rating, 1, ',', ' ') }}/10</b>&nbsp;&nbsp;{{ __("messages.Perfect") }}</div>
                             @endif
                             <div class="row font-12">{{ date("d.m.Y", strtotime($opinion->opinionCreateDate)) }}</div>
                         </div>
                         <div class="col-4 pl-0 pr-3 pr-md-0 font-12 txt-blue">
                             <span class="d-inline d-lg-none">
-                                <a class="btn detail" href="#" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">szczegóły >></a>
+                                <a class="btn detail" href="#" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">{{ __("messages.details") }} >></a>
                             </span>
                             <span class="d-none d-lg-inline">
-                                <button class="btn detail" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">szczegóły >></button>
+                                <button class="btn detail" onClick="getOpinionDetails({{$opinion->id_apartament}}, {{$opinion->id_reservation}})">{{ __("messages.details") }} >></button>
                             </span>
                         </div>
                         <div class="col-2 pl-0 pl-md-4 pl-lg-0 pr-0">
@@ -113,10 +113,10 @@
                 @else
                     <div class="row instead-trash mx-0 px-2 px-md-1">
                         <div class="col-8 font-11">
-                            Przekazując informacje na temat pobytu w tym obiekcie pomagasz innym podróżnym podejmować lepsze decyzje.
+                            {{ __("messages.Review exp") }}.
                         </div>
                         <div class="col-4" style="padding-right: 0px">
-                            <a class="btn btn-black pull-right font-12" href="{{ route('account.opinion',['idReservation' => $opinion->id]) }}">Oceń</a>
+                            <a class="btn btn-black pull-right font-12" href="{{ route('account.opinion',['idReservation' => $opinion->id]) }}">{{ __("messages.Review") }}</a>
                         </div>
                     </div>
                 @endif
@@ -131,7 +131,7 @@
     <div id="opinion-detail" class="row">
         <div class="col-12 col-md-6 pr-md-3">
             <div class="row opinion-detal gray-box pl-3 pb-3">
-                <div class="col-12 pl-0 mb-0">Twoja ocena</div>
+                <div class="col-12 pl-0 mb-0">{{__('messages.Your rating')}}</div>
                 <div class="col-12" id="myTotalWrapper">
                     <img src='{{ asset("images/opinions/star10.png") }}'>
                     <span style="font-weight: bold">
@@ -158,38 +158,38 @@
                     </div>
                 </div>
             </div>
-            <b class="font-11" style="margin-left: 34px">Pobyt: <span id="stay"></span></b>
+            <b class="font-11" style="margin-left: 34px">{{__('messages.Stay')}}: <span id="stay"></span></b>
             <div id="my-opinon-detail" class="py-2" style="border-top: solid 1px gray; width: 304px;">
                 <div class="col-12 font-12 mb-2">
-                    Czystość
+                    {{ __("messages.Czystość") }}
                     <span class="pull-right rating-opinion-detail my-opinion"><span id="user-cleanlinessAvg"></span></span>
                     <span class="pull-right" style="background-color: #fff">
                         <img id="user-cleanlinessAvgImg" src='{{ asset("images/opinions/dot.png") }}'>
                     </span>
                 </div>
                 <div class="col-12 font-12 mb-2">
-                    Lokalizacja
+                    {{ __("messages.Lokalizacja") }}
                     <span class="pull-right rating-opinion-detail my-opinion"><span id="user-locationAvg"></span></span>
                     <span class="pull-right" style="background-color: #fff">
                         <img id="user-locationAvgImg" src='{{ asset("images/opinions/dot.png") }}'>
                     </span>
                 </div>
                 <div class="col-12 font-12 mb-2">
-                    Udogodnienia
+                    {{ __("messages.Udogodnienia") }}
                     <span class="pull-right rating-opinion-detail my-opinion"><span id="user-facilitiesAvg"></span></span>
                     <span class="pull-right" style="background-color: #fff">
                         <img id="user-facilitiesAvgImg" src='{{ asset("images/opinions/dot.png") }}'>
                     </span>
                 </div>
                 <div class="col-12 font-12 mb-2">
-                    Obsługa
+                    {{ __("messages.Obsługa") }}
                     <span class="pull-right rating-opinion-detail my-opinion"><span id="user-staffAvg"></span></span>
                     <span class="pull-right" style="background-color: #fff">
                         <img id="user-staffAvgImg" src='{{ asset("images/opinions/dot.png") }}'>
                     </span>
                 </div>
                 <div class="col-12 font-12 mb-2">
-                    Stosunek jakości do ceny
+                    {{ __("messages.Stosunek jakości do ceny") }}
                     <span class="pull-right rating-opinion-detail my-opinion"><span id="user-quality_per_priceAvg"></span></span>
                     <span class="pull-right" style="background-color: #fff">
                         <img id="user-quality_per_priceAvgImg" src='{{ asset("images/opinions/dot.png") }}'>
@@ -202,7 +202,7 @@
         </div>
         <div class="col-12 col-md-6 mt-4 mt-md-0">
             <div class="row opinion-detal gray-box pl-0">
-                <div class="col-12 mb-0 pl-md-3">Średnia ocena</div>
+                <div class="col-12 mb-0 pl-md-3">{{ __("messages.Rating average1") }}</div>
                 <div class="col-12" id="totalAvgWrapper" style="padding-left: 1rem">
                     <img src='{{ asset("images/opinions/star10.png") }}'>
                     <span style="font-weight: bold">
@@ -211,24 +211,24 @@
                     <span id="totalAvgInWords"></span>
                 </div>
                 <div class="col-12 font-11 mb-2 pl-md-3">
-                    Na podstawie
+                    {{ __("messages.Based on") }}
                     <span id="opinionsAmountWrapper" class="txt-blue">
-                        <span id="opinionsAmount"></span> opinii
+                        <span id="opinionsAmount"></span> {{ __("messages.reviews_number") }}
                     </span>
                 </div>
             </div>
             <div id="opinion-choice" class="font-12">
-                <div id="allOpinionsWraper">Wszystkie (<span id="allOpinions"></span>)</div>
-                <div id="familyOpinionsWraper">Rodziny (<span id="familyOpinions"></span>)</div>
-                <div id="couplesOpinionsWraper">Pary (<span id="couplesOpinions"></span>)</div>
-                <div id="businessOpinionsWraper">Biznesowe (<span id="businessOpinions"></span>)</div>
-                <div id="withFriendsOpinionsWraper">Ze znajomymi (<span id="withFriendsOpinions"></span>)</div>
-                <div id="aloneOpinionsWraper">W pojedynkę (<span id="aloneOpinions"></span>)</div>
+                <div id="allOpinionsWraper">{{ __("messages.All") }} (<span id="allOpinions"></span>)</div>
+                <div id="familyOpinionsWraper">{{ __("messages.Families") }} (<span id="familyOpinions"></span>)</div>
+                <div id="couplesOpinionsWraper">{{ __("messages.Couples") }} (<span id="couplesOpinions"></span>)</div>
+                <div id="businessOpinionsWraper">{{ __("messages.Bussiness") }} (<span id="businessOpinions"></span>)</div>
+                <div id="withFriendsOpinionsWraper">{{ __("messages.With friends") }} (<span id="withFriendsOpinions"></span>)</div>
+                <div id="aloneOpinionsWraper">{{ __("messages.Alone") }} (<span id="aloneOpinions"></span>)</div>
             </div>
             <div class="avgBars font-12">
                 <div id="perfect" class="row">
                     <div class="side left">
-                        <div>Doskonały</div>
+                        <div>{{ __("messages.Perfect") }}</div>
                     </div>
                     <div class="middle">
                         <div class="bar-container">
@@ -240,7 +240,7 @@
 
                 <div id="very-good" class="row">
                     <div class="side left">
-                        <div>Bardzo dobry</div>
+                        <div>{{ __("messages.Very good") }}</div>
                     </div>
                     <div class="middle">
                         <div class="bar-container">
@@ -252,7 +252,7 @@
 
                 <div id="average" class="row">
                     <div class="side left">
-                        <div>Średni</div>
+                        <div>{{ __("messages.Average") }}</div>
                     </div>
                     <div class="middle">
                         <div class="bar-container">
@@ -266,7 +266,7 @@
 
                 <div id="bad" class="row">
                     <div class="side left">
-                        <div>Zły</div>
+                        <div>{{ __("messages.Bad") }}</div>
                     </div>
                     <div class="middle">
                         <div class="bar-container">
@@ -280,7 +280,7 @@
 
                 <div id="awful" class="row">
                     <div class="side left">
-                        <div>Okropny</div>
+                        <div>{{ __("messages.Awful") }}</div>
                     </div>
                     <div class="middle">
                         <div class="bar-container">
@@ -294,35 +294,35 @@
             </div>
             <div class="py-2" style="border-top: solid 1px gray; margin-bottom: 46px; width: 304px;">
                 <div class="col-12 font-12 mb-2">
-                    Czystość
+                    {{ __("messages.Czystość") }}
                     <span class="pull-right rating-opinion-detail"><span id="cleanlinessAvg"></span></span>
                     <span class="pull-right" style="background-color: #fff">
                         <img id="cleanlinessAvgImg" src='{{ asset("images/opinions/dot.png") }}'>
                     </span>
                 </div>
                 <div class="col-12 font-12 mb-2">
-                    Lokalizacja
+                    {{ __("messages.Lokalizacja") }}
                     <span class="pull-right rating-opinion-detail"><span id="locationAvg"></span></span>
                     <span class="pull-right" style="background-color: #fff">
                         <img id="locationAvgImg" src='{{ asset("images/opinions/dot.png") }}'>
                     </span>
                 </div>
                 <div class="col-12 font-12 mb-2">
-                    Udogodnienia
+                    {{ __("messages.Udogodnienia") }}
                     <span class="pull-right rating-opinion-detail"><span id="facilitiesAvg"></span></span>
                     <span class="pull-right" style="background-color: #fff">
                         <img id="facilitiesAvgImg" src='{{ asset("images/opinions/dot.png") }}'>
                     </span>
                 </div>
                 <div class="col-12 font-12 mb-2">
-                    Obsługa
+                    {{ __("messages.Obsługa") }}
                     <span class="pull-right rating-opinion-detail"><span id="staffAvg"></span></span>
                     <span class="pull-right" style="background-color: #fff">
                         <img id="staffAvgImg" src='{{ asset("images/opinions/dot.png") }}'>
                     </span>
                 </div>
                 <div class="col-12 font-12 mb-2">
-                    Stosunek jakości do ceny
+                    {{ __("messages.Stosunek jakości do ceny") }}
                     <span class="pull-right rating-opinion-detail"><span id="quality_per_priceAvg"></span></span>
                     <span class="pull-right" style="background-color: #fff">
                         <img id="quality_per_priceAvgImg" src='{{ asset("images/opinions/dot.png") }}'>
@@ -337,11 +337,11 @@
 </div>
 
 <div id="confirm-delete-pop" style="display: none">
-    <h4 class="p-3"><b>Czy na pewno chcesz usunąć opinię?</b></h4>
-    <div class="px-3">Operacja jest nieodwracalna</div>
+    <h4 class="p-3"><b>{{ __('messages.Are you sure you want to delete the review') }}?</b></h4>
+    <div class="px-3">{{ __('messages.The operation is irreversible') }}</div>
     <div class="col-12 mb-4 mt-2">
-        <div class="btn btn-black" id="confirm-delete" onclick="deleteOpinion(opinionToDelete)" style="width: 100%; font-size: 18px">Potwierdź</div>
-        <div class="btn" id="cancel-delete" style="width: 100%; font-size: 18px">Anuluj</div>
+        <div class="btn btn-black" id="confirm-delete" onclick="deleteOpinion(opinionToDelete)" style="width: 100%; font-size: 18px">{{ __("messages.Confirm") }}</div>
+        <div class="btn" id="cancel-delete" style="width: 100%; font-size: 18px">{{ __("messages.Cancel") }}</div>
     </div>
 </div>
 
@@ -417,31 +417,31 @@
                 var day = dateObj.getUTCDate();
                 var year = dateObj.getUTCFullYear();
                 newdate = year + "/" + month + "/" + day;
-                locale = "pl",
+                locale = "{{App::getLocale()}}";
                 month = dateObj.toLocaleString(locale, { month: "long" });
                 $("#stay").text(month +" "+ year);
 
                 //set my total rating in words
                 $("#myTotalWrapper").removeClass();
                 if(data[1].total_rating < 2.5){
-                    $("#myTotalInWords").text("Okropny");
+                    $("#myTotalInWords").text("{{ __('messages.Awful') }}");
                     $("#myTotalWrapper").addClass('txt-red');
                 }
                 else if(data[1].total_rating < 4.5){
-                    $("#myTotalInWords").text("Zły");
+                    $("#myTotalInWords").text("{{ __('messages.Bad') }}");
                     $("#myTotalWrapper").addClass('txt-red');
 
                 }
                 else if(data[1].total_rating < 6.5){
-                    $("#myTotalInWords").text("Średni");
+                    $("#myTotalInWords").text("{{ __('messages.Average') }}");
                     $("#myTotalWrapper").addClass('txt-yellow');
                 }
                 else if(data[1].total_rating < 8.5){
-                    $("#myTotalInWords").text("Bardzo dobry");
+                    $("#myTotalInWords").text("{{ __('messages.Very good') }}");
                     $("#myTotalWrapper").addClass('txt-green');
                 }
                 else {
-                    $("#myTotalInWords").text("Doskonały");
+                    $("#myTotalInWords").text("{{ __('messages.Perfect') }}");
                     $("#myTotalWrapper").addClass('txt-green');
                 }
                 if(data[1].total_rating == null) $("#myTotalWrapper img").attr("src",'{{ asset("images/opinions/star1.png") }}');
@@ -459,24 +459,24 @@
                 //set total avg rating in words
                 $("#totalAvgWrapper").removeClass();
                 if(data[0].totalAvg < 2.5){
-                    $("#totalAvgInWords").text("Okropny");
+                    $("#totalAvgInWords").text("{{ __('messages.Awful') }}");
                     $("#totalAvgWrapper").addClass('txt-red');
                 }
                 else if(data[0].totalAvg < 4.5){
-                    $("#totalAvgInWords").text("Zły");
+                    $("#totalAvgInWords").text("{{ __('messages.Bad') }}");
                     $("#totalAvgWrapper").addClass('txt-red');
 
                 }
                 else if(data[0].totalAvg < 6.5){
-                    $("#totalAvgInWords").text("Średni");
+                    $("#totalAvgInWords").text("{{ __('messages.Average') }}");
                     $("#totalAvgWrapper").addClass('txt-yellow');
                 }
                 else if(data[0].totalAvg < 8.5){
-                    $("#totalAvgInWords").text("Bardzo dobry");
+                    $("#totalAvgInWords").text("{{ __('messages.Very good') }}");
                     $("#totalAvgWrapper").addClass('txt-green');
                 }
                 else {
-                    $("#totalAvgInWords").text("Doskonały");
+                    $("#totalAvgInWords").text("{{ __('messages.Perfect') }}");
                     $("#totalAvgWrapper").addClass('txt-green');
                 }
                 if(data[0].totalAvg == null) $("#totalAvgWrapper img").attr("src",'{{ asset("images/opinions/star1.png") }}');
@@ -646,7 +646,7 @@
 
                 if(data[1].helpful != null){
                     $("#helpful-wraper").css({'display':'block'});
-                    $("#helpful").html("<b>"+data[1].helpful+"</b> osoby uznały opinię za pomocną");
+                    $("#helpful").html("<b>"+data[1].helpful+"</b> {{__('messages.nrHelpful2')}}");
                 }
                 else $("#helpful-wraper").css({'display':'none'});
 

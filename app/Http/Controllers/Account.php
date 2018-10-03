@@ -553,10 +553,19 @@ class Account extends Controller
             $query->where('language_id', $this->language->id);
         }))->find($id);
 
-        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $idReservation)->get();
+        $servicesDetails = DB::table('reservation_additional_services')
+            ->join('additional_service_descriptions','reservation_additional_services.service_type','=','additional_service_descriptions.service_type_id')
+            ->where('language_id', $this->language->id)
+            ->where('id_reservation', $idReservation)
+            ->get();
 
-        $availableServices = DB::table('additional_services')->where('id_apartament', $id)
-            ->whereNotIn('id', DB::table('reservation_additional_services')->select('id_service')->where('id_reservation', $idReservation))
+        $availableServices = DB::table('additional_services')
+            ->join('additional_service_descriptions','additional_services.service_type','=','additional_service_descriptions.service_type_id')
+            ->where('id_apartament', $id)
+            ->whereNotIn('id', DB::table('reservation_additional_services')
+            ->select('id_service')
+            ->where('id_reservation', $idReservation))
+            ->where('language_id', $this->language->id)
             ->get();
 
         return view('reservation.fourthStep', [
@@ -1286,6 +1295,10 @@ class Account extends Controller
             ]);
         }
         else if($request->route()->getName() == 'myFavouritesCompare'){
+
+            $account = new \App\Account();
+            $finds = $account->getOtherEquipment($finds, $this->language->id);
+
             return view('account.favourites.compare', [
                 'finds' => $finds,
                 'favouritesCount' => $favouritesCount,
@@ -1307,7 +1320,7 @@ class Account extends Controller
             foreach($emails as $email){
                 Mail::send('includes.mail_send-to-friends', ['link'=>$link], function($message) use ($email){
                     $message->to($email)
-                        ->subject('Linki do ulubionych apartamentów');
+                        ->subject(__('messages.mailSub3'));
                     $message->from('kontakt@visitzakopane.pl','Otozakopane');
                 });
             }
@@ -1328,7 +1341,7 @@ class Account extends Controller
             foreach($emails as $email){
                 Mail::send('includes.mail_send-to-friends-confirmation', ['link'=>$link], function($message) use ($email){
                     $message->to($email)
-                        ->subject('Link do rezerwacji znajomego');
+                        ->subject(__('messages.mailSub2'));
                     $message->from('kontakt@visitzakopane.pl','Otozakopane');
                 });
             }

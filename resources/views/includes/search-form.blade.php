@@ -22,8 +22,8 @@
       <div class="col-12 col-sm">
           <div class="input-group mb-2 mb-lg-0 h-custom-search">
             <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}"><i class="fa fa-lg fa-male" aria-hidden="true" placeholder="{{ __('messages.adults')}}"></i></div>
-              <select class="form-control font-14" name='dorosli' style="min-width: 95px" required oninvalid="this.setCustomValidity('Proszę wybrać liczbę osób')" oninput="this.setCustomValidity('')">
-                <option value="" selected="selected">Dorośli</option>
+              <select class="form-control font-14" name='dorosli' style="min-width: 95px" required oninvalid="this.setCustomValidity('{{ __('messages.Please select the number of people') }}')" oninput="this.setCustomValidity('')">
+                <option value="" selected="selected">{{ __('messages.adults') }}</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -39,7 +39,7 @@
         <div class="input-group mb-2 mb-lg-0 h-custom-search">
           <div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Kids') }}"><i class="fa fa-child" aria-hidden="true" placeholder="{{ __('messages.kids')}}"></i></div>
               <select class="form-control font-14" name='dzieci' style="min-width: 95px">
-                <option value="0" selected="selected">Dzieci</option>
+                <option value="0" selected="selected">{{ __('messages.kids') }}</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>

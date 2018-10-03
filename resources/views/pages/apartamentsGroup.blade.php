@@ -1,6 +1,6 @@
 @extends ('layout.layout')
 
-@section('title', $groupDescription[0]->apartament_city.' - '.$groupDescription[0]->group_name.' - Zarezerwuj już teraz' )
+@section('title', $groupDescription[0]->apartament_city.' - '.$groupDescription[0]->group_name.' - '.__('messages.Book now') )
 
 @section('content')
 	<div class="row mx-0">
@@ -8,7 +8,7 @@
 			<div class="pull-left d-none d-md-block">
 				<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButton.png") }}')">
 					<div  class="btn font-13 py-2 px-3" style="width: 100%" >
-						Powrót do wyników wyszukiwania
+						{{ __('messages.Back to search results') }}
 					</div>
 				</a>
 			</div>
@@ -53,7 +53,7 @@
 					<div class="d-inline-block send-news-friends mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
 						<img style="padding: 7px 9px; max-width: 36px" src="{{asset('images/favourites/Envelop.png')}}">
 					</div>
-					<div class="mobile-none d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">Wyślij</div>
+					<div class="mobile-none d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">{{__('messages.Send')}}</div>
 				</div>
 				<div class="mobile-none d-inline-block">|</div>
 				@mobile
@@ -102,7 +102,7 @@
 								<div class="col-md-3">
 									<div class="row">
 										<i class="fa fa-user fa-lg pt-1" aria-hidden="true"></i>
-										<p class="pl-2">{{ __('dla') }} {{ $groupDescription[0]->apartament_persons }} {{trans_choice('messages.persons',$groupDescription[0]->apartament_persons)}}</p>
+										<p class="pl-2">{{ __('messages.to') }} {{ $groupDescription[0]->apartament_persons }} {{trans_choice('messages.persons',$groupDescription[0]->apartament_persons)}}</p>
 									</div>
 								</div>
 								<div class="col-md-3">
@@ -127,7 +127,7 @@
 						</div>
 					</div>
 					<div class="mobile-none col transparent mt-5 mb-3 pt-3" style="visibility: hidden;"></div>
-					<div class="mobile-none col transparent mt-4 mb-2 pt-3" style="visibility: hidden;">Śniadanie w cenie</div>
+					<div class="mobile-none col transparent mt-4 mb-2 pt-3" style="visibility: hidden;">{{ __('messages.Breakfast included') }}</div>
 				</div>
 				{{--!! Form::hidden('link', $groupDescription[0]->group_link) !!}
 				{!! Form::hidden('id', $groupDescription[0]->id) !!}
@@ -154,7 +154,7 @@
 								<div class="col-sm-6 pb-2 pl-0 pr-0 pr-lg-1">
 									<div class="input-group mb-sm-0">
 										<div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}"><i class="fa fa-lg fa-male" aria-hidden="true" placeholder="{{ __('messages.adults')}}"></i></div>
-										{{ Form::select('dorosli', $personsArray, $request->dorosli ?? $personsArray[""], array('class'=>'form-control', 'id'=>'dorosli', 'style'=>'width: 120px; height: 38px', 'required'=>'required', 'oninvalid'=>"this.setCustomValidity('Proszę wybrać liczbę osób')", 'oninput'=>"this.setCustomValidity('')"))}}
+										{{ Form::select('dorosli', $personsArray, $request->dorosli ?? $personsArray[""], array('class'=>'form-control', 'id'=>'dorosli', 'style'=>'width: 120px; height: 38px', 'required'=>'required', 'oninvalid'=>"this.setCustomValidity('__('messages.Please select the number of people')')", 'oninput'=>"this.setCustomValidity('')"))}}
 									</div>
 								</div>
 								<div class="col-sm-6 pb-2 pr-0 pl-0 pl-lg-1">
@@ -181,7 +181,7 @@
 								<div class="col-6 text-right is-Av-panel">
 									<h3><b><span id="price"></span></b></h3>
 								</div>
-								<div class="col font-13">Szczegóły <span id="expand-price" class="font-11">(rozwiń) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'></span></div>
+								<div class="col font-13">{{__('messages.Details')}} <span id="expand-price" class="font-11">({{ __('messages.expand') }}) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'></span></div>
 								<div id="price-details" class="col-12 font-13" style="display: none"></div>
 							</div>
 							<div class="row">
@@ -189,7 +189,7 @@
 									<p class="termin"></p>
 									<div id="not-Av-panel" class="p-2">
 										<i class="fa fa-lg fa-exclamation-triangle" style="color: black"></i>
-										<b>Ten termin nie jest dostępny - wybierz inną datę</b>
+										<b>{{__('messages.NotAv1')}}</b>
 									</div>
 									<button class="btn btn-block btn-success res-btn" type="submit">{{ __('messages.reserve')}}</button>
 								</div>
@@ -210,14 +210,14 @@
 						<span id="description" style="padding-top: 120px; margin-top: -120px;"></span>
 						<p>{!!$groupDescription[0]->apartament_description or '' !!}</p>
 						<div class="row mb-2" style="font-size: 14px">
-							<div class="col-4">Apartamentów w kompleksie:<span class="pull-right">{{$apartamentsAmount}}</span></div>
-							<div class="col-4">Liczba pokoi:<span class="pull-right">{{$groupDescription[0]->apartament_rooms_number}}</span></div>
-							<div class="col-4">Liczba łóżek podwójnych:<span class="pull-right">{{$groupDescription[0]->apartament_double_beds}}</span></div>
+							<div class="col-4">{{__('messages.Apartments in complex2')}}:<span class="pull-right">{{$apartamentsAmount}}</span></div>
+							<div class="col-4">{{__('messages.Number of rooms')}}:<span class="pull-right">{{$groupDescription[0]->apartament_rooms_number}}</span></div>
+							<div class="col-4">{{__('messages.Number of')}} {{__('messages.double beds')}}:<span class="pull-right">{{$groupDescription[0]->apartament_double_beds}}</span></div>
 						</div>
 						<div class="row" style="font-size: 14px">
-							<div class="col-4">Max liczba osób:<span class="pull-right">{{$groupDescription[0]->apartament_persons}}</span></div>
-							<div class="col-4">Liczba sypialni:<span class="pull-right">{{$groupDescription[0]->apartament_bedrooms}}</span></div>
-							<div class="col-4">Liczba łóżek pojedynczych:<span class="pull-right">{{$groupDescription[0]->apartament_single_beds}}</span></div>
+							<div class="col-4">{{__('messages.Max number of people')}}:<span class="pull-right">{{$groupDescription[0]->apartament_persons}}</span></div>
+							<div class="col-4">{{__('messages.Number of bedrooms')}}:<span class="pull-right">{{$groupDescription[0]->apartament_bedrooms}}</span></div>
+							<div class="col-4">{{__('messages.Number of')}} {{__('messages.single beds')}}:<span class="pull-right">{{$groupDescription[0]->apartament_single_beds}}</span></div>
 						</div>
 					</div>
 				</div>
@@ -229,7 +229,7 @@
 							@forelse($images as $image)
 								<a href="{{ asset("images/apartaments/$image->id/$image->photo_link") }}"><img src="{{ asset("images/apartaments/$image->id/$image->photo_link") }}"></a>
 							@empty
-								<p>Brak zdjęć dla tego apartamentu</p>
+								<p>{{__('messages.No photos')}}</p>
 							@endforelse
 						</div>
 					</div>
@@ -237,11 +237,11 @@
 				@if($groupDescription[0]->apartament_additional_information != NULL)
 				<div class="row mt-2 mb-3 font-12">
 					<div class="col-12">
-						<h4 id="rules" class="anchor-destination"><b>{{__('Zasady')}}</b></h4>
+						<h4 id="rules" class="anchor-destination"><b>{{__('messages.Rules')}}</b></h4>
 					</div>
 					<div class="col-12 mb-2">
 						<div class="row">
-							<div class="col-lg-2 col-sm-12">{{__('Dodatkowe informacje')}}:</div>
+							<div class="col-lg-2 col-sm-12">{{__('messages.Additional information')}}:</div>
 							<div class="col-lg-10 col-sm-12">
 								{{$groupDescription[0]->apartament_additional_information}}
 							</div>
@@ -251,15 +251,15 @@
 				@endif
 					<div class="row mt-3 mb-3 font-12">
 						<div class="col-12">
-							<h4 id="map" class="anchor-destination"><b>{{__('Mapa')}}</b></h4>
+							<h4 id="map" class="anchor-destination"><b>{{__('messages.Map')}}</b></h4>
 						</div>
 						<div class="col-12 mb-2">
 							<ul class="nav nav-tabs">
 								<li class="nav-item">
-									<a class="nav-link active" data-toggle="tab" href="#showMap">Mapa</a>
+									<a class="nav-link active" data-toggle="tab" href="#showMap">{{__('messages.Map')}}</a>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" data-toggle="tab" href="#showStreetview">Okolica (Street view)</a>
+									<a class="nav-link" data-toggle="tab" href="#showStreetview">{{__('messages.Area')}} (Street view)</a>
 								</li>
 							</ul>
 							<div class="tab-content">
@@ -271,12 +271,12 @@
 											<div class="col-12 mb-2" style="font-size: 14px">GPS: {{ $groupDescription[0]->apartament_gps }}</div>
 										</div>
 										<div class="row my-2 mx-0" style="position: relative;">
-											<span class="col-12 px-0"style="font-size: 14px; margin-top: 5px">Wskazówki dojazdu: </span>
+											<span class="col-12 px-0"style="font-size: 14px; margin-top: 5px">{{__('messages.Directions')}}: </span>
 											<div class="col-6 col-md-3 px-0">
-												<input class="font-12" name="skad" id="skad" style="width: 100%; height: 100%" placeholder="Lokalizacja początkowa" type="text">
+												<input class="font-12" name="skad" id="skad" style="width: 100%; height: 100%" placeholder="{{__('messages.Initial location')}}" type="text">
 											</div>
 											<div class="col-3 col-md-2 px-1">
-												<input class="btn btn-primary font-13 w-100 h-100 ml-0" value="Pokaż" type="submit">
+												<input class="btn btn-primary font-13 w-100 h-100 ml-0" value="{{__('messages.Show')}}" type="submit">
 											</div>
 											<div class="col-3 col-md-2 col-lg-1 col-xl-2 font-12 pr-0 mr-lg-3">
 												<div id="distance" class="row" style="font-weight: bold"></div>
@@ -285,7 +285,7 @@
 									</form>
 									<form id="printDirections" action="{{route('printPdf')}}" class="mt-2 mt-md-0 pl-0" method="POST" name="wskazowki-print">
 										<input type='hidden' id='wskazowkiContent' name='wskazowkiContent' value='' />
-										<input id="drukujWskazowki" class="btn btn-default font-12 ml-0" value="Drukuj wskazówki dojazdu" style="display: none" type="submit">
+										<input id="drukujWskazowki" class="btn btn-default font-12 ml-0" value="{{__('messages.Print directions')}}" style="display: none" type="submit">
 									</form>
 								</div>
 								<div id="wskazowki"></div>
@@ -301,7 +301,7 @@
 				<div class="row mt-3 mb-3 font-12">
 					<div class="col-12 mb-3">
 						<span class="anchor-destination"></span>
-						<h4 id="map" class="bold">{{__('Apartamenty w kompleksie')}} ({{$apartamentsAmount}})</h4>
+						<h4 id="map" class="bold">{{__('messages.Apartments in complex')}} ({{$apartamentsAmount}})</h4>
 					</div>
 					<div class="row mx-0 mb-2 w-100">
 						@foreach ($apartaments as $apartament)
@@ -400,7 +400,7 @@
 				</div>
 			</div>
 				<span id="similarApartments" class="mx-3 w-100">
-				<h2 class="pb-2 bold" style="margin-top: 40px; font-size: 26px">{{__('Osoby, które oglądały ten obiekt oglądały również')}}</h2>
+				<h2 class="pb-2 bold" style="margin-top: 40px; font-size: 26px">{{__('messages.People who watched this object also watched')}}</h2>
 				@include('includes.see-also-apartment')
 			</span>
 				<span class="mobile-none mx-3 w-100">
@@ -414,37 +414,37 @@
 	</div>
 
 	<div id="send-news">
-		<span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br>
+		<span style="font-size: 24px; font-weight: bold">{{__('messages.Send to friend')}}</span><br>
 		<div class="row">
 			<div class="col-2"><span class="font-14">Link:</span></div>
 			<div class="col-10">
 				<ul class="font-13">
 					<li>
 						<span id="link">{{Request::url()}}</span>
-						<span class="txt-blue copy-to-clipboard" onclick="copyToClipboard('#link')">Skopiuj</span>
+						<span class="txt-blue copy-to-clipboard" onclick="copyToClipboard('#link')">{{__('messages.Copy')}}</span>
 					</li>
 				</ul>
 			</div>
 		</div>
 
-		<label for="emails2">Adresy e-mail:</label>
-		<input id="emails2" name="emails2" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)">
+		<label for="emails2">{{__('messages.Email addresses')}}:</label>
+		<input id="emails2" name="emails2" type="text" placeholder="{{__('messages.Emails ph')}}">
 		<input id="links" name="links" type="hidden" value="{{Request::url()}}">
 		<hr>
 		<div style="text-align: center;">
-			<button id="send-mail-with-news" class="btn btn-primary">Wyślij</button>
-			<button class="btn btn-default close-send-news-friends">Anuluj</button>
+			<button id="send-mail-with-news" class="btn btn-primary">{{__('messages.Send')}}</button>
+			<button class="btn btn-default close-send-news-friends">{{__('messages.Cancel')}}</button>
 		</div>
 		<div id="close-send-news" class="close-send-news-friends">x</div>
 	</div>
 
 	<div id="confirm-send-news-friends" class="text-center">
-		<br><span style="font-size: 24px; font-weight: bold">Wiadomość e-mail została wysłana</span><br><br><br>
+		<br><span style="font-size: 24px; font-weight: bold">{{__('messages.Email has been sended')}}</span><br><br><br>
 		<button class="btn btn-default close-confirm-news">OK</button>
 	</div>
 
 	<script type="text/javascript">
-        moment.locale('pl');
+        moment.locale('{{App::getLocale()}}');
         $(document).ready(function(){
             $('.t-datepicker').tDatePicker({
                 autoClose: true,
@@ -457,8 +457,8 @@
                 titleDateRange: 'Doba',
                 titleDateRanges: 'Doby',
                 iconDate: '<i class="fa fa-lg fa-calendar" aria-hidden="true"></i>',
-                titleDays: ['Pn','Wt','Śr','Cz','Pt','Sb','Nd'],
-                titleMonths: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
+                titleDays: {!! titleDays() !!},
+                titleMonths: {!! titleMonths() !!},
         	});
 
 			@if(isset($_GET['t-start']) && isset($_GET['t-end']) && isset($request->dorosli))
@@ -500,13 +500,13 @@
                         $('.res-info').show(1000);
                         $('.res-btn').show();
                         $("#lowestPricePerNight").hide();
-                        $('#expand-price').html("(rozwiń) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'>");
+                        $('#expand-price').html("({{ __('messages.expand') }}) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'>");
                         $('#price-details').hide();
                         $("#price-details").text("");
                         for(var i=0, n = data.detailPrice.length; i < n; i ++) {
                             $("#price-details").append("<div>" + moment(data.detailPrice[i].date_of_price, "YYYY-MM-DD").format("DD.MM   ddd") + "<span class='pull-right'>" + data.detailPrice[i].price_value + " PLN</span></div>");
                         }
-                        $("#price-details").append("<div class='mt-2 mb-3'>Opłata za obsługę<span class='pull-right'>"+data.servicesPrice+" PLN</span></div>");
+                        $("#price-details").append("<div class='mt-2 mb-3'>{{ __('messages.Service charge') }}<span class='pull-right'>"+data.servicesPrice+" PLN</span></div>");
 						@handheld
                         $("#mobileReservation").on('click', function(){
                             $('form#resForm').submit();
@@ -566,8 +566,8 @@
 
         $('#expand-price').click(function() {
             $('#price-details').toggle();
-            if($('#price-details').is(":visible")) $("#expand-price").html("(zwiń) <img src='{{ asset("images/apartment_detal/arrow_up_24.png") }}'>");
-            else $("#expand-price").html("(rozwiń) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'>");
+            if($('#price-details').is(":visible")) $("#expand-price").html("({{ __('messages.collapse') }}) <img src='{{ asset("images/apartment_detal/arrow_up_24.png") }}'>");
+            else $("#expand-price").html("({{ __('messages.expand') }}) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'>");
         });
 
         $("#dorosli").change(function() {
@@ -575,9 +575,9 @@
         });
 	</script>
 	@if(\App::environment('production'))
-	<script src="https://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language=PL" type="text/javascript"></script>
+		<script src="https://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language={{App::getLocale()}}" type="text/javascript"></script>
 	@else
-	<script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language=PL" type="text/javascript"></script>
+		<script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language={{App::getLocale()}}" type="text/javascript"></script>
 	@endif
 		<script type="text/javascript">
 
@@ -622,7 +622,7 @@
             {
                 if(status != google.maps.DirectionsStatus.OK || !wynik.routes[0])
                 {
-                    alert('Nie znaleziono lokalizacji początkowej');
+                    alert('{{__('messages.The initial location was not found')}}');
                     return;
                 }
                 else
@@ -755,7 +755,7 @@
 
         function addToFavourites(apartamentId, userId){
 
-            if(userId == 0) alert("Aby dodać apartament do ulubionych musisz się zalogować");
+            if(userId == 0) alert("{{__('messages.AddToFav1')}}");
 
             else{
                 $.ajax({
@@ -780,22 +780,22 @@
                                 htmlForeach += '<div class="row"> <div class="col-3" style="background-image: url(\'{{ url('/') }}/images/apartaments/' + responseMessage[2][i].id + '/main.jpg\'); background-size: cover; position: relative; margin-bottom: 0px; margin-left: 15px; padding-left: 0px; max-height: 52px;"></div> <div class="col-8 row" style="margin-right: -20px"> <div class="col-12 font-13 txt-blue"><a href="/apartaments/' + responseMessage[2][i].apartament_link + '">' + responseMessage[2][i].apartament_name + '</a></div> <div class="col-12 font-11 bold">' + responseMessage[2][i].apartament_address + '</div> <div class="col-12 font-11">' + responseMessage[2][i].apartament_address_2 + '</div> </div> <div class=""><img src="{{ asset("images/favourites/heart.png") }}"></div> </div> <hr>';
                             }
 
-                            html = $('<span id="favourites-nav" onclick="$(\'#favourites-bar\').toggle();" class="nav-link">{{ __('messages.My favourites') }} (' + responseMessage[1] + ')</span> <div id="favourites-bar" style="border-bottom: 1px solid black; background-image: url({{ asset('images/account/favouritesPopup.png') }}); background-repeat: no-repeat; background-position: left top; display: none; position: absolute; left: 8px; width: 320px; z-index: 2000;"> <div class="p-3 pt-4"> <span class="bold" style="font-size: 24px">Ulubione (' + responseMessage[1] + ')</span> <a class="font-11" onclick="clearFavouritesPopup()" href="#">Wyczyść listę</a> ' + htmlForeach + '<a class="btn btn-black px-2" href="{{route('myFavourites')}}">Wszystkie (' + responseMessage[1] + ')</a> <a class="btn btn-black px-2" href="{{route('myFavouritesCompare')}}">Porównaj</a> <button class="send-to-friends btn btn-black px-2" onclick="$(\'#favourites-bar\').hide(); $(\'#send-to\').show();">Wyślij</button> </div> </div>');
+                            html = $('<span id="favourites-nav" onclick="$(\'#favourites-bar\').toggle();" class="nav-link">{{ __('messages.My favourites') }} (' + responseMessage[1] + ')</span> <div id="favourites-bar" style="border-bottom: 1px solid black; background-image: url({{ asset('images/account/favouritesPopup.png') }}); background-repeat: no-repeat; background-position: left top; display: none; position: absolute; left: 8px; width: 320px; z-index: 2000;"> <div class="p-3 pt-4"> <span class="bold" style="font-size: 24px">{{ __('messages.My favourites') }} (' + responseMessage[1] + ')</span> <a class="font-11" onclick="clearFavouritesPopup()" href="#">{{ __('messages.Clear list') }}</a> ' + htmlForeach + '<a class="btn btn-black px-2" href="{{route('myFavourites')}}">{{ __('messages.All') }} (' + responseMessage[1] + ')</a> <a class="btn btn-black px-2" href="{{route('myFavouritesCompare')}}">{{ __('messages.Compare') }}</a> <button class="send-to-friends btn btn-black px-2" onclick="$(\'#favourites-bar\').hide(); $(\'#send-to\').show();">{{__('messages.Send')}}</button> </div> </div>');
                             $('#fav-nav').html('');
                             html.appendTo('#fav-nav');
 
                             for (var i = 0; i < responseMessage[3].length; i++) {
-                                htmlForeach2 += '<li> <span id="link'+responseMessage[3][i].id+'">{{ url('/') }}/pl/apartaments/'+responseMessage[3][i].apartament_link+'</span> <span class="txt-blue copy-to-clipboard" onclick="copyToClipboard(\'#link'+responseMessage[3][i].id+'\')">Skopiuj</span> </li>';
+                                htmlForeach2 += '<li> <span id="link'+responseMessage[3][i].id+'">{{ url('/') }}/pl/apartaments/'+responseMessage[3][i].apartament_link+'</span> <span class="txt-blue copy-to-clipboard" onclick="copyToClipboard(\'#link'+responseMessage[3][i].id+'\')">{{ __('messages.Copy') }}</span> </li>';
                                 foreachLinks += '{{ url('/') }}/pl/apartaments/'+responseMessage[3][i].apartament_link+',';
                             }
 
-                            html2 = $('<span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br><div class="row"><div class="col-2"><span class="font-14">Linki:</span></div><div class="col-10"><ul class="font-13">'+ htmlForeach2 +'</ul></div></div><label for="emails">Adresy e-mail:</label><input id="emails" name="emails" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)"><input id="links" name="links" type="hidden" value="'+foreachLinks+'"><hr><button onclick="sendMailToFriends()" class="btn btn-default">Wyślij</button><button onClick="closeSendTo()" class="btn btn-default">Anuluj</button><div onClick="closeSendTo()" id="close-send-to" class="close-send-to">x</div>');
+                            html2 = $('<span style="font-size: 24px; font-weight: bold">{{__('messages.Send to friend')}}</span><br><div class="row"><div class="col-2"><span class="font-14">{{__('messages.Links')}}:</span></div><div class="col-10"><ul class="font-13">'+ htmlForeach2 +'</ul></div></div><label for="emails">{{__('messages.Email addresses')}}:</label><input id="emails" name="emails" type="text" placeholder="{{__('messages.Emails ph')}}"><input id="links" name="links" type="hidden" value="'+foreachLinks+'"><hr><button onclick="sendMailToFriends()" class="btn btn-default">{{__('messages.Send')}}</button><button onClick="closeSendTo()" class="btn btn-default">{{__('messages.Cancel')}}</button><div onClick="closeSendTo()" id="close-send-to" class="close-send-to">x</div>');
                             $('#send-to').html('');
                             html2.appendTo('#send-to');
                         }
 
-                        if(responseMessage[0] == 1) responseAlert = "Apartament dodano do ulubionych";
-                        else responseAlert = "Apartament znajduje się już w ulubionych";
+                        if(responseMessage[0] == 1) responseAlert = "{{__('messages.AddToFav3')}}";
+                        else responseAlert = "{{__('messages.AddToFav2')}}";
                         alert(responseAlert);
                     },
                     error: function() {

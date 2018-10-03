@@ -1,5 +1,5 @@
 @extends ('layout.layout')
-@section('title', 'Strona, której szukasz nie istnieje')
+@section('title', __('messages.404title'))
 
 @section('content')
     {{--SLIDER--}}

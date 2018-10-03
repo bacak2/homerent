@@ -1,11 +1,11 @@
 @extends ('layout.layout')
-@section('title', 'Przewodniki')
+@section('title', __('messages.Guidebooks'))
 
 @section('content')
 <div class="container">
     <div class="row mt-2 mb-4">
         <div class="col-12 font-13">
-            <a href="/">Start ></a> <span class="bold">Przewodniki</span>
+            <a href="/">Start ></a> <span class="bold">{{__('messages.Guidebooks')}}</span>
         </div>
     </div>
 
@@ -21,14 +21,14 @@
                             <img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
                         </a>
                         <div class="guidebooks-top-description">Kraków</div>
-                        <div class="guidebooks-bottom-description">Przewodnik</div>
+                        <div class="guidebooks-bottom-description">{{__('messages.Guidebook')}}</div>
                     </div>
                     <div class="mb-3" style="position: relative">
                         <a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
                             <img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
                         </a>
                         <div class="guidebooks-top-description">Lorem ipsum</div>
-                        <div class="guidebooks-bottom-description">Przewodnik</div>
+                        <div class="guidebooks-bottom-description">{{__('messages.Guidebook')}}</div>
                     </div>
                 </div>
             </div>
@@ -42,14 +42,14 @@
                             <img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
                         </a>
                         <div class="guidebooks-top-description">Kraków</div>
-                        <div class="guidebooks-bottom-description">Przewodnik</div>
+                        <div class="guidebooks-bottom-description">{{__('messages.Guidebook')}}</div>
                     </div>
                     <div class="mb-3" style="position: relative">
                         <a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
                             <img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
                         </a>
                         <div class="guidebooks-top-description">Lorem ipsum</div>
-                        <div class="guidebooks-bottom-description">Przewodnik</div>
+                        <div class="guidebooks-bottom-description">{{__('messages.Guidebook')}}</div>
                     </div>
                 </div>
             </div>
@@ -63,14 +63,14 @@
                             <img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
                         </a>
                         <div class="guidebooks-top-description">Kraków</div>
-                        <div class="guidebooks-bottom-description">Przewodnik</div>
+                        <div class="guidebooks-bottom-description">{{__('messages.Guidebook')}}</div>
                     </div>
                     <div class="mb-3" style="position: relative">
                         <a class="to-download-description" href="{{route('guidebooks.Detail', 'krakowski-kazimierz')}}">
                             <img style="width:100%" src="{{asset('images/main/guidebook.png')}}">
                         </a>
                         <div class="guidebooks-top-description">Lorem ipsum</div>
-                        <div class="guidebooks-bottom-description">Przewodnik</div>
+                        <div class="guidebooks-bottom-description">{{__('messages.Guidebook')}}</div>
                     </div>
                 </div>
             </div>

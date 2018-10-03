@@ -1,17 +1,17 @@
 @extends ('account.favourites.layout')
 
-@section('fav-title', 'Porównanie')
+@section('fav-title', __('messages.Comparison'))
 
 @section('icons-active')
-    <a class="btn" href="{{ route('myFavourites') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Kafle" alt="Kafle" src='{{ asset("images/results/kafle.png") }}'></a>
-    <a class="btn" href="{{ route('myFavouritesList') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Lista" alt="Lista" src='{{ asset("images/results/lista.png") }}'></a>
-    <a class="btn" href="{{ route('myFavouritesMap') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Mapa" alt="Mapa" src='{{ asset("images/results/mapa.png") }}'></a>
-    <a class="active bold" href="{{ route('myFavouritesCompare') }}?{{ http_build_query(Request::except('_token')) }}">Porównaj</a>
+    <a class="btn" href="{{ route('myFavourites') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="{{__('messages.Tiles')}}" alt="{{__('messages.Tiles')}}" src='{{ asset("images/results/kafle.png") }}'></a>
+    <a class="btn" href="{{ route('myFavouritesList') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="{{__('messages.List')}}" alt="{{__('messages.List')}}" src='{{ asset("images/results/lista.png") }}'></a>
+    <a class="btn" href="{{ route('myFavouritesMap') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="{{__('messages.Map')}}" alt="{{__('messages.Map')}}" src='{{ asset("images/results/mapa.png") }}'></a>
+    <a class="active bold" href="{{ route('myFavouritesCompare') }}?{{ http_build_query(Request::except('_token')) }}">{{__('messages.Compare')}}</a>
 @endsection
 
 @section('icons-active-mobile')
     @tablet
-    <div class="btn-group col mb-4"><a class="btn btn-mobile" href="{{ route('myFavourites') }}?{{ http_build_query(Request::except('page')) }}">{{__('Kafle')}}</a><a class="btn btn-mobile" href="{{ route('myFavouritesMap') }}?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a><a class="btn btn-selected btn-mobile" href="{{ route('myFavouritesCompare') }}?{{ http_build_query(Request::except('_token')) }}">Porównaj</a></div>
+    <div class="btn-group col mb-4"><a class="btn btn-mobile" href="{{ route('myFavourites') }}?{{ http_build_query(Request::except('page')) }}">{{__('messages.Tiles')}}</a><a class="btn btn-mobile" href="{{ route('myFavouritesMap') }}?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a><a class="btn btn-selected btn-mobile" href="{{ route('myFavouritesCompare') }}?{{ http_build_query(Request::except('_token')) }}">{{__('messages.Compare')}}</a></div>
     @endtablet
 @endsection
 
@@ -20,49 +20,49 @@
     <div class="row favourites-compare">
         <div id="left-side-compare" class="col-3 col-xl-2 font-m-12 font-13">
             <div>
-                <span class="font-13">Porównaj ulubione apartamenty i wybierz najlepszy dla siebie</span>
+                <span class="font-13">{{__('messages.ComparisonExp')}}</span>
                 <br><br>
-                <span class="font-16">Cechy</span>
+                <span class="font-16">{{__('messages.Features')}}</span>
             </div>
-            <div>Cena za noc</div>
-            <div>Nazwa</div>
-            <div>Adres</div>
-            <div>Ocena</div>
-            <div>Podstawowe informacje</div>
-            <div>Zobacz szczegóły i zarezerwuj</div>
-            <div class="font-18"><b>O apartamencie</b></div>
-            <div>Max liczba osób:</div>
-            <div>Liczba pokoi:</div>
-            <div style="display: none">Liczba pokoi nieprzechodnich:</div>
-            <div>Liczba łóżek podwójnych:</div>
-            <div>Liczba łóżek pojedynczych:</div>
-            <div>Suma łóżek:</div>
-            <div>Metraż:</div>
-            <div>Piętro:</div>
-            <div>Pozostałe wyposażenie:</div>
-            <div class="font-18"><b>Wyposażenie</b></div>
-            <div>Internet bezprzewodowy<br> Wi-Fi</div>
-            <div>Garaż</div>
-            <div>Telewizor</div>
-            <div>Odkurzacz</div>
-            <div>Balkon/taras</div>
-            <div>Łóżeczko dziecięce</div>
-            <div class="font-18"><b>Kuchnia</b></div>
-            <div>lodówka</div>
-            <div>kuchenka</div>
-            <div>zmywarka</div>
-            <div>czajnik elektryczny</div>
-            <div>mikrofalówka</div>
-            <div class="font-18"><b>Łazienka</b></div>
-            <div>kabina prysznicowa</div>
-            <div>suszarka do włosów</div>
-            <div>Pozostałe wyposażenie</div>
-            <div class="font-18"><b>Zasady</b></div>
-            <div>Zameldowanie:</div>
-            <div>Wymeldowanie:</div>
-            <div>Odwołanie rezerwacji/ przedpłata:</div>
-            <div>Zwierzęta:</div>
-            <div>Inne:</div>
+            <div>{{__('messages.Price per stay')}}</div>
+            <div>{{__('messages.Name2')}}</div>
+            <div>{{__('messages.Address')}}</div>
+            <div>{{__('messages.Rating')}}</div>
+            <div>{{__('messages.Basic information')}}</div>
+            <div>{{__('messages.See details and book')}}</div>
+            <div class="font-18"><b>{{__('messages.About apartment')}}</b></div>
+            <div>{{__('messages.Max number of people')}}:</div>
+            <div>{{__('messages.Number of rooms')}}:</div>
+            <div style="display: none">{{__('messages.Number of')}} {{__('messages.intransitive rooms')}}:</div>
+            <div>{{__('messages.Number of')}} {{__('messages.double beds')}}:</div>
+            <div>{{__('messages.Number of')}} {{__('messages.single beds')}}:</div>
+            <div>{{__('messages.Total number of beds')}}:</div>
+            <div>{{__('messages.ApSize')}}:</div>
+            <div>{{__('messages.Floor')}}:</div>
+            <div>{{__('messages.Other equipment')}}:</div>
+            <div class="font-18"><b>{{__('messages.Equipment')}}</b></div>
+            <div>{{__('messages.Wireless internet')}}<br> Wi-Fi</div>
+            <div>{{__('messages.Garage')}}</div>
+            <div>{{__('messages.Television set')}}</div>
+            <div>{{__('messages.Vacuum cleaner')}}</div>
+            <div>{{__('messages.Balcony/Terrace')}}</div>
+            <div>{{__('messages.Bed for a child')}}</div>
+            <div class="font-18"><b>{{__('messages.Kitchen')}}</b></div>
+            <div>{{__('messages.Fridge')}}</div>
+            <div>{{__('messages.Cooker')}}</div>
+            <div>{{__('messages.Washing machine')}}</div>
+            <div>{{__('messages.Electric kettle')}}</div>
+            <div>{{__('messages.Microwave')}}</div>
+            <div class="font-18"><b>{{__('messages.Bathroom')}}</b></div>
+            <div>{{__('messages.Shower cabin')}}</div>
+            <div>{{__('messages.Hair dryer')}}</div>
+            <div>{{__('messages.Other equipment')}}</div>
+            <div class="font-18"><b>{{__('messages.Rules')}}</b></div>
+            <div>{{__('messages.Check-in')}}:</div>
+            <div>{{__('messages.Check-out')}}:</div>
+            <div>{{__('messages.Cancellation / prepayment')}}:</div>
+            <div>{{__('messages.Animals')}}:</div>
+            <div>{{__('messages.Other')}}:</div>
         </div>
         <div id="right-side-compare" class="row col-9 col-xl-10 font-13">
             <span id="compare-bar" class="ml-4" style="display: inherit;">
@@ -70,7 +70,7 @@
             @foreach ($finds as $apartament)
                 <div class="favourites-box" id="{{$loop->iteration-1}}">
                     <div style="width: 100%; background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover;"></div>
-                    <div>od {{ $apartament->min_price }} PLN</div>
+                    <div>{{__('messages.from')}} {{ $apartament->min_price }} PLN</div>
                     <div>{{ $apartament->apartament_name }}</div>
                     <div>{{ $apartament->apartament_address }}</div>
                     <div>
@@ -103,12 +103,12 @@
                         </div>
                     </div>
                     <div>
-                        <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('Metraż') }}"> <span class="description-below-living-area">{{ $apartament->apartament_living_area }} m²</span> </div>
+                        <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.ApSize') }}"> <span class="description-below-living-area">{{ $apartament->apartament_living_area }} m²</span> </div>
                         <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.people') }}" style="background-image: url('{{ asset("images/results/person.png") }}');"> <span>{{ $apartament->apartament_persons }}</span> </div>
-                        <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('łóżek') }}" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>{{ $apartament->apartament_single_beds + $apartament->apartament_double_beds }}</span> </div>
+                        <div class="description-below-img" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.beds2') }}" style="background-image: url('{{ asset("images/results/bed.png") }}');"> <span>{{ $apartament->apartament_single_beds + $apartament->apartament_double_beds }}</span> </div>
                     </div>
                     <div>
-                        <a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-primary" style="width: 100%">Szczegóły</a>
+                        <a href="/apartaments/{{ $apartament->apartament_link }}" class="btn btn-primary" style="width: 100%">{{__('messages.Details')}}</a>
                     </div>
                     <div></div>
                     <div>{{ $apartament->apartament_persons }}</div>
@@ -148,8 +148,8 @@
                     <div>{{ $apartament->apartament_registration_time }}</div>
                     <div>{{ $apartament->apartament_checkout_time }}</div>
                     <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</div>
-                    <div>Zwierzęta są akceptowane na życzenie. Mogą obowiązywać dodatkowe opłaty</div>
-                    <div>Cena zakwaterowania nie obejmuje opłaty za zużycie energii elektrycznej.</div>
+                    <div>{{__('messages.AnimalsExp')}}</div>
+                    <div>{{__('messages.AdditionalPriceForEl')}}</div>
                 </div>
             @endforeach
             <div id="compare-bar-next" class="compare-bar-arrays" style="background-image: url({{ asset("images/apartment_detal/calendar-next.png") }}"></div>

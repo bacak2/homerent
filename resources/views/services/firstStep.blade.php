@@ -1,7 +1,7 @@
 @extends ('includes.reservations')
 
 @section('reservation.content')<div class="container">
-        <h1 class="h1-reservation">{{ __('Dokup usługi') }}</h1>
+        <h1 class="h1-reservation">{{ __('messages.Buy a service') }}</h1>
     </div>
 <div class="container flex-box mb-2">
     <div id="Rtitle"><h2 class="h2-reservation mt-3">1. {{ __('messages.offer') }}</h2></div>
@@ -38,16 +38,16 @@
             @if(!$additionalServices->isEmpty())
                 <div class="row">
                     <div class="mt-4">
-                        <div class="col-12 mb-2"><b>{{ __('Kupione usługi') }}</b></div>
+                        <div class="col-12 mb-2"><b>{{ __('messages.Purchased services') }}</b></div>
                         <div class="col-12">
                             <ul class="font-16" style="padding-left: inherit">
                                  @foreach($additionalServices as $servicesDetail)
                                     @if($servicesDetail->with_options == 0)
                                         <li>{{$servicesDetail->name}} ({{ number_format($servicesDetail->price, 2, ',', ' ') }} zł)</li>
                                     @elseif($servicesDetail->with_options == 2)
-                                        <li>{{$servicesDetail->name}} dla {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} na {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} ({{ number_format($servicesDetail->price, 2, ',', ' ') }} zł)</li>
+                                        <li>{{$servicesDetail->name}} {{ __('messages.to') }} {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} {{ __('messages.for days') }} {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} ({{ number_format($servicesDetail->price, 2, ',', ' ') }} zł)</li>
                                     @elseif($servicesDetail->with_options == 3)
-                                        <li>{{$servicesDetail->name}} dla {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} na {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} ({{ number_format($servicesDetail->price, 2, ',', ' ') }} zł)</li>
+                                        <li>{{$servicesDetail->name}} {{ __('messages.to') }} {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} {{ __('messages.for days') }} {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} ({{ number_format($servicesDetail->price, 2, ',', ' ') }} zł)</li>
                                     @endif
                                  @endforeach
                             </ul>
@@ -59,7 +59,7 @@
                     <div class="col-lg-12 col-sm-12">
                         <div class="row">
                             <div class="col-11 ml-3 mb-5">
-                                <div class="row mb-2"><b>{{ __('Dostępne usługi') }}</b></div>
+                                <div class="row mb-2"><b>{{ __('messages.Available services') }}</b></div>
                                 {!! Form::model(Auth::user(), ['route' => ['services.secondStep'], 'method' => 'POST']) !!}
                                 {!! Form::hidden('apartament_id', $apartament->id) !!}
                                 {!! Form::hidden('reservation_id', $idReservation) !!}
@@ -81,20 +81,20 @@
                                                 <label for="additional{{$additionalService->id}}" style="margin-bottom: 0">
                                                 </label>
                                                 {{$additionalService->name}}
-                                                dla
+                                                {{ __('messages.to') }}
                                                 <?php $persons; ?>
                                                 <select name="persons-{{$additionalService->id}}" class="additional{{$additionalService->id}} persons additional-select">
                                                     @for ($i = 1; $i <= $persons; $i++)
                                                         <option value="{{ $i }}">{{ $i }}</option>
                                                     @endfor
                                                 </select>
-                                                na
+                                                {{ __('messages.for days') }}
                                                 <select name="days-{{$additionalService->id}}" class="additional{{$additionalService->id}} days additional-select">
                                                     @for ($i = 1; $i <= $ileNocy; $i++)
                                                         <option value="{{ $i }}">{{ $i }}</option>
                                                     @endfor
                                                 </select>
-                                                dni
+                                                {{ __('messages.days2') }}
                                             </div>
                                             <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
                                             @if($additionalService->description != NULL)

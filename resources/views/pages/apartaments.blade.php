@@ -1,6 +1,6 @@
 @extends ('layout.layout')
 
-@section('title', $apartament->apartament_city.' - '.$apartament->descriptions[0]->apartament_name.' - Zarezerwuj już teraz' )
+@section('title', $apartament->apartament_city.' - '.$apartament->descriptions[0]->apartament_name.' - '.__('messages.Book now') )
 
 @section('content')
 	<div class="row mx-0">
@@ -8,7 +8,7 @@
 			<div class="pull-left d-none d-md-block">
 				<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButton.png") }}')">
 					<div  class="btn font-13 py-2 px-3" style="width: 100%" >
-						Powrót do wyników wyszukiwania
+						{{ __('messages.Back to search results') }}
 					</div>
 				</a>
 			</div>
@@ -37,7 +37,7 @@
 						<div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
 							<img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/results/heart.png')}}">
 						</div>
-						<div class="mobile-none d-inline-block font-13 txt-blue" style="margin-top: 6px;">Zapisz</div>
+						<div class="mobile-none d-inline-block font-13 txt-blue" style="margin-top: 6px;">{{ __('messages.Save') }}</div>
 					</div>
 				</div>
 				<div class="d-inline-block">
@@ -45,7 +45,7 @@
 						<div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
 							<img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/results/heart.png')}}">
 						</div>
-						<div class="mobile-none d-inline-block font-13 txt-blue" style="margin-top: 6px;">Usuń z ulubionych</div>
+						<div class="mobile-none d-inline-block font-13 txt-blue" style="margin-top: 6px;">{{ __('messages.Delete from favourites') }}</div>
 					</div>
 				</div>
 				<div class="mobile-none d-inline-block">|</div>
@@ -53,7 +53,7 @@
 					<div class="d-inline-block send-news-friends mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
 						<img style="padding: 7px 9px; max-width: 36px" src="{{asset('images/favourites/Envelop.png')}}">
 					</div>
-					<div class="mobile-none d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">Wyślij</div>
+					<div class="mobile-none d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">{{ __('messages.Send') }}</div>
 				</div>
 				<div class="mobile-none d-inline-block">|</div>
 				@mobile
@@ -84,7 +84,7 @@
 					</div>
 				</a>
 			</div>
-			<div class="col-8 col-sm-9 col-md-10 d-inline-block px-0" style="margin-left: -5px;"><a id="mobileReservation" href="#stickyReservationPanel" class="btn btn-primary btn-black">Zarezerwuj</a></div>
+			<div class="col-8 col-sm-9 col-md-10 d-inline-block px-0" style="margin-left: -5px;"><a id="mobileReservation" href="#stickyReservationPanel" class="btn btn-primary btn-black">{{ __('messages.book') }}</a></div>
 		</div>
 	</div>
 	@endhandheld
@@ -101,7 +101,7 @@
 							<div class="row">
 								<div class="col-sm-6 col-md-3">
 									<div class="row">
-										<p class="pl-2"><img src="{{ asset("images/apartment_detal/User_24.png") }}"><div class="col pl-1">{{ __('dla') }} {{ $apartament->apartament_persons }} {{trans_choice('messages.persons',$apartament->apartament_persons)}}</div></p>
+										<p class="pl-2"><img src="{{ asset("images/apartment_detal/User_24.png") }}"><div class="col pl-1">{{ __('messages.to') }} {{ $apartament->apartament_persons }} {{trans_choice('messages.persons',$apartament->apartament_persons)}}</div></p>
 									</div>
 								</div>
 								<div class="col-sm-6 col-md-3">
@@ -123,31 +123,31 @@
 						</div>
 					</div>
 					<div class="mobile-none col transparent mt-5 mb-3 pt-3" style="visibility: hidden;"></div>
-					<div class="mobile-none col transparent mt-4 mb-2 pt-3" style="visibility: hidden;">Śniadanie w cenie</div>
+					<div class="mobile-none col transparent mt-4 mb-2 pt-3" style="visibility: hidden;">{{ __('messages.Breakfast included') }}</div>
 					<div id="stickyAnchor-wrapper" class="mobile-none tablet-none">
 						<span style="font-size: 12px; color: white; display: block"><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></span>
 						<span class="mb-2" style="font-size: 10px; color: white; display: block">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}, {{ $apartament->apartament_address_2 }}</span>
 						<div id="stickyAnchor" class="row" style="margin-left: 0px">
 							<a href="#description" class="anchor">
-								<div>Opis</div>
+								<div>{{ __('messages.description') }}</div>
 							</a>
 							<a href="#photos" class="anchor">
-								<div>Zdjęcia</div>
+								<div>{{ __('messages.photos') }}</div>
 							</a>
 							<a href="#facilities" class="anchor">
-								<div>Udogodnienia</div>
+								<div>{{ __('messages.Facilities') }}</div>
 							</a>
 							<a href="#rules" class="anchor">
-								<div>Zasady</div>
+								<div>{{ __('messages.Rules') }}</div>
 							</a>
 							<a href="#availability" class="anchor">
-								<div>Dostępność</div>
+								<div>{{ __('messages.Availability') }}</div>
 							</a>
 							<a href="#map" class="anchor">
-								<div>Mapa</div>
+								<div>{{ __('messages.Map') }}</div>
 							</a>
 							<a href="#opinions" class="anchor">
-								<div>Opinie</div>
+								<div>{{ __('messages.Opinions') }}</div>
 							</a>
 						</div>
 					</div>
@@ -172,7 +172,7 @@
 								<div class="col-sm-6 pb-2 pl-0 pr-0 pr-lg-1">
 									<div class="input-group mb-sm-0">
 										<div class="input-group-addon" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Number of') }} {{ __('messages.Adults') }}"><i class="fa fa-lg fa-male" aria-hidden="true" placeholder="{{ __('messages.adults')}}"></i></div>
-										{{ Form::select('dorosli', $personsArray, $request->dorosli ?? $personsArray[""], array('class'=>'form-control', 'style'=>'width: 120px; height: 38px', 'required'=>'required', 'oninvalid'=>"this.setCustomValidity('Proszę wybrać liczbę osób')", 'oninput'=>"this.setCustomValidity('')"))}}
+										{!! Form::select('dorosli', $personsArray, $request->dorosli ?? $personsArray[""], array('class'=>'form-control', 'style'=>'width: 120px; height: 38px', 'required'=>'required', 'oninvalid'=>"this.setCustomValidity('".__('messages.Please select the number of people')."')", 'oninput'=>"this.setCustomValidity('')"))!!}
 									</div>
 								</div>
 								<div class="col-sm-6 pb-2 pr-0 pl-0 pl-lg-1">
@@ -199,7 +199,7 @@
 								<div class="col-6 text-right is-Av-panel">
 									<h3><b><span id="price"></span></b></h3>
 								</div>
-								<div class="col font-13">Szczegóły <span id="expand-price" class="font-11">(rozwiń) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'></span></div>
+								<div class="col font-13">{{ __('messages.Details')}} <span id="expand-price" class="font-11">({{ __('messages.expand')}}) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'></span></div>
 								<div id="price-details" class="col-12 font-13" style="display: none"></div>
 							</div>
 							<div class="row">
@@ -207,10 +207,10 @@
 									<p class="termin"></p>
 									<div id="not-Av-panel" class="p-2">
 										<i class="fa fa-lg fa-exclamation-triangle" style="color: black"></i>
-										<b>Ten termin nie jest dostępny - wybierz inną datę</b><br>
-										<a id="firstFreeDate" href="#">Zobacz pierwszy wolny termin</a>
-										<span>lub</span>
-										<a href="#availability">idź do kalendarza</a>
+										<b>{{ __('messages.NotAv1') }}</b><br>
+										<a id="firstFreeDate" href="#">{{ __('messages.NotAv2') }}</a>
+										<span>{{ __('messages.or') }}</span>
+										<a href="#availability">{{ __('messages.NotAv3') }}</a>
 									</div>
 									<button class="btn btn-block btn-success res-btn" type="submit">{{ __('messages.reserve')}}</button>
 								</div>
@@ -239,14 +239,14 @@
 							@forelse($images as $image)
 								<a href="{{ asset("images/apartaments/$image->id/$image->photo_link") }}"><img src="{{ asset("images/apartaments/$image->id/$image->photo_link") }}"></a>
 							@empty
-								<p>Brak zdjęć dla tego apartamentu</p>
+								<p>{{ __('messages.No photos') }}</p>
 							@endforelse
 						</div>
 					</div>
 				</div>
 
 				<div class=" mb-3" style="font-size: 14px">
-					<h4 id="facilities" class="anchor-destination"><b>{{__('Udogodnienia')}}</b></h4>
+					<h4 id="facilities" class="anchor-destination"><b>{{ __('messages.Facilities') }}</b></h4>
 					    <div class="row">
 							<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/User_24.png") }}"> {{ $apartament->apartament_persons }} {{trans_choice('messages.nrPersons',$apartament->apartament_persons)}}</div>
 							<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/House_24.png") }}"> {{ $apartament->apartament_rooms_number }} {{trans_choice('messages.rooms_number', $apartament->apartament_rooms_number )}}</div>
@@ -266,102 +266,102 @@
 								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/parking.png") }}"> Parking</div>
 							@endif
 							@if($apartament->apartament_elevator > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/elevator.png") }}"> Winda</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/elevator.png") }}"> {{ __('messages.Elevator') }}</div>
 							@endif
 							@if($apartament->apartament_spa > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Bathtub_24.png") }}"> Strefa SPA</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Bathtub_24.png") }}"> {{ __('messages.SPA zone') }}</div>
 							@endif
 							@if($apartament->apartament_balcony > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/balcony.png") }}"> Balkon</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/balcony.png") }}"> {{ __('messages.Balcony') }}</div>
 							@endif
 							@if(1 > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/towel.png") }}"> Ręczniki</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/towel.png") }}"> {{ __('messages.Towels') }}</div>
 							@endif
 							@if(1 > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/CleaningWipes_24.png") }}"> Pościel</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/CleaningWipes_24.png") }}"> {{ __('messages.Sheets') }}</div>
 							@endif
 							@if($apartament->apartament_fireplace > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Fireplace_24.png") }}"> Kominek</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Fireplace_24.png") }}"> {{ __('messages.Fireplace') }}</div>
 							@endif
 							@if($apartament->apartament_tv > 0)
 								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/television.png") }}"> TV</div>
 							@endif
 							@if($apartament->apartament_iron > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/ironing-board.png") }}"> Żelazko</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/ironing-board.png") }}"> {{ __('messages.Iron') }}</div>
 							@endif
 						</div>
 						<div class="row">
-							<div class="col-12 mb-3 mt-3"><b>Kuchnia</b></div>
+							<div class="col-12 mb-3 mt-3"><b>{{__('messages.Kitchen')}}</b></div>
 						</div>
 						<div class="row">
 							@if(1 > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/cutlery.png") }}"> Naczynia i sztućce</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/cutlery.png") }}"> {{ __('messages.Dishes & cutlery') }}</div>
 							@endif
 							@if($apartament->apartament_fridge > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Fridge.png") }}"> Lodówka</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Fridge.png") }}"> {{ __('messages.Fridge') }}</div>
 							@endif
 							@if($apartament->apartament_cooker > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/GasStove.png") }}"> Kuchenka</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/GasStove.png") }}"> {{ __('messages.Cooker') }}</div>
 							@endif
 							@if($apartament->apartament_electric_kettle > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Kettle.png") }}"> Czajnik</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Kettle.png") }}"> {{ __('messages.Kettle') }}</div>
 							@endif
 							@if($apartament->apartament_microvawe_owen > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/MicrowaveOven_24.png") }}"> Mikrofala</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/MicrowaveOven_24.png") }}"> {{ __('messages.Microwave2') }}</div>
 							@endif
 							@if($apartament->apartament_washing_machine > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Dishwasher.png") }}"> Zmywarka</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Dishwasher.png") }}"> {{ __('messages.Dish washer') }}</div>
 							@endif
 							@if($apartament->apartament_toaster > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/toaster.png") }}"> Toster</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/toaster.png") }}"> {{ __('messages.Toaster') }}</div>
 							@endif
 						</div>
 						<div class="row">
-							<div class="col-12 mb-3 mt-3"><b>Łazienka</b></div>
+							<div class="col-12 mb-3 mt-3"><b>{{__('messages.Bathroom')}}</b></div>
 						</div>
 						<div class="row">
 							@if($apartament->apartament_shower_cabin > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/shower.png") }}"> Kabina prysznicowa</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/shower.png") }}"> {{ __('messages.Shower cabin') }}</div>
 							@endif
 							@if($apartament->apartament_bathtub > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Bath_Tub_24.png") }}"> Wanna</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/Bath_Tub_24.png") }}"> {{ __('messages.Bathtub') }}</div>
 							@endif
 							@if($apartament->apartament_washer > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/laundry.png") }}"> Pralka</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/laundry.png") }}"> {{ __('messages.Washer') }}</div>
 							@endif
 							@if($apartament->apartament_hair_dryer  > 0)
-								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/hairdryer.png") }}"> Suszarka do włosów</div>
+								<div class="col-6 col-md-4 mb-3"><img src="{{ asset("images/apartment_detal/hairdryer.png") }}"> {{ __('messages.Hair dryer') }}</div>
 							@endif
 						</div>
 				</div>
 
 				<div class="row mt-2 mb-3 font-12">
 					<div class="col-12">
-						<h4 id="rules" class="anchor-destination"><b>{{__('Zasady')}}</b></h4>
+						<h4 id="rules" class="anchor-destination"><b>{{ __('messages.Rules') }}</b></h4>
 					</div>
 					<div class="col-12 mb-2">
 						<div class="row mb-2">
 							<div class="col-4">{{__('messages.Check-in')}}: {{$apartament->apartament_registration_time }}</div>
 							<div class="col-4">{{__('messages.Check-out')}}: {{$apartament->apartament_checkout_time }}</div>
-							<div class="col-4">{{__('Kaucja zwrotna')}}: 300 PLN</div>
+							<div class="col-4">{{__('messages.Refundable deposit')}}: 300 PLN</div>
 						</div>
 						<div class="row mb-2">
-							<div class="col-md-4 col-sm-12 sm-facilities"><img src="{{ asset("images/apartment_detal/Dog_24.png") }}">{{__('Przyjazny zwierzętom')}}</div>
-							<div class="col-md-4 col-sm-12"><img src="{{ asset("images/apartment_detal/No-Smoking_24.png") }}">{{__('Zakaz palenia')}}</div>
+							<div class="col-md-4 col-sm-12 sm-facilities"><img src="{{ asset("images/apartment_detal/Dog_24.png") }}">{{__('messages.Pet friendly')}}</div>
+							<div class="col-md-4 col-sm-12"><img src="{{ asset("images/apartment_detal/No-Smoking_24.png") }}">{{__('messages.No smoking')}}</div>
 						</div>
 					</div>
 					<div class="col-12 mb-2">
 						<div class="row">
-							<div class="col-lg-2 col-sm-12">{{__('Odwołanie rezerwacji/ przedpłata')}}:</div>
+							<div class="col-lg-2 col-sm-12">{{__('messages.CancellationPrepaymen')}}:</div>
 							<div class="col-lg-10 col-sm-12">
-								Oferta zwrotna – możliwość bezpłatnego odwołania do 30 dni przed przyjazdem.
+								{{__('messages.Refundable exp')}}.
 							</div>
 						</div>
 					</div>
 					@if($apartament->descriptions[0]->apartament_additional_information != NULL)
 					<div class="col-12 mb-2">
 						<div class="row">
-							<div class="col-lg-2 col-sm-12">{{__('Dodatkowe informacje')}}:</div>
+							<div class="col-lg-2 col-sm-12">{{__('messages.Additional information')}}:</div>
 							<div class="col-lg-10 col-sm-12">
 								{{$apartament->descriptions[0]->apartament_additional_information}}
 							</div>
@@ -373,21 +373,21 @@
 				<div class="row mt-3 mb-3 font-12">
 					<div class="col-12 row">
 						<div class="col-lg-5 col-sm-12">
-                            <h4 id="availability" class="anchor-destination"><b>{{__('Dostępność')}}</b></h4>
+                            <h4 id="availability" class="anchor-destination"><b>{{ __('messages.Availability') }}</b></h4>
                         </div>
                         <!--div class="col-lg-7 col-sm-12 row mt-2"-->
                         <div style="margin-left: auto" class="mt-2">
                             <span class="" style="position: relative">
 								<div id="detail-legend-av" class="detail-legend"></div>
-								<div class="" style="position: relative; top: -5px; display: inline-block">Dostępny</div>
+								<div class="" style="position: relative; top: -5px; display: inline-block">{{ __('messages.Available') }}</div>
 							</span>
 							<span class="ml-4" style="position: relative">
 								<div id="detail-legend-booked" class="detail-legend"></div>
-								<div class="" style="position: relative; top: -5px; display: inline-block">Zajęty</div>
+								<div class="" style="position: relative; top: -5px; display: inline-block">{{ __('messages.Occupied') }}</div>
 							</span>
 							<span class="ml-4" style="position: relative">
 								<div id="detail-legend-pre-booked" class="detail-legend"></div>
-								<div class="" style="position: relative; top: -5px; display: inline-block">Wstępna rezerwacja</div>
+								<div class="" style="position: relative; top: -5px; display: inline-block">{{ __('messages.Preliminary reservation') }}</div>
 							</span>
                         </div>
 					</div>
@@ -422,13 +422,23 @@
                             <div class="pt-2">
                                 <table class="table-condensed table-bordered calendar-month mr-3">
                                     <tr class="calendar-thead">
-                                        <td>Pon</td>
-                                        <td>Wto</td>
-                                        <td>Śro</td>
-                                        <td>Czw</td>
-                                        <td>Pią</td>
-                                        <td>Sob</td>
-                                        <td>Nie</td>
+										@if($language->id == 1)
+											<td>Pon</td>
+											<td>Wto</td>
+											<td>Śro</td>
+											<td>Czw</td>
+											<td>Pią</td>
+											<td>Sob</td>
+											<td>Nie</td>
+										@else
+											<td>Mon</td>
+											<td>Tue</td>
+											<td>Wen</td>
+											<td>Thu</td>
+											<td>Fri</td>
+											<td>Sat</td>
+											<td>Sun</td>
+										@endif
                                     </tr>
                                     @foreach($month as $week)
                                         {!! $week !!}
@@ -443,15 +453,15 @@
 
 				<div class="row mt-3 mb-3 font-12">
 					<div class="col-12">
-						<h4 id="map" class="anchor-destination"><b>{{__('Mapa')}}</b></h4>
+						<h4 id="map" class="anchor-destination"><b>{{ __('messages.Map') }}</b></h4>
 					</div>
 					<div class="col-12 mb-2">
 						<ul class="nav nav-tabs">
 							<li class="nav-item">
-								<a class="nav-link active" data-toggle="tab" href="#showMap">Mapa</a>
+								<a class="nav-link active" data-toggle="tab" href="#showMap">{{ __('messages.Map') }}</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" data-toggle="tab" href="#showStreetview">Okolica (Street view)</a>
+								<a class="nav-link" data-toggle="tab" href="#showStreetview">{{ __('messages.Area') }} (Street view)</a>
 							</li>
 						</ul>
 						<div class="tab-content">
@@ -463,12 +473,12 @@
 										<div class="col-12 mb-2" style="font-size: 14px">GPS: {{ $apartament->apartament_gps }}</div>
 									</div>
 									<div class="row my-2 mx-0" style="position: relative;">
-										<span class="col-12 px-0"style="font-size: 14px; margin-top: 5px">Wskazówki dojazdu: </span>
+										<span class="col-12 px-0"style="font-size: 14px; margin-top: 5px">{{ __('messages.Directions') }}: </span>
 										<div class="col-6 col-md-3 px-0">
-											<input class="font-12" name="skad" id="skad" style="width: 100%; height: 100%" placeholder="Lokalizacja początkowa" type="text">
+											<input class="font-12" name="skad" id="skad" style="width: 100%; height: 100%" placeholder="{{ __('messages.Initial location') }}" type="text">
 										</div>
 										<div class="col-3 col-md-2 px-1">
-											<input class="btn btn-primary font-13 w-100 h-100 ml-0" value="Pokaż" type="submit">
+											<input class="btn btn-primary font-13 w-100 h-100 ml-0" value="{{ __('messages.Show') }}" type="submit">
 										</div>
 										<div class="col-3 col-md-2 col-lg-1 col-xl-2 font-12 pr-0 mr-lg-3">
 											<div id="distance" class="row" style="font-weight: bold"></div>
@@ -477,7 +487,7 @@
 								</form>
 								<form id="printDirections" action="{{route('printPdf')}}" class="mt-2 mt-md-0 pl-0" method="POST" name="wskazowki-print">
 									<input type='hidden' id='wskazowkiContent' name='wskazowkiContent' value='' />
-									<input id="drukujWskazowki" class="btn btn-default font-12 ml-0" value="Drukuj wskazówki dojazdu" style="display: none" type="submit">
+									<input id="drukujWskazowki" class="btn btn-default font-12 ml-0" value="{{ __('messages.Print directions') }}" style="display: none" type="submit">
 								</form>
 							</div>
 								<div id="wskazowki"></div>
@@ -492,30 +502,30 @@
 
 				<div class="row mt-3 mb-3 font-12">
 					<div class="col-12">
-						<h4 id="opinions" class="anchor-destination"><b>{{__('Ocena')}}</b></h4>
+						<h4 id="opinions" class="anchor-destination"><b>{{__('messages.Rating')}}</b></h4>
 					</div>
 					@if($comments != '')
 						@handheld
 						<div id="rating-wrapper-mobile" class="col-12 mb-2">
 							<div class="tab">
 								<div id="chooseJourneyType" class="center-h-v font-16" onclick="openJourneyTypes()">▼</div>
-								<div class="tablinks" onclick="openJourneyType(event, 'allOpinions', 'Wszystkie opinie')" id="defaultOpen">
-									<img src='{{ asset("images/apartment_detal/journeyType0.png") }}'>Wszystkie opinie (<span class="allOpinionsAmount"></span>)
+								<div class="tablinks" onclick="openJourneyType(event, 'allOpinions', '{{__('messages.All opinions')}}')" id="defaultOpen">
+									<img src='{{ asset("images/apartment_detal/journeyType0.png") }}'>{{__('messages.All opinions')}} (<span class="allOpinionsAmount"></span>)
 								</div>
-								<div class="tablinks" onclick="openJourneyType(event, 'familyOpinions', 'Rodziny')" id="familyTab">
-									<img src='{{ asset("images/apartment_detal/journeyType1.png") }}'>Rodziny (<span class="familyOpinionsAmount"></span>)
+								<div class="tablinks" onclick="openJourneyType(event, 'familyOpinions', '{{__('messages.Families')}}')" id="familyTab">
+									<img src='{{ asset("images/apartment_detal/journeyType1.png") }}'>{{__('messages.Families')}}  (<span class="familyOpinionsAmount"></span>)
 								</div>
-								<div class="tablinks" onclick="openJourneyType(event, 'couplesOpinions', 'Pary')" id="couplesTab">
-									<img src='{{ asset("images/apartment_detal/journeyType2.png") }}'>Pary (<span class="couplesOpinionsAmount"></span>)
+								<div class="tablinks" onclick="openJourneyType(event, 'couplesOpinions', '{{__('messages.Couples')}}')" id="couplesTab">
+									<img src='{{ asset("images/apartment_detal/journeyType2.png") }}'>{{__('messages.Couples')}} (<span class="couplesOpinionsAmount"></span>)
 								</div>
-								<div class="tablinks" onclick="openJourneyType(event, 'businessOpinions', 'Biznesowe')" id="businessTab">
-									<img src='{{ asset("images/apartment_detal/journeyType3.png") }}'>Biznesowe (<span class="businessOpinionsAmount"></span>)
+								<div class="tablinks" onclick="openJourneyType(event, 'businessOpinions', '{{__('messages.Business')}}')" id="businessTab">
+									<img src='{{ asset("images/apartment_detal/journeyType3.png") }}'>{{__('messages.Business')}} (<span class="businessOpinionsAmount"></span>)
 								</div>
-								<div class="tablinks" onclick="openJourneyType(event, 'friendsOpinions', 'Ze znajomymi')" id="friendsTab">
-									<img src='{{ asset("images/apartment_detal/journeyType4.png") }}'>Ze znajomymi (<span class="friendsOpinionsAmount"></span>)
+								<div class="tablinks" onclick="openJourneyType(event, 'friendsOpinions', '{{__('messages.With friends')}}')" id="friendsTab">
+									<img src='{{ asset("images/apartment_detal/journeyType4.png") }}'>{{__('messages.With friends')}} (<span class="friendsOpinionsAmount"></span>)
 								</div>
-								<div class="tablinks" onclick="openJourneyType(event, 'aloneOpinions', 'W pojedynkę')" id="aloneTab">
-									<img src='{{ asset("images/apartment_detal/journeyType5.png") }}'>W pojedynkę (<span class="aloneOpinionsAmount"></span>)
+								<div class="tablinks" onclick="openJourneyType(event, 'aloneOpinions', '{{__('messages.Alone')}}')" id="aloneTab">
+									<img src='{{ asset("images/apartment_detal/journeyType5.png") }}'>{{__('messages.Alone')}} (<span class="aloneOpinionsAmount"></span>)
 								</div>
 							</div>
 						</div>
@@ -529,18 +539,18 @@
 									</div>
 								</div>
 								<div class="row mx-0 font-13 mb-1" style="font-weight: bold">
-									Na podstawie&nbsp;
+									{{__('messages.Based on')}}&nbsp;
 								<span class="allOpinionsAmount"></span>
-									&nbsp;opinii.
+									&nbsp;{{__('messages.reviews_number')}}
 								</div>
 								<div class="row mx-0 font-11">
-									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+									{{__('messages.Rating exp')}} {{  $apartament->descriptions[0]->apartament_name or '' }}.
 								</div>
 								<div class="row bars">
 									<div class="avgBars font-11 col-sm-6 my-3">
 										<div id="allPerfect" class="row">
 											<div class="side left">
-												<div>Doskonały</div>
+												<div>{{__('messages.Perfect')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -552,7 +562,7 @@
 
 										<div id="allVery-good" class="row">
 											<div class="side left">
-												<div>Bardzo dobry</div>
+												<div>{{__('messages.Very good')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -564,7 +574,7 @@
 
 										<div id="allAverage" class="row">
 											<div class="side left">
-												<div>Średni</div>
+												<div>{{__('messages.Average')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -576,7 +586,7 @@
 
 										<div id="allBad" class="row">
 											<div class="side left">
-												<div>Zły</div>
+												<div>{{__('messages.Bad')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -588,7 +598,7 @@
 
 										<div id="allAwful" class="row">
 											<div class="side left">
-												<div>Okropny</div>
+												<div>{{__('messages.Awful')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -598,40 +608,40 @@
 											<div class="side right">0</div>
 										</div>
 										<div class="row" style="display: none">
-											<div class="side left" onclick="openDefault()">Pokaż wszystkie</div>
+											<div class="side left" onclick="openDefault()">{{__('messages.Show all')}}</div>
 										</div>
 									</div>
 									<div class="detail-bars col-9 col-sm-6 pl-0 my-0 my-sm-3">
 										<div class="col-12 font-11 mb-1">
-											Czystość
+											{{__('messages.Czystość')}}
 											<span class="pull-right rating-opinion-detail"><span id="allCleanliness"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="allCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Lokalizacja
+											{{__('messages.Lokalizacja')}}
 											<span class="pull-right rating-opinion-detail"><span id="allLocation"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="allLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Udogodnienia
+											{{__('messages.Udogodnienia')}}
 											<span class="pull-right rating-opinion-detail"><span id="allFacilities"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 														<img id="allFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
 													</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Obsługa
+											{{__('messages.Obsługa')}}
 											<span class="pull-right rating-opinion-detail"><span id="allStaff"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="allStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Stosunek jakości<br> do ceny
+											{{__('messages.Value to')}}<br> {{__('messages.price ratio')}}
 											<span style="">
 													<span class="pull-right rating-opinion-detail">
 														<span id="allQuality_per_price"></span>
@@ -655,18 +665,18 @@
 									</div>
 								</div>
 								<div class="row mx-0 font-13 mb-1" style="font-weight: bold">
-									Na podstawie&nbsp;
+									{{__('messages.Based on')}}&nbsp;
 								<span class="familyOpinionsAmount"></span>
-									&nbsp;opinii.
+									&nbsp;{{__('messages.reviews_number')}}
 								</div>
 								<div class="row mx-0 font-11">
-									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+									{{__('messages.Rating exp')}} {{  $apartament->descriptions[0]->apartament_name or '' }}.
 								</div>
 								<div class="row bars">
 									<div class="avgBars font-11 col-sm-6 my-3">
 										<div id="familyPerfect" class="row">
 											<div class="side left">
-												<div>Doskonały</div>
+												<div>{{__('messages.Perfect')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -678,7 +688,7 @@
 
 										<div id="familyVery-good" class="row">
 											<div class="side left">
-												<div>Bardzo dobry</div>
+												<div>{{__('messages.Very good')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -690,7 +700,7 @@
 
 										<div id="familyAverage" class="row">
 											<div class="side left">
-												<div>Średni</div>
+												<div>{{__('messages.Average')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -702,7 +712,7 @@
 
 										<div id="familyBad" class="row">
 											<div class="side left">
-												<div>Zły</div>
+												<div>{{__('messages.Bad')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -714,7 +724,7 @@
 
 										<div id="familyAwful" class="row">
 											<div class="side left">
-												<div>Okropny</div>
+												<div>{{__('messages.Awful')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -724,40 +734,40 @@
 											<div class="side right">0</div>
 										</div>
 										<div class="row" style="display: none">
-											<div class="side left" onclick="openFamily()">Pokaż wszystkie</div>
+											<div class="side left" onclick="openFamily()">{{__('messages.Show all')}}</div>
 										</div>
 									</div>
 									<div class="detail-bars col-9 col-sm-6 pl-0 my-0 my-sm-3">
 										<div class="col-12 font-11 mb-1">
-											Czystość
+											{{__('messages.Czystość')}}
 											<span class="pull-right rating-opinion-detail"><span id="familyCleanliness"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="familyCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Lokalizacja
+											{{__('messages.Lokalizacja')}}
 											<span class="pull-right rating-opinion-detail"><span id="familyLocation"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="familyLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Udogodnienia
+											{{__('messages.Udogodnienia')}}
 											<span class="pull-right rating-opinion-detail"><span id="familyFacilities"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 														<img id="familyFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
 													</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Obsługa
+											{{__('messages.Obsługa')}}
 											<span class="pull-right rating-opinion-detail"><span id="familyStaff"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="familyStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Stosunek jakości<br> do ceny
+											{{__('messages.Value to')}}<br> {{__('messages.price ratio')}}
 											<span style="">
 													<span class="pull-right rating-opinion-detail">
 														<span id="familyQuality_per_price"></span>
@@ -781,18 +791,18 @@
 									</div>
 								</div>
 								<div class="row mx-0 font-13 mb-1" style="font-weight: bold">
-									Na podstawie&nbsp;
+									{{__('messages.Based on')}}&nbsp;
 								<span class="couplesOpinionsAmount"></span>
-									&nbsp;opinii.
+									&nbsp;{{__('messages.reviews_number')}}
 								</div>
 								<div class="row mx-0 font-11">
-									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+									{{__('messages.Rating exp')}} {{  $apartament->descriptions[0]->apartament_name or '' }}.
 								</div>
 								<div class="row bars">
 									<div class="avgBars font-11 col-sm-6 my-3">
 										<div id="couplesPerfect" class="row">
 											<div class="side left">
-												<div>Doskonały</div>
+												<div>{{__('messages.Perfect')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -804,7 +814,7 @@
 
 										<div id="couplesVery-good" class="row">
 											<div class="side left">
-												<div>Bardzo dobry</div>
+												<div>{{__('messages.Very good')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -816,7 +826,7 @@
 
 										<div id="couplesAverage" class="row">
 											<div class="side left">
-												<div>Średni</div>
+												<div>{{__('messages.Average')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -828,7 +838,7 @@
 
 										<div id="couplesBad" class="row">
 											<div class="side left">
-												<div>Zły</div>
+												<div>{{__('messages.Bad')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -840,7 +850,7 @@
 
 										<div id="couplesAwful" class="row">
 											<div class="side left">
-												<div>Okropny</div>
+												<div>{{__('messages.Awful')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -850,40 +860,40 @@
 											<div class="side right">0</div>
 										</div>
 										<div class="row" style="display: none">
-											<div class="side left" onclick="openCouples()">Pokaż wszystkie</div>
+											<div class="side left" onclick="openCouples()">{{__('messages.Show all')}}</div>
 										</div>
 									</div>
 									<div class="detail-bars col-9 col-sm-6 pl-0 my-0 my-sm-3">
 										<div class="col-12 font-11 mb-1">
-											Czystość
+											{{__('messages.Czystość')}}
 											<span class="pull-right rating-opinion-detail"><span id="couplesCleanliness"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="couplesCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Lokalizacja
+											{{__('messages.Lokalizacja')}}
 											<span class="pull-right rating-opinion-detail"><span id="couplesLocation"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="couplesLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Udogodnienia
+											{{__('messages.Udogodnienia')}}
 											<span class="pull-right rating-opinion-detail"><span id="couplesFacilities"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 														<img id="couplesFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
 													</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Obsługa
+											{{__('messages.Obsługa')}}
 											<span class="pull-right rating-opinion-detail"><span id="couplesStaff"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="couplesStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Stosunek jakości<br> do ceny
+											{{__('messages.Value to')}}<br> {{__('messages.price ratio')}}
 											<span style="">
 													<span class="pull-right rating-opinion-detail">
 														<span id="couplesQuality_per_price"></span>
@@ -907,18 +917,18 @@
 									</div>
 								</div>
 								<div class="row mx-0 font-13 mb-1" style="font-weight: bold">
-									Na podstawie&nbsp;
+									{{__('messages.Based on')}}&nbsp;
 								<span class="businessOpinionsAmount"></span>
-									&nbsp;opinii.
+									&nbsp;{{__('messages.reviews_number')}}.
 								</div>
 								<div class="row mx-0 font-11">
-									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+									{{__('messages.Rating exp')}} {{  $apartament->descriptions[0]->apartament_name or '' }}.
 								</div>
 								<div class="row bars">
 									<div class="avgBars font-11 col-sm-6 my-3">
 										<div id="businessPerfect" class="row">
 											<div class="side left">
-												<div>Doskonały</div>
+												<div>{{__('messages.Perfect')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -930,7 +940,7 @@
 
 										<div id="businessVery-good" class="row">
 											<div class="side left">
-												<div>Bardzo dobry</div>
+												<div>{{__('messages.Very good')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -942,7 +952,7 @@
 
 										<div id="businessAverage" class="row">
 											<div class="side left">
-												<div>Średni</div>
+												<div>{{__('messages.Average')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -954,7 +964,7 @@
 
 										<div id="businessBad" class="row">
 											<div class="side left">
-												<div>Zły</div>
+												<div>{{__('messages.Bad')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -966,7 +976,7 @@
 
 										<div id="businessAwful" class="row">
 											<div class="side left">
-												<div>Okropny</div>
+												<div>{{__('messages.Awful')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -976,40 +986,40 @@
 											<div class="side right">0</div>
 										</div>
 										<div class="row" style="display: none">
-											<div class="side left" onclick="openBusiness()">Pokaż wszystkie</div>
+											<div class="side left" onclick="openBusiness()">{{__('messages.Show all')}}</div>
 										</div>
 									</div>
 									<div class="detail-bars col-9 col-sm-6 pl-0 my-0 my-sm-3">
 										<div class="col-12 font-11 mb-1">
-											Czystość
+											{{__('messages.Czystość')}}
 											<span class="pull-right rating-opinion-detail"><span id="businessCleanliness"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="businessCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Lokalizacja
+											{{__('messages.Lokalizacja')}}
 											<span class="pull-right rating-opinion-detail"><span id="businessLocation"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="businessLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Udogodnienia
+											{{__('messages.Udogodnienia')}}
 											<span class="pull-right rating-opinion-detail"><span id="businessFacilities"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 														<img id="businessFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
 													</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Obsługa
+											{{__('messages.Obsługa')}}
 											<span class="pull-right rating-opinion-detail"><span id="businessStaff"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="businessStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Stosunek jakości<br> do ceny
+											{{__('messages.Value to')}}<br> {{__('messages.price ratio')}}
 											<span style="">
 													<span class="pull-right rating-opinion-detail">
 														<span id="businessQuality_per_price"></span>
@@ -1033,18 +1043,18 @@
 									</div>
 								</div>
 								<div class="row mx-0 font-13 mb-1" style="font-weight: bold">
-									Na podstawie&nbsp;
+									{{__('messages.Based on')}}&nbsp;
 								<span class="friendsOpinionsAmount"></span>
-									&nbsp;opinii.
+									&nbsp;{{__('messages.reviews_number')}}.
 								</div>
 								<div class="row mx-0 font-11">
-									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+									{{__('messages.Rating exp')}} {{  $apartament->descriptions[0]->apartament_name or '' }}.
 								</div>
 								<div class="row bars">
 									<div class="avgBars font-11 col-sm-6 my-3">
 										<div id="friendsPerfect" class="row">
 											<div class="side left">
-												<div>Doskonały</div>
+												<div>{{__('messages.Perfect')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1056,7 +1066,7 @@
 
 										<div id="friendsVery-good" class="row">
 											<div class="side left">
-												<div>Bardzo dobry</div>
+												<div>{{__('messages.Very good')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1068,7 +1078,7 @@
 
 										<div id="friendsAverage" class="row">
 											<div class="side left">
-												<div>Średni</div>
+												<div>{{__('messages.Average')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1080,7 +1090,7 @@
 
 										<div id="friendsBad" class="row">
 											<div class="side left">
-												<div>Zły</div>
+												<div>{{__('messages.Bad')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1092,7 +1102,7 @@
 
 										<div id="friendsAwful" class="row">
 											<div class="side left">
-												<div>Okropny</div>
+												<div>{{__('messages.Awful')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1102,40 +1112,40 @@
 											<div class="side right">0</div>
 										</div>
 										<div class="row" style="display: none">
-											<div class="side left" onclick="openFriends()">Pokaż wszystkie</div>
+											<div class="side left" onclick="openFriends()">{{__('messages.Show all')}}</div>
 										</div>
 									</div>
 									<div class="detail-bars col-9 col-sm-6 pl-0 my-0 my-sm-3">
 										<div class="col-12 font-11 mb-1">
-											Czystość
+											{{__('messages.Czystość')}}
 											<span class="pull-right rating-opinion-detail"><span id="friendsCleanliness"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="friendsCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Lokalizacja
+											{{__('messages.Lokalizacja')}}
 											<span class="pull-right rating-opinion-detail"><span id="friendsLocation"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="friendsLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Udogodnienia
+											{{__('messages.Udogodnienia')}}
 											<span class="pull-right rating-opinion-detail"><span id="friendsFacilities"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 														<img id="friendsFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
 													</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Obsługa
+											{{__('messages.Obsługa')}}
 											<span class="pull-right rating-opinion-detail"><span id="friendsStaff"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="friendsStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Stosunek jakości<br> do ceny
+											{{__('messages.Value to')}}<br> {{__('messages.price ratio')}}
 											<span style="">
 													<span class="pull-right rating-opinion-detail">
 														<span id="friendsQuality_per_price"></span>
@@ -1159,18 +1169,18 @@
 									</div>
 								</div>
 								<div class="row mx-0 font-13 mb-1" style="font-weight: bold">
-									Na podstawie&nbsp;
+									{{__('messages.Based on')}}&nbsp;
 								<span class="aloneOpinionsAmount"></span>
-									&nbsp;opinii.
+									&nbsp;{{__('messages.reviews_number')}}
 								</div>
 								<div class="row mx-0 font-11">
-									To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+									{{__('messages.Rating exp')}} {{  $apartament->descriptions[0]->apartament_name or '' }}.
 								</div>
 								<div class="row bars">
 									<div class="avgBars font-11 col-sm-6 my-3">
 										<div id="alonePerfect" class="row">
 											<div class="side left">
-												<div>Doskonały</div>
+												<div>{{__('messages.Perfect')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1182,7 +1192,7 @@
 
 										<div id="aloneVery-good" class="row">
 											<div class="side left">
-												<div>Bardzo dobry</div>
+												<div>{{__('messages.Very good')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1194,7 +1204,7 @@
 
 										<div id="aloneAverage" class="row">
 											<div class="side left">
-												<div>Średni</div>
+												<div>{{__('messages.Average')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1206,7 +1216,7 @@
 
 										<div id="aloneBad" class="row">
 											<div class="side left">
-												<div>Zły</div>
+												<div>{{__('messages.Bad')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1218,7 +1228,7 @@
 
 										<div id="aloneAwful" class="row">
 											<div class="side left">
-												<div>Okropny</div>
+												<div>{{__('messages.Awful')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1228,40 +1238,40 @@
 											<div class="side right">0</div>
 										</div>
 										<div class="row" style="display: none">
-											<div class="side left" onclick="openAlone()">Pokaż wszystkie</div>
+											<div class="side left" onclick="openAlone()">{{__('messages.Show all')}}</div>
 										</div>
 									</div>
 									<div class="detail-bars col-9 col-sm-6 pl-0 my-0 my-sm-3">
 										<div class="col-12 font-11 mb-1">
-											Czystość
+											{{__('messages.Czystość')}}
 											<span class="pull-right rating-opinion-detail"><span id="aloneCleanliness"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="aloneCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Lokalizacja
+											{{__('messages.Lokalizacja')}}
 											<span class="pull-right rating-opinion-detail"><span id="aloneLocation"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="aloneLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Udogodnienia
+											{{__('messages.Udogodnienia')}}
 											<span class="pull-right rating-opinion-detail"><span id="aloneFacilities"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 														<img id="aloneFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
 													</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Obsługa
+											{{__('messages.Obsługa')}}
 											<span class="pull-right rating-opinion-detail"><span id="aloneStaff"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="aloneStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Stosunek jakości<br> do ceny
+											{{__('messages.Value to')}}<br> {{__('messages.price ratio')}}
 											<span style="">
 													<span class="pull-right rating-opinion-detail">
 														<span id="aloneQuality_per_price"></span>
@@ -1278,41 +1288,41 @@
 
 						<div class="row mt-3 mb-1 mx-0 font-12">
 							<div class="col-12 mb-2 font-18 bold">
-								<span id="opinionHeader">Wszystkie opinie</span> (<span id="allOpinionsAmount"></span>) <span id="allOpinionsAfter"></span>
+								<span id="opinionHeader">{{__('messages.All opinions')}}</span> (<span id="allOpinionsAmount"></span>) <span id="allOpinionsAfter"></span>
 							</div>
 							<div class="col-12">
-								<label for="sortType" style="font-size: 13px">Sortuj:</label>
+								<label for="sortType" style="font-size: 13px">{{__('messages.Sort by')}}:</label>
 								<select id="sortType">
-									<option value="1">Najnowsze opinie</option>
-									<option value="2">Najstarsze opinie</option>
-									<option value="3">Najbardziej pomocne</option>
-									<option value="4">Najwyższe oceny</option>
-									<option value="5">Najniższe oceny</option>
+									<option value="1">{{__('messages.Latest reviews')}}</option>
+									<option value="2">{{__('messages.Oldest reviews')}}</option>
+									<option value="3">{{__('messages.Most helpful')}}</option>
+									<option value="4">{{__('messages.Highest grades')}}</option>
+									<option value="5">{{__('messages.Lowest grades')}}</option>
 								</select>
 							</div>
 						</div>
 						<div class="col-12 mb-2 row user-comments"></div>
-						<div id="showMoreOpinions" class="col mx-3 center-h-v font-13">Pokaż kolejne ▼</div>
+						<div id="showMoreOpinions" class="col mx-3 center-h-v font-13">{{__('messages.Show next')}} ▼</div>
 						@elsehandheld
 						<div id="rating-wrapper" class="col-12 mb-2">
 							<div class="tab">
-								<div class="tablinks" onclick="openJourneyType(event, 'allOpinions', 'Wszystkie opinie')" id="defaultOpen">
-									<img src='{{ asset("images/apartment_detal/journeyType0.png") }}'>Wszystkie opinie (<span class="allOpinionsAmount"></span>)
+								<div class="tablinks" onclick="openJourneyType(event, 'allOpinions', '{{__('messages.All opinions')}}')" id="defaultOpen">
+									<img src='{{ asset("images/apartment_detal/journeyType0.png") }}'>{{__('messages.All opinions')}} (<span class="allOpinionsAmount"></span>)
 								</div>
-								<div class="tablinks" onclick="openJourneyType(event, 'familyOpinions', 'Rodziny')" id="familyTab">
-									<img src='{{ asset("images/apartment_detal/journeyType1.png") }}'>Rodziny (<span class="familyOpinionsAmount"></span>)
+								<div class="tablinks" onclick="openJourneyType(event, 'familyOpinions', '{{__('messages.Families')}}')" id="familyTab">
+									<img src='{{ asset("images/apartment_detal/journeyType1.png") }}'>{{__('messages.Families')}} (<span class="familyOpinionsAmount"></span>)
 								</div>
-								<div class="tablinks" onclick="openJourneyType(event, 'couplesOpinions', 'Pary')" id="couplesTab">
-									<img src='{{ asset("images/apartment_detal/journeyType2.png") }}'>Pary (<span class="couplesOpinionsAmount"></span>)
+								<div class="tablinks" onclick="openJourneyType(event, 'couplesOpinions', '{{__('messages.Couples')}}')" id="couplesTab">
+									<img src='{{ asset("images/apartment_detal/journeyType2.png") }}'>{{__('messages.Couples')}} (<span class="couplesOpinionsAmount"></span>)
 								</div>
-								<div class="tablinks" onclick="openJourneyType(event, 'businessOpinions', 'Biznesowe')" id="businessTab">
-									<img src='{{ asset("images/apartment_detal/journeyType3.png") }}'>Biznesowe (<span class="businessOpinionsAmount"></span>)
+								<div class="tablinks" onclick="openJourneyType(event, 'businessOpinions', '{{__('messages.Business')}}')" id="businessTab">
+									<img src='{{ asset("images/apartment_detal/journeyType3.png") }}'>{{__('messages.Business')}} (<span class="businessOpinionsAmount"></span>)
 								</div>
-								<div class="tablinks" onclick="openJourneyType(event, 'friendsOpinions', 'Ze znajomymi')" id="friendsTab">
-									<img src='{{ asset("images/apartment_detal/journeyType4.png") }}'>Ze znajomymi (<span class="friendsOpinionsAmount"></span>)
+								<div class="tablinks" onclick="openJourneyType(event, 'friendsOpinions', '{{__('messages.With friends')}} ')" id="friendsTab">
+									<img src='{{ asset("images/apartment_detal/journeyType4.png") }}'>{{__('messages.With friends')}} (<span class="friendsOpinionsAmount"></span>)
 								</div>
-								<div class="tablinks" onclick="openJourneyType(event, 'aloneOpinions', 'W pojedynkę')" id="aloneTab">
-									<img src='{{ asset("images/apartment_detal/journeyType5.png") }}'>W pojedynkę (<span class="aloneOpinionsAmount"></span>)
+								<div class="tablinks" onclick="openJourneyType(event, 'aloneOpinions', '{{__('messages.Alone')}}')" id="aloneTab">
+									<img src='{{ asset("images/apartment_detal/journeyType5.png") }}'>{{__('messages.Alone')}} (<span class="aloneOpinionsAmount"></span>)
 								</div>
 							</div>
 
@@ -1320,7 +1330,7 @@
 								<div class="row mt-2">
 									<div class="col-3">
 										<div  id="allTotalAvgWrapper" class="rating-box-apartment center-h-v">
-											<span>Ocena obiektu</span>
+											<span>{{__('messages.Object rating')}}</span>
 											<span id="allTotalAvg"></span>
 										</div>
 									</div>
@@ -1329,15 +1339,15 @@
 											<img id="allTotalAvgImg">
 										</div>
 										<div class="row font-16 mb-1" style="font-weight: bold">
-											Na podstawie&nbsp;
+											{{__('messages.Based on')}}&nbsp;
 											<span class="allOpinionsAmount"></span>
-											&nbsp;opinii.
+											&nbsp;{{__('messages.reviews_number')}}
 										</div>
 										<div class="row font-11">
-											To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+											{{__('messages.Rating exp')}} {{  $apartament->descriptions[0]->apartament_name or '' }}.
 										</div>
 										<div class="row font-11">
-											<a href="#">Sprawdź, jak to działa.</a>
+											<a href="#">{{__('messages.Check how it works')}}.</a>
 										</div>
 									</div>
 								</div>
@@ -1345,7 +1355,7 @@
 									<div class="avgBars font-11 col-6">
 										<div id="allPerfect" class="row">
 											<div class="side left">
-												<div>Doskonały</div>
+												<div>{{__('messages.Perfect')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1358,7 +1368,7 @@
 
 										<div id="allVery-good" class="row">
 											<div class="side left">
-												<div>Bardzo dobry</div>
+												<div>{{__('messages.Very good')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1370,7 +1380,7 @@
 
 										<div id="allAverage" class="row">
 											<div class="side left">
-												<div>Średni</div>
+												<div>{{__('messages.Average')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1382,7 +1392,7 @@
 
 										<div id="allBad" class="row">
 											<div class="side left">
-												<div>Zły</div>
+												<div>{{__('messages.Bad')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1394,7 +1404,7 @@
 
 										<div id="allAwful" class="row">
 											<div class="side left">
-												<div>Okropny</div>
+												<div>{{__('messages.Awful')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1404,40 +1414,40 @@
 											<div class="side right">0</div>
 										</div>
 										<div class="row" style="display: none">
-											<div class="side left" onclick="openDefault()">Pokaż wszystkie</div>
+											<div class="side left" onclick="openDefault()">{{__('messages.Show all')}}</div>
 										</div>
 									</div>
 									<div class="col-6 detail-bars">
 										<div class="col-12 font-11 mb-1">
-											Czystość
+											{{__('messages.Czystość')}}
 											<span class="pull-right rating-opinion-detail"><span id="allCleanliness"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="allCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Lokalizacja
+											{{__('messages.Lokalizacja')}}
 											<span class="pull-right rating-opinion-detail"><span id="allLocation"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="allLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Udogodnienia
+											{{__('messages.Udogodnienia')}}
 											<span class="pull-right rating-opinion-detail"><span id="allFacilities"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="allFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Obsługa
+											{{__('messages.Obsługa')}}
 											<span class="pull-right rating-opinion-detail"><span id="allStaff"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="allStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Stosunek jakości<br> do ceny
+											{{__('messages.Value to')}}<br> {{__('messages.price ratio')}}
 											<span style="position: absolute;right: 0px;top: 0px;">
 												<span class="pull-right rating-opinion-detail">
 													<span id="allQuality_per_price"></span>
@@ -1455,7 +1465,7 @@
 								<div class="row mt-2">
 									<div class="col-3">
 										<div  id="familyTotalAvgWrapper" class="rating-box-apartment center-h-v">
-											<span>Ocena obiektu</span>
+											<span>{{__('messages.Object rating')}}</span>
 											<span id="familyTotalAvg"></span>
 										</div>
 									</div>
@@ -1464,15 +1474,15 @@
 											<img id="familyTotalAvgImg">
 										</div>
 										<div class="row font-16 mb-1" style="font-weight: bold">
-											Na podstawie&nbsp;
+											{{__('messages.Based on')}}&nbsp;
 											<span class="familyOpinionsAmount"></span>
-											&nbsp;opinii.
+											&nbsp;{{__('messages.reviews_number')}}
 										</div>
 										<div class="row font-11">
-											To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+											{{__('messages.Rating exp')}} {{  $apartament->descriptions[0]->apartament_name or '' }}.
 										</div>
 										<div class="row font-11">
-											<a href="#">Sprawdź, jak to działa.</a>
+											<a href="#">{{__('messages.Check how it works')}}.</a>
 										</div>
 									</div>
 								</div>
@@ -1480,7 +1490,7 @@
 									<div class="avgBars font-11 col-6">
 										<div id="familyPerfect" class="row">
 											<div class="side left">
-												<div>Doskonały</div>
+												<div>{{__('messages.Perfect')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1492,7 +1502,7 @@
 
 										<div id="familyVery-good" class="row">
 											<div class="side left">
-												<div>Bardzo dobry</div>
+												<div>{{__('messages.Very good')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1504,7 +1514,7 @@
 
 										<div id="familyAverage" class="row">
 											<div class="side left">
-												<div>Średni</div>
+												<div>{{__('messages.Average')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1518,7 +1528,7 @@
 
 										<div id="familyBad" class="row">
 											<div class="side left">
-												<div>Zły</div>
+												<div>{{__('messages.Bad')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1530,7 +1540,7 @@
 
 										<div id="familyAwful" class="row">
 											<div class="side left">
-												<div>Okropny</div>
+												<div>{{__('messages.Awful')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1540,40 +1550,40 @@
 											<div class="side right">0</div>
 										</div>
 										<div class="row" style="display: none">
-											<div class="side left" onclick="openFamily()">Pokaż wszystkie</div>
+											<div class="side left" onclick="openFamily()">{{__('messages.Show all')}}</div>
 										</div>
 									</div>
 									<div class="col-6 detail-bars">
 										<div class="col-12 font-11 mb-1">
-											Czystość
+											{{__('messages.Czystość')}}
 											<span class="pull-right rating-opinion-detail"><span id="familyCleanliness"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="familyCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Lokalizacja
+											{{__('messages.Lokalizacja')}}
 											<span class="pull-right rating-opinion-detail"><span id="familyLocation"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="familyLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Udogodnienia
+											{{__('messages.Udogodnienia')}}
 											<span class="pull-right rating-opinion-detail"><span id="familyFacilities"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="familyFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Obsługa
+											{{__('messages.Obsługa')}}
 											<span class="pull-right rating-opinion-detail"><span id="familyStaff"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="familyStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Stosunek jakości<br> do ceny
+											{{__('messages.Value to')}}<br> {{__('messages.price ratio')}}
 											<span style="position: absolute;right: 0px;top: 0px;">
 												<span class="pull-right rating-opinion-detail">
 													<span id="familyQuality_per_price"></span>
@@ -1591,7 +1601,7 @@
 								<div class="row mt-2">
 									<div class="col-3">
 										<div  id="couplesTotalAvgWrapper" class="rating-box-apartment center-h-v">
-											<span>Ocena obiektu</span>
+											<span>{{__('messages.Object rating')}}</span>
 											<span id="couplesTotalAvg"></span>
 										</div>
 									</div>
@@ -1600,15 +1610,15 @@
 											<img id="couplesTotalAvgImg">
 										</div>
 										<div class="row font-16 mb-1" style="font-weight: bold">
-											Na podstawie&nbsp;
+											{{__('messages.Based on')}}&nbsp;
 											<span class="couplesOpinionsAmount"></span>
-											&nbsp;opinii.
+											&nbsp;{{__('messages.reviews_number')}}
 										</div>
 										<div class="row font-11">
-											To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+											{{__('messages.Rating exp')}} {{  $apartament->descriptions[0]->apartament_name or '' }}.
 										</div>
 										<div class="row font-11">
-											<a href="#">Sprawdź, jak to działa.</a>
+											<a href="#">{{__('messages.Check how it works')}}.</a>
 										</div>
 									</div>
 								</div>
@@ -1616,7 +1626,7 @@
 									<div class="avgBars font-11 col-6">
 										<div id="couplesPerfect" class="row">
 											<div class="side left">
-												<div>Doskonały</div>
+												<div>{{__('messages.Perfect')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1628,7 +1638,7 @@
 
 										<div id="couplesVery-good" class="row">
 											<div class="side left">
-												<div>Bardzo dobry</div>
+												<div>{{__('messages.Very good')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1640,7 +1650,7 @@
 
 										<div id="couplesAverage" class="row">
 											<div class="side left">
-												<div>Średni</div>
+												<div>{{__('messages.Average')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1652,7 +1662,7 @@
 
 										<div id="couplesBad" class="row">
 											<div class="side left">
-												<div>Zły</div>
+												<div>{{__('messages.Bad')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1664,7 +1674,7 @@
 
 										<div id="couplesAwful" class="row">
 											<div class="side left">
-												<div>Okropny</div>
+												<div>{{__('messages.Awful')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1676,40 +1686,40 @@
 											</div>
 										</div>
 										<div class="row" style="display: none">
-											<div class="side left" onclick="openCouples()">Pokaż wszystkie</div>
+											<div class="side left" onclick="openCouples()">{{__('messages.Show all')}}</div>
 										</div>
 									</div>
 									<div class="col-6 detail-bars">
 										<div class="col-12 font-11 mb-1">
-											Czystość
+											{{__('messages.Czystość')}}
 											<span class="pull-right rating-opinion-detail"><span id="couplesCleanliness"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="couplesCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Lokalizacja
+											{{__('messages.Lokalizacja')}}
 											<span class="pull-right rating-opinion-detail"><span id="couplesLocation"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="couplesLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Udogodnienia
+											{{__('messages.Udogodnienia')}}
 											<span class="pull-right rating-opinion-detail"><span id="couplesFacilities"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="couplesFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Obsługa
+											{{__('messages.Obsługa')}}
 											<span class="pull-right rating-opinion-detail"><span id="couplesStaff"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="couplesStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Stosunek jakości<br> do ceny
+											{{__('messages.Value to')}}<br> {{__('messages.price ratio')}}
 											<span style="position: absolute;right: 0px;top: 0px;">
 												<span class="pull-right rating-opinion-detail">
 													<span id="couplesQuality_per_price"></span>
@@ -1728,7 +1738,7 @@
 								<div class="row mt-2">
 									<div class="col-3">
 										<div  id="businessTotalAvgWrapper" class="rating-box-apartment center-h-v">
-											<span>Ocena obiektu</span>
+											<span>{{__('messages.Object rating')}}</span>
 											<span id="businessTotalAvg"></span>
 										</div>
 									</div>
@@ -1737,15 +1747,15 @@
 											<img id="businessTotalAvgImg">
 										</div>
 										<div class="row font-16 mb-1" style="font-weight: bold">
-											Na podstawie&nbsp;
+											{{__('messages.Based on')}}&nbsp;
 											<span class="businessOpinionsAmount"></span>
-											&nbsp;opinii.
+											&nbsp;{{__('messages.reviews_number')}}
 										</div>
 										<div class="row font-11">
-											To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+											{{__('messages.Rating exp')}} {{  $apartament->descriptions[0]->apartament_name or '' }}.
 										</div>
 										<div class="row font-11">
-											<a href="#">Sprawdź, jak to działa.</a>
+											<a href="#">{{__('messages.Check how it works')}}.</a>
 										</div>
 									</div>
 								</div>
@@ -1753,7 +1763,7 @@
 									<div class="avgBars font-11 col-6">
 										<div id="businessPerfect" class="row">
 											<div class="side left">
-												<div>Doskonały</div>
+												<div>{{__('messages.Perfect')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1765,7 +1775,7 @@
 
 										<div id="businessVery-good" class="row">
 											<div class="side left">
-												<div>Bardzo dobry</div>
+												<div>{{__('messages.Very good')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1777,7 +1787,7 @@
 
 										<div id="businessAverage" class="row">
 											<div class="side left">
-												<div>Średni</div>
+												<div>{{__('messages.Average')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1789,7 +1799,7 @@
 
 										<div id="businessBad" class="row">
 											<div class="side left">
-												<div>Zły</div>
+												<div>{{__('messages.Bad')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1801,7 +1811,7 @@
 
 										<div id="businessAwful" class="row">
 											<div class="side left">
-												<div>Okropny</div>
+												<div>{{__('messages.Awful')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1813,40 +1823,40 @@
 											</div>
 										</div>
 										<div class="row" style="display: none">
-											<div class="side left" onclick="openBusiness()">Pokaż wszystkie</div>
+											<div class="side left" onclick="openBusiness()">{{__('messages.Show all')}}</div>
 										</div>
 									</div>
 									<div class="col-6 detail-bars">
 										<div class="col-12 font-11 mb-1">
-											Czystość
+											{{__('messages.Czystość')}}
 											<span class="pull-right rating-opinion-detail"><span id="businessCleanliness"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="businessCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Lokalizacja
+											{{__('messages.Lokalizacja')}}
 											<span class="pull-right rating-opinion-detail"><span id="businessLocation"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="businessLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Udogodnienia
+											{{__('messages.Udogodnienia')}}
 											<span class="pull-right rating-opinion-detail"><span id="businessFacilities"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="businessFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Obsługa
+											{{__('messages.Obsługa')}}
 											<span class="pull-right rating-opinion-detail"><span id="businessStaff"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="businessStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Stosunek jakości<br> do ceny
+											{{__('messages.Value to')}}<br> {{__('messages.price ratio')}}
 											<span style="position: absolute;right: 0px;top: 0px;">
 												<span class="pull-right rating-opinion-detail">
 													<span id="businessQuality_per_price"></span>
@@ -1865,7 +1875,7 @@
 								<div class="row mt-2">
 									<div class="col-3">
 										<div  id="friendsTotalAvgWrapper" class="rating-box-apartment center-h-v">
-											<span>Ocena obiektu</span>
+											<span>{{__('messages.Object rating')}}</span>
 											<span id="friendsTotalAvg"></span>
 										</div>
 									</div>
@@ -1874,15 +1884,15 @@
 											<img id="friendsTotalAvgImg">
 										</div>
 										<div class="row font-16 mb-1" style="font-weight: bold">
-											Na podstawie&nbsp;
+											{{__('messages.Based on')}}&nbsp;
 											<span class="friendsOpinionsAmount"></span>
-											&nbsp;opinii.
+											&nbsp;{{__('messages.reviews_number')}}
 										</div>
 										<div class="row font-11">
-											To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+											{{__('messages.Rating exp')}} {{  $apartament->descriptions[0]->apartament_name or '' }}.
 										</div>
 										<div class="row font-11">
-											<a href="#">Sprawdź, jak to działa.</a>
+											<a href="#">{{__('messages.Check how it works')}}.</a>
 										</div>
 									</div>
 								</div>
@@ -1890,7 +1900,7 @@
 									<div class="avgBars font-11 col-6">
 										<div id="friendsPerfect" class="row">
 											<div class="side left">
-												<div>Doskonały</div>
+												<div>{{__('messages.Perfect')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1902,7 +1912,7 @@
 
 										<div id="friendsVery-good" class="row">
 											<div class="side left">
-												<div>Bardzo dobry</div>
+												<div>{{__('messages.Very good')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1914,7 +1924,7 @@
 
 										<div id="friendsAverage" class="row">
 											<div class="side left">
-												<div>Średni</div>
+												<div>{{__('messages.Average')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1926,7 +1936,7 @@
 
 										<div id="friendsBad" class="row">
 											<div class="side left">
-												<div>Zły</div>
+												<div>{{__('messages.Bad')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1938,7 +1948,7 @@
 
 										<div id="friendsAwful" class="row">
 											<div class="side left">
-												<div>Okropny</div>
+												<div>{{__('messages.Awful')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -1948,40 +1958,40 @@
 											<div class="side right">0</div>
 										</div>
 										<div class="row" style="display: none">
-											<div class="side left" onclick="openFriends()">Pokaż wszystkie</div>
+											<div class="side left" onclick="openFriends()">{{__('messages.Show all')}}</div>
 										</div>
 									</div>
 									<div class="col-6 detail-bars">
 										<div class="col-12 font-11 mb-1">
-											Czystość
+											{{__('messages.Czystość')}}
 											<span class="pull-right rating-opinion-detail"><span id="friendsCleanliness"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="friendsCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Lokalizacja
+											{{__('messages.Lokalizacja')}}
 											<span class="pull-right rating-opinion-detail"><span id="friendsLocation"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="friendsLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Udogodnienia
+											{{__('messages.Udogodnienia')}}
 											<span class="pull-right rating-opinion-detail"><span id="friendsFacilities"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="friendsFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Obsługa
+											{{__('messages.Obsługa')}}
 											<span class="pull-right rating-opinion-detail"><span id="friendsStaff"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="friendsStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Stosunek jakości<br> do ceny
+											{{__('messages.Value to')}}<br> {{__('messages.price ratio')}}
 											<span style="position: absolute;right: 0px;top: 0px;">
 												<span class="pull-right rating-opinion-detail">
 													<span id="friendsQuality_per_price"></span>
@@ -2000,7 +2010,7 @@
 								<div class="row mt-2">
 									<div class="col-3">
 										<div  id="aloneTotalAvgWrapper" class="rating-box-apartment center-h-v">
-											<span>Ocena obiektu</span>
+											<span>{{__('messages.Object rating')}}</span>
 											<span id="aloneTotalAvg"></span>
 										</div>
 									</div>
@@ -2009,15 +2019,15 @@
 											<img id="aloneTotalAvgImg">
 										</div>
 										<div class="row font-16 mb-1" style="font-weight: bold">
-											Na podstawie&nbsp;
+											{{__('messages.Based on')}}&nbsp;
 											<span class="aloneOpinionsAmount"></span>
-											&nbsp;opinii.
+											&nbsp;{{__('messages.reviews_number')}}
 										</div>
 										<div class="row font-11">
-											To jest średnia ocena gości po ich pobycie w obiekcie {{  $apartament->descriptions[0]->apartament_name or '' }}.
+											{{__('messages.Rating exp')}} {{  $apartament->descriptions[0]->apartament_name or '' }}.
 										</div>
 										<div class="row font-11">
-											<a href="#">Sprawdź, jak to działa.</a>
+											<a href="#">{{__('messages.Check how it works')}}.</a>
 										</div>
 									</div>
 								</div>
@@ -2025,7 +2035,7 @@
 									<div class="avgBars font-11 col-6">
 										<div id="alonePerfect" class="row">
 											<div class="side left">
-												<div>Doskonały</div>
+												<div>{{__('messages.Perfect')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -2037,7 +2047,7 @@
 
 										<div id="aloneVery-good" class="row">
 											<div class="side left">
-												<div>Bardzo dobry</div>
+												<div>{{__('messages.Very good')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -2049,7 +2059,7 @@
 
 										<div id="aloneAverage" class="row">
 											<div class="side left">
-												<div>Średni</div>
+												<div>{{__('messages.Average')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -2061,7 +2071,7 @@
 
 										<div id="aloneBad" class="row">
 											<div class="side left">
-												<div>Zły</div>
+												<div>{{__('messages.Bad')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -2073,7 +2083,7 @@
 
 										<div id="aloneAwful" class="row">
 											<div class="side left">
-												<div>Okropny</div>
+												<div>{{__('messages.Awful')}}</div>
 											</div>
 											<div class="middle">
 												<div class="bar-container">
@@ -2083,40 +2093,40 @@
 											<div class="side right">0</div>
 										</div>
 										<div class="row" style="display: none">
-											<div class="side left" onclick="openAlone()">Pokaż wszystkie</div>
+											<div class="side left" onclick="openAlone()">{{__('messages.Show all')}}</div>
 										</div>
 									</div>
 									<div class="col-6 detail-bars">
 										<div class="col-12 font-11 mb-1">
-											Czystość
+											{{__('messages.Czystość')}}
 											<span class="pull-right rating-opinion-detail"><span id="aloneCleanliness"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="aloneCleanlinessImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Lokalizacja
+											{{__('messages.Lokalizacja')}}
 											<span class="pull-right rating-opinion-detail"><span id="aloneLocation"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="aloneLocationImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Udogodnienia
+											{{__('messages.Udogodnienia')}}
 											<span class="pull-right rating-opinion-detail"><span id="aloneFacilities"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 													<img id="aloneFacilitiesImg" src='{{ asset("images/opinions/dot.png") }}'>
 												</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Obsługa
+											{{__('messages.Obsługa')}}
 											<span class="pull-right rating-opinion-detail"><span id="aloneStaff"></span></span>
 											<span class="pull-right" style="background-color: #fff">
 												<img id="aloneStaffImg" src='{{ asset("images/opinions/dot.png") }}'>
 											</span>
 										</div>
 										<div class="col-12 font-11 mb-1">
-											Stosunek jakości<br> do ceny
+											{{__('messages.Value to')}}<br> {{__('messages.price ratio')}}
 											<span style="position: absolute;right: 0px;top: 0px;">
 												<span class="pull-right rating-opinion-detail">
 													<span id="aloneQuality_per_price"></span>
@@ -2135,29 +2145,29 @@
 				<div class="row mt-3 mb-3 font-12">
 					<div class="col-12">
                         <div style="font-size: 1.5rem;">
-							<b><span id="opinionHeader">Wszystkie opinie</span> (<span id="allOpinionsAmount"></span>) <span id="allOpinionsAfter"></span></b>
+							<b><span id="opinionHeader">{{__('messages.All opinions')}}</span> (<span id="allOpinionsAmount"></span>) <span id="allOpinionsAfter"></span></b>
 							<span class="pull-right">
-								<label for="sortType" style="font-size: 13px">Sortuj:</label>
+								<label for="sortType" style="font-size: 13px">{{__('messages.Sort by')}}:</label>
 								<select id="sortType">
-									<option value="1">Najnowsze opinie</option>
-									<option value="2">Najstarsze opinie</option>
-									<option value="3">Najbardziej pomocne</option>
-									<option value="4">Najwyższe oceny</option>
-									<option value="5">Najniższe oceny</option>
+									<option value="1">{{__('messages.Latest reviews')}}</option>
+									<option value="2">{{__('messages.Oldest reviews')}}</option>
+									<option value="3">{{__('messages.Most helpful')}}</option>
+									<option value="4">{{__('messages.Highest grades')}}</option>
+									<option value="5">{{__('messages.Lowest grades')}}</option>
 								</select>
 							</span>
 						</div>
 					</div>
 					<div class="col-12 mb-2 row user-comments"></div>
-					<div id="showMoreOpinions" class="col mx-3 center-h-v font-13">Pokaż kolejne ▼</div>
+					<div id="showMoreOpinions" class="col mx-3 center-h-v font-13">{{__('messages.Show next')}} ▼</div>
 					@endhandheld
 					@else
-						<div class="col-12 mb-2">Apartament nie otrzymał jeszcze żadnych opinii</div>
+						<div class="col-12 mb-2">{{__('messages.None opinions')}}</div>
 					@endif
 				</div>
 			</div>
 			<span id="similarApartments" class="mx-3 w-100">
-				<h2 class="pb-2 bold" style="margin-top: 40px; font-size: 26px">{{__('Osoby, które oglądały ten obiekt oglądały również')}}</h2>
+				<h2 class="pb-2 bold" style="margin-top: 40px; font-size: 26px">{{__('messages.People who watched this object also watched')}}</h2>
 				@include('includes.see-also-apartment')
 			</span>
 			<span class="mobile-none mx-3 w-100">
@@ -2169,50 +2179,49 @@
 		</div>
 	</div>
 	<div id="send-news">
-		<span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br>
+		<span style="font-size: 24px; font-weight: bold">{{__('messages.Send to friend')}}</span><br>
 		<div class="row">
-			<div class="col-2"><span class="font-14">Link:</span></div>
+			<div class="col-2"><span class="font-14">{{__('Link')}}:</span></div>
 			<div class="col-10">
 				<ul class="font-13">
 					<li>
 						<span id="link">{{Request::url()}}</span>
-						<span class="txt-blue copy-to-clipboard" onclick="copyToClipboard('#link')">Skopiuj</span>
+						<span class="txt-blue copy-to-clipboard" onclick="copyToClipboard('#link')">{{__('messages.Copy')}}</span>
 					</li>
 				</ul>
 			</div>
 		</div>
 
-		<label for="emails2">Adresy e-mail:</label>
-		<input id="emails2" name="emails2" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)">
+		<label for="emails2">{{__('messages.Email addresses')}}:</label>
+		<input id="emails2" name="emails2" type="text" placeholder="{{__('messages.Emails ph')}}">
 		<input id="links" name="links" type="hidden" value="{{Request::url()}}">
 		<hr>
 		<div style="text-align: center;">
-			<button id="send-mail-with-news" class="btn btn-primary">Wyślij</button>
-			<button class="btn btn-default close-send-news-friends">Anuluj</button>
+			<button id="send-mail-with-news" class="btn btn-primary">{{__('messages.Send')}}</button>
+			<button class="btn btn-default close-send-news-friends">{{__('messages.Cancel')}}</button>
 		</div>
 		<div id="close-send-news" class="close-send-news-friends">x</div>
 	</div>
 
 	<div id="confirm-send-news-friends" class="text-center">
-		<br><span style="font-size: 24px; font-weight: bold">Wiadomość e-mail została wysłana</span><br><br><br>
+		<br><span style="font-size: 24px; font-weight: bold">{{__('messages.Email has been sended')}}</span><br><br><br>
 		<button class="btn btn-default close-confirm-news">OK</button>
 	</div>
 	<script type="text/javascript">
-		moment.locale('pl');
         $(document).ready(function(){
             $('.t-datepicker').tDatePicker({
                 autoClose: true,
                 numCalendar : @handheld 1 @elsehandheld 2 @endhandheld,
                 dateCheckIn: '{{$_GET['t-start'] ?? ''}}',
                 dateCheckOut: '{{$_GET['t-end'] ?? ''}}',
-                titleCheckIn: 'Data przyjazdu',
-				titleCheckOut: 'Data wyjazdu',
-				titleToday: 'Dzisiaj',
-				titleDateRange: 'Doba',
-				titleDateRanges: 'Doby',
+                titleCheckIn: '{{ __('messages.arrival date') }}',
+                titleCheckOut: '{{ __('messages.departure date') }}',
+                titleToday: '{{ __('messages.Today') }}',
+                titleDateRange: '{{ __('messages.Day') }}',
+                titleDateRanges: '{{ __('messages.Days') }}',
                 iconDate: '<i class="fa fa-lg fa-calendar" aria-hidden="true"></i>',
-				titleDays: ['Pn','Wt','Śr','Cz','Pt','Sb','Nd'],
-				titleMonths: ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'],
+                titleDays: {!! titleDays() !!},
+            	titleMonths: {!! titleMonths() !!},
             });
 
 			@if(isset($_GET['t-start']) && isset($_GET['t-end']) && isset($request->dorosli))
@@ -2250,13 +2259,13 @@
                         $('.res-info').show(1000);
                         $('.res-btn').show();
                         $("#lowestPricePerNight").hide();
-                        $('#expand-price').html("(rozwiń) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'>");
+                        $('#expand-price').html("({{ __('messages.expand')}}) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'>");
                         $('#price-details').hide();
                         $("#price-details").text("");
                         for(var i=0, n = data.detailPrice.length; i < n; i ++) {
                             $("#price-details").append("<div>" + moment(data.detailPrice[i].date_of_price, "YYYY-MM-DD").format("DD.MM   ddd") + "<span class='pull-right'>" + data.detailPrice[i].price_value + " PLN</span></div>");
                         }
-                        $("#price-details").append("<div class='mt-2 mb-3'>Opłata za obsługę<span class='pull-right'>"+data.servicesPrice+" PLN</span></div>");
+                        $("#price-details").append("<div class='mt-2 mb-3'>{{ __('messages.Service charge')}}<span class='pull-right'>"+data.servicesPrice+" PLN</span></div>");
 
 							@handheld
                         $("#mobileReservation").on('click', function(){
@@ -2318,14 +2327,14 @@
 
         $('#expand-price').click(function() {
             $('#price-details').toggle();
-            if($('#price-details').is(":visible")) $("#expand-price").html("(zwiń) <img src='{{ asset("images/apartment_detal/arrow_up_24.png") }}'>");
-            else $("#expand-price").html("(rozwiń) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'>");
+            if($('#price-details').is(":visible")) $("#expand-price").html("({{ __('messages.collapse')}}) <img src='{{ asset("images/apartment_detal/arrow_up_24.png") }}'>");
+            else $("#expand-price").html("({{ __('messages.expand')}}) <img src='{{ asset("images/apartment_detal/arrow_down_24.png") }}'>");
         });
 	</script>
 	@if(\App::environment('production'))
-	<script src="https://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language=PL" type="text/javascript"></script>
+	<script src="https://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language={{App::getLocale()}}" type="text/javascript"></script>
 	@else
-	<script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language=PL" type="text/javascript"></script>
+	<script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language={{App::getLocale()}}" type="text/javascript"></script>
 	@endif
 	<script type="text/javascript">
 
@@ -2576,7 +2585,7 @@
 
         function addToFavourites(apartamentId, userId){
 
-            if(userId == 0) alert("Aby dodać apartament do ulubionych musisz się zalogować");
+            if(userId == 0) alert("{{__('messages.AddToFav1')}}");
 
             else{
                 $.ajax({
@@ -2601,26 +2610,26 @@
                                 htmlForeach += '<div class="row"> <div class="col-3" style="background-image: url(\'{{ url('/') }}/images/apartaments/' + responseMessage[2][i].id + '/main.jpg\'); background-size: cover; position: relative; margin-bottom: 0px; margin-left: 15px; padding-left: 0px; max-height: 52px;"></div> <div class="col-8 row" style="margin-right: -20px"> <div class="col-12 font-13 txt-blue"><a href="/apartaments/' + responseMessage[2][i].apartament_link + '">' + responseMessage[2][i].apartament_name + '</a></div> <div class="col-12 font-11 bold">' + responseMessage[2][i].apartament_address + '</div> <div class="col-12 font-11">' + responseMessage[2][i].apartament_address_2 + '</div> </div> <div class=""><img src="{{ asset("images/favourites/heart.png") }}"></div> </div> <hr>';
                             }
 
-                            html = $('<span id="favourites-nav" onclick="$(\'#favourites-bar\').toggle();" class="nav-link">{{ __('messages.My favourites') }} (' + responseMessage[1] + ')</span> <div id="favourites-bar" style="border-bottom: 1px solid black; background-image: url({{ asset('images/account/favouritesPopup.png') }}); background-repeat: no-repeat; background-position: left top; display: none; position: absolute; left: 8px; width: 320px; z-index: 2000;"> <div class="p-3 pt-4"> <span class="bold" style="font-size: 24px">Ulubione (' + responseMessage[1] + ')</span> <a class="font-11" onclick="clearFavouritesPopup()" href="#">Wyczyść listę</a> ' + htmlForeach + '<a class="btn btn-black px-2" href="{{route('myFavourites')}}">Wszystkie (' + responseMessage[1] + ')</a> <a class="btn btn-black px-2" href="{{route('myFavouritesCompare')}}">Porównaj</a> <button class="send-to-friends btn btn-black px-2" onclick="$(\'#favourites-bar\').hide(); $(\'#send-to\').show();">Wyślij</button> </div> </div>');
+                            html = $('<span id="favourites-nav" onclick="$(\'#favourites-bar\').toggle();" class="nav-link">{{ __('messages.My favourites') }} (' + responseMessage[1] + ')</span> <div id="favourites-bar" style="border-bottom: 1px solid black; background-image: url({{ asset('images/account/favouritesPopup.png') }}); background-repeat: no-repeat; background-position: left top; display: none; position: absolute; left: 8px; width: 320px; z-index: 2000;"> <div class="p-3 pt-4"> <span class="bold" style="font-size: 24px">{{ __('messages.My favourites') }} (' + responseMessage[1] + ')</span> <a class="font-11" onclick="clearFavouritesPopup()" href="#">Wyczyść listę</a> ' + htmlForeach + '<a class="btn btn-black px-2" href="{{route('myFavourites')}}">Wszystkie (' + responseMessage[1] + ')</a> <a class="btn btn-black px-2" href="{{route('myFavouritesCompare')}}">Porównaj</a> <button class="send-to-friends btn btn-black px-2" onclick="$(\'#favourites-bar\').hide(); $(\'#send-to\').show();">Wyślij</button> </div> </div>');
                             $('#fav-nav').html('');
                             html.appendTo('#fav-nav');
 
                             for (var i = 0; i < responseMessage[3].length; i++) {
-                                htmlForeach2 += '<li> <span id="link'+responseMessage[3][i].id+'">{{ url('/') }}/pl/apartaments/'+responseMessage[3][i].apartament_link+'</span> <span class="txt-blue copy-to-clipboard" onclick="copyToClipboard(\'#link'+responseMessage[3][i].id+'\')">Skopiuj</span> </li>';
+                                htmlForeach2 += '<li> <span id="link'+responseMessage[3][i].id+'">{{ url('/') }}/pl/apartaments/'+responseMessage[3][i].apartament_link+'</span> <span class="txt-blue copy-to-clipboard" onclick="copyToClipboard(\'#link'+responseMessage[3][i].id+'\')">{{ __('messages.Copy') }}</span> </li>';
                                 foreachLinks += '{{ url('/') }}/pl/apartaments/'+responseMessage[3][i].apartament_link+',';
                             }
 
-                            html2 = $('<span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br><div class="row"><div class="col-2"><span class="font-14">Linki:</span></div><div class="col-10"><ul class="font-13">'+ htmlForeach2 +'</ul></div></div><label for="emails">Adresy e-mail:</label><input id="emails" name="emails" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)"><input id="links" name="links" type="hidden" value="'+foreachLinks+'"><hr><button onclick="sendMailToFriends()" class="btn btn-default">Wyślij</button><button onClick="closeSendTo()" class="btn btn-default">Anuluj</button><div onClick="closeSendTo()" id="close-send-to" class="close-send-to">x</div>');
+                            html2 = $('<span style="font-size: 24px; font-weight: bold">{{ __('messages.Send to friend') }}</span><br><div class="row"><div class="col-2"><span class="font-14">{{ __('messages.Links') }}:</span></div><div class="col-10"><ul class="font-13">'+ htmlForeach2 +'</ul></div></div><label for="emails">{{ __('messages.Email addresses') }}:</label><input id="emails" name="emails" type="text" placeholder="{{ __('messages.Emails ph') }}"><input id="links" name="links" type="hidden" value="'+foreachLinks+'"><hr><button onclick="sendMailToFriends()" class="btn btn-default">{{ __('messages.Send') }}</button><button onClick="closeSendTo()" class="btn btn-default">{{ __('messages.Cancel') }}</button><div onClick="closeSendTo()" id="close-send-to" class="close-send-to">x</div>');
                             $('#send-to').html('');
                             html2.appendTo('#send-to');
                         }
 
 						@if($favouritesAmount == 0 && Auth::check())
                         if(responseMessage[0] == 1) $("#first-added-favourites").show();
-                        else alert("Apartament znajduje się już w ulubionych");
+                        else alert("{{__('messages.AddToFav2')}}");
 						@else
-                        if(responseMessage[0] == 1) responseAlert = "Apartament dodano do ulubionych";
-                        else responseAlert = "Apartament znajduje się już w ulubionych";
+                        if(responseMessage[0] == 1) responseAlert = "{{__('messages.AddToFav3')}}";
+                        else responseAlert = "{{__('messages.AddToFav2')}}";
                         alert(responseAlert);
 						@endif
                     },
@@ -2657,16 +2666,16 @@
                         htmlForeach += '<div class="row"> <div class="col-3" style="background-image: url(\'{{ url('/') }}/images/apartaments/' + responseMessage[2][i].id + '/main.jpg\'); background-size: cover; position: relative; margin-bottom: 0px; margin-left: 15px; padding-left: 0px; max-height: 52px;"></div> <div class="col-8 row" style="margin-right: -20px"> <div class="col-12 font-13 txt-blue"><a href="/apartaments/' + responseMessage[2][i].apartament_link + '">' + responseMessage[2][i].apartament_name + '</a></div> <div class="col-12 font-11 bold">' + responseMessage[2][i].apartament_address + '</div> <div class="col-12 font-11">' + responseMessage[2][i].apartament_address_2 + '</div> </div> <div class=""><img src="{{ asset("images/favourites/heart.png") }}"></div> </div> <hr>';
                     }
 
-                    html = $('<span id="favourites-nav" onclick="$(\'#favourites-bar\').toggle();" class="nav-link">{{ __('messages.My favourites') }} (' + responseMessage[1] + ')</span> <div id="favourites-bar" style="border-bottom: 1px solid black; background-image: url({{ asset('images/account/favouritesPopup.png') }}); background-repeat: no-repeat; background-position: left top; display: none; position: absolute; left: 8px; width: 320px; z-index: 2000;"> <div class="p-3 pt-4"> <span class="bold" style="font-size: 24px">Ulubione (' + responseMessage[1] + ')</span> <a class="font-11" onclick="clearFavouritesPopup()" href="#">Wyczyść listę</a> ' + htmlForeach + '<a class="btn btn-black px-2" href="{{route('myFavourites')}}">Wszystkie (' + responseMessage[1] + ')</a> <a class="btn btn-black px-2" href="{{route('myFavouritesCompare')}}">Porównaj</a> <button class="send-to-friends btn btn-black px-2" onclick="$(\'#favourites-bar\').hide(); $(\'#send-to\').show();">Wyślij</button> </div> </div>');
+                    html = $('<span id="favourites-nav" onclick="$(\'#favourites-bar\').toggle();" class="nav-link">{{ __('messages.My favourites') }} (' + responseMessage[1] + ')</span> <div id="favourites-bar" style="border-bottom: 1px solid black; background-image: url({{ asset('images/account/favouritesPopup.png') }}); background-repeat: no-repeat; background-position: left top; display: none; position: absolute; left: 8px; width: 320px; z-index: 2000;"> <div class="p-3 pt-4"> <span class="bold" style="font-size: 24px">{{ __('messages.My favourites') }} (' + responseMessage[1] + ')</span> <a class="font-11" onclick="clearFavouritesPopup()" href="#">{{ __('messages.Clear list') }}</a> ' + htmlForeach + '<a class="btn btn-black px-2" href="{{route('myFavourites')}}">{{ __('messages.All') }} (' + responseMessage[1] + ')</a> <a class="btn btn-black px-2" href="{{route('myFavouritesCompare')}}">{{ __('messages.Compare') }}</a> <button class="send-to-friends btn btn-black px-2" onclick="$(\'#favourites-bar\').hide(); $(\'#send-to\').show();">{{ __('messages.Send') }}</button> </div> </div>');
                     $('#fav-nav').html('');
                     html.appendTo('#fav-nav');
 
                     for (var i = 0; i < responseMessage[3].length; i++) {
-                        htmlForeach2 += '<li> <span id="link'+responseMessage[3][i].id+'">{{ url('/') }}/pl/apartaments/'+responseMessage[3][i].apartament_link+'</span> <span class="txt-blue copy-to-clipboard" onclick="copyToClipboard(\'#link'+responseMessage[3][i].id+'\')">Skopiuj</span> </li>';
+                        htmlForeach2 += '<li> <span id="link'+responseMessage[3][i].id+'">{{ url('/') }}/pl/apartaments/'+responseMessage[3][i].apartament_link+'</span> <span class="txt-blue copy-to-clipboard" onclick="copyToClipboard(\'#link'+responseMessage[3][i].id+'\')">{{ __('messages.Copy') }}</span> </li>';
                         foreachLinks += '{{ url('/') }}/pl/apartaments/'+responseMessage[3][i].apartament_link+',';
                     }
 
-                    html2 = $('<span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br><div class="row"><div class="col-2"><span class="font-14">Linki:</span></div><div class="col-10"><ul class="font-13">'+ htmlForeach2 +'</ul></div></div><label for="emails">Adresy e-mail:</label><input id="emails" name="emails" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)"><input id="links" name="links" type="hidden" value="'+foreachLinks+'"><hr><button onclick="sendMailToFriends()" class="btn btn-default">Wyślij</button><button onClick="closeSendTo()" class="btn btn-default">Anuluj</button><div onClick="closeSendTo()" id="close-send-to" class="close-send-to">x</div>');
+                    html2 = $('<span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br><div class="row"><div class="col-2"><span class="font-14">Linki:</span></div><div class="col-10"><ul class="font-13">'+ htmlForeach2 +'</ul></div></div><label for="emails">Adresy e-mail:</label><input id="emails" name="emails" type="text" placeholder="{{ __('messages.Emails ph') }}"><input id="links" name="links" type="hidden" value="'+foreachLinks+'"><hr><button onclick="sendMailToFriends()" class="btn btn-default">{{ __('messages.Send') }}</button><button onClick="closeSendTo()" class="btn btn-default">{{ __('messages.Cancel') }}</button><div onClick="closeSendTo()" id="close-send-to" class="close-send-to">x</div>');
                     $('#send-to').html('');
                     html2.appendTo('#send-to');
 
@@ -2769,19 +2778,19 @@
             }
 
             if(journeyTypeObj.totalAvg < 2) {
-                $("#"+journeyName+"Description").text("Okropny");
+                $("#"+journeyName+"Description").text("{{__('messages.Awful')}}");
             }
             else if(journeyTypeObj.totalAvg >= 2 && journeyTypeObj.totalAvg < 4){
-                $("#"+journeyName+"Description").text("Zły");
+                $("#"+journeyName+"Description").text("{{__('messages.Bad')}}");
             }
             else if(journeyTypeObj.totalAvg >= 4 && journeyTypeObj.totalAvg < 6){
-                $("#"+journeyName+"Description").text("Średni");
+                $("#"+journeyName+"Description").text("{{__('messages.Average')}}");
             }
             else if(journeyTypeObj.totalAvg >= 6 && journeyTypeObj.totalAvg < 8){
-                $("#"+journeyName+"Description").text("Bardzo dobry");
+                $("#"+journeyName+"Description").text("{{__('messages.Very good')}}");
             }
             else if(journeyTypeObj.totalAvg >= 8){
-                $("#"+journeyName+"Description").text("Doskonały");
+                $("#"+journeyName+"Description").text("{{__('messages.Perfect')}}");
             }
             @elsehandheld
             //set color box for total avg rating
@@ -2971,27 +2980,27 @@
             for (var i = 0; i < len; i++) {
 
                 switch(comments[i]['journey_type']){
-                    case 0: journeyType = 'Rodzina'; break;
-                    case 1: journeyType = 'Para'; break;
-                    case 2: journeyType = 'Biznasowa'; break;
-                    case 3: journeyType = 'Ze znajomymi'; break;
-                    case 4: journeyType = 'W pojedynkę'; break;
+                    case 0: journeyType = '{{__('messages.Family')}}'; break;
+                    case 1: journeyType = '{{__('messages.Couple')}}'; break;
+                    case 2: journeyType = '{{__('messages.Business2')}}'; break;
+                    case 3: journeyType = '{{__('messages.With friends')}}'; break;
+                    case 4: journeyType = '{{__('messages.Alone')}}'; break;
                 }
 
                 if (comments[i]['pros'] == null && comments[i]['cons'] == null){
-                    htmlPros = '<div class="col-12 font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego komentarza do oceny.</div>';
+                    htmlPros = '<div class="col-12 font-12 mb-3" style="padding-right: 0px; color: #999999;">{{__('messages.none comments')}}.</div>';
                     htmlCons = '';
                 }
                 else{
                     if (comments[i]['pros'] != null) htmlPros = '<div class="col-1 center-h-v"> <div style="background-color: #4eff5e; color: white; width:16px; height: 16px"><b>+</b></div> </div> <div class="col-10 pl-2 pr-0">'+ comments[i]['pros'] +'</div>';
-                    else htmlPros = '<div class="col-12 font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego pozytywnego komentarza do oceny.</div>';
+                    else htmlPros = '<div class="col-12 font-12 mb-3" style="padding-right: 0px; color: #999999;">{{__('messages.none pros')}}.</div>';
                     if (comments[i]['cons'] != null) htmlCons = '<div class="col-1 center-h-v"><div style="background-color: #ff2620; color: white; width:16px; height: 16px"><b>-</b></div></div><div class="col-10 pl-2 pr-0">'+ comments[i]['cons'] +'</div>';
-                    else htmlCons = '<div class="col-12 font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego negatywnego komentarza do oceny.</div>';
+                    else htmlCons = '<div class="col-12 font-12 mb-3" style="padding-right: 0px; color: #999999;">{{__('messages.none cons')}}.</div>';
                 }
 
-                if (comments[i]['helpful'] == 1) helpful = '<div class="row mb-1 font-11"><b class="mr-1">'+comments[i]['helpful']+'</b> osoba uznała opinię za pomocną</div>';
-                else if (comments[i]['helpful'] > 1 && comments[i]['helpful'] < 5) helpful = '<div class="row mb-1 font-11"><b class="mr-1">'+comments[i]['helpful']+'</b> osoby uznały opinię za pomocną</div>';
-                else if (comments[i]['helpful'] >= 5) helpful = '<div class="row mb-1 font-11"><b class="mr-1">'+comments[i]['helpful']+'</b> osób uznało opinię za pomocną</div>';
+                if (comments[i]['helpful'] == 1) helpful = '<div class="row mb-1 font-11"><b class="mr-1">'+comments[i]['helpful']+'</b> {{__('messages.nrHelpful1')}}</div>';
+                else if (comments[i]['helpful'] > 1 && comments[i]['helpful'] < 5) helpful = '<div class="row mb-1 font-11"><b class="mr-1">'+comments[i]['helpful']+'</b> {{__('messages.nrHelpful2')}}</div>';
+                else if (comments[i]['helpful'] >= 5) helpful = '<div class="row mb-1 font-11"><b class="mr-1">'+comments[i]['helpful']+'</b> {{__('messages.nrHelpful3')}}</div>';
                 else helpful = '';
 
                 if(comments[i]['user_name'] != 0) nameAndCity = '<div class="font-13"><b>'+comments[i]['user_name']+'</b></div> <div class="font-13">'+comments[i]['user_country']+', '+comments[i]['user_city']+'</div>';
@@ -3008,22 +3017,22 @@
                 }
 
                 if(comments[i]['total_rating'] < 2) {
-                   	ratingDescription = "Okropny";
+                   	ratingDescription = "{{__('messages.Awful')}}";
                 }
                 else if(comments[i]['total_rating'] >= 2 && comments[i]['total_rating'] < 4){
-                    ratingDescription = "Zły";
+                    ratingDescription = "{{__('messages.Bad')}}";
                 }
                 else if(comments[i]['total_rating'] >= 4 && comments[i]['total_rating'] < 6){
-                    ratingDescription = "Średni";
+                    ratingDescription = "{{__('messages.Average')}}";
                 }
                 else if(comments[i]['total_rating'] >= 6 && comments[i]['total_rating'] < 8){
-                    ratingDescription = "Bardzo dobry";
+                    ratingDescription = "{{__('messages.Very good')}}";
                 }
                 else if(comments[i]['total_rating'] >= 8){
-                    ratingDescription = "Doskonały";
+                    ratingDescription = "{{__('messages.Perfect')}}";
                 }
 
-                html = $('<div class="col-12 px-0"><div class="p-3" style="background-position: left bottom; background-image: url(\'{{ asset("images/apartment_detal/comment_mobile_background.png") }}\'"><div class="row"> <div class="col-6"><img src="/images/opinions/star'+Math.ceil(comments[i]['total_rating'])+'.png"></div> <div class="col-6 pl-0 '+ratingColor+'"> <span class="font-12 pull-right mt-1">'+ratingDescription+'</span> <span class="font-18 bold mr-1 pull-right"> <span>'+parseFloat(comments[i]['total_rating']).toFixed(1)+'</span>/10 </span></div></div><div class="row mb-4 mt-3">'+htmlPros+'</div> <div class="row" style="margin-bottom: 78px"> '+htmlCons+' </div> '+helpful+' <div class="row"> <div class="col-7 px-0"> <div class="row ml-0"> <img style="width: 48px; height: 48px" src=\'{{ asset("images/opinions/journey-type-") }}'+comments[i]['journey_type']+'.png\'> <div class="col pl-1 pr-0"> '+nameAndCity+' <div class="font-11" style="margin-top: 3px;">Opinia z: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div> </div> </div> </div> <div class="col-5 px-0"> <a class="btn btn-opinion-gray font-11 pull-right ml-2" href="#"><img src=\'{{ asset("images/opinions/flag.png") }}\'></a> <button class="btn btn-opinion-gray font-11 pull-right" onclick="increaseHelpful('+comments[i]['id']+')"><img src=\'{{ asset("images/opinions/thumb.png") }}\'></button> </div> </div></div></div>');
+                html = $('<div class="col-12 px-0"><div class="p-3" style="background-position: left bottom; background-image: url(\'{{ asset("images/apartment_detal/comment_mobile_background.png") }}\'"><div class="row"> <div class="col-6"><img src="/images/opinions/star'+Math.ceil(comments[i]['total_rating'])+'.png"></div> <div class="col-6 pl-0 '+ratingColor+'"> <span class="font-12 pull-right mt-1">'+ratingDescription+'</span> <span class="font-18 bold mr-1 pull-right"> <span>'+parseFloat(comments[i]['total_rating']).toFixed(1)+'</span>/10 </span></div></div><div class="row mb-4 mt-3">'+htmlPros+'</div> <div class="row" style="margin-bottom: 78px"> '+htmlCons+' </div> '+helpful+' <div class="row"> <div class="col-7 px-0"> <div class="row ml-0"> <img style="width: 48px; height: 48px" src=\'{{ asset("images/opinions/journey-type-") }}'+comments[i]['journey_type']+'.png\'> <div class="col pl-1 pr-0"> '+nameAndCity+' <div class="font-11" style="margin-top: 3px;">{{__('messages.Opinion from')}}: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div> </div> </div> </div> <div class="col-5 px-0"> <a class="btn btn-opinion-gray font-11 pull-right ml-2" href="#"><img src=\'{{ asset("images/opinions/flag.png") }}\'></a> <button class="btn btn-opinion-gray font-11 pull-right" onclick="increaseHelpful('+comments[i]['id']+')"><img src=\'{{ asset("images/opinions/thumb.png") }}\'></button> </div> </div></div></div>');
 				html.appendTo('.user-comments');
 
             }
@@ -3046,36 +3055,36 @@
             for (var i = 0; i < len; i++) {
 
                 switch(comments[i]['journey_type']){
-					case 0: journeyType = 'Rodzina'; break;
-					case 1: journeyType = 'Para'; break;
-					case 2: journeyType = 'Biznasowa'; break;
-					case 3: journeyType = 'Ze znajomymi'; break;
-					case 4: journeyType = 'W pojedynkę'; break;
+                    case 0: journeyType = '{{__('messages.Family')}}'; break;
+                    case 1: journeyType = '{{__('messages.Couple')}}'; break;
+                    case 2: journeyType = '{{__('messages.Business2')}}'; break;
+                    case 3: journeyType = '{{__('messages.With friends')}}'; break;
+                    case 4: journeyType = '{{__('messages.Alone')}}'; break;
 				}
 
 				html21 = $('<div style="float: left"></div>').append($('<div style="width: 50px"></div>').append($('<img src=\'{{ asset("images/opinions/journey-type-")}}'+comments[i]['journey_type']+'.png\'><span class="font-11 under-journey-type">'+journeyType+'</span>')));
-				if(comments[i]['user_name'] == 0) html22 = $('<div class="col-12 user-data-detail"></div>').append($('<div class="row font-16">Anonimowy</div><div class="row font-11" style="margin-top: 3px;">Opinia z: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div>'));
-				else html22 = $('<div class="col-12 user-data-detail"></div>').append($('<div class="row font-16"><b>'+comments[i]['user_name']+'</b></div><div class="row font-16">'+comments[i]['user_country']+', '+comments[i]['user_city']+'</div><div class="row font-11" style="margin-top: 3px;">Opinia z: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div>'));
+				if(comments[i]['user_name'] == 0) html22 = $('<div class="col-12 user-data-detail"></div>').append($('<div class="row font-16">Anonimowy</div><div class="row font-11" style="margin-top: 3px;">{{__('messages.Opinion from')}}: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div>'));
+				else html22 = $('<div class="col-12 user-data-detail"></div>').append($('<div class="row font-16"><b>'+comments[i]['user_name']+'</b></div><div class="row font-16">'+comments[i]['user_country']+', '+comments[i]['user_city']+'</div><div class="row font-11" style="margin-top: 3px;">{{__('messages.Opinion from')}}: '+moment(comments[i]['created_at'], "YYYY-MM-DD").format("DD.MM.YYYY")+'</div>'));
 				html2 = $('<div style="margin-bottom: 16px;"></div>').append(html21).append(html22);
-                html3 = $('<div style="clear: both; max-width: 200px; width: 200px;" class="col-12 row"></div>').append('<button class="btn btn-opinion-gray font-11 mr-2 px-1 py-0" onclick="increaseHelpful('+comments[i]['id']+')"><img style="position: relative;top: 6px;" src={{ asset("images/opinions/thumb.png") }}><span class="ml-1">Pomocna</span><br><span class="ml-3">opinia</span></button><a class="btn btn-opinion-gray ml-2 font-11" href="/contact/report/'+comments[i]['id']+'"><img src={{ asset("images/opinions/flag.png") }}></a>');
+                html3 = $('<div style="clear: both; max-width: 200px; width: 200px;" class="col-12 row"></div>').append('<button class="btn btn-opinion-gray font-11 mr-2 px-1 py-0" onclick="increaseHelpful('+comments[i]['id']+')"><img style="position: relative;top: 6px;" src={{ asset("images/opinions/thumb.png") }}><span class="ml-1">{{__('messages.Helpful')}}</span><br><span class="ml-3">{{__('messages.opinion')}}</span></button><a class="btn btn-opinion-gray ml-2 font-11" href="/contact/report/'+comments[i]['id']+'" data-toggle="tooltip" data-placement="bottom" title="{{ __('messages.Report comment') }}""><img src={{ asset("images/opinions/flag.png") }}></a>');
                 htmlLeft = $('<div class="col-3 user-data"></div>').append(html2).append(html3);
 
                 if(comments[i]['total_rating'] > 6) ratingColor = "green";
                 else if(comments[i]['total_rating'] > 3) ratingColor = "yellow";
                 else ratingColor = "red";
-                html0 = $('<div class="col-2" style="padding-left: 0px;"><div style="font-size: 22px" class="overall-rating-box center-h-v rating-'+ratingColor+'"><b>'+parseFloat(comments[i]['total_rating']).toFixed(1)+'</b></div><button class="btn font-11 expand" id="'+comments[i]['id']+'" onclick="expandOpinions('+comments[i]['id']+')">rozwiń ▼</button></div>');
+                html0 = $('<div class="col-2" style="padding-left: 0px;"><div style="font-size: 22px" class="overall-rating-box center-h-v rating-'+ratingColor+'"><b>'+parseFloat(comments[i]['total_rating']).toFixed(1)+'</b></div><button class="btn font-11 expand" id="'+comments[i]['id']+'" onclick="expandOpinions('+comments[i]['id']+')">{{__('messages.expand')}} ▼</button></div>');
 
                 html11 = $('<div class="col-12 mb-2" style="padding-right: 0px; margin-left: -16px"><img src="/images/opinions/star'+Math.ceil(comments[i]['total_rating'])+'.png"></div>');
 
                 if (comments[i]['pros'] == null && comments[i]['cons'] == null){
-                    html12 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego komentarza do oceny.</div>');
+                    html12 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px; color: #999999;">{{__('messages.none comments')}}.</div>');
                     html13 = $('');
 				}
 				else{
                     if (comments[i]['pros'] != null) html12 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px"> <div class="col-1 center-h-v"> <div style="background-color: #4eff5e; color: white; width:16px; height: 16px"><b>+</b></div> </div> <div class="col-11 comment-row" style="margin-left: -20px; padding-right: 0px"> <div class="ml-2">'+ comments[i]['pros'] +'</div> </div> </div>');
-                    else html12 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego pozytywnego komentarza do oceny.</div>');
+                    else html12 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px; color: #999999;">{{__('messages.none pros')}}.</div>');
                     if (comments[i]['cons'] != null) html13 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px"> <div class="col-1 center-h-v"> <div style="background-color: #ff2620; color: white; width:16px; height: 16px"><b>-</b></div> </div> <div class="col-11 comment-row" style="margin-left: -20px; padding-right: 0px"> <div class="ml-2">'+ comments[i]['cons'] +'</div> </div> </div>');
-                    else html13 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px; color: #999999;">Nie pozostawiono żadnego negatywnego komentarza do oceny.</div>');
+                    else html13 = $('<div class="col-12 row font-12 mb-3" style="padding-right: 0px; color: #999999;">{{__('messages.none cons')}}.</div>');
 				}
 
                 //set stay month name and year
@@ -3084,9 +3093,9 @@
                 var day = dateObj.getUTCDate();
                 var year = dateObj.getUTCFullYear();
                 newdate = year + "/" + month + "/" + day;
-                locale = "pl",
+                locale = "{{App::getLocale()}}",
                 month = dateObj.toLocaleString(locale, { month: "long" });
-				html14 = $('<div id="expanded-date-'+comments[i]['id']+'" class="col-12 mb-2" style="display: none; font-weight: bold; padding-right: 0px; margin-left: -16px">Pobyt: '+month +" "+ year+'</div>');
+				html14 = $('<div id="expanded-date-'+comments[i]['id']+'" class="col-12 mb-2" style="display: none; font-weight: bold; padding-right: 0px; margin-left: -16px">{{__('messages.Stay')}}: '+month +" "+ year+'</div>');
 
                 if(comments[i]["cleanliness"] <= 3 && comments[i]["cleanliness"] >= 1){
                     cleanlinessClass = "rating-red";
@@ -3198,14 +3207,14 @@
 				else if(comments[i]["quality_per_price"] < 9.5) quality_per_priceStars = '{{ asset("images/opinions/9.png") }}';
 				else quality_per_priceStars = '{{ asset("images/opinions/10.png") }}';
 
-                htmlDetails = $('<div class="expanded col-12 row" id="expanded-'+comments[i]['id']+'" style="display: none"><div class="col-6"><div class="col-12 font-11 mb-1"> Czystość <span class="pull-right rating-opinion-detail"><span class='+cleanlinessClass+'>'+comments[i]["cleanliness"]+'</span></span> <span class="pull-right" style="background-color: #fff"> <img src='+cleanlinessStars+'> </span> </div> <div class="col-12 font-11 mb-1"> Lokalizacja <span class="pull-right rating-opinion-detail"><span class='+locationClass+'>'+comments[i]["location"]+'</span></span> <span class="pull-right" style="background-color: #fff"> <img src='+locationStars+'> </span> </div> <div class="col-12 font-11 mb-1"> Udogodnienia <span class="pull-right rating-opinion-detail"><span class='+facilitiesClass+'>'+comments[i]["facilities"]+'</span></span> <span class="pull-right" style="background-color: #fff"> <img src='+facilitiesStars+'> </span> </div> </div> <div class="col-6"><div class="col-12 font-11 mb-1"> Obsługa <span class="pull-right rating-opinion-detail"><span class='+staffClass+'>'+comments[i]["staff"]+'</span></span> <span class="pull-right" style="background-color: #fff"> <img src='+staffStars+'> </span> </div> <div class="col-12 font-11 mb-1"> Stosunek jakości<br> do ceny <span style="position: absolute;right: 0px;top: 0px;"> <span class="pull-right rating-opinion-detail"> <span class='+quality_per_priceClass+'>'+comments[i]["quality_per_price"]+'</span></span> <span class="pull-right" style="background-color: #fff"> <img src='+quality_per_priceStars+'> </span> </span></span>  </div></div></div>');
+                htmlDetails = $('<div class="expanded col-12 row" id="expanded-'+comments[i]['id']+'" style="display: none"><div class="col-6"><div class="col-12 font-11 mb-1"> {{__('messages.Czystość')}} <span class="pull-right rating-opinion-detail"><span class='+cleanlinessClass+'>'+comments[i]["cleanliness"]+'</span></span> <span class="pull-right" style="background-color: #fff"> <img src='+cleanlinessStars+'> </span> </div> <div class="col-12 font-11 mb-1"> {{__('messages.Lokalizacja')}} <span class="pull-right rating-opinion-detail"><span class='+locationClass+'>'+comments[i]["location"]+'</span></span> <span class="pull-right" style="background-color: #fff"> <img src='+locationStars+'> </span> </div> <div class="col-12 font-11 mb-1"> {{__('messages.Udogodnienia')}} <span class="pull-right rating-opinion-detail"><span class='+facilitiesClass+'>'+comments[i]["facilities"]+'</span></span> <span class="pull-right" style="background-color: #fff"> <img src='+facilitiesStars+'> </span> </div> </div> <div class="col-6"><div class="col-12 font-11 mb-1"> {{__('messages.Obsługa')}} <span class="pull-right rating-opinion-detail"><span class='+staffClass+'>'+comments[i]["staff"]+'</span></span> <span class="pull-right" style="background-color: #fff"> <img src='+staffStars+'> </span> </div> <div class="col-12 font-11 mb-1"> {{__('messages.Value to')}}<br> {{__('messages.price ratio')}} <span style="position: absolute;right: 0px;top: 0px;"> <span class="pull-right rating-opinion-detail"> <span class='+quality_per_priceClass+'>'+comments[i]["quality_per_price"]+'</span></span> <span class="pull-right" style="background-color: #fff"> <img src='+quality_per_priceStars+'> </span> </span></span>  </div></div></div>');
 
                 html1 = $('<div class="col-10 comment-row" style="padding-right: 0px; padding-left: 0px;"></div>').append(html11).append(html12).append(html13).append(html14);
 
                 htmlRight = $('<div class="comment-background col-9 row py-3" style="background-image: url(\'{{ asset("images/apartment_detal/comment_background.png") }}\')"></div>').append(html0).append(html1).append(htmlDetails);
-                if (comments[i]['helpful'] == 1) htmlRight.append('<div style="position: absolute;bottom: -20px;" class="font-11"><b>1</b>  osoba uznała opinię za pomocną</div>');
-                else if (comments[i]['helpful'] > 1 && comments[i]['helpful'] < 5) htmlRight.append('<div style="position: absolute;bottom: -20px;" class="font-11"><b>'+comments[i]['helpful']+'</b>  osoby uznały opinię za pomocną</div>');
-                else if (comments[i]['helpful'] > 4) htmlRight.append('<div style="position: absolute;bottom: -20px;" class="font-11"><b>'+comments[i]['helpful']+'</b> osób uznało opinię za pomocną</div>');
+                if (comments[i]['helpful'] == 1) htmlRight.append('<div style="position: absolute;bottom: -20px;" class="font-11"><b>1</b>  {{__('messages.nrHelpful1')}}</div>');
+                else if (comments[i]['helpful'] > 1 && comments[i]['helpful'] < 5) htmlRight.append('<div style="position: absolute;bottom: -20px;" class="font-11"><b>'+comments[i]['helpful']+'</b>  {{__('messages.nrHelpful2')}}</div>');
+                else if (comments[i]['helpful'] > 4) htmlRight.append('<div style="position: absolute;bottom: -20px;" class="font-11"><b>'+comments[i]['helpful']+'</b> {{__('messages.nrHelpful3')}}</div>');
                 html = $('<span class="mb-5" style="display: flex; width: 100%"></span>').append(htmlLeft).append(htmlRight);
                 html.appendTo('.user-comments');
             };
@@ -3271,27 +3280,27 @@
             if(stars == 1) {
                 filtered = comments.filter(function(x) {return x.total_rating < 2;});
                 nowSortedComments = filtered;
-                $("#allOpinionsAfter").text("- ocena obiektu: okropny");
+                $("#allOpinionsAfter").text("- {{__('messages.rating1')}}");
 			}
             else if(stars == 2){
                 filtered = comments.filter(function(x){return (x.total_rating >= 2 && x.total_rating < 4);});
                 nowSortedComments = filtered;
-                $("#allOpinionsAfter").text("- ocena obiektu: zły");
+                $("#allOpinionsAfter").text("- {{__('messages.rating2')}}");
 			}
             else if(stars == 3){
                 filtered = comments.filter(function(x){return (x.total_rating >= 4 && x.total_rating < 6);});
                 nowSortedComments = filtered;
-                $("#allOpinionsAfter").text("- ocena obiektu: średni");
+                $("#allOpinionsAfter").text("- {{__('messages.rating3')}}");
 			}
             else if(stars == 4){
                 filtered = comments.filter(function(x){return (x.total_rating >= 6 && x.total_rating < 8);});
                 nowSortedComments = filtered;
-                $("#allOpinionsAfter").text("- ocena obiektu: bardzo dobry");
+                $("#allOpinionsAfter").text("- {{__('messages.rating4')}}");
 			}
             else if(stars == 5){
                 filtered = comments.filter(function(x){return x.total_rating >= 8;});
                 nowSortedComments = filtered;
-                $("#allOpinionsAfter").text("- ocena obiektu: doskonały");
+                $("#allOpinionsAfter").text("- {{__('messages.rating5')}}");
 			}
 
             showingCommentsAmount = 0;
@@ -3526,10 +3535,10 @@
             if($("#expanded-"+opinionId).css('display') == 'none'){
                 $("#expanded-"+opinionId).show();
                 $("#expanded-date-"+opinionId).show();
-                $("#"+opinionId).text('zwiń ▲');
+                $("#"+opinionId).text('{{__('messages.collapse')}} ▲');
             }
             else {
-                $("#"+opinionId).text('rozwiń ▼');
+                $("#"+opinionId).text('{{__('messages.expand')}} ▼');
                 $("#expanded-"+opinionId).hide();
                 $("#expanded-date-"+opinionId).hide();
             }

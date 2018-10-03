@@ -1,5 +1,5 @@
 @extends ('layout.layout')
-@section('title', 'Aktualności, O nas w mediach')
+@section('title', __('messages.News').', '.__('messages.About us in media'))
 
 @section('content')
 <div class="container">
@@ -7,10 +7,10 @@
 
     <div class="row mt-2">
         <div class="col-lg-1">
-            <a class="font-13" href="{{ url()->previous() }}"><&nbsp;Powrót</a>
+            <a class="font-13" href="{{ url()->previous() }}"><&nbsp;{{ __('messages.Back') }}</a>
         </div>
         <div class="col-lg-10">
-            <h1 class="h1-owners mb-4">Aktualności VisitWorld</h1>
+            <h1 class="h1-owners mb-4">{{ __('messages.News') }} VisitWorld</h1>
             @for($i=0; $i<10; $i++)
             <div class="row mb-4">
                 <div class="col-md-4 col-lg-3">
@@ -19,7 +19,7 @@
                 <div class="col-md-8 col-lg-9">
                     <div class="row mb-2">
                         <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                            <a href="{{route('aboutUs.newsDetail', $i)}}">Ponad 100 obiektów z okolic Śląska w naszej ofercie.</a>
+                            <a href="{{route('aboutUs.newsDetail', $i)}}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
                         </div>
                     </div>
                     <div class="row mb-2" style="display: inline-block">
@@ -30,7 +30,7 @@
                     </div>
                     <div class="row font-11" style="color: #999999;">
                         <div class="col-12">
-                            14 kwietnia 2014
+                            {{date('j F Y', mktime(0, 0, 0, 7, 1, 2000))}}
                         </div>
                     </div>
                 </div>

@@ -1,12 +1,12 @@
 <div id="first-added-favourites">
-    <span style="font-size: 24px; font-weight: bold">Obiekt został dodany do ulubionych</span>
-    <p class="font-13">Jeśli dodasz więcej obiektów do ulubionych, można je będzie porównać lub wysłać całą ich listę na podany adres e-mail.</p>
+    <span style="font-size: 24px; font-weight: bold">{{__('messages.FavFirstAdded1')}}</span>
+    <p class="font-13">{{__('messages.FavFirstAdded2')}}</p>
     @notmobile
-    <p class="font-13">Znajdziesz je tutaj:</p>
-    <img src={{ asset("images/apartment_detal/addedToFavourites.png") }}>
+    <p class="font-13 mb-0">{{__('messages.FavFirstAdded3')}}</p>
+    <img src={{ asset("images/apartment_detal/addedToFavourites_").\App::getLocale().".png"}}>
     @endnotmobile
     <div id="close-first-added" class="close-first-added">x</div>
-    <button class="btn btn-default close-first-added">Zamknij</button>
+    <button class="btn btn-default close-first-added">{{__('messages.Close')}}</button>
 </div>
 <script>
     $(".close-first-added").on('click', function(){

@@ -13,9 +13,9 @@
           </div>
       </div>
       <div id="topSearch" style="background-image: {{url('/images/slider/1.jpg')}}">
-        <h1 class="container" style="padding-top: 0px; color: white; font-size: 32px; font-weight: bold;">Strona, której szukasz nie istnieje</h1>
-        <div class="container searchCont" style="padding-top: 60px;">
-              <span style="color: white; font-size: 32px; font-weight: bold;">Szukaj wśród 34 678 noclegów w Polsce</span>
+        <h1 class="container" style="text-shadow: 1px 1px 0 black; padding-top: 0px; color: white; font-size: 32px; font-weight: bold;">{{ __('messages.404title') }}</h1>
+        <div class="container searchCont" style="text-shadow: 1px 1px 0 black; padding-top: 60px;">
+              <span style="color: white; font-size: 32px; font-weight: bold;">{{ __('messages.Search among') }} {{ countAllApartments() }} {{ __('messages.accommodation in Poland') }}</span>
               @include('includes.search-form')
         </div>
       </div>
@@ -26,14 +26,14 @@
     $('.t-datepicker').tDatePicker({
         autoClose: true,
         numCalendar: @handheld 1 @elsehandheld 2 @endhandheld,
-        titleCheckIn: 'Data przyjazdu',
-        titleCheckOut: 'Data wyjazdu',
-        titleToday: 'Dzisiaj',
-        titleDateRange: 'Doba',
-        titleDateRanges: 'Doby',
+        titleCheckIn: '{{ __('messages.arrival date') }}',
+        titleCheckOut: '{{ __('messages.departure date') }}',
+        titleToday: '{{ __('messages.Today') }}',
+        titleDateRange: '{{ __('messages.Day') }}',
+        titleDateRanges: '{{ __('messages.Days') }}',
         iconDate: '<i class="fa fa-lg fa-calendar" aria-hidden="true"></i>',
-        titleDays: ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb', 'Nd'],
-        titleMonths: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+        titleDays: {!! titleDays() !!},
+        titleMonths: {!! titleMonths() !!},
     });
 
 var options = {

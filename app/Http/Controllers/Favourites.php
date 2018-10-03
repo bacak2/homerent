@@ -119,7 +119,7 @@ class Favourites extends Controller
 
         $this->reloadFavouritesInSession();
 
-        return response()->json(["Apartament został usunięty z ulubionych", Session::get('userFavouritesCount'), Session::get('userFavourites'), Session::get('userFavouritesAll')]);
+        return response()->json([__('messages.AddToFav4'), Session::get('userFavouritesCount'), Session::get('userFavourites'), Session::get('userFavouritesAll')]);
     }
 
     public function compare(){

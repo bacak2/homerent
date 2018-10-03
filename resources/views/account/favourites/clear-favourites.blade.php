@@ -1,7 +1,7 @@
 <div id="truncate-favourites">
-    <span style="font-size: 32px; font-weight: bold">Ulubione</span>
+    <span style="font-size: 32px; font-weight: bold">{{ __('messages.My favourites') }}</span>
     <p class="font-13">
-        Apartamenty dodane do ulubionych zostały usunięte. <a href="#" id="cancel-truncate" class="txt-blue">Cofnij</a>
+        {{ __('messages.FavDeleted') }} <a href="#" id="cancel-truncate" class="txt-blue">{{ __('messages.Undo') }}</a>
     </p>
     <div id="close-truncate" class="close-truncate">x</div>
     <button class="btn btn-default close-truncate">OK</button>
@@ -10,7 +10,7 @@
     function clearFavouritesPopup(){
         $("#truncate-favourites").show();
         $("#favourites-bar").hide();
-        $("#favourites-nav").text('Ulubione (0)');
+        $("#favourites-nav").text('{{ __('messages.My favourites') }} (0)');
         $(".display-favourites").css('visibility', 'hidden');
         if($("#send-to").css("display") != "none") $("#send-to").hide();
     }

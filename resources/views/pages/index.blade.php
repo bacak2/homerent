@@ -1,5 +1,5 @@
 @extends ('layout.layout')
-@section('title', 'Strona główna')
+@section('title', __('messages.Main page'))
 @section('content')
 	{{--SLIDER--}}
 	@include('includes.slider')
@@ -29,7 +29,7 @@
 							<input type="hidden" name="t-end" value="{{$tomorrowDate}}">
 							<input type="hidden" name="dzieci" value="0">
 							<input type="hidden" name="dorosli" value="1">
-							<input class="hrefSubmit" type="submit" style="color: #0066CC" value="Pozostałe apartamenty dla Ciebie >">
+							<input class="hrefSubmit" type="submit" style="color: #0066CC" value="{{ __('messages.Other apartaments for you') }} >">
 						</form>
 					</div>
 				</div>
@@ -38,15 +38,15 @@
 
 		<div class="row desktop-none">
 			<div class="col-6">
-				<h3 class="h3-index">{{ __('Popularne') }}</h3>
+				<h3 class="h3-index">{{ __('messages.Popular') }}</h3>
 			</div>
 			<div class="col-6">
-				<a class="font-13 pull-right" href="/guidebooks" style="color: #0066CC">Więcej przewodników »</a>
+				<a class="font-13 pull-right" href="/guidebooks" style="color: #0066CC">{{ __('messages.More guidebooks') }} »</a>
 			</div>
 		</div>
-		<h3 class="h3-index mobile-none">{{ __('Odwiedzaj i zwiedzaj') }}</h3>
+		<h3 class="h3-index mobile-none">{{ __('messages.Visit and explore') }}</h3>
 		<div class="row mb-5">
-			<div class="col-12 mb-4 font-15 mobile-none">Szukasz pomysłu na wymarzoną podróż? Chcesz wiedzieć gdzie można miło spędzić czas, co warto zobaczyć? Zajrzyj do naszych przewodników, zainspiruj się i zaplanuj swój pobyt! Znajdziesz tu propozycje atrakcji dla rodzin, dla osób aktywnych, dla miłośników zabytków, dla amatorów wędrówek... i nie tylko</div>
+			<div class="col-12 mb-4 font-15 mobile-none">{{ __('messages.v&e text') }}</div>
 			@foreach($guidebooks as $guidebook)
 			<div class="col-12 col-sm-6 col-md-4">
 				<div style="position: relative">
@@ -66,12 +66,12 @@
 			</div-->
 			<div class="col-12 text-center mobile-none">
 				<div class="gray-bar-index">
-					<a href="/guidebooks" style="color: #0066CC">Więcej przewodników »</a>
+					<a href="/guidebooks" style="color: #0066CC">{{ __('messages.More guidebooks') }} »</a>
 				</div>
 			</div>
 		</div>
 
-		<h3 class="h3-index mobile-none">{{ __('Zatrzymaj się w naszych obiektach') }}</h3>
+		<h3 class="h3-index mobile-none">{{ __('messages.Stay in our objects') }}</h3>
 		<div class="row mb-5 mobile-none">
 			<div class="col-12 col-sm-6 col-md-4">
 				<form action="/search/kafle" method="GET">
@@ -85,7 +85,7 @@
 						<div class="guidebooks-index-page">Zakopane - {{$apartamentsFirstCityAmount}} {{trans_choice('messages.apartaments', $apartamentsFirstCityAmount)}}</div>
 					</div>
 
-					<h4 class="h4-index">Polecamy w Zakopanem</h4>
+					<h4 class="h4-index">{{ __('messages.Recommend') }} {{ __('messages.in Zakopane') }}</h4>
 					@foreach ($apartamentsFirstCity as $apartament)
 						<div style="position: relative">
 							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
@@ -98,7 +98,7 @@
 						</div>
 					@endforeach
 					<div class="gray-bar-index text-center">
-						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="{{$apartamentsFirstCityAmount}} {{trans_choice('messages.other apartaments', $apartamentsFirstCityAmount)}} w Zakopanem >">
+						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="{{$apartamentsFirstCityAmount}} {{trans_choice('messages.other apartaments', $apartamentsFirstCityAmount)}} {{ __('messages.in Zakopane') }} >">
 					</div>
 				</form>
 			</div>
@@ -114,7 +114,7 @@
 						<div class="guidebooks-index-page">Kościelisko - {{$apartamentsSecondCityAmount}} {{trans_choice('messages.apartaments', $apartamentsSecondCityAmount)}}</div>
 					</div>
 
-					<h4 class="h4-index">Polecamy w Kościelisku</h4>
+					<h4 class="h4-index">{{ __('messages.Recommend') }} {{ __('messages.in Koscielisko') }}</h4>
 					@foreach ($apartamentsSecondCity as $apartament)
 						<div style="position: relative">
 							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
@@ -127,7 +127,7 @@
 						</div>
 					@endforeach
 					<div class="gray-bar-index text-center">
-						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="{{$apartamentsSecondCityAmount}} {{trans_choice('messages.other apartaments', $apartamentsSecondCityAmount)}} w Kościelisku >">
+						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="{{$apartamentsSecondCityAmount}} {{trans_choice('messages.other apartaments', $apartamentsSecondCityAmount)}} {{ __('messages.in Koscielisko') }} >">
 					</div>
 				</form>
 			</div>
@@ -143,7 +143,7 @@
 						<div class="guidebooks-index-page">Witów - {{$apartamentsThirdCityAmount}} {{trans_choice('messages.apartaments', $apartamentsThirdCityAmount)}}</div>
 					</div>
 
-					<h4 class="h4-index">Polecamy w Witowie</h4>
+					<h4 class="h4-index">{{ __('messages.Recommend') }} {{ __('messages.in Witow') }}</h4>
 					@foreach ($apartamentsThirdCity as $apartament)
 						<div style="position: relative">
 							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
@@ -156,21 +156,21 @@
 						</div>
 					@endforeach
 					<div class="gray-bar-index text-center">
-						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="{{$apartamentsThirdCityAmount}} {{trans_choice('messages.other apartaments', $apartamentsThirdCityAmount)}} w Witowie >">
+						<input class="hrefSubmit" type="submit" style="color: #0066CC" value="{{$apartamentsThirdCityAmount}} {{trans_choice('messages.other apartaments', $apartamentsThirdCityAmount)}} {{ __('messages.in Witow') }} >">
 					</div>
 				</form>
 			</div>
 		</div>
 
-		<h3 class="h3-index">{{ __('Jak to działa') }}</h3>
+		<h3 class="h3-index">{{ __('messages.How it works') }}</h3>
 		<div class="row mb-4 mb-md-5">
 			<div class="col-sm-6 pr-3 mb-3 mb-md-0">
 				<img style="position: relative; width: 100%; height: auto;" src="{{ asset('images/main/Dla_podrozujacych.jpg') }}">
-				<a class="text-center bold py-2" href="{{route('travelers.index')}}" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 3px solid black; width: 200px; background-color: rgba(255,255,255, 0.5);">Dla podróżnych</a>
+				<a class="text-center bold py-2" href="{{route('travelers.index')}}" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 3px solid black; width: 200px; background-color: rgba(255,255,255, 0.5);">{{ __('messages.For travelers') }}</a>
 			</div>
 			<div class="col-sm-6 pl-3 mb-sm-3 mb-md-0">
 				<img style="position: relative; width: 100%; height: auto;" src="{{ asset('images/main/Dla_wlasicieli.jpg') }}">
-				<a class="text-center bold py-2" href="http://wlasciciele-visitzakopane.pl{{--route('owners.index')--}}" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 3px solid black; width: 200px; background-color: rgba(255,255,255, 0.5);">Dla właścicieli</a>
+				<a class="text-center bold py-2" href="http://wlasciciele-visitzakopane.pl{{--route('owners.index')--}}" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 3px solid black; width: 200px; background-color: rgba(255,255,255, 0.5);">{{ __('messages.For owners') }}</a>
 			</div>
 		</div>
 	</div>

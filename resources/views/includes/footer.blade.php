@@ -23,40 +23,40 @@
                         </div-->
 
                         <div class="col-12 col-md-6 mb-4 mb-md-0">
-                            <div class="font-16 bold mb-2"><a href="{{route('aboutUs.contact')}}">Pomoc</a></div>
-                            <div class="font-13"><a href="{{route('aboutUs.contact').'#faq'}}">Często zadawane pytania</a></div>
-                            <div class="font-13"><a href="/guidebooks">Przewodniki</a></div>
-                            <div class="font-13"><a href="{{route('travelers.index')}}">Dla podróżnych</a></div>
-                            <div class="font-13"><a href="http://wlasciciele-visitzakopane.pl{{--route('owners.index')--}}">Dla właścicieli</a></div>
+                            <div class="font-16 bold mb-2"><a href="{{route('aboutUs.contact')}}">{{ __('messages.help') }}</a></div>
+                            <div class="font-13"><a href="{{route('aboutUs.contact').'#faq'}}">{{ __('messages.faq') }}</a></div>
+                            <div class="font-13"><a href="/guidebooks">{{ __('messages.Guidebooks') }}</a></div>
+                            <div class="font-13"><a href="{{route('travelers.index')}}">{{ __('messages.For travelers') }}</a></div>
+                            <div class="font-13"><a href="http://wlasciciele-visitzakopane.pl{{--route('owners.index')--}}">{{ __('messages.For owners') }}</a></div>
                         </div>
                     </div>
                     <div class="row mobile-none">
                         <div class="col-12 mt-4">
-                            <div class="font-16 bold mb-2">Podróżuj razem z nami</div>
-                            <div class="font-13">Marzysz o niezapomnianych wakacjach w stolicy Tatr? Nasze apartamenty w Zakopanem zapewnią Ci wszystko czego potrzebujesz! Odpoczynek i piękne widoki już na Ciebie czekają.</div>
+                            <div class="font-16 bold mb-2">{{ __('messages.TravelWithUs') }}</div>
+                            <div class="font-13">{{ __('messages.TravelWithUs2') }}</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3 mb-4 mb-md-0">
-                    <div class="font-16 bold mb-2"><a href="{{route('aboutUs.index')}}">O nas</a></div>
+                    <div class="font-16 bold mb-2"><a href="{{route('aboutUs.index')}}">{{ __('messages.aboutus') }}</a></div>
                     <div class="row font-13">
                         <div class="col-6 col-md-7">
-                            <div><a href="{{route('aboutUs.index')}}">O firmie</a></div>
-                            <div><a href="{{route('aboutUs.media')}}">Media</a></div>
-                            <div><a href="/privacy-policy">Polityka prywatności</a></div>
-                            <div><a href="/regulations">Regulamin</a></div>
-                            <div><a href="{{route('aboutUs.contact')}}">Kontakt</a></div>
+                            <div><a href="{{route('aboutUs.index')}}">{{ __('messages.About company') }}</a></div>
+                            <div><a href="{{route('aboutUs.media')}}">{{ __('Media') }}</a></div>
+                            <div><a href="/privacy-policy">{{ __('messages.Privacy policy') }}</a></div>
+                            <div><a href="/regulations">{{ __('messages.Regulations') }}</a></div>
+                            <div><a href="{{route('aboutUs.contact')}}">{{ __('messages.Contact') }}</a></div>
                         </div>
                         <div class="col-6 col-md-5 mobile-none">
-                            <div><a href="{{route('aboutUs.news')}}">Aktualności</a></div>
+                            <div><a href="{{route('aboutUs.news')}}">{{ __('messages.News') }}</a></div>
                             <!--div><a href="#">Program afiliacyjny</a></div-->
                         </div>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-3 mb-2">
-                    <div class="font-16 bold"><a href="#">Bądź na bieżąco</a></div>
+                    <div class="font-16 bold"><a>{{ __('messages.Stay updated') }}</a></div>
                     <div class="p-2 row mx-0 no-gutters text-center" style="background-color: #ffffff">
                         <div class="col"><a href="https://www.facebook.com/VisitZakopane/"><img src="{{ asset('images/layout/Facebook_24.png') }}" alt="{{ __('facebook') }}"></a></div>
                         <div class="col"><a href="https://www.instagram.com/visitzakopane.pl/"><img src="{{ asset('images/layout/Instagram_24.png') }}" alt="{{ __('instagram') }}"></a></div>
@@ -76,10 +76,10 @@
         <div class="container">
             <div class="row font-11">
                 <div class="col-12 col-md-8">
-                    Aby zapewnić najwyższą jakość usług wykorzystujemy informacje przechowywane w przeglądarce internetowej.
+                    {{ __('messages.cookies') }}
                     <br>
-                    Sprawdź cel, warunki przechowywania lub dostępu do nich w
-                    <a class="text-white" style="text-decoration: underline" href="/privacy-policy">Polityce prywatności</a>
+                    {{ __('messages.cookies2') }}
+                    <a class="text-white" style="text-decoration: underline" href="/privacy-policy">{{ __('messages.privacypolicy') }}</a>
                 </div>
                 <div class="col-4">
 

@@ -1,5 +1,5 @@
 @extends ('layout.layout')
-@section('title', 'Artykuł detal')
+@section('title', __('messages.Article'))
 
 @section('content')
 <div class="container">
@@ -7,7 +7,7 @@
         <div class="col-6 col-md-3 col-lg-2 mb-2">
             <a href="{{ route('aboutUs.news') }}" class="pointer-back" style="background-image: url('{{ asset("images/news/otherNews.png") }}')">
                 <div  class="btn font-13" style="width: 100%" >
-                    Inne artykuły
+                    {{__('messages.Other articles')}}
                 </div>
             </a>
         </div>
@@ -17,14 +17,14 @@
                     <div class="d-inline-block send-news-friends mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
                         <img style="padding: 7px 9px; max-width: 36px" src="{{asset('images/favourites/Envelop.png')}}">
                     </div>
-                    <div class="d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">Wyślij znajomemu</div>
+                    <div class="d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">{{__('messages.Send to friend')}}</div>
                 </div>
                 <div class="d-inline-block">|</div>
                 <div class="d-inline-block">
                     <div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
                         <img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/favourites/Pdf_file.png')}}">
                     </div>
-                    <a href="{{route('aboutUs.printPdf', $newsId)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">Zapisz</a>
+                    <a href="{{route('aboutUs.printPdf', $newsId)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">{{__('messages.Save')}}</a>
                 </div>
             </span>
         </div>
@@ -45,20 +45,20 @@
                 <div class="d-inline-block send-news-friends mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
                     <img style="padding: 7px 9px; max-width: 36px" src="{{asset('images/favourites/Envelop.png')}}">
                 </div>
-                <div class="d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">Wyślij znajomemu</div>
+                <div class="d-inline-block send-news-friends font-13 txt-blue" style="margin-top: 6px;">{{__('messages.Send to friend')}}</div>
             </div>
             <div class="d-inline-block">|</div>
             <div class="d-inline-block">
                 <div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
                     <img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/favourites/Pdf_file.png')}}">
                 </div>
-                <a href="{{route('aboutUs.printPdf', $newsId)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">Zapisz</a>
+                <a href="{{route('aboutUs.printPdf', $newsId)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">{{__('messages.Save')}}</a>
             </div>
         </div>
     </div>
     <div class="row my-5">
         <div class="col-12 mb-1" style="color: #0066CC; font-size: 24px; font-weight: bold">
-            <a href="{{route('aboutUs.news')}}">Inne artykuły</a>
+            <a href="{{route('aboutUs.news')}}">{{__('messages.Other articles')}}</a>
         </div>
         @for($i=0; $i<4; $i++)
         <div class="col-6 col-md-3 mb-3 mb-md-0">
@@ -71,38 +71,38 @@
         </div>
         @endfor
         <div class="col-12 mt-2" style="color: #0066CC; font-size: 16px; font-weight: bold">
-            <a class="pull-right" href="{{route('aboutUs.news')}}">Zobacz wszystko »</a>
+            <a class="pull-right" href="{{route('aboutUs.news')}}">{{__('messages.See all')}} »</a>
         </div>
     </div>
 </div>
 
 <div id="send-news">
-    <span style="font-size: 24px; font-weight: bold">Wyślij znajomemu</span><br>
+    <span style="font-size: 24px; font-weight: bold">{{__('messages.Send to friend')}}</span><br>
     <div class="row">
         <div class="col-2"><span class="font-14">Link:</span></div>
         <div class="col-10">
             <ul class="font-13">
                 <li>
                     <span id="link">{{Request::url()}}</span>
-                    <span class="txt-blue copy-to-clipboard" onclick="copyToClipboard('#link')">Skopiuj</span>
+                    <span class="txt-blue copy-to-clipboard" onclick="copyToClipboard('#link')">{{__('messages.Copy')}}</span>
                 </li>
             </ul>
         </div>
     </div>
 
-    <label for="emails2">Adresy e-mail:</label>
-    <input id="emails2" name="emails2" type="text" placeholder="Wpisz adresy e-mail (rozdziel je przecinkami)">
+    <label for="emails2">{{__('messages.Email addresses')}}:</label>
+    <input id="emails2" name="emails2" type="text" placeholder="{{__('messages.Emails ph')}}">
     <input id="links" name="links" type="hidden" value="{{Request::url()}}">
     <hr>
     <div style="text-align: center;">
-        <button id="send-mail-with-news" class="btn btn-primary">Wyślij</button>
-        <button class="btn btn-default close-send-news-friends">Anuluj</button>
+        <button id="send-mail-with-news" class="btn btn-primary">{{__('messages.Send')}}</button>
+        <button class="btn btn-default close-send-news-friends">{{__('messages.Cancel')}}</button>
     </div>
     <div id="close-send-news" class="close-send-news-friends">x</div>
 </div>
 
 <div id="confirm-send-news-friends" class="text-center">
-    <br><span style="font-size: 24px; font-weight: bold">Wiadomość e-mail została wysłana</span><br><br><br>
+    <br><span style="font-size: 24px; font-weight: bold">{{__('messages.Email has been sended')}}</span><br><br><br>
     <button class="btn btn-default close-confirm-news">OK</button>
 </div>
 

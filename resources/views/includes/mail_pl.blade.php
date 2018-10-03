@@ -8,9 +8,9 @@
         <tr><td colspan="3"><img src="{{ $message->embed(public_path().'/images/reservations/logoHoment.png') }}"></td></tr>
         <tr><td colspan="3"><hr style="border: 0 none;  border-top: 2px dashed black;  background: none;"></td></tr>
         <tr><td><br></td></tr>
-        <tr><td style="font-size: 16px;">Witaj,</td></tr>
+        <tr><td style="font-size: 16px;">{{__('messages.Welcome')}},</td></tr>
         <tr><td><br></td></tr>
-        <tr><td colspan="3" style="font-size: 16px;">Dziekujemy za rezerwacje.</td></tr>
+        <tr><td colspan="3" style="font-size: 16px;">{{__('messages.Thx')}}</td></tr>
         <tr><td><br></td></tr>
         <tr><td colspan="2"></td></tr>
         <tr>
@@ -24,29 +24,29 @@
         <tr><td colspan="2"><span style="font-size: 12px">GPS: N 48° 12' 39.90'' E 16° 23' 1.82''</span></td></tr>
         <tr><td colspan="3"><hr></td></tr>
         <tr style="font-size: 15px">
-            <td></td><td>Przyjazd:</td><td><b>{{strtolower(strftime("%a, %d %b %Y", strtotime($reservation_arrive_date)))}}</b> (po {{$reservation_arrive_time}})</td>
+            <td></td><td>{{__('messages.arrive')}}:</td><td><b>{{strtolower(strftime("%a, %d %b %Y", strtotime($reservation_arrive_date)))}}</b> ({{__('messages.after')}} {{$reservation_arrive_time}})</td>
         </tr>
         <tr style="font-size: 15px">
-            <td></td><td>Wyjazd:</td><td><b>{{strtolower(strftime("%a, %d %b %Y", strtotime($reservation_departure_date)))}}</b> ({{$apartament_checkout_time}})</td>
+            <td></td><td>{{__('messages.departure')}}:</td><td><b>{{strtolower(strftime("%a, %d %b %Y", strtotime($reservation_departure_date)))}}</b> ({{$apartament_checkout_time}})</td>
         </tr>
         <tr style="font-size: 14px">
-            <td></td><td>Noce:</td><td>{{$reservation_nights}}</td>
+            <td></td><td>{{__('messages.nights2')}}:</td><td>{{$reservation_nights}}</td>
         </tr>
         <tr style="font-size: 14px">
-            <td></td><td>Osoby:</td><td>{{$reservation_persons}} {{trans_choice('messages.adult persons', $reservation_persons)}}, {{$reservation_kids}} dzieci</td>
+            <td></td><td>{{__('messages.Persons')}}:</td><td>{{$reservation_persons}} {{trans_choice('messages.adult persons', $reservation_persons)}}, {{$reservation_kids}} {{__('messages.Kids')}}</td>
         </tr>
         <tr><td><br></td></tr>
         @if($reservation_status == 0)
             <tr style="font-size: 15px">
-                <td></td><td><b>Do zapłaty: </b></td><td><b>{{$payment_to_pay}} PLN*</b></td>
+                <td></td><td><b>{{__('messages.To pay')}}: </b></td><td><b>{{$payment_to_pay}} PLN*</b></td>
             </tr>
         @elseif($payment_to_pay > 0)
             <tr style="font-size: 15px">
-                <td></td><td><b>Do zapłaty: </b></td><td><b>{{$payment_to_pay}} PLN*</b></td>
+                <td></td><td><b>{{__('messages.To pay')}}: </b></td><td><b>{{$payment_to_pay}} PLN*</b></td>
             </tr>
         @else
             <tr style="font-size: 15px">
-                <td></td><td><b>Zapłacono: </b></td><td><b>{{$payment_full_amount}} PLN*</b> ({{date("d.m.Y", strtotime($updated_at))}})</td>
+                <td></td><td><b>{{__('messages.Paid')}}: </b></td><td><b>{{$payment_full_amount}} PLN*</b> ({{date("d.m.Y", strtotime($updated_at))}})</td>
             </tr>
         @endif
         <tr><td><br></td></tr>
@@ -54,24 +54,24 @@
             <td></td><td></td>
         </tr>
         <tr style="font-size: 14px">
-            <td></td><td>Koszt pobytu:</td><td> {{$payment_full_amount}} PLN</td>
+            <td></td><td>{{__('messages.Cost of stay')}}:</td><td> {{$payment_full_amount}} PLN</td>
         </tr>
         @if($payment_to_pay > 0)
         <tr style="font-size: 14px">
-            <td></td><td>Zaliczka: </td><td>{{$payment_full_amount - $payment_to_pay}} PLN* (zapłacono, {{date("d.m.Y", strtotime($updated_at))}})</td>
+            <td></td><td>{{__('messages.Advance')}}: </td><td>{{$payment_full_amount - $payment_to_pay}} PLN* ({{__('messages.Paid')}}, {{date("d.m.Y", strtotime($updated_at))}})</td>
         </tr>
         @endif
         <tr><td><br></td></tr>
         <tr>
             <td></td>
             <td colspan="2" style="font-size: 11px">
-                * Właściciel może pobrać na miejscu dodatkowe opłaty -<br>
-                np: opłatę klimatyczną, parking itd  (sprawdź opis oferty).
+                * {{__('messages.AdditionalCostExp4')}} -<br>
+                {{__('messages.AdditionalCostExp5')}}
             </td>
         </tr>
         <tr><td><br><br><br><br></td></tr>
         <tr>
-            <td style="font-size: 12px;">Kontakt:<br>Justyna Mroczek</td>
+            <td style="font-size: 12px;">{{__('messages.Contact')}}:<br>Justyna Mroczek</td>
             <td colspan="2">
                 <img  src="{{ $message->embed(public_path().'/images/reservations/phoneInMail1.png') }}">
                 <img  src="{{ $message->embed(public_path().'/images/reservations/phoneInMail2.png') }}">
@@ -85,9 +85,9 @@
         </tr>
         <tr><td><br><br><br><br></td></tr>
         <tr><td colspan="3"><hr style="border: 0 none;  border-top: 2px dashed black;  background: none;"></td></tr>
-        <tr><td></td><td colspan="2" style="font-size: 11px">Kontakt: 22/565 66 66 (pn-pt 9:00-17:00), <span style="color: #8fdf82">kontakt@visitzakopane.pl</span></td></tr>
+        <tr><td></td><td colspan="2" style="font-size: 11px">{{__('messages.Contact')}}: 22/565 66 66 ({{__('messages.monToFri')}} 9:00-17:00), <span style="color: #8fdf82">kontakt@visitzakopane.pl</span></td></tr>
         <tr><td colspan="3"><hr style="border: 0 none;  border-top: 2px dashed black;  background: none;"></td></tr>
-        <tr><td colspan="3"><span style="font-size: 11px; color: gray">Ta wiadomość została wysłana przez Otozakopane.</span></td></tr>
+        <tr><td colspan="3"><span style="font-size: 11px; color: gray">{{__('messages.Mail footer')}}</span></td></tr>
     </table>
 
 </div>

@@ -1,12 +1,14 @@
 {{--@extends('layouts.app')--}}
 @extends('layout.layout')
 
+@section('title', __('messages.I forgot my password'))
+
 @section('content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <h1 class="panel-heading">Zapomniałem hasła</h1>
+                <h1 class="panel-heading">{{ __('messages.I forgot my password') }}</h1>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -19,7 +21,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label px-0">Podaj swój adres e-mail</label>
+                            <label for="email" class="col-md-4 control-label px-0">{{ __('messages.Enter your e-mail address') }}</label>
 
                             <div class="col-md-6 px-0">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -35,7 +37,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4 px-0">
                                 <button type="submit" class="btn btn-primary">
-                                    Wyślij link do resetowania hasła
+                                    {{ __('messages.Send a password reset link') }}
                                 </button>
                             </div>
                         </div>

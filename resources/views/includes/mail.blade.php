@@ -7,8 +7,8 @@
 <hr style="border: 0 none;  border-top: 2px dashed black;  background: none;">
 <br>
 <span style="font-size: 16px;">
-    Witaj,<br><br>
-    Dziekujemy za rezerwacje.<br><br>
+    {{__('messages.Welcome')}},<br><br>
+    {{__('messages.Thx')}}<br><br>
 </span>
 <div style="padding: 20px">
     <div style="font-size: 16px; margin-bottom: 20px">
@@ -25,39 +25,39 @@
     <div style="padding: 20px">
         <table style="margin-left: auto; margin-right: auto;">
             <tr>
-                <td>Przyjazd:</td><td><b>{{$reservation_arrive_date}}</b> (po {{$reservation_arrive_time}})</td>
+                <td>{{__('messages.arrive')}}:</td><td><b>{{$reservation_arrive_date}}</b> ({{__('messages.after')}} {{$reservation_arrive_time}})</td>
             </tr>
             <tr>
-                <td>Wyjazd:</td><td><b>{{$reservation_departure_date}}</b> ({{$apartament_checkout_time}})</td>
+                <td>{{__('messages.departure')}}:</td><td><b>{{$reservation_departure_date}}</b> ({{$apartament_checkout_time}})</td>
             </tr>
             <tr style="font-size: 14px">
-                <td>Noce:</td><td>{{$reservation_nights}}</td>
+                <td>{{__('messages.nights2')}}:</td><td>{{$reservation_nights}}</td>
             </tr>
             <tr style="font-size: 14px">
-                <td>Osoby:</td><td>{{$reservation_persons}} osoby dorosłe, {{$reservation_kids}} dzieci</td>
+                <td>{{__('messages.Persons')}}:</td><td>{{$reservation_persons}} {{__('messages.adult persons2')}}, {{$reservation_kids}} {{__('messages.Kids')}}</td>
             </tr>
             <tr style="height:20px;">
                 <td></td>
             </tr>
             <tr>
-                <td><b>Do zapłaty: </b></td><td><b>300,00 PLN*</b></td>
+                <td><b>{{__('messages.To pay')}}: </b></td><td><b>300,00 PLN*</b></td>
             </tr>
             <tr style="height:20px;">
                 <td></td>
             </tr>
             <tr style="font-size: 14px">
-                <td>Koszt pobytu:</td><td>400,00 PLN</td>
+                <td>{{__('messages.Cost of stay')}}:</td><td>400,00 PLN</td>
             </tr>
             <tr style="font-size: 14px">
-                <td>Zaliczka:</td><td>100,00 PLN (zapłacono, 12.03.2014)</td>
+                <td>{{__('messages.Advance')}}:</td><td>100,00 PLN ({{__('messages.Paid')}}, 12.09.2018)</td>
             </tr>
             <tr style="height:20px;">
                 <td></td>
             </tr>
             <tr>
                 <td colspan="2" style="font-size: 11px">
-                    * Właściciel może pobrać na miejscu dodatkowe opłaty -<br>
-                    np: opłatę klimatyczną, parking itd  (sprawdź opis oferty).
+                    * {{__('messages.AdditionalCostExp4')}} -<br>
+                    {{__('messages.AdditionalCostExp5')}}
                 </td>
             </tr>
         </table>
@@ -66,7 +66,7 @@
 
         <table style="margin-left: auto; margin-right: auto; max-width: 740px;">
             <tr>
-                <td style="font-size: 12px; width: 150px; vertical-align: top;">Kontakt:<br>Justyna Mroczek</td>
+                <td style="font-size: 12px; width: 150px; vertical-align: top;">{{__('messages.Contact')}}:<br>Justyna Mroczek</td>
                 <td>
                     <div>
                         <div style="margin-right: 20px; margin-bottom: 16px; display: inline-block; font-size: 12px; padding-left: 10px; padding-right: 10px; border-radius: 5px; border: solid 1px; background-color: #e7e7e7;">
@@ -99,9 +99,9 @@
 </div>
 <hr style="border: 0 none;  border-top: 2px dashed black;  background: none;">
 <table style="margin-left: auto; margin-right: auto;">
-    <tr><td style="font-size: 11px">Kontakt: 22/565 66 66 (pn-pt 9:00-17:00), <span style="color: #8fdf82">kontakt@visitzakopane.pl</span></td></tr>
+    <tr><td style="font-size: 11px">{{__('messages.Contact')}}: 22/565 66 66 (pn-pt 9:00-17:00), <span style="color: #8fdf82">kontakt@visitzakopane.pl</span></td></tr>
 </table>
 <hr style="border: 0 none;  border-top: 2px dashed black;  background: none;">
-<span style="font-size: 11px; color: gray">Ta wiadomość została wysłana przez Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.</span>
+<span style="font-size: 11px; color: gray">{{__('messages.Mail footer2')}}</span>
 </body>
 </html>

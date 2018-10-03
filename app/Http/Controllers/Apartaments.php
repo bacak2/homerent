@@ -35,13 +35,6 @@ class Apartaments extends Controller
     //Generates homepage view
     public function showIndex()
     {
-        try{
-            $test = DB::connection('mysql2')->table('visit_ankiety')->first();
-            //dd($test);
-        }catch(\Exception $e){
-            return $e->getMessage();
-        }
-
         $todayDate = date("Y-m-d");
         $tomorrowDate = date("Y-m-d", strtotime($todayDate . ' +1 day'));
 
@@ -128,11 +121,10 @@ class Apartaments extends Controller
         $apartamentsThirdCity = $apartamentsThirdCity->limit(2)->get();
 
         $guidebooks = DB::table('guidebooks')
+            ->where('guidebook_language_id', $this->language->id)
             ->limit(9)
             ->get();
 
-        $opinionsAmount = DB::table('apartament_opinions')->count();
-        $reservationsAmount = DB::table('reservations')->count();
         $allApartamentsAmount = DB::table('reservations')->count();
 
         return view('pages.index', [
@@ -143,8 +135,6 @@ class Apartaments extends Controller
             'todayDate' => $todayDate,
             'tomorrowDate' => $tomorrowDate,
             'guidebooks' => $guidebooks,
-            'opinionsAmount' => $opinionsAmount,
-            'reservationsAmount' => $reservationsAmount,
             'allApartamentsAmount' => $allApartamentsAmount,
             'apartamentsFirstCityAmount' => $apartamentsFirstCityAmount,
             'apartamentsSecondCityAmount' => $apartamentsSecondCityAmount,
@@ -627,13 +617,13 @@ class Apartaments extends Controller
         $tomorrowDate = date('Y-m-d', strtotime($todayDate . ' +1 day'));
 
         $personsArray = [];
-        if($request->dorosli == null) $personsArray[""] = 'Dorośli';
+        if($request->dorosli == null) $personsArray[""] = __('messages.adults');
         for($i=1; $i<=$apartament->apartament_persons; $i++){
             $personsArray[$i] = $i;
         }
 
         $kidsArray = [];
-        $kidsArray[0] = 'Dzieci';
+        $kidsArray[0] = __('messages.kids');
         for($i=1; $i<=$apartament->apartament_kids; $i++){
             $kidsArray[$i] = $i;
         }
@@ -775,13 +765,13 @@ class Apartaments extends Controller
         $tomorrowDate = date('Y-m-d', strtotime($todayDate . ' +1 day'));
 
         $personsArray = [];
-        if($request->dorosli == null) $personsArray[""] = 'Dorośli';
+        if($request->dorosli == null) $personsArray[""] = __('messages.adults');
         for($i=1; $i<=$maxPersons; $i++){
             $personsArray[$i] = $i;
         }
 
         $kidsArray = [];
-        $kidsArray[0] = 'Dzieci';
+        $kidsArray[0] = __('messages.kids');
         for($i=1; $i<=8; $i++){
             $kidsArray[$i] = $i;
         }
@@ -944,9 +934,10 @@ class Apartaments extends Controller
         $finds = DB::table("apartaments")
             ->selectRaw('lastReservation.lastReservationDate, sub.opinionAmount, sub.ratingAvg, apartament_groups.*, apartament_descriptions.*, apartaments.id, MIN(price_value) AS min_price')
             ->leftJoin('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
+            ->leftJoin('apartament_group_descriptions','apartament_group_descriptions.id', '=', 'apartaments.group_id')
             ->leftJoin('apartament_prices','apartaments.id', '=', 'apartament_prices.apartament_id')
             ->leftJoin('apartament_groups','apartaments.group_id', '=', 'apartament_groups.group_id')
-            ->leftJoin('languages','apartament_descriptions.language_id', '=', 'languages.id')
+            ->leftJoin('languages','apartament_group_descriptions.language_id', '=', 'languages.id')
             ->leftJoin('reservations', 'apartaments.id','=','reservations.apartament_id')
             ->leftjoin(DB::raw('(select group_id, id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
                 cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation` left join apartaments on id_apartament = apartaments.id group by apartaments.group_id) sub
@@ -997,7 +988,8 @@ class Apartaments extends Controller
                         });
                 })
                 ->distinct('apartaments.id'))
-            ->where('language_id', $this->language->id)
+            ->where('apartament_descriptions.language_id', $this->language->id)
+            //->where('apartament_group_descriptions.language_id', $this->language->id)
             ->whereBetween('price_value', array($request->amount ?? 0, $request->amount2 ?? 10000))
             ->whereBetween('date_of_price', array($arriveDate, $returnDate))
             ->where($whereData)
@@ -1019,6 +1011,7 @@ class Apartaments extends Controller
             ->where('apartaments.group_id', '>', 0)
             ->where('apartaments.apartament_persons', '>=', $request->dorosli)
             ->where('apartaments.apartament_kids', '>=', $request->dzieci)
+            //->where('apartament_descriptions.language_id', $this->language->id)
             //->groupBy('apartaments.id')
             ->groupBy('apartaments.group_id')
             //->orderBy('apartaments.group_id', 'DESC')
@@ -1640,14 +1633,14 @@ class Apartaments extends Controller
         $sessionId = Session::getId();
 
         if ($request->session()->exists("$request->opinionId/$sessionId")) {
-            return response()->json("Już oceniłeś tą opinię");
+            return response()->json(__('messages.You have already assessed this opinion'));
         }
 
         DB::table('apartament_opinions')->where('id', $request->opinionId)->increment('helpful');
 
         session(["$request->opinionId/$sessionId" => 1]);
 
-        return response()->json("Dodano ocenę do opinii");
+        return response()->json(__('messages.The rating has been added to the opinion'));
     }
 
     public function printPdf(Request $request){

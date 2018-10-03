@@ -27,7 +27,7 @@ class Reservation extends Model
             if($apartamentsDescription[0]['email_sended'] != 1){
                 Mail::send('includes.mail_pl', $apartamentsDescription[0], function($message) use ($apartamentsDescription){
                     $message->to($apartamentsDescription[0]['email'])
-                        ->subject('Potwierdzenie rezerwacji');
+                        ->subject(__('messages.mailSub1'));
                     $message->from('kontakt@visitzakopane.pl','Otozakopane');
                 });
 

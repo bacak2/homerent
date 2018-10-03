@@ -109,7 +109,7 @@ class AboutUs extends Controller
             foreach($emails as $email){
                 Mail::send('includes.mail_send-to-friends', ['link'=>$request->link], function($message) use ($email){
                     $message->to($email)
-                        ->subject('Link do aktualności');
+                        ->subject(__('messages.mailSub4'));
                     $message->from('kontakt@visitzakopane.pl','Otozakopane');
                 });
             }
@@ -125,7 +125,7 @@ class AboutUs extends Controller
             foreach($emails as $email){
                 Mail::send('includes.mail_guidebook-send-to-friends', ['link'=>$request->link], function($message) use ($email){
                     $message->to($email)
-                        ->subject('Przewodnik');
+                        ->subject(__('messages.mailSub5'));
                     $message->from('kontakt@visitzakopane.pl','Otozakopane');
                 });
             }

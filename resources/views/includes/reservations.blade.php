@@ -1,6 +1,6 @@
 @extends ('layout.layout')
 
-@section('title', $apartament->descriptions[0]->apartament_name.' - rezerwacja' )
+@section('title', $apartament->descriptions[0]->apartament_name.' - '.__('messages.reservation2'))
 
 @section('content')
 	<div class="container">

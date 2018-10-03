@@ -95,7 +95,7 @@
                     </div>
                     <div class="row">
                         <div class="col-4 col-md-5 col-lg-3 pr-0 pr-md-3">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div>
-                        <div class="col-8 col-md-7 col-lg-9 pl-0 pl-md-3">{{$request->dorosli}} {{trans_choice('messages.adult persons',$request->dorosli)}}, {{$request->dzieci}} dzieci</div>
+                        <div class="col-8 col-md-7 col-lg-9 pl-0 pl-md-3">{{$request->dorosli}} {{trans_choice('messages.adult persons',$request->dorosli)}}, {{$request->dzieci}} {{trans_choice('messages.nr kids', $request->dzieci)}}</div>
                     </div>
                     <div class="res-description txt-blue mt-1 mt-lg-3">
                         <a href="apartaments/{{$apartament->descriptions[0]->apartament_link}}">{{ __('messages.change') }}</a>
@@ -121,7 +121,7 @@
                         <div class="row mb-3">
                             <div class="col-7">
                                 {{ __('messages.Payment for stay') }} ({{$ileNocy}} {{trans_choice('messages.nights',$ileNocy)}}):
-                                <span id="showPricePerNight" class="font-11" style="color: #007bff">Pokaż cenę za noc</span>
+                                <span id="showPricePerNight" class="font-11" style="color: #007bff">{{ __('messages.Show price per night') }}</span>
                             </div>
                             <div class="col-5">
                                 <span class="pull-right">{{ number_format($totalPrice, 2, '.', ' ') }} PLN</span>
@@ -142,11 +142,11 @@
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Final cleaning') }}:</div><div class="col-5"><span class="pull-right">{{ number_format($cleaning, 2, '.', ' ') }} PLN</span></div></div>
                         <div class="row mb-3"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right"><span id="additional-services">0.00</span> PLN</span></div></div>
                         {{--<div class="row mb-3"><div class="col-8">{{ __('messages.Payment for service') }}: <img src='{{ asset("images/reservations/infoIcon.png") }}'></div><div class="col-4"><span class="pull-right">{{ number_format($basicService, 2, '.', ' ') }} PLN</span></div></div>--}}
-                        <div class="row mb-3 mr-3" id="couponDiv" style="display: none"><div class="col-4">Kupon rabatowy:</div><div class="col-4"><input id="coupon" type="text" style="width:100%; max-height: 30px" class="font-11"></div><div class="col-3"><button class="btn btn-mobile coupon-submit">Zrealizuj kupon</button></div><div class="col-1"><span id="cancelCoupon" class="font-11" style="color: #007bff">Anuluj</span></div></div>
+                        <div class="row mb-3 mr-3" id="couponDiv" style="display: none"><div class="col-4">{{ __('messages.Discount coupon') }}:</div><div class="col-4"><input id="coupon" type="text" style="width:100%; max-height: 30px" class="font-11"></div><div class="col-3"><button class="btn btn-mobile coupon-submit">{{ __('messages.Redeem coupon') }}</button></div><div class="col-1"><span id="cancelCoupon" class="font-11" style="color: #007bff">{{ __('messages.Cancel') }}</span></div></div>
                         <div class="row mb-3 font-22-reservation"><div class="col-5"><b>{{ __('messages.fprice') }}</b></div><div class="col-7"><span class="pull-right"><b><span id="total-price">{{ number_format($request->fullPrice, 2, '.', ' ') }}</span> PLN</b></span></div></div>
-                        <div class="row mb-2" id="couponQuestion"><div class="col-12 font-11" id="coupon" style="color: #007bff">Posiadasz kupon rabatowy?</div></div>
+                        <div class="row mb-2" id="couponQuestion"><div class="col-12 font-11" id="coupon" style="color: #007bff">{{ __('messages.Do you have a discount coupon?') }}</div></div>
                     </div>
-                    <a class="btn btn-at-least5 mobile-none" href="apartaments/{{$apartament->descriptions[0]->apartament_link}}">Zarezerwuj co namniej 5 nocy, a zapłacisz tylko <b>80 PLN za noc.</b></a>
+                    <a class="btn btn-at-least5 mobile-none" href="apartaments/{{$apartament->descriptions[0]->apartament_link}}">{{ __('messages.Book at least 5 nights and pay only') }} <b>80 PLN {{ __('messages.per night') }}.</b></a>
                 </div>
                 <div class="col-12 mt-3">
                     <h3 class="h3-reservation">{{ __('messages.Contact details') }}</h3>
@@ -171,13 +171,13 @@
                         <div class="form-group row">
                             {!! Form::label('name', __('messages.name').':', array('class' => 'col-3 col-lg-4 col-form-label')) !!}
                             <div class="col-9 col-lg-8">
-                                {!! Form::text('name', Auth::user()->name ?? '', array('class' => 'full-width', 'required' => 'required', 'oninvalid' => 'setCustomValidity("Wprowadź imię")', ' oninput' => 'setCustomValidity("")')) !!}
+                                {!! Form::text('name', Auth::user()->name ?? '', array('class' => 'full-width', 'required' => 'required', 'oninvalid' => 'setCustomValidity("'.__('messages.Fill this field').'")', ' oninput' => 'setCustomValidity("")')) !!}
                             </div>
                         </div>
                         <div class="form-group row">
                             {!! Form::label('surname', __('messages.surname').':', array('class' => 'col-3 col-lg-4 col-form-label')) !!}
                             <div class="col-9 col-lg-8">
-                                {!! Form::text('surname', Auth::user()->surname ?? '', array('class' => 'full-width', 'required' => 'required', 'oninvalid' => 'setCustomValidity("Wprowadź nazwisko")', ' oninput' => 'setCustomValidity("")')) !!}
+                                {!! Form::text('surname', Auth::user()->surname ?? '', array('class' => 'full-width', 'required' => 'required', 'oninvalid' => 'setCustomValidity("'.__('messages.Fill this field').'")', ' oninput' => 'setCustomValidity("")')) !!}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -215,7 +215,7 @@
                                     </div>
                                     <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
                                     @if($additionalService->description != NULL)
-                                        <div class="col-12 font-11 ml-3">{{$additionalService->description}}</div>
+                                        <div class="col-12 font-11 ml-3">{{$additionalService->price}} {{$additionalService->description}}</div>
                                     @endif
                                 @elseif($additionalService->with_options == 2)
                                     <div class="col-9">
@@ -224,24 +224,24 @@
                                         <label for="additional{{$additionalService->id}}" style="margin-bottom: 0">
                                         </label>
                                         {{$additionalService->name}}
-                                            dla
+                                            {{ __('messages.to') }}
                                             <?php $persons = $request->dorosli+$request->dzieci; ?>
                                             <select name="persons-{{$additionalService->id}}" class="additional{{$additionalService->id}} persons additional-select">
                                                 @for ($i = 1; $i <= $persons; $i++)
                                                     <option value="{{ $i }}">{{ $i }}</option>
                                                 @endfor
                                             </select>
-                                            na
+                                            {{ __('messages.for days') }}
                                             <select name="days-{{$additionalService->id}}" class="additional{{$additionalService->id}} days additional-select">
                                                 @for ($i = 1; $i <= $ileNocy; $i++)
                                                     <option value="{{ $i }}">{{ $i }}</option>
                                                 @endfor
                                             </select>
-                                            dni
+                                            {{ __('messages.days2') }}
                                     </div>
                                     <div class="col-3" style="text-align: right;">{{$additionalService->price}} PLN</div>
                                     @if($additionalService->description != NULL)
-                                        <div class="col-12 font-11 ml-3">{{$additionalService->description}}</div>
+                                        <div class="col-12 font-11 ml-3">{{$additionalService->price}} {{$additionalService->description}}</div>
                                     @endif
                                 @elseif($additionalService->with_options == 3)
                                     <div class="col-9">
@@ -251,7 +251,7 @@
                                         </label>
                                         {{$additionalService->name}}
                                         @if($additionalService->description != NULL)
-                                            <div class="col-12 font-11 ml-3">{{$additionalService->description}}</div>
+                                            <div class="col-12 font-11 ml-3">{{$additionalService->price}} {{$additionalService->description}}</div>
                                         @endif
                                             <?php $persons = $request->dorosli; ?>
                                             <select name="persons-{{$additionalService->id}}" class="additional{{$additionalService->id}} persons additional-select">

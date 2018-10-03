@@ -5,15 +5,15 @@
 @section('content')
 <span  ng-app="AccountsList" ng-controller="myCtrl">
     <div class="container mb-4">
-        <div class="row mt-4 mx-0"><h1 style="font-size: 28px"><b>Moje dane</b></h1></div>
-        <div class="row mt-2 mx-0"><h2 style="font-size: 22px"><b>Dane do rezerwacji</b></h2></div>
+        <div class="row mt-4 mx-0"><h1 style="font-size: 28px"><b>{{__('messages.My data')}}</b></h1></div>
+        <div class="row mt-2 mx-0"><h2 style="font-size: 22px"><b>{{__('messages.Data to reservation')}}</b></h2></div>
 
         <div id="data-content" class="row" style="display: none">
             <div class="col-sm-6 col-lg-4 col-xl-3 mb-4" ng-repeat="account in Accounts">
                 <div class="data-item-top p-2">
                     <% account.label %>
-                    <div class="pull-right ml-2 delete" ng-click="deletePop(account.id)"><img data-toggle="tooltip" data-placement="bottom" title="Usuń dane" alt="Usuń dane" src='{{ asset("images/account/trash.png") }}'></div>
-                    <div class="pull-right edit" ng-click="editItem(account)"><img data-toggle="tooltip" data-placement="bottom" title="Edytuj dane" alt="Edytuj dane" src='{{ asset("images/account/pencil.png") }}'></div>
+                    <div class="pull-right ml-2 delete" ng-click="deletePop(account.id)"><img data-toggle="tooltip" data-placement="bottom" title="{{__('messages.Delete data')}}" alt="{{__('messages.Delete data')}}" src='{{ asset("images/account/trash.png") }}'></div>
+                    <div class="pull-right edit" ng-click="editItem(account)"><img data-toggle="tooltip" data-placement="bottom" title="{{__('messages.Edit data')}}" alt="{{__('messages.Edit data')}}" src='{{ asset("images/account/pencil.png") }}'></div>
                 </div>
                 <div class="data-item p-2">
                         <div class="mb-2" style="color: gray"><% account.title %></div>
@@ -37,14 +37,14 @@
             </div>
             <div class="col-sm-6 col-lg-4 col-xl-3">
                 <div class="data-item" id="data-item-new">
-                    <button id="addNew" class="btn btn-default" style="font-size: 18px">+ dodaj nowe</button>
+                    <button id="addNew" class="btn btn-default" style="font-size: 18px">+ {{__('messages.add new')}}</button>
                 </div>
             </div>
         </div>
-        <div class="row mt-4 mx-0"><h3><b>Dane konta</b></h3></div>
+        <div class="row mt-4 mx-0"><h3><b>{{__('messages.Account data')}}</b></h3></div>
         <div class="row">
             <div class="col-4">
-                Adres e-mail/login:
+                {{__('messages.Email address')}}/login:
             </div>
             <div class="col-8">
                 {{ Auth::user()->email }}
@@ -52,68 +52,68 @@
         </div>
         <div class="row mt-2">
             <div class="col-4">
-                Połączenie z Facebook:
+                {{__('messages.Connection with')}} Facebook:
             </div>
             <div class="col-8">
-            @if(Auth::user()->facebook_id == null) nie <a href="#" class="fb-login-button ml-4 font-13" data-max-rows="1" data-size="small" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkConnectionWithFb();">Połącz</a>
-                @else tak
+            @if(Auth::user()->facebook_id == null) {{__('messages.no')}} <a href="#" class="fb-login-button ml-4 font-13" data-max-rows="1" data-size="small" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkConnectionWithFb();">{{__('messages.Connect')}}</a>
+                @else {{__('messages.yes')}}
                 @endif
-                <div class="font-11">Nie publikujemy na tablicy Facebook bez Twojej zgody</div>
+                <div class="font-11">{{__('messages.fbAccountExp')}}</div>
             </div>
         </div>
     </div>
 <div class="add-new-data" style="display: none">
-    <h4 class="p-3 mb-4"><b>Dodaj dane do rezerwacji</b></h4>
+    <h4 class="p-3 mb-4"><b>{{__('messages.Add data to reservation')}}</b></h4>
     <div id="form-account" class="row mb-lg-3">
         <div class="col-md-6 col-sm-12 pl-md-5 form-full-width">
             {!! Form::open(['url' => '/foo', 'name' => 'formName', 'class' => 'pl-lg-5']) !!}
             {!! Form::hidden('id', '0', ['id'=>'id', 'ng-model' => 'id']) !!}
             <div class="row">
                 <div class="col-sm-9">
-                    {!! Form::text('label', '', ['id'=>'label', 'class' => 'required full-width ', 'ng-model' => "label", 'placeholder' => __('Nazwa')]) !!}
-                    <span id="errlabel" class="error">Proszę wypełnić pole</span>
+                    {!! Form::text('label', '', ['id'=>'label', 'class' => 'required full-width ', 'ng-model' => "label", 'placeholder' => __('messages.Designation')]) !!}
+                    <span id="errlabel" class="error">{{__('messages.Fill this field')}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('name', '', ['id'=>'name', 'class' => 'required full-width ', 'ng-model' => "name", 'placeholder' => __('messages.Name')]) !!}
-                    <span id="errname" class="error">Proszę wypełnić pole</span>
+                    <span id="errname" class="error">{{__('messages.Fill this field')}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('surname', '', ['id'=>'surname', 'class' => 'required full-width', 'ng-model' => "surname", 'placeholder' => __('messages.Surname')]) !!}
-                    <span id="errsurname" class="error">Proszę wypełnić pole</span>
+                    <span id="errsurname" class="error">{{__('messages.Fill this field')}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-9">
-                    {!! Form::text('address', '', ['id'=>'address', 'class' => 'required full-width', 'ng-model' => "address", 'placeholder' => __('Ulica / numer')]) !!}
-                    <span id="erraddress" class="error">Proszę wypełnić pole</span>
+                    {!! Form::text('address', '', ['id'=>'address', 'class' => 'required full-width', 'ng-model' => "address", 'placeholder' => __('messages.StreetAndNumber')]) !!}
+                    <span id="erraddress" class="error">{{__('messages.Fill this field')}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('postcode', '', ['id'=>'postcode', 'class' => 'required full-width', 'ng-model' => "postcode", 'placeholder' => __('messages.Postcode')]) !!}
-                    <span id="errpostcode" class="error">Proszę wprowadzić poprawny kod pocztowy</span>
+                    <span id="errpostcode" class="error">{{__('messages.Enter valid postcode')}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-9">
-                    {!! Form::text('place', '', ['id'=>'place', 'class' => 'required full-width', 'ng-model' => "place", 'placeholder' => __('Miasto')]) !!}
-                    <span id="errplace" class="error">Proszę wypełnić pole</span>
+                    {!! Form::text('place', '', ['id'=>'place', 'class' => 'required full-width', 'ng-model' => "place", 'placeholder' => __('messages.City')]) !!}
+                    <span id="errplace" class="error">{{__('messages.Fill this field')}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('email', '', ['id'=>'email', 'class' => 'required full-width', 'ng-model' => "email", 'placeholder' => __('Email')]) !!}
-                    <span id="erremail" class="error">Proszę wprowadzić poprawny adres email</span>
+                    <span id="erremail" class="error">{{__('messages.Enter valid email address')}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('phone', '', ['id'=>'phone', 'class' => 'required full-width', 'ng-model' => "phone", 'placeholder' => __('messages.Cellphone')]) !!}
-                    <span id="errphone" class="error">Proszę wypełnić pole</span>
+                    <span id="errphone" class="error">{{__('messages.Fill this field')}}</span>
                 </div>
             </div>
             <div class="row mx-0">
@@ -127,31 +127,31 @@
             <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('name_invoice', '', ['id'=>'name_invoice', 'class' => 'required full-width', 'ng-model' => "name_invoice", 'placeholder' => __('messages.Name')]) !!}
-                    <span id="errname_invoice" class="error">Proszę wypełnić pole</span>
+                    <span id="errname_invoice" class="error">{{__('messages.Fill this field')}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('surname_invoice', '', ['id'=>'surname_invoice', 'class' => 'required full-width', 'ng-model' => "surname_invoice", 'placeholder' => __('messages.Surname')]) !!}
-                    <span id="errsurname_invoice" class="error">Proszę wypełnić pole</span>
+                    <span id="errsurname_invoice" class="error">{{__('messages.Fill this field')}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-9">
-                    {!! Form::text('address_invoice', '', ['id'=>'address_invoice', 'class' => 'required full-width', 'ng-model' => "address_invoice", 'placeholder' => __('Ulica / numer')]) !!}
-                    <span id="erraddress_invoice" class="error">Proszę wypełnić pole</span>
+                    {!! Form::text('address_invoice', '', ['id'=>'address_invoice', 'class' => 'required full-width', 'ng-model' => "address_invoice", 'placeholder' => __('messages.StreetAndNumber')]) !!}
+                    <span id="erraddress_invoice" class="error">{{__('messages.Fill this field')}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-9">
                     {!! Form::text('postcode_invoice', '', ['id'=>'postcode_invoice', 'class' => 'required full-width', 'ng-model' => "postcode_invoice", 'placeholder' => __('messages.Postcode')]) !!}
-                    <span id="errpostcodeInvoice" class="error">Proszę wprowadzić poprawny kod pocztowy</span>
+                    <span id="errpostcodeInvoice" class="error">{{__('messages.Enter valid postcode')}}</span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-9">
-                    {!! Form::text('place_invoice', '', ['id'=>'place_invoice', 'class' => 'required full-width', 'ng-model' => "place_invoice", 'placeholder' => __('Miasto')]) !!}
-                    <span id="errplace_invoice" class="error">Proszę wypełnić pole</span>
+                    {!! Form::text('place_invoice', '', ['id'=>'place_invoice', 'class' => 'required full-width', 'ng-model' => "place_invoice", 'placeholder' => __('messages.City')]) !!}
+                    <span id="errplace_invoice" class="error">{{__('messages.Fill this field')}}</span>
                 </div>
             </div>
         </div>
@@ -160,10 +160,10 @@
         <div class="row mb-3">
             <div class="col-2 col-lg-4"></div>
             <div class="col-4 col-lg-2">
-                <div class="btn" id="cancel" style="font-size: 18px">Anuluj</div>
+                <div class="btn" id="cancel" style="font-size: 18px">{{__('messages.Cancel')}}</div>
             </div>
             <div class="col-4">
-                <div class="btn btn-black" id="save" ng-click="saveItem()" style="width: 100%; font-size: 18px">Zapisz</div>
+                <div class="btn btn-black" id="save" ng-click="saveItem()" style="width: 100%; font-size: 18px">{{__('messages.Save')}}</div>
             </div>
         </div>
         {!! Form::close() !!}
@@ -171,19 +171,19 @@
 </div>
 
 <div id="data-added" style="display: none">
-    <h4 class="p-3"><b>Dane zostały zapisane</b></h4>
-    <div class="px-3">Nowe dane są od teraz dostępne w systemie</div>
+    <h4 class="p-3"><b>{{__('messages.The data has been saved')}}</b></h4>
+    <div class="px-3">{{__('messages.New data is now available in the system')}}</div>
     <div class="col-12 mb-4 mt-2">
-        <div class="btn btn-black" id="cancel-data-added" style="width: 100%; font-size: 18px">Zamknij</div>
+        <div class="btn btn-black" id="cancel-data-added" style="width: 100%; font-size: 18px">{{__('messages.Close')}}</div>
     </div>
 </div>
 
 <div id="confirm-delete-pop" style="display: none">
-    <h4 class="p-3"><b>Czy na pewno chcesz usunąć dane?</b></h4>
-    <div class="px-3">Operacja jest nieodwracalna</div>
+    <h4 class="p-3"><b>{{__('messages.Are you sure you want to delete the data?')}}</b></h4>
+    <div class="px-3">{{__('messages.The operation is irreversible')}}</div>
     <div class="col-12 mb-4 mt-2">
-        <div class="btn btn-black" id="confirm-delete" ng-click="deleteItem(toDelete)" style="width: 100%; font-size: 18px">Potwierdź</div>
-        <div class="btn" id="cancel-delete" style="width: 100%; font-size: 18px">Anuluj</div>
+        <div class="btn btn-black" id="confirm-delete" ng-click="deleteItem(toDelete)" style="width: 100%; font-size: 18px">{{__('messages.Confirm')}}</div>
+        <div class="btn" id="cancel-delete" style="width: 100%; font-size: 18px">{{__('messages.Cancel')}}</div>
     </div>
 </div>
 </span>
@@ -609,7 +609,7 @@
                 });
 
             }
-            else alert("Wystąpił błąd podczas połączenia z Facebookiem");
+            else alert("{{__('messages.FbConnectionError')}}");
         });
     }
 </script>

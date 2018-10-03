@@ -2,7 +2,7 @@
 
 @section('reservation.content')
     <div class="container">
-        <h1 class="h1-reservation">{{ __('Dokup usługi') }}</h1>
+        <h1 class="h1-reservation">{{ __('messages.Buy a service') }}</h1>
     </div>
     <div class="container flex-box mb-2">
         <div id="Rtitle"><h2 class="h2-reservation mt-3">2. {{ __('messages.your data') }}</h2></div>
@@ -61,7 +61,7 @@
                             <div>{{ $data->postcode }} {{ $data->place }}</div>
                             <div class="mb-2">{{ $data->country }}</div>
                             @if($data->invoice==1)
-                                <div>Faktura na:</div>
+                                <div>{{ __('messages.Data invoice') }}:</div>
                                 <div>{{ $data->name_invoice }} {{ $data->surname_invoice }}</div>
                                 <div>{{ $data->address_invoice }}</div>
                                 <div>{{ $data->postcode_invoice }} {{ $data->place_invoice }}</div>
@@ -70,95 +70,6 @@
                             <div>{{ $data->email }}</div>
                         </div>
                     @endforeach
-                        <!--div class="tab-pane" id="addNew">
-                            <div class="form-group row">
-                                {{ Form::label('title', __('messages.Title'), array('class' => 'col-sm-3 col-form-label')) }}
-                                <div class="col-sm-9">
-                                    {!! Form::select('title', array(__('messages.Mr') => __('messages.Mr'), __('messages.Mrs') => __('messages.Mrs'))) !!}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                {!! Form::label('name and surname', __('messages.Name and surname'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                <div class="col-sm-9">
-                                    {!! Form::text('name and surname', $request->name.' '.$request->surname, ['class' => 'required full-width']) !!}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                {!! Form::label('country', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                <div class="col-sm-9">
-                                    {!! Form::select('country', array('Polska' => __('Polska'), 'Niemcy' => __('Niemcy')), 'Polska', array('class' => 'col-sm-12 col-lg-3')) !!}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                {!! Form::label('address', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                <div class="col-sm-9">
-                                    {!! Form::text('address', '', ['class' => 'required full-width']) !!}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                {!! Form::label('postcode', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                <div class="col-sm-9">
-                                    {!! Form::text('postcode', '', array('class' => 'required not-full-width col-sm-12 col-lg-6')) !!}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                {!! Form::label('place', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                <div class="col-sm-9">
-                                    {!! Form::text('place', '', ['class' => 'required full-width']) !!}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                {!! Form::label('phone', __('messages.Cellphone number'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                <div class="col-sm-9">
-                                    {!! Form::text('phone', '', ['class' => 'required full-width']) !!}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
-                                <div class="col-sm-9">
-                                    {!! Form::email('email', $request->email, ['class' => 'required full-width']) !!}
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="offset-sm-3">
-                                    {!! Form::checkbox('wantInvoice') !!}
-                                </div>
-                                {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
-                            </div>
-                            <span id="invoiceFields" style="display: none">
-                                <h3><b>Dane do faktury</b></h3>
-                                <div class="form-group row">
-                                    {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                    <div class="col-sm-9">
-                                        {!! Form::text('address_invoice', '', ['class' => 'full-width']) !!}
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    {!! Form::label('postcode_invoice', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                    <div class="col-sm-9">
-                                        {!! Form::text('postcode_invoice', '', array('class' => 'not-full-width col-sm-12 col-lg-6')) !!}
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    {!! Form::label('place_invoice', __('messages.Place'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                    <div class="col-sm-9">
-                                        {!! Form::text('place_invoice', '', ['class' => 'full-width']) !!}
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    {!! Form::label('company_name', __('messages.Company name'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                    <div class="col-sm-9">
-                                        {!! Form::text('company_name', '', ['class' => 'full-width']) !!}
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    {!! Form::label('nip', __('NIP'), array('class' => 'col-sm-3 col-form-label')) !!}
-                                    <div class="col-sm-9">
-                                        {!! Form::text('nip', '', ['class' => 'full-width']) !!}
-                                    </div>
-                                </div>
-                            </span>
-                        </div-->
                 </div>
             @else
                     <ul class="nav nav-tabs">
@@ -166,7 +77,7 @@
                             @if ($loop->index == $request->change)
                                 <li class="nav-item">
                                     <a class="nav-link active" href="#{{ $data->id }}" role="tab" data-toggle="tab">
-                                        Nazwa:
+                                        {{ __('messages.Name2') }}:
                                         {!! Form::text('label', $accountData["$request->change"]->label ?? $accountData->first()->label, ['class' => '', 'style'=>'height: 24px; width: 200px; font-size:12px']) !!}
                                     </a>
                                 </li>
@@ -176,9 +87,6 @@
                                 </li>
                             @endif
                         @endforeach
-                        <!--li class="nav-item">
-                            <a class="nav-link" href="#addNew" role="tab" data-toggle="tab">+</a>
-                        </li-->
                     </ul>
                     <div class="tab-content pt-4">
                         @foreach($accountData as $key => $data)
@@ -206,7 +114,7 @@
                                         <div class="form-group row">
                                             {!! Form::label('country', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
                                             <div class="col-sm-9">
-                                                {!! Form::select('country', array('Polska' => __('Polska'), 'Niemcy' => __('Niemcy')), 'Polska', array('class' => 'col-sm-12 col-lg-3')) !!}
+                                                {!! Form::select('country', $countries, $defaultCountry, array('class' => 'col-sm-12 col-lg-3')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -218,7 +126,7 @@
                                         <div class="form-group row">
                                             {!! Form::label('postcode', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
                                             <div class="col-sm-9">
-                                                {!! Form::text('postcode', $data->postcode, array('class' => 'required not-full-width col-sm-12 col-lg-6', 'pattern' => '[0-9]{2}-[0-9]{3}', 'oninvalid' => 'setCustomValidity("Wprowadź poprawny kod pocztowy")', ' oninput' => 'setCustomValidity("")')) !!}
+                                                {!! Form::text('postcode', $data->postcode, array('class' => 'required not-full-width col-sm-12 col-lg-6', 'pattern' => '[0-9]{2}-[0-9]{3}', 'oninvalid' => "setCustomValidity('".__('messages.Enter valid postcode')."')", ' oninput' => 'setCustomValidity("")')) !!}
                                             </div>
                                         </div>
                                         <div class="form-group row">
@@ -234,7 +142,7 @@
                                                 {!! Form::label('wantInvoice', __('messages.wantInvoice'), ['style'=>'font-size: 10px']) !!}
                                             </div>
                                             <span id="invoiceFields" style="display: none">
-                                            <h3><b>Dane do faktury</b></h3>
+                                            <h3><b>{{ __('messages.Data to invoice') }}</b></h3>
                                             <div class="form-group row">
                                                 {!! Form::label('address_invoice', __('messages.Address'), array('class' => 'col-sm-3 col-form-label')) !!}
                                                 <div class="col-sm-9">
@@ -274,16 +182,16 @@
                                                         <div class="col-sm-10">{!! Form::text('phone', $data->phone, ['class' => 'full-width required ']) !!}</div>
                                                     </div>
                                                     <div class="font-11" style="color: gray">
-                                                        Ten numer telefonu jest potrzebny właścicielowi do kontaktu z Tobą.
+                                                        {{ __('messages.Phone checkbox exp') }}.
                                                     </div>
                                                 </div>
                                         </div>
                                         <div class="form-group row">
                                                 {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
                                                 <div class="col-sm-9">
-                                                    {!! Form::email('email', $reservationDetails->email, ['class' => 'required full-width', 'oninvalid' => 'setCustomValidity("Wprowadź poprawny adres email")', ' oninput' => 'setCustomValidity("")']) !!}
+                                                    {!! Form::email('email', $reservationDetails->email, ['class' => 'required full-width', 'oninvalid' => "setCustomValidity('".__('messages.Enter valid email address')."')", ' oninput' => 'setCustomValidity("")']) !!}
                                                     <div class="font-11" style="color: gray">
-                                                        Ten adres e-mail będzie służył do kontaktu z Tobą oraz do logowania (jeśli się zdecydujesz założyć konto).
+                                                        {{ __('messages.Email checkbox exp') }}.
                                                     </div>
                                                 </div>
                                         </div>
@@ -291,7 +199,7 @@
                                 </div>
                             @else
                                 <div class="tab-pane" id="{{ $data->id }}">
-                                    <div class="mb-2">{{ $data->title }} <span class="pull-right"><a href="{{request()->fullUrlWithQuery(["change"=>"$key"])}}">Zmień</a>|<a href="#">Usuń dane</a></span></div>
+                                    <div class="mb-2">{{ $data->title }} <span class="pull-right"><a href="{{request()->fullUrlWithQuery(["change"=>"$key"])}}">{{ __('messages.Change') }}</a>|<a href="#">{{ __('messages.Delete data') }}</a></span></div>
                                     <div>{{ $data->name }} {{ $data->surname }}</div>
                                     <div>{{ $data->address }}</div>
                                     <div>{{ $data->postcode }} {{ $data->place }}</div>
@@ -411,7 +319,7 @@
                     {{__('messages.Name and surname')}}
                 </div>
                 <div class="col-sm-9 col-form-label">
-                    {{$reservationDetails->name.' '.$reservationDetails->surname}} <span id="nameChange" class="font-12 ml-3" style="color: #007bff">Zmień</span>
+                    {{$reservationDetails->name.' '.$reservationDetails->surname}} <span id="nameChange" class="font-12 ml-3" style="color: #007bff">{{ __('messages.Change') }}</span>
                 </div>
             </div>
             <span id="nameAndSurname" style="display: none">
@@ -431,7 +339,7 @@
             <div class="form-group row">
                 {!! Form::label('country', __('messages.Country'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::select('country', array('Polska' => __('Polska'), 'Niemcy' => __('Niemcy')), 'Polska', array('class' => 'col-sm-12 col-lg-3')) !!}
+                    {!! Form::select('country', $countries, $defaultCountry, array('class' => 'col-sm-12 col-lg-3')) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -443,7 +351,7 @@
             <div class="form-group row">
                 {!! Form::label('postcode', __('messages.Postcode'), array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::text('postcode', '', array('class' => 'required not-full-width col-sm-12 col-lg-6', 'pattern' => '[0-9]{2}-[0-9]{3}', 'oninvalid' => 'setCustomValidity("Wprowadź poprawny kod pocztowy")', ' oninput' => 'setCustomValidity("")')) !!}
+                    {!! Form::text('postcode', '', array('class' => 'required not-full-width col-sm-12 col-lg-6', 'pattern' => '[0-9]{2}-[0-9]{3}', 'oninvalid' => "setCustomValidity('".__('messages.Enter valid postcode')."')", ' oninput' => 'setCustomValidity("")')) !!}
                 </div>
             </div>
             <div class="form-group row">
@@ -499,16 +407,16 @@
                         <div class="col-sm-10">{!! Form::text('phone', '', ['class' => 'full-width required ']) !!}</div>
                     </div>
                     <div class="font-11" style="color: gray">
-                        Ten numer telefonu jest potrzebny właścicielowi do kontaktu z Tobą.
+                        {{ __('messages.Phone checkbox exp') }}.
                     </div>
                 </div>
             </div>
             <div class="form-group row">
                 {!! Form::label('email', 'E-mail', array('class' => 'col-sm-3 col-form-label')) !!}
                 <div class="col-sm-9">
-                    {!! Form::email('email', $reservationDetails->email, ['class' => 'required full-width', 'oninvalid' => 'setCustomValidity("Wprowadź poprawny adres email")', ' oninput' => 'setCustomValidity("")']) !!}
+                    {!! Form::email('email', $reservationDetails->email, ['class' => 'required full-width', 'oninvalid' => "setCustomValidity('".__('messages.Enter valid email address')."')", ' oninput' => 'setCustomValidity("")']) !!}
                     <div class="font-11" style="color: gray">
-                        Ten adres e-mail będzie służył do kontaktu z Tobą oraz do logowania (jeśli się zdecydujesz założyć konto).
+                        {{ __('messages.Email checkbox exp') }}.
                     </div>
                 </div>
             </div>
@@ -540,10 +448,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="offset-sm-3" id="passNotSame" style="display: none; color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">Wpisane hasła nie są takie same.</span></div>
+                    <div class="offset-sm-3" id="passNotSame" style="display: none; color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">{{ __('messages.The entered passwords are not the same') }}</span></div>
                 </div>
                 <div class="row">
-                    <div class="offset-sm-3" id="passAtLeast" style="display: none; color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">Hasło musi mieć co najmniej 6 znaków.</span></div>
+                    <div class="offset-sm-3" id="passAtLeast" style="display: none; color: red;"><i class="fa fa-lg fa-exclamation-triangle"></i><span class="font-11 ml-2">{{ __('messages.The password must be at least 6 characters long') }}</span></div>
                 </div>
             </span>
             @endguest
@@ -551,9 +459,9 @@
                 <div class="col-lg-12 col-sm-12">
                     <h2 class="h2-reservation">{{ __('messages.Message for the owner') }}</h2>
                     <div class="form-group row">
-                        {!! Form::label('messageForOwnerService', 'Treść:', array('class' => 'col-sm-3 col-form-label')) !!}
+                        {!! Form::label('messageForOwnerService', __('messages.Content').':', array('class' => 'col-sm-3 col-form-label')) !!}
                         <div class="col-sm-9">
-                            {!! Form::textarea('messageForOwnerService', '', ['class' => 'font-12 full-width', 'style' => 'height: 100px; width: 100%', 'placeholder' => 'Jeśli chcesz możesz podać więcej szczegółów na temat zamawianych usług.']) !!}
+                            {!! Form::textarea('messageForOwnerService', '', ['class' => 'font-12 full-width', 'style' => 'height: 100px; width: 100%', 'placeholder' => __('messages.res.Placeholder1')]) !!}
                         </div>
                     </div>
                 </div>
@@ -563,15 +471,15 @@
                 <div class="col-lg-12 col-sm-12 pb-3 mb-3">
                     <div class="row reservation-payment-method pt-2 pb-4">
                         <div class="col-lg-3 col-sm-9">
-                            <b>{{ __('Wybierz') }}</b>
+                            <b>{{ __('messages.Choose') }}</b>
                         </div>
                         <div class="col-lg-3 col-sm-12">
                             <input id="payment_method" name="payment_method" value="1" type="radio">
-                            <label for="payment_method" class="reservation">{{ __('opłata online - (przelew lub karta)') }}</label>
+                            <label for="payment_method" class="reservation">{{ __('messages.payment booking immediately2') }}</label>
                         </div>
                         <div class="col-lg-3 col-sm-12">
                             <input id="payment_method2" name="payment_method" value="2" type="radio">
-                            <label for="payment_method2" class="reservation">{{ __('opłata przelewem') }}</label>
+                            <label for="payment_method2" class="reservation">{{ __('messages.payment booking initial2') }}</label>
                         </div>
                         <div class="col-lg-3 col-sm-3 pt-2" align="right">
                             <b><span>{{ number_format($priceToPay, 2, ',', ' ') }}</span> PLN</b>
@@ -595,10 +503,10 @@
                     </div>
                 </div>
                 <div class="mb-3 pb-3 font-12" style="border-bottom: dashed;">
-                        <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($reservationDetails->reservation_arrive_date))) }}</b> (po 15:00)</div></div>
-                        <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($reservationDetails->reservation_departure_date))) }}</b> (przed 12:00)</div></div>
+                        <div class="row"><div class="col-4">{{ __('messages.arrival') }}:</div><div class="col-8"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($reservationDetails->reservation_arrive_date))) }}</b> ({{ __('messages.before') }} 15:00)</div></div>
+                        <div class="row"><div class="col-4">{{ __('messages.departure') }}:</div><div class="col-8"><b>{{ strtolower(strftime("%a, %d %b %Y", strtotime($reservationDetails->reservation_departure_date))) }}</b> ({{ __('messages.after') }} 12:00)</div></div>
                         <div class="row"><div class="col-4">{{ ucfirst(__('messages.number of nights')) }}:</div><div class="col-8">{{ $reservationDetails->reservation_nights }}</div></div>
-                        <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">{{$reservationDetails->reservation_persons}} {{trans_choice('messages.adult persons',$reservationDetails->reservation_persons)}}, {{$reservationDetails->reservation_kids}} dzieci</div></div>
+                        <div class="row"><div class="col-4">{{ __('messages.Number of') }} {{ __('messages.people')}}:</div><div class="col-8">{{$reservationDetails->reservation_persons}} {{trans_choice('messages.adult persons',$reservationDetails->reservation_persons)}}, {{$reservationDetails->reservation_kids}} {{ __('messages.Advance') }}</div></div>
                 </div>
                 <div class="font-12 sticky-panel-right">
                     <div class="row mb-2"><div class="col-7">{{ __('messages.Additional services') }}:</div><div class="col-5"><span class="pull-right">{{ number_format($priceToPay + $reservationDetails->payment_additional_services, 2, ',', ' ') }}  PLN</span></div></div>
@@ -607,9 +515,9 @@
                             @if($servicesDetail->with_options == 0)
                                 <li>{{$servicesDetail->name}}<span class="pull-right">{{ number_format($servicesDetail->price, 2, ',', ' ') }} PLN</span></li>
                             @elseif($servicesDetail->with_options == 2)
-                                <li>{{$servicesDetail->name}} dla {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} na {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} <span class="pull-right">{{ number_format($servicesDetail->price, 2, ',', ' ') }} PLN</span></li>
+                                <li>{{$servicesDetail->name}} {{__('messages.to')}} {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} {{__('messages.for days')}} {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} <span class="pull-right">{{ number_format($servicesDetail->price, 2, ',', ' ') }} PLN</span></li>
                             @elseif($servicesDetail->with_options == 3)
-                                <li>{{$servicesDetail->name}} <br>dla {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} na {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} <span class="pull-right">{{ number_format($servicesDetail->price, 2, ',', ' ') }} PLN</span></li>
+                                <li>{{$servicesDetail->name}} <br>{{__('messages.to')}} {{$servicesDetail->adults}} {{trans_choice('messages.persons', $servicesDetail->adults)}} {{__('messages.for days')}} {{$servicesDetail->nights}} {{trans_choice('messages.days', $servicesDetail->nights)}} <span class="pull-right">{{ number_format($servicesDetail->price, 2, ',', ' ') }} PLN</span></li>
                             @endif
                         </ul>
                     @endforeach
@@ -635,10 +543,10 @@
                 <div class="col-sm-12 col-md-6 col-lg-4 offset-lg-5">
                     <a id="nextNotAv" href="#" class="pointer-back next-notAv" style="background-image: url('{{ asset("images/reservations/btn-next-nAv.png") }}')">
                         <div  class="btn" style="width: 100%" >
-                            <b>{{ __('Zamów') }}</b>
+                            <b>{{ __('messages.Order') }}</b>
                         </div>
                     </a>
-                    <button id="nextAv" class="btn ml-2 pointer" type="submit" style="display: none;">{{ __('Zamów') }}</button>
+                    <button id="nextAv" class="btn ml-2 pointer" type="submit" style="display: none;">{{ __('messages.Order') }}</button>
                     {!! Form::close() !!}
                     <div id="notAvDescription" style="font-size: 11px; margin-left: 10px; margin-top: 8px">{{ __('messages.First, choose the method of payment') }}</div>
                 </div>
@@ -646,10 +554,10 @@
         </div>
     </div>
     <div id="confirm-delete-pop" style="display: none">
-        <h3 class="p-3"><b>Czy na pewno chcesz usunąć dane?</b></h3>
+        <h3 class="p-3"><b>{{ __('messages.Are you sure you want to delete the data?') }}</b></h3>
         <div class="col-12 mb-4 mt-2">
-            <div class="btn btn-black" id="confirm-delete" onclick="deleteItem()" style="width: 100%; font-size: 18px">Potwierdź</div>
-            <div class="btn" id="cancel-delete" style="width: 100%; font-size: 18px">Anuluj</div>
+            <div class="btn btn-black" id="confirm-delete" onclick="deleteItem()" style="width: 100%; font-size: 18px">{{ __('messages.Confirm') }}</div>
+            <div class="btn" id="cancel-delete" style="width: 100%; font-size: 18px">{{ __('messages.Cancel') }}</div>
         </div>
     </div>
 
@@ -729,13 +637,13 @@
                 //$('span#notAvDescription').hide();
 
                 if($('input[name=payment_method]:checked').val() == 1){
-                    $('#nextAv').text('Zapłać online ({{ number_format($priceToPay, 2, ',', ' ') }} PLN)');
-                    $('div#notAvDescription').html('<div>Zostaniesz przekierowany przekierowany do systemu płatności online (przelew lub karta kredytowa)</div>');
+                    $('#nextAv').text('{{ __('messages.Pay online') }} ({{ number_format($priceToPay, 2, ',', ' ') }} PLN)');
+                    $('div#notAvDescription').html('<div>{{ __('messages.You will redirect') }}</div>');
                 }
 
                 else {
-                    $('#nextAv').text('Zamów ({{ number_format($priceToPay, 2, ',', ' ') }} PLN)');
-                    $('div#notAvDescription').html('<div><div style="color: red;" class=""><div style="float: left;margin-top: 4px; margin-right: 6px"><i class="fa fa-2x fa-exclamation-triangle"></i></div><div><div><b>Czekamy na potwierdzenie wpłaty 90 min</b></div><div style="margin-top: -6px;">Na kolejnej stronie otrzymasz numer rachunku do wpłaty.</div></div></div></div>');
+                    $('#nextAv').text('{{ __('messages.Order') }}  ({{ number_format($priceToPay, 2, ',', ' ') }} PLN)');
+                    $('div#notAvDescription').html('<div><div style="color: red;" class=""><div style="float: left;margin-top: 4px; margin-right: 6px"><i class="fa fa-2x fa-exclamation-triangle"></i></div><div><div><b>{{ __('messages.We are waiting for confirmation of payment') }} 90 min</b></div><div style="margin-top: -6px;">{{ __('messages.On the next page you will receive the invoice number') }}.</div></div></div></div>');
                 }
 
             }
@@ -743,8 +651,8 @@
                 $('#nextNotAv').css({"display": "inline-block"});
                 $('#nextAv').css({"display": "none"});
 
-                $('#nextAv').text('Zamów');
-                $('div#notAvDescription').html('<div>Najpierw wybierz sposób zapłaty</div>');
+                $('#nextAv').text('{{ __('messages.Order') }}');
+                $('div#notAvDescription').html('<div>{{ __('messages.First, choose the method of payment') }}</div>');
             }
 
             console.log(isValid);

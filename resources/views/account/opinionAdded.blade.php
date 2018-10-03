@@ -6,13 +6,13 @@
 
 <div class="container">
 
-    <div><h1 style="font-size: 32px; font-weight: bold">Dziękujemy za wysłanie recenzji</h1></div>
-    <div class="font-16" style="margin-top: 14px">Przekazując informacje na temat pobytu w tym obiekcie pomagasz innym podróżnym podejmować lepsze decyzje.</div>
-    <div class="mt-2"><a id="btn-back-from-comment" class="btn" href="/">« Powrót do strony głównej</a></div>
-    <div class="mt-2 mt-lg-5"><span style="font-size: 24px; font-weight: bold">Twoja recenzja</span></div>
+    <div><h1 style="font-size: 32px; font-weight: bold">{{__('messages.Thank you for sending a review')}}</h1></div>
+    <div class="font-16" style="margin-top: 14px">{{__('messages.WriteReview2')}}</div>
+    <div class="mt-2"><a id="btn-back-from-comment" class="btn" href="/">« {{__('messages.Back to main page')}}</a></div>
+    <div class="mt-2 mt-lg-5"><span style="font-size: 24px; font-weight: bold">{{__('messages.Your review')}}</span></div>
     <div class="row mx-0" style="margin-bottom: 50px;">
         <div class="col-md-3" style="margin-top: 24px; padding-left:0px">
-            @if($opinionData['user_name'] == NULL && $opinionData['user_country'] == NULL && $opinionData['user_city'] == NULL) Anonimowy
+            @if($opinionData['user_name'] == NULL && $opinionData['user_country'] == NULL && $opinionData['user_city'] == NULL) {{__('messages.Anonymous')}}
             @else
                 <div style="float: left">
                     <div style="width: 50px">
@@ -23,7 +23,7 @@
                 <div class="col-12" style="margin-left: 56px">
                     <div class="row"><b>{{$opinionData['user_name']}}</b></div>
                     <div class="row">{{$opinionData['user_country']}}, {{$opinionData['user_city']}}</div>
-                    <div class="row font-11" style="margin-top: 7px;">Opinia z: {{date("d.m.Y", strtotime($opinionData['created_at']))}}</div>
+                    <div class="row font-11" style="margin-top: 7px;">{{__('messages.Opinion from')}}: {{date("d.m.Y", strtotime($opinionData['created_at']))}}</div>
                 </div>
             @endif
 
@@ -68,12 +68,12 @@
                         </div>
                     </div>
                 @endif
-                <b class="font-11">Pobyt: {{strftime("%B %Y", strtotime($visitDate->reservation_arrive_date))}}</b>
+                <b class="font-11">{{__('messages.Stay')}}: {{strftime("%B %Y", strtotime($visitDate->reservation_arrive_date))}}</b>
             </div>
             <div class="col-12 pt-5 pb-4 font-12 px-0" style="border-top: gray solid 1px">
                 <div class="row mx-0 mb-1">
                     <div class="col-md-6 col-lg-4 pl-0 pr-0 pr-md-3 mb-2 mb-md-0">
-                        Czystość
+                        {{__('messages.Czystość')}}
                         <span class="pull-right px-1 ml-1 @if($opinionData['cleanliness'] > 0 && $opinionData['cleanliness'] <= 3) rating-red @elseif($opinionData['cleanliness'] > 3 && $opinionData['cleanliness'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['cleanliness']}}</span>
                         <span class="pull-right" style="background-color: #fff">
                             @for ($i = 0; $i < floor($opinionData['cleanliness']/2); $i++)
@@ -88,7 +88,7 @@
                         </span>
                     </div>
                     <div class="col-md-6 col-lg-4 pl-0 pr-0 pr-md-3 mb-2 mb-md-0">
-                        Udogodnienia
+                        {{__('messages.Udogodnienia')}}
                         <span class="pull-right px-1 ml-1 @if($opinionData['facilities'] > 0 && $opinionData['facilities'] <= 3) rating-red @elseif($opinionData['facilities'] > 3 && $opinionData['facilities'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['facilities']}}</span>
                         <span class="pull-right" style="background-color: #fff">
                             @for ($i = 0; $i < floor($opinionData['facilities']/2); $i++)
@@ -103,7 +103,7 @@
                         </span>
                     </div>
                     <div class="col-md-6 col-lg-4 pl-0 mt-md-2 mt-lg-0 pr-0 pr-md-3 mb-2 mb-md-0">
-                        <div class="price-per-quality">Stosunek jakości <br> do ceny</div>
+                        <div class="price-per-quality">{{__('messages.Value to')}}<br>{{__('messages.price ratio')}}</div>
                         <span id="price-per-quality-bar" style="position: absolute;top: 0px;right: 0px;">
                             <span class="pull-right px-1 ml-1 @if($opinionData['quality_per_price'] > 0 && $opinionData['quality_per_price'] <= 3) rating-red @elseif($opinionData['quality_per_price'] > 3 && $opinionData['quality_per_price'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['quality_per_price']}}</span>
                             <span class="pull-right" style="background-color: #fff">
@@ -122,7 +122,7 @@
                 </div>
                 <div class="row mx-0">
                     <div class="col-md-6 col-lg-4 pl-0 pr-0 pr-md-3 mb-2 mb-md-0">
-                        Lokalizacja
+                        {{__('messages.Lokalizacja')}}
                         <span class="pull-right px-1 ml-1 @if($opinionData['location'] > 0 && $opinionData['location'] <= 3) rating-red @elseif($opinionData['location'] > 3 && $opinionData['location'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['location']}}</span>
                         <span class="pull-right" style="background-color: #fff">
                             @for ($i = 0; $i < floor($opinionData['location']/2); $i++)
@@ -137,7 +137,7 @@
                         </span>
                     </div>
                     <div class="col-md-6 col-lg-4 pl-0 pr-0 pr-md-3 mb-2 mb-md-0">
-                        Obsługa
+                        {{__('messages.Obsługa')}}
                         <span class="pull-right px-1 ml-1 @if($opinionData['staff'] > 0 && $opinionData['staff'] <= 3) rating-red @elseif($opinionData['staff'] > 3 && $opinionData['staff'] <= 6) rating-yellow @else rating-green @endif">{{$opinionData['staff']}}</span>
                         <span class="pull-right" style="background-color: #fff">
                             @for ($i = 0; $i < floor($opinionData['staff']/2); $i++)

@@ -14,8 +14,8 @@
       </div>
       <div id="topSearch" style="background-image: url('{{asset('images/slider/1.jpg')}}');">
         <div class="container searchCont">
-              <h1 class="d-block d-sm-none">Szukaj wśród 34 678<br>
-              noclegów w Polsce</h1>
+              <h1 class="d-block d-sm-none bold" style="text-shadow: 1px 1px 0 black;">{{ __('messages.Search among') }} {{ countAllApartments() }}<br>
+                  {{ __('messages.accommodation in Poland') }}</h1>
               @include('includes.search-form')
         </div>
       </div>
@@ -26,21 +26,21 @@
         $('.t-datepicker').tDatePicker({
             autoClose: true,
             numCalendar: @handheld 1 @elsehandheld 2 @endhandheld,
-            titleCheckIn: 'Data przyjazdu',
-            titleCheckOut: 'Data wyjazdu',
-            titleToday: 'Dzisiaj',
-            titleDateRange: 'Doba',
-            titleDateRanges: 'Doby',
+            titleCheckIn: '{{ __('messages.arrival date') }}',
+            titleCheckOut: '{{ __('messages.departure date') }}',
+            titleToday: '{{ __('messages.Today') }}',
+            titleDateRange: '{{ __('messages.Day') }}',
+            titleDateRanges: '{{ __('messages.Days') }}',
             iconDate: '<i class="fa fa-lg fa-calendar" aria-hidden="true"></i>',
-            titleDays: ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'Sb', 'Nd'],
-            titleMonths: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+            titleDays: {!! titleDays() !!},
+            titleMonths: {!! titleMonths() !!},
         });
 
         $("#wyszukiwarka").submit(function( event ) {
             var getDates = $('.t-datepicker').tDatePicker('getDates')
             if(getDates[0] == null){
                 event.preventDefault();
-                alert("Proszę wybrać termin pobytu");
+                alert("{{ __('messages.Please select the date of your stay') }}");
             }
         });
 

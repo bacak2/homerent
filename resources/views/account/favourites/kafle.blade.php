@@ -1,20 +1,20 @@
 @extends ('account.favourites.layout')
 
-@section('fav-title', 'Kafle')
+@section('fav-title', __('messages.Tiles'))
 
 @section('icons-active')
     <span class="d-none d-xl-inline-block">
-        <a class="btn" href="{{ route('myFavourites') }}?{{ http_build_query(Request::except('_token')) }}"><img class="active" data-toggle="tooltip" data-placement="bottom" title="Kafle" alt="Kafle" src='{{ asset("images/results/kafle.png") }}'></a>
-        <a class="btn" href="{{ route('myFavouritesList') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Lista" alt="Lista" src='{{ asset("images/results/lista.png") }}'></a>
-        <a class="btn" href="{{ route('myFavouritesMap') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="Mapa" alt="Mapa" src='{{ asset("images/results/mapa.png") }}'></a>
-        <a href="{{ route('myFavouritesCompare') }}?{{ http_build_query(Request::except('_token')) }}">Porównaj</a>
+        <a class="btn" href="{{ route('myFavourites') }}?{{ http_build_query(Request::except('_token')) }}"><img class="active" data-toggle="tooltip" data-placement="bottom" title="{{__('messages.Tiles')}}" alt="{{__('messages.Tiles')}}" src='{{ asset("images/results/kafle.png") }}'></a>
+        <a class="btn" href="{{ route('myFavouritesList') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="{{__('messages.List')}}" alt="{{__('messages.List')}}" src='{{ asset("images/results/lista.png") }}'></a>
+        <a class="btn" href="{{ route('myFavouritesMap') }}?{{ http_build_query(Request::except('_token')) }}"><img data-toggle="tooltip" data-placement="bottom" title="{{__('messages.Map')}}" alt="{{__('messages.Map')}}" src='{{ asset("images/results/mapa.png") }}'></a>
+        <a href="{{ route('myFavouritesCompare') }}?{{ http_build_query(Request::except('_token')) }}">{{__('messages.Compare')}}</a>
     </span>
 @endsection
 @section('icons-active-mobile')
     @tablet
-    <div class="btn-group col pt-3 pt-sm-0 pb-3"><a class="btn btn-selected btn-mobile" href="{{ route('myFavourites') }}?{{ http_build_query(Request::except('page')) }}">{{__('Kafle')}}</a><a class="btn btn-info btn-mobile" href="{{ route('myFavouritesMap') }}?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a><a class="btn btn-info btn-mobile" href="{{ route('myFavouritesCompare') }}?{{ http_build_query(Request::except('_token')) }}">Porównaj</a></div>
+    <div class="btn-group col pt-3 pt-sm-0 pb-3"><a class="btn btn-selected btn-mobile" href="{{ route('myFavourites') }}?{{ http_build_query(Request::except('page')) }}">{{__('messages.Tiles')}}</a><a class="btn btn-info btn-mobile" href="{{ route('myFavouritesMap') }}?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a><a class="btn btn-info btn-mobile" href="{{ route('myFavouritesCompare') }}?{{ http_build_query(Request::except('_token')) }}">Porównaj</a></div>
     @elsetablet
-    <div class="btn-group col pt-3 pt-sm-0 pb-3"><a class="btn btn-selected btn-mobile" href="{{ route('myFavourites') }}?{{ http_build_query(Request::except('page')) }}">{{__('Kafle')}}</a><a class="btn btn-info btn-mobile" href="{{ route('myFavouritesMap') }}?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a></div>
+    <div class="btn-group col pt-3 pt-sm-0 pb-3"><a class="btn btn-selected btn-mobile" href="{{ route('myFavourites') }}?{{ http_build_query(Request::except('page')) }}">{{__('messages.Tiles')}}</a><a class="btn btn-info btn-mobile" href="{{ route('myFavouritesMap') }}?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a></div>
     @endtablet
 @endsection
 

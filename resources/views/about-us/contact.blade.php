@@ -1,31 +1,15 @@
 @extends ('layout.layout')
-@section('title', 'Kontakt')
+@section('title', __('messages.Contact'))
 
 @section('content')
 <div class="container">
     <img style="width: 100%; height: auto;" src='{{ asset("images/about_us/mainImg.png") }}'>
 
-    <h1 id="faq" class="faq-header mt-4">Najczęściej zadawane pytania</h1>
+    <h1 id="faq" class="faq-header mt-4">{{__('messages.faq2')}}</h1>
     <span id="questions">
         <div class="mb-3">
             <div class="question">
-                Mam problem z logowaniem - co robić?
-            </div>
-            <div class="answer">
-                Problem z logowaniem lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
-            </div>
-        </div>
-        <div class="mb-3">
-            <div class="question">
-                Problemy z płatnością
-            </div>
-            <div class="answer">
-                Problemy z płatnością lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
-            </div>
-        </div>
-        <div class="mb-3">
-            <div class="question">
-                Czy korzystanie z serwisu jest bezpieczne?
+                {{__('messages.faqQ1')}}
             </div>
             <div class="answer">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
@@ -33,7 +17,7 @@
         </div>
         <div class="mb-3">
             <div class="question">
-                Czy korzystanie z serwisu jest bezpieczne?
+                {{__('messages.faqQ2')}}
             </div>
             <div class="answer">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
@@ -41,7 +25,23 @@
         </div>
         <div class="mb-3">
             <div class="question">
-                Czy korzystanie z serwisu jest bezpieczne?
+                {{__('messages.faqQ3')}}
+            </div>
+            <div class="answer">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="question">
+                {{__('messages.faqQ3')}}
+            </div>
+            <div class="answer">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="question">
+                {{__('messages.faqQ3')}}
             </div>
             <div class="answer">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
@@ -50,8 +50,8 @@
     </span>
 
     <div>
-        <span class="faq-header">Kontakt</span>
-        <a class="@desktop pull-right @else d-block @enddesktop font-14" href="#account">Numer konta do wpłat za rezerwacje ↓</a>
+        <span class="faq-header">{{__('messages.Contact')}}</span>
+        <a class="@desktop pull-right @else d-block @enddesktop font-14" href="#account">{{__('messages.Account number for payments for reservations')}} ↓</a>
     </div>
 
     <div class="row mb-3 mb-md-5">
@@ -60,10 +60,10 @@
                 <div class="row mb-3 mb-md-5">
                     <div class="col-lg-6">
                         <div class="mb-3 pb-3" style="border-bottom: dashed 1px black">
-                            Zapraszamy do zapoznania się z
-                            <a href="#faq">najczęściej zadawanymi pytaniami przez podróżnych</a>
+                            {{__('messages.We invite you to familiarize yourself with')}}
+                            <a href="#faq">{{__('messages.frequently asked questions by travelers')}}</a>
                         </div>
-                        <a href="#" class="btn btn-black writeToUsOpen" style="width: 100%">Napisz do nas</a>
+                        <a href="#" class="btn btn-black writeToUsOpen" style="width: 100%">{{__('messages.Write to us')}}</a>
                     </div>
                     <div class="col-lg-6 mt-3 mt-lg-0">
                         <div class="mb-3">
@@ -82,7 +82,7 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        Porozmawiaj z nami na Skype:
+                        {{__('messages.Talk with us via')}} Skype:
                         <div>
                             <a href="skype:visitzakopane.pl?call">
                                 <img src="{{asset('images/contact/callMe.png')}}" alt="call me via Skype">
@@ -90,7 +90,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        Porozmawiaj z nami na GG:
+                        {{__('messages.Talk with us via')}} GG:
                         <div>
                             <img style="width: 25px; height: auto" src="{{asset('images/contact/gg.png')}}">Nr: 48401665
                         </div>
@@ -100,17 +100,17 @@
         </div>
         <div class="col-md-6 col-lg-5 mt-3 mt-md-0">
             <div class="contact-box font-14">
-                <div class="bold" style="font-size: 18px">Dla mediów</div>
+                <div class="bold" style="font-size: 18px">{{__('messages.For media')}}</div>
                 <div class="row my-2">
                     <div class="col-3">
                         <img src="{{asset('images/contact/forMediaPhoto.png')}}">
                     </div>
                     <div class="col-9">
                         <div class="bold">Anna Mroczko</div>
-                        <div class="font-11 mt-2">Specjalista ds.kontaktów z mediami</div>
+                        <div class="font-11 mt-2">{{__('messages.Specialist in contact with the media')}}</div>
                     </div>
                 </div>
-                <a href="#" class="btn btn-black writeToUsOpen" style="width: 100%">Napisz do nas</a>
+                <a href="#" class="btn btn-black writeToUsOpen" style="width: 100%">{{__('messages.Write to us')}}</a>
                 <div class="mt-3">
                     <img src="{{asset('images/contact/phoneMinIcon.png')}}">
                     <span class="ml-1">+48 18 20 64 002</span>
@@ -126,7 +126,7 @@
     <div class="row mb-4 font-14">
         <div class="col-12 col-md-4 mb-3 mb-md-0">
             <div class="contact-box">
-                <div class="bold">Siedziba firmy:</div>
+                <div class="bold">{{__('messages.Headquarters')}}</div>
                 <div>Nazwa_firmy Sp. z o.o.</div>
                 <div>ul. Tetmajera 35/12</div>
                 <div>34-500 Zakopane</div>
@@ -134,8 +134,8 @@
         </div>
         <div class="col-12 col-md-8" id="account">
             <div class="contact-box">
-                <div><span class="bold">Konto (PLN):</span> PL 20 1050 1038 1000 0090 6587 9562</div>
-                <div><span class="bold">Konto (EURO):</span> PL 08 1050 0015 1000 0090 4505 3866</div>
+                <div><span class="bold">{{__('messages.Account')}} (PLN):</span> PL 20 1050 1038 1000 0090 6587 9562</div>
+                <div><span class="bold">{{__('messages.Account')}}  (EURO):</span> PL 08 1050 0015 1000 0090 4505 3866</div>
                 <div><span class="bold">Kod SWIFT:</span> INGBPLPW</div>
                 <div class="row mt-3">
                     <div class="col-md-6 col-lg-4">
@@ -143,7 +143,7 @@
                         <div><span class="bold">Regon:</span> 276898760</div>
                     </div>
                     <div class="col-md-6 col-lg-8 font-11">
-                        W treści przelewu prosimy podawać nr rezerwacji
+                        {{__('messages.Please state the reservation number in the transfer')}}
                     </div>
 
                 </div>

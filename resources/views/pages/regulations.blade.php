@@ -1,10 +1,10 @@
 @extends ('layout.layout')
 
-@section('title', 'Regulamin' )
+@section('title', __('messages.Regulations'))
 
 @section('content')
 	<div class="container">
-		<h1>Regulamin</h1>
+		<h1>{{ __('messages.Regulations') }}</h1>
 
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.</p>
 

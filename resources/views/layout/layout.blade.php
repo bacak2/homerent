@@ -37,7 +37,8 @@ $start = mikrooo();
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	{{--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/fullcalendar.min.js"></script>--}}
 	{{--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.8.2/locale/pl.js"></script>--}}
-	<script type="text/javascript" src="https://apis.google.com/js/platform.js" async defer>{lang: 'pl'}</script>
+	<script type="text/javascript" src="https://apis.google.com/js/platform.js" async defer>{lang: '{{ App::getLocale() }}'}</script>
+	<script type="text/javascript">var localeLanguage = '{{ App::getLocale() }}';</script>
 	<script type="text/javascript" src="{{ asset('js/facebookConnection.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/t-datepicker.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/nouislider.min.js') }}"></script>
