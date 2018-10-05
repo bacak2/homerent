@@ -14,8 +14,8 @@
       </div>
       <div id="topSearch" style="background-image: {{url('/images/slider/1.jpg')}}">
         <h1 class="container" style="text-shadow: 1px 1px 0 black; padding-top: 0px; color: white; font-size: 32px; font-weight: bold;">{{ __('messages.500title') }}</h1>
-        <div class="container searchCont" style="text-shadow: 1px 1px 0 black; padding-top: 60px;">
-              <span style="color: white; font-size: 32px; font-weight: bold;">{{ __('messages.Search among') }} {{ countAllApartments() }} {{ __('messages.accommodation in Poland') }}</span>
+        <div class="container searchCont" style="padding-top: 60px;">
+              <span style="color: white; font-size: 32px; font-weight: bold; text-shadow: 1px 1px 0 black;">{{ __('messages.Search among') }} {{ countAllApartments() }} {{ __('messages.accommodation in Poland') }}</span>
               @include('includes.search-form')
         </div>
       </div>

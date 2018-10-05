@@ -24,20 +24,16 @@
                     <div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
                         <img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/favourites/Pdf_file.png')}}">
                     </div>
-                    <a href="{{route('aboutUs.printPdf', $newsId)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">{{__('messages.Save')}}</a>
+                    <a href="{{route('aboutUs.printPdf', $news->news_id)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">{{__('messages.Save')}}</a>
                 </div>
             </span>
         </div>
     </div>
-    <h1 style="font-size: 32px; font-weight: bold;">Tytuł artykułu lorem ipsum</h1>
+    <h1 style="font-size: 32px; font-weight: bold;">{{ $news->news_title }}</h1>
     <div class="row">
         <div class="col-12">
             <div style="border-bottom: 2px solid black">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor.</p>
+                <p>{!! $news->news_content !!}</p>
             </div>
         </div>
         <div class="col-12 mt-3">
@@ -52,7 +48,7 @@
                 <div class="d-inline-block mr-1" style="width: 38px; background-color: rgba(242, 242, 242, 1); border: 1px solid rgba(153, 153, 153, 1); border-radius: 4px">
                     <img style="padding: 5px 7px; max-width: 36px" src="{{asset('images/favourites/Pdf_file.png')}}">
                 </div>
-                <a href="{{route('aboutUs.printPdf', $newsId)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">{{__('messages.Save')}}</a>
+                <a href="{{route('aboutUs.printPdf', $news->news_id)}}" class="d-inline-block font-13 txt-blue" style="margin-top: 6px;">{{__('messages.Save')}}</a>
             </div>
         </div>
     </div>
@@ -60,16 +56,16 @@
         <div class="col-12 mb-1" style="color: #0066CC; font-size: 24px; font-weight: bold">
             <a href="{{route('aboutUs.news')}}">{{__('messages.Other articles')}}</a>
         </div>
-        @for($i=0; $i<4; $i++)
+        @foreach($otherNews as $otherNewsEntity)
         <div class="col-6 col-md-3 mb-3 mb-md-0">
             <div style="background-color: #E4E4E4">
-                <img style="width: 100%; height: auto" src="{{asset('images/news/newsIcon.png')}}">
+                <img style="width: 100%; height: auto" src="{{asset('images/media').'/'.$otherNewsEntity->news_min_img}}">
                 <div class="pl-2 pt-1 pb-2">
-                    <a href="{{route('aboutUs.newsDetail', $i)}}">Tytuł artykułu lorem ipsum</a>
+                    <a href="{{route('aboutUs.newsDetail', $otherNewsEntity->news_id)}}">{{$otherNewsEntity->news_title}}</a>
                 </div>
             </div>
         </div>
-        @endfor
+        @endforeach
         <div class="col-12 mt-2" style="color: #0066CC; font-size: 16px; font-weight: bold">
             <a class="pull-right" href="{{route('aboutUs.news')}}">{{__('messages.See all')}} »</a>
         </div>

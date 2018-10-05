@@ -18,6 +18,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Redirect;
 use Barryvdh\DomPDF\Facade as PDF;
 use View;
+use App;
 
 class Reservations extends Controller
 {
@@ -414,10 +415,10 @@ class Reservations extends Controller
             'reservation_date_k' => $request->powrotDb,
             'reservation_data' => date('Y-m-d H:i:s'),
             'reservation_status' => '12', //rezerwacja obca
-            'reservation_persons' => '1',
-            'reservation_kids' => '0',
+            'reservation_persons' => $request->dorosli,
+            'reservation_kids' => $request->dzieci,
             'reservation_kids_age' => '0',
-            'reservation_wplacona_zaliczka' => '0',
+            'reservation_wplacona_zaliczka' => $dataSet['reservation_advance'] ?? 0,
             'reservation_druga_wplata' => '0',
             'zapl_gotowka_pln' => '0',
             'zapl_karta_pln' => '0',
@@ -451,6 +452,9 @@ class Reservations extends Controller
             'platnosci_unique' => '0',
             'kod_promocyjny' => '0',
             'from_portal' => 'Otozakopane',
+            'numer_telefonu' => $dataSet['phone'],
+            'reservation_naleznosc' => $dataSet['payment_to_pay'],
+            'reservation_paid' => $dataSet['reservation_advance'] ?? 0,
         ];
 
         //adding reservation if there is no visitzakopane
@@ -458,13 +462,15 @@ class Reservations extends Controller
 
         //something like transaction - do both function or none
         try{
-            $this->idReservationOtozakopane = $idReservation = DB::connection('mysql')->table('reservations')->insertGetId($dataSet);
             DB::connection('mysql2')->table('visit_reservations')->insert($visitDataSet, 'reservation_id');
             $this->idReservationVisit = DB::connection('mysql2')->getPdo()->lastInsertId();
+            $dataSet['visit_reservation_id'] = $this->idReservationVisit;
+            $this->idReservationOtozakopane = $idReservation = DB::connection('mysql')->table('reservations')->insertGetId($dataSet);
         }catch(\Exception $e){
             if($this->idReservationOtozakopane != false) DB::connection('mysql')->table('reservations')->where('id', $this->idReservationOtozakopane)->delete();
             if($this->idReservationVisit != false) DB::connection('mysql2')->table('visit_reservations')->where('reservation_id', $this->idReservationVisit)->delete();
-            return $e->getMessage();
+            //return $e->getMessage();
+            return response()->view('errors.custom', [], 500);
         }
 
         //change reservation_id of additional services to real id
@@ -517,12 +523,16 @@ class Reservations extends Controller
             ->where('language_id', $this->language->id)
             ->get();
 
+        $aboutUs = new App\AboutUs();
+        $infos = $aboutUs->getAllContactInfo();
+
         return view('reservation.fourthStep', [
             'apartament' => $apartament,
             'reservation' => $reservation,
             'language' => $this->languageCode,
             'servicesDetails' => $servicesDetails ?? 0,
             'availableServices' => $availableServices ?? 0,
+            'infos' => $infos,
         ]);
 
     }
@@ -545,11 +555,15 @@ class Reservations extends Controller
 
         $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $_GET['idReservation'])->get();
 
+        $aboutUs = new App\AboutUs();
+        $infos = $aboutUs->getAllContactInfo();
+
         return view('reservation.fourthStep', [
             'apartament' => $apartament,
             'reservation' => $reservation,
             'language' => $this->languageCode,
             'servicesDetails' => $servicesDetails,
+            'infos' => $infos,
         ]);
 
     }
@@ -582,7 +596,10 @@ class Reservations extends Controller
     //Async cancel reservation
     public function CancelReservation(Request $request){
 
-        DB::table('reservations')->where('id', $request->reservationId)->delete();
+        $idReservationVisit = DB::connection('mysql')->table('reservations')->select('visit_reservation_id')->where('id', $request->reservationId)->first();
+        $idReservationVisit = $idReservationVisit->visit_reservation_id;
+        DB::connection('mysql')->table('reservations')->where('id', $request->reservationId)->delete();
+        DB::connection('mysql2')->table('visit_reservations')->where('reservation_id', $idReservationVisit)->delete();
 
         return response()->json(['res' => 'done']);
     }
@@ -687,10 +704,17 @@ class Reservations extends Controller
             $query->where('language_id', $this->language->id);
         }))->find($id);
 
-        $servicesDetails = DB::table('reservation_additional_services')->where('id_reservation', $idReservation)->get();
+        $servicesDetails = DB::table('reservation_additional_services')
+            ->join('additional_service_descriptions','reservation_additional_services.service_type','=','additional_service_descriptions.service_type_id')
+            ->where('id_reservation', $idReservation)
+            ->where('language_id', $this->language->id)
+            ->get();
 
-        $availableServices = DB::table('additional_services')->where('id_apartament', $id)
+        $availableServices = DB::table('additional_services')
+            ->join('additional_service_descriptions','service_type_id','=','additional_services.service_type')
+            ->where('id_apartament', $id)
             ->whereNotIn('id', DB::table('reservation_additional_services')->select('id_service')->where('id_reservation', $idReservation))
+            ->where('language_id', $this->language->id)
             ->get();
 
         return view('reservation.confirmation', [

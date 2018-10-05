@@ -44,10 +44,22 @@ class Guidebooks extends Controller
             ->where('apartament_city', 'Witów')
             ->min('price_value');
 
+        $guidebooks = DB::table('guidebooks')
+            ->where('guidebook_language_id', $this->language->id)
+            ->limit(2)
+            ->get();
+
+        $otherGuidebooks = DB::table('guidebooks')
+            ->where('guidebook_language_id', $this->language->id)
+            ->limit(3)
+            ->get();
+
         return view('guidebooks.index', [
             'firstCityMinPrice'=> $firstCityMinPrice ?? 99,
             'secondCityMinPrice'=> $secondCityMinPrice ?? 99,
             'thirdCityMinPrice'=> $thirdCityMinPrice ?? 99,
+            'guidebooks'=> $guidebooks,
+            'otherGuidebooks'=> $otherGuidebooks,
         ]);
     }
 

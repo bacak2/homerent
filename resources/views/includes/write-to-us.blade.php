@@ -2,13 +2,13 @@
 <div id="writeToUsPopup">
     <div>
         <span id="writeToUsClose" style="position: absolute; top: 18px; right: 18px; font-weight: bold; font-size: 18px">x</span>
-        {!! Form::open(array('route' => 'aboutUs.SendMail', 'method' => 'post', 'class' => 'font-14')) !!}
+        {!! Form::open(array('route' => 'aboutUs.SendMail', 'method' => 'post', 'class' => 'font-14', 'file' => 'true', 'enctype'=>"multipart/form-data")) !!}
             <div style="font-size: 24px; font-weight: bold;">{{ __('messages.Write to us') }}</div>
             <div class="pb-3 mb-3" style="border-bottom: 1px dashed black">{{ __('messages.Fields marked with an asterisk are mandatory.') }}</div>
             <div class="row mb-5">
                 <div class="col-12 col-md-6">
                     <label for="contactEmail" class="bold">{{ __('messages.Your email address') }}:*</label>
-                    <input id="contactEmail" name="contactEmail" style="width: 100%;" type="email" required="required" oninvalid='setCustomValidity("{{ __('messages.Enter valid email address') }}")'>
+                    <input id="contactEmail" name="contactEmail" style="width: 100%;" type="email" required="required" oninvalid='setCustomValidity("{{ __('messages.Enter valid email address') }}")'  oninput='setCustomValidity("")'>
                 </div>
                 <div class="col-12 col-md-6">
                     <label for="contactPhone" class="bold">{{ __('messages.Cellphone') }}:</label>
@@ -52,14 +52,13 @@
                     <textarea id="contactMessage" name="contactMessage" style="width: 100%; height: 95px" placeholder="{{ __('messages.Message content') }}"></textarea>
                 </div>
             </div>
-            <div class="pb-3 mb-3" style="border-bottom: 1px dashed black">
-                <label for="files-upload" class="txt-blue">{{ __('messages.Add attachment') }}</label>
-                <input class="d-none" type="file" id="files-upload" name="files-upload" multiple="multiple">
+            <div id="attachments" class="pb-3 mb-3" style="border-bottom: 1px dashed black">
+                <label id="addNewAttachment" for="files-upload" class="txt-blue">{{ __('messages.Add attachment') }}</label>
             </div>
             <div style="position: relative; height: 40px">
                 <input style="position: absolute; left: 50%; transform: translateX(-50%); width: 182px" class="btn btn-black" type="submit" value="{{ __('messages.Send') }}">
             </div>
-        </form>
+        {!! Form::close() !!}
     </div>
 </div>
 <script>
@@ -75,6 +74,10 @@
         $(".opinion-rItem").removeClass('selected');
         $(this).addClass('selected');
         changeOptions(this.id);
+    });
+
+    $("#addNewAttachment").click(function(){
+        $("#attachments").append('<input class="d-block" type="file" name="file[]" multiple="multiple">');
     });
 
     $("#reasonSelect").change(function() {

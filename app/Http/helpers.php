@@ -41,3 +41,23 @@ function countLastReservationDiff($lastReservationDate){
     $hours = $diff->h;
     return $hours + ($diff->days*24);
 }
+
+function getContactEmail(){
+    return DB::table('contact_infos')->select('contact_email')->first()->contact_email;
+}
+
+function getContactPerson(){
+    return DB::table('contact_infos')->select('contact_person')->first()->contact_person;
+}
+
+function getContactPersonEmail(){
+    return DB::table('contact_infos')->select('contact_person_email')->first()->contact_person_email;
+}
+
+function getContactPhone(){
+    return DB::table('contact_infos')->select('first_phone')->first()->first_phone;
+}
+
+function getContactSecondPhone(){
+    return DB::table('contact_infos')->select('second_phone')->first()->second_phone;
+}

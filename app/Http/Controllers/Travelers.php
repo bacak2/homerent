@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use Session;
+use App;
 
 class Travelers extends Controller
 {
@@ -26,7 +27,13 @@ class Travelers extends Controller
     }
 
     public function index(Request $request){
-        return view('pages.for-travelers', ['request' => $request]);
+        $aboutUs = new App\AboutUs();
+        $infos = $aboutUs->getAllContactInfo();
+        return view('pages.for-travelers', [
+            'request' => $request,
+            'infos' => $infos,
+            'favouritesAmount' => Session('userFavouritesCount') ?? 0,
+        ]);
     }
 
 }

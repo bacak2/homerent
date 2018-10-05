@@ -10,7 +10,7 @@
     </div>
 
     <div class="img-container" style="position: relative">
-        <img style="width: 100%; height: auto; min-height: 270px;" src='{{ asset("images/guidebooks/guidebookTag1.png") }}'>
+        <img style="width: 100%; height: auto; min-height: 270px;" src='{{ asset("images/guidebooks/tags")."/".$tag->tag_photo }}'>
         <div class="col-md-6 col-lg-8 font-13 pl-0" style="position: absolute; left: 14px; bottom: 14px">
             <h1 class="h1-owners">{{$tag->tag_name}}</h1>
             @foreach($relatedTags as $tag)

@@ -34,7 +34,7 @@
               <li class="nav-item pointer-none">
                   <span class="nav-link">
                       <img src="{{ asset("images/contact/phoneMinIcon.png") }}">
-                      +48 600 49 49 49
+                      {{ getContactPhone() }}
                   </span>
               </li>
               <li class="nav-item">

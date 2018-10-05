@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'Europe/Warsaw',
+    'timezone' => env('APP_TIMEZONE', 'Europe/Warsaw'),
 
     /*
     |--------------------------------------------------------------------------

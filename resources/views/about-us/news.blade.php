@@ -11,31 +11,31 @@
         </div>
         <div class="col-lg-10">
             <h1 class="h1-owners mb-4">{{ __('messages.News') }} VisitWorld</h1>
-            @for($i=0; $i<10; $i++)
+            @foreach($news as $newsEntity)
             <div class="row mb-4">
                 <div class="col-md-4 col-lg-3">
-                    <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
+                    <img class="img-fluid" src="{{asset('images/media').'/'.$newsEntity->news_min_img}}">
                 </div>
                 <div class="col-md-8 col-lg-9">
                     <div class="row mb-2">
                         <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                            <a href="{{route('aboutUs.newsDetail', $i)}}">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+                            <a href="{{route('aboutUs.newsDetail', $newsEntity->news_id)}}">{{$newsEntity->news_title}}</a>
                         </div>
                     </div>
                     <div class="row mb-2" style="display: inline-block">
                         <div class="col-12 font-14">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                            <a href="{{route('aboutUs.newsDetail', $i)}}" class="bold font-16">»</a>
+                            {{ strip_tags(substr($newsEntity->news_content, 0, 220)) }}...
+                            <a href="{{route('aboutUs.newsDetail', $newsEntity->news_id)}}" class="bold font-16">»</a>
                         </div>
                     </div>
                     <div class="row font-11" style="color: #999999;">
                         <div class="col-12">
-                            {{date('j F Y', mktime(0, 0, 0, 7, 1, 2000))}}
+                            {{strftime("%e %b %Y", strtotime($newsEntity->created_at))}}
                         </div>
                     </div>
                 </div>
             </div>
-            @endfor
+            @endforeach
         </div>
     </div>
 

@@ -660,4 +660,11 @@ return [
     'Click the heart icon in the upper right corner of the site announcement.' => 'Kliknij ikonę serca w prawym górnym rogu zapowiedzi obiektu.',
     'Or on the apartment side' => 'Lub na stronie apartamentu',
     'You can pay online or when collecting keys.' => 'Można zapłacić online lub przy odbiorze kluczy.',
+    'The email was sent successfully' => 'E-mail wysłano pomyślnie',
+    'Popular cities' => 'Popularne miasta',
+    'Rest' => 'Wypoczynek',
+    'Journey' => 'Podróż',
+    'Other journeys' => 'Inne podróże',
+    'Other cities' => 'Pozostałe miasta',
+    'Places to rest' => 'Miejsca do wypoczynku',
 ];

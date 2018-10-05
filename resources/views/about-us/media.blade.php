@@ -13,78 +13,32 @@
             <a href="{{route('aboutUs.news')}}" style="color: #0066CC; font-size: 24px; font-weight: bold">{{ __('messages.News') }} »</a>
         </div>
     </div>
-    <div class="row mb-4">
-        <div class="col-1 mobile-none tablet-none"></div>
-        <div class="col-12 col-md-4 col-lg-3">
-            <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
-        </div>
-        <div class="col-12 col-md-8 col-lg-7">
-            <div class="row mb-2">
-                <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                    <a href="{{route('aboutUs.newsDetail', 0)}}">Lorem ipsum dolor sit amet.</a>.
-                </div>
+    @foreach($news as $newsEntity)
+        <div class="row mb-4">
+            <div class="col-1 mobile-none tablet-none"></div>
+            <div class="col-12 col-md-4 col-lg-3">
+                <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
             </div>
-            <div class="row mb-2" style="display: inline-block">
-                <div class="col-12 font-14">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                    <a href="{{route('aboutUs.newsDetail', 0)}}" class="bold font-16">»</a>
+            <div class="col-12 col-md-8 col-lg-7">
+                <div class="row mb-2">
+                    <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
+                        <a href="{{route('aboutUs.newsDetail', $newsEntity->news_id)}}">{{$newsEntity->news_title}}</a>.
+                    </div>
                 </div>
-            </div>
-            <div class="row font-11" style="color: #999999;">
-                <div class="col-12">
-                    {{date('j F Y', mktime(0, 0, 0, 7, 1, 2000))}}
+                <div class="row mb-2" style="display: inline-block">
+                    <div class="col-12 font-14">
+                        {{ strip_tags(substr($newsEntity->news_content, 0, 220)) }}...
+                        <a href="{{route('aboutUs.newsDetail', $newsEntity->news_id)}}" class="bold font-16">»</a>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mb-4">
-        <div class="col-1 mobile-none tablet-none"></div>
-        <div class="col-12 col-md-4 col-lg-3">
-            <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
-        </div>
-        <div class="col-12 col-md-8 col-lg-7">
-            <div class="row mb-2">
-                <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                    <a href="{{route('aboutUs.newsDetail', 0)}}">Lorem ipsum dolor sit amet.</a>.
-                </div>
-            </div>
-            <div class="row mb-2" style="display: inline-block">
-                <div class="col-12 font-14">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                    <a href="{{route('aboutUs.newsDetail', 0)}}" class="bold font-16">»</a>
-                </div>
-            </div>
-            <div class="row font-11" style="color: #999999;">
-                <div class="col-12">
-                    {{date('j F Y', mktime(0, 0, 0, 7, 1, 2000))}}
+                <div class="row font-11" style="color: #999999;">
+                    <div class="col-12">
+                        {{strftime("%e %b %Y", strtotime($newsEntity->created_at))}}
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mb-4">
-        <div class="col-1 mobile-none tablet-none"></div>
-        <div class="col-12 col-md-4 col-lg-3">
-            <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
-        </div>
-        <div class="col-12 col-md-8 col-lg-7">
-            <div class="row mb-2">
-                <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                    <a href="{{route('aboutUs.newsDetail', 0)}}">Lorem ipsum dolor sit amet.</a>.
-                </div>
-            </div>
-            <div class="row mb-2" style="display: inline-block">
-                <div class="col-12 font-14">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                    <a href="{{route('aboutUs.newsDetail', 0)}}" class="bold font-16">»</a>
-                </div>
-            </div>
-            <div class="row font-11" style="color: #999999;">
-                <div class="col-12">
-                    {{date('j F Y', mktime(0, 0, 0, 7, 1, 2000))}}
-                </div>
-            </div>
-        </div>
-    </div>
+    @endforeach
     <div class="row mb-5" style="color: #0066CC; font-size: 16px; font-weight: bold">
         <div class="col-8 mobile-none tablet-none"></div>
         <div class="col-12 col-md-4"><a href="{{route('aboutUs.news')}}">{{ __('messages.See all') }} »</a></div>
@@ -96,6 +50,7 @@
             <a href="{{route('aboutUs.news')}}" style="color: #0066CC; font-size: 24px; font-weight: bold">{{ __('messages.About us in media') }} »</a>
         </div>
     </div>
+    @foreach($newsInMedia as $newsEntity)
     <div class="row mb-4">
         <div class="col-1 mobile-none tablet-none"></div>
         <div class="col-12 col-md-4 col-lg-3">
@@ -104,70 +59,23 @@
         <div class="col-12 col-md-8 col-lg-7">
             <div class="row mb-2">
                 <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                    <a href="{{route('aboutUs.newsDetail', 0)}}">Lorem ipsum dolor sit amet.</a>.
+                    <a href="{{route('aboutUs.newsDetail', $newsEntity->news_id)}}">{{$newsEntity->news_title}}</a>.
                 </div>
             </div>
             <div class="row mb-2" style="display: inline-block">
                 <div class="col-12 font-14">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                    <a href="{{route('aboutUs.newsDetail', 0)}}" class="bold font-16">»</a>
+                    {{ strip_tags(substr($newsEntity->news_content, 0, 220)) }}...
+                    <a href="{{route('aboutUs.newsDetail', $newsEntity->news_id)}}" class="bold font-16">»</a>
                 </div>
             </div>
             <div class="row font-11" style="color: #999999;">
                 <div class="col-12">
-                    {{date('j F Y', mktime(0, 0, 0, 7, 1, 2000))}}
+                    {{strftime("%e %b %Y", strtotime($newsEntity->created_at))}}
                 </div>
             </div>
         </div>
     </div>
-    <div class="row mb-4">
-        <div class="col-1 mobile-none tablet-none"></div>
-        <div class="col-12 col-md-4 col-lg-3">
-            <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
-        </div>
-        <div class="col-12 col-md-8 col-lg-7">
-            <div class="row mb-2">
-                <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                    <a href="{{route('aboutUs.newsDetail', 0)}}">Lorem ipsum dolor sit amet.</a>.
-                </div>
-            </div>
-            <div class="row mb-2" style="display: inline-block">
-                <div class="col-12 font-14">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                    <a href="{{route('aboutUs.newsDetail', 0)}}" class="bold font-16">»</a>
-                </div>
-            </div>
-            <div class="row font-11" style="color: #999999;">
-                <div class="col-12">
-                    {{date('j F Y', mktime(0, 0, 0, 7, 1, 2000))}}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mb-4">
-        <div class="col-1 mobile-none tablet-none"></div>
-        <div class="col-12 col-md-4 col-lg-3">
-            <img class="img-fluid" src="{{asset('images/media/newsIcon.png')}}">
-        </div>
-        <div class="col-12 col-md-8 col-lg-7">
-            <div class="row mb-2">
-                <div class="col-12" style="color: #0066CC; font-size: 16px; font-weight: bold">
-                    <a href="{{route('aboutUs.newsDetail', 0)}}">Lorem ipsum dolor sit amet.</a>.
-                </div>
-            </div>
-            <div class="row mb-2" style="display: inline-block">
-                <div class="col-12 font-14">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient...
-                    <a href="{{route('aboutUs.newsDetail', 0)}}" class="bold font-16">»</a>
-                </div>
-            </div>
-            <div class="row font-11" style="color: #999999;">
-                <div class="col-12">
-                    {{date('j F Y', mktime(0, 0, 0, 7, 1, 2000))}}
-                </div>
-            </div>
-        </div>
-    </div>
+    @endforeach
     <div class="row mb-5" style="color: #0066CC; font-size: 16px; font-weight: bold">
         <div class="col-8 mobile-none tablet-none"></div>
         <div class="col-12 col-md-4"><a href="{{route('aboutUs.news')}}">{{ __('messages.See all') }} »</a></div>
@@ -220,18 +128,18 @@
                         <img src="{{asset('images/contact/forMediaPhoto.png')}}">
                     </div>
                     <div class="col-9">
-                        <div class="bold">Anna Mroczko</div>
+                        <div class="bold">{{ $infos->contact_person }}</div>
                         <div class="font-11 mt-2">{{ __('messages.Specialist in contact with the media') }}</div>
                     </div>
                 </div>
                 <button class="btn btn-black writeToUsOpen" style="width: 100%">{{ __('messages.Write to us') }}</button>
                 <div class="mt-3">
                     <img src="{{asset('images/media/phone.png')}}">
-                    <span class="ml-1">+48 18 20 64 002</span>
+                    <span class="ml-1">{{ $infos->first_phone }}</span>
                 </div>
                 <div class="mt-3">
                     <img src="{{asset('images/media/Envelop_24.png')}}">
-                    <a href="mailto: media@aaaa.pl" class="ml-1">media@aaaa.pl</a>
+                    <a href="mailto: {{ $infos->contact_email }}" class="ml-1">{{ $infos->contact_email }}</a>
                 </div>
             </div>
         </div>

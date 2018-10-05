@@ -14,13 +14,13 @@ use Auth;
 use Session;
 use Mail;
 use Barryvdh\DomPDF\Facade as PDF;
+use App;
 
 class AboutUs extends Controller
 {
     //Site language from database
     protected $language = 1;
-    protected $geo_lat = '49.28789339999999';
-    protected $geo_lon = '19.9524993';
+    protected $contactEmail;
 
     public function __construct()
     {
@@ -29,6 +29,8 @@ class AboutUs extends Controller
         $this->language = $language;
         if ($this->language->id == 1) setlocale(LC_TIME, "pl_PL");
         else setlocale(LC_TIME, "en_EN");
+        $aboutUs = new App\AboutUs();
+        $this->contactEmail = $aboutUs->getContactInboxEmail();
     }
 
     public function index(){
@@ -36,15 +38,53 @@ class AboutUs extends Controller
     }
 
     public function media(){
-        return view('about-us.media');
+        $aboutUs = new App\AboutUs();
+        $infos = $aboutUs->getAllContactInfo();
+
+        $news = DB::table('news')
+            ->where('language', $this->language->language_code)
+            ->limit(3)
+            ->get();
+
+        $newsInMedia = DB::table('news')
+            ->where('language', $this->language->language_code)
+            ->limit(3)
+            ->get();
+
+        return view('about-us.media',[
+            'infos' => $infos,
+            'news' => $news,
+            'newsInMedia' => $newsInMedia,
+        ]);
     }
 
     public function news(){
-        return view('about-us.news');
+
+        $news = DB::table('news')
+            ->where('language', $this->language->language_code)
+            ->limit(9)
+            ->get();
+
+        return view('about-us.news', ['news' => $news]);
     }
 
     public function newsDetail($newsId){
-        return view('about-us.news-detail', ['newsId' => $newsId]);
+
+        $news = DB::table('news')
+            ->where('news_id', $newsId)
+            ->where('language', $this->language->language_code)
+            ->first();
+
+        $otherNews = DB::table('news')
+            ->where('news_id', '!=', $newsId)
+            ->where('language', $this->language->language_code)
+            ->limit(4)
+            ->get();
+
+        return view('about-us.news-detail', [
+            'news' => $news,
+            'otherNews' => $otherNews,
+        ]);
     }
 
     public function guidebookDetail($guidebookLink){
@@ -65,18 +105,24 @@ class AboutUs extends Controller
     }
 
     public function contact(){
+
+        $aboutUs = new App\AboutUs();
+        $infos = $aboutUs->getAllContactInfo();
+
         return view('about-us.contact',[
             'language' => $this->language->language_code,
-            'geo_lat' => $this->geo_lat,
-            'geo_lon' => $this->geo_lon,
+            'infos' => $infos,
         ]);
     }
 
     public function faq($faqToShow){
+
+        $aboutUs = new App\AboutUs();
+        $infos = $aboutUs->getAllContactInfo();
+
         return view('about-us.contact',[
             'language' => $this->language->language_code,
-            'geo_lat' => $this->geo_lat,
-            'geo_lon' => $this->geo_lon,
+            'infos' => $infos,
             'faqToShow' => $faqToShow,
         ]);
     }
@@ -91,10 +137,12 @@ class AboutUs extends Controller
         if(strlen($commentToReport) > 20) $commentToReport = substr($commentToReport, 0, 20)."...";
         else $commentToReport = substr($commentToReport, 0, 20);
 
+        $aboutUs = new App\AboutUs();
+        $infos = $aboutUs->getAllContactInfo();
+
         return view('about-us.contact',[
             'language' => $this->language->language_code,
-            'geo_lat' => $this->geo_lat,
-            'geo_lon' => $this->geo_lon,
+            'infos' => $infos,
             'idComment' => $idComment,
             'commentToReport' => $commentToReport,
         ]);
@@ -110,7 +158,7 @@ class AboutUs extends Controller
                 Mail::send('includes.mail_send-to-friends', ['link'=>$request->link], function($message) use ($email){
                     $message->to($email)
                         ->subject(__('messages.mailSub4'));
-                    $message->from('kontakt@visitzakopane.pl','Otozakopane');
+                    $message->from($this->contactEmail,'Otozakopane');
                 });
             }
         }
@@ -126,7 +174,7 @@ class AboutUs extends Controller
                 Mail::send('includes.mail_guidebook-send-to-friends', ['link'=>$request->link], function($message) use ($email){
                     $message->to($email)
                         ->subject(__('messages.mailSub5'));
-                    $message->from('kontakt@visitzakopane.pl','Otozakopane');
+                    $message->from($this->contactEmail,'Otozakopane');
                 });
             }
         }
@@ -138,13 +186,20 @@ class AboutUs extends Controller
 
         if(\App::environment('production')) {
             Mail::send('includes.mail_contact-form', ['request'=>$request], function ($message) use ($request) {
-                $message->to('krzysztof.baca@artplus.pl')
+                if($request->file('file')  != null){
+                    $destinationPath = 'uploads';
+                    foreach($request->file('file') as $fileFromRequest){
+                        $uploadedFile = $fileFromRequest->move($destinationPath, date('d-m-Y-H:m:s-').$fileFromRequest->getClientOriginalName());
+                        $message->attach($uploadedFile);
+                    }
+                }
+                $message->to($this->contactEmail)
                     ->subject('Formularz kontaktowy');
                 $message->from($request->contactEmail, 'Użytkownik serwisu Otozakopane');
             });
         }
 
-        return redirect()->route("aboutUs.contact")->with('status', 'Zdjęcie dodano pomyślnie');
+        return redirect()->route("aboutUs.contact")->with('status', __('messages.The email was sent successfully'));
 
     }
 

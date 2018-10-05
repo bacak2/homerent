@@ -15,6 +15,7 @@ use Auth;
 use Mail;
 use Illuminate\Pagination\Paginator;
 use Session;
+use App;
 
 class Account extends Controller
 {
@@ -568,12 +569,16 @@ class Account extends Controller
             ->where('language_id', $this->language->id)
             ->get();
 
+        $aboutUs = new App\AboutUs();
+        $infos = $aboutUs->getAllContactInfo();
+
         return view('reservation.fourthStep', [
             'apartament' => $apartament,
             'reservation' => $reservation,
             'language' => $this->language->language_code,
             'servicesDetails' => $servicesDetails ?? 0,
             'availableServices' => $availableServices ?? 0,
+            'infos' => $infos,
         ]);
 
     }

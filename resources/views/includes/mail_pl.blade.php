@@ -21,7 +21,7 @@
                 <span style="font-size: 15px">{{$apartament_address}}</span><br>
             </td>
         </tr>
-        <tr><td colspan="2"><span style="font-size: 12px">GPS: N 48° 12' 39.90'' E 16° 23' 1.82''</span></td></tr>
+        <tr><td colspan="2"><span style="font-size: 12px">{{$apartament_gps}}</span></td></tr>
         <tr><td colspan="3"><hr></td></tr>
         <tr style="font-size: 15px">
             <td></td><td>{{__('messages.arrive')}}:</td><td><b>{{strtolower(strftime("%a, %d %b %Y", strtotime($reservation_arrive_date)))}}</b> ({{__('messages.after')}} {{$reservation_arrive_time}})</td>
@@ -71,21 +71,30 @@
         </tr>
         <tr><td><br><br><br><br></td></tr>
         <tr>
-            <td style="font-size: 12px;">{{__('messages.Contact')}}:<br>Justyna Mroczek</td>
+            <td style="font-size: 12px;">{{__('messages.Contact')}}:<br>{{getContactPerson()}}</td>
             <td colspan="2">
-                <img  src="{{ $message->embed(public_path().'/images/reservations/phoneInMail1.png') }}">
-                <img  src="{{ $message->embed(public_path().'/images/reservations/phoneInMail2.png') }}">
+                <div style="position: relative; display: inline-block; border: solid #838383 2px; border-radius: 5px; background-color: #e2e2e2; padding: 0px 5px">
+                    <img  src="{{ $message->embed(public_path().'/images/reservations/phone.png') }}">
+                    <span style="position: relative; left: 0; top: -12px; font-size: 11px">{{getContactPhone()}}</span>
+                </div>
+                <div style="position: relative; display: inline-block; border: solid #838383 2px; border-radius: 5px; background-color: #e2e2e2; padding: 0px 5px">
+                    <img  src="{{ $message->embed(public_path().'/images/reservations/phone.png') }}">
+                    <span style="position: relative; left: 0; top: -12px; font-size: 11px">{{getContactSecondPhone()}}</span>
+                </div>
             </td>
         </tr>
         <tr>
             <td></td>
             <td>
-                <img  src="{{ $message->embed(public_path().'/images/reservations/envelopeInMail.png') }}">
+                <div style="position: relative; display: inline-block; border: solid #838383 2px; border-radius: 5px; background-color: #e2e2e2; padding: 0px 5px">
+                    <img  src="{{ $message->embed(public_path().'/images/reservations/envelope.png') }}">
+                    <span style="position: relative; left: 0; top: -12px; font-size: 11px">{{getContactEmail()}}</span>
+                </div>
             </td>
         </tr>
         <tr><td><br><br><br><br></td></tr>
         <tr><td colspan="3"><hr style="border: 0 none;  border-top: 2px dashed black;  background: none;"></td></tr>
-        <tr><td></td><td colspan="2" style="font-size: 11px">{{__('messages.Contact')}}: 22/565 66 66 ({{__('messages.monToFri')}} 9:00-17:00), <span style="color: #8fdf82">kontakt@visitzakopane.pl</span></td></tr>
+        <tr><td></td><td colspan="2" style="font-size: 11px">{{__('messages.Contact')}}: {{getContactPhone()}} ({{__('messages.monToFri')}} 9:00-17:00), <span style="color: #8fdf82">{{getContactEmail()}}</span></td></tr>
         <tr><td colspan="3"><hr style="border: 0 none;  border-top: 2px dashed black;  background: none;"></td></tr>
         <tr><td colspan="3"><span style="font-size: 11px; color: gray">{{__('messages.Mail footer')}}</span></td></tr>
     </table>

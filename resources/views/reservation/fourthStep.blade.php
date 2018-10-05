@@ -58,10 +58,10 @@
                     <div class="row">{{ __('messages.res8') }}</div>
                 </span>
                 <div class="row mt-2">
-                    <b>{{ __('messages.res9') }}: </b> PL 20 1050 1038 1000 0090 6587 9562
-                    <span style="margin-left: 60px"></span><b>{{ __('messages.SWIFT code') }}: </b> INGBPLPW
+                    <b>{{ __('messages.res9') }}: </b> {{ $infos->accountPLN }}
+                    <span style="margin-left: 60px"></span><b>{{ __('messages.SWIFT code') }}: </b> {{ $infos->SWIFTcode }}
                 </div>
-                <div class="row"><b>{{ __('messages.Data') }}: </b> VISITzakopane.pl, ul. Tetmajera 35 lok. 12, 34-500 Zakopane, Poland</div>
+                <div class="row"><b>{{ __('messages.Data') }}: </b> {{ $infos->headquarter_data_inline }}</div>
                 <div class="row"><b>{{ __('messages.res10') }}: </b> {{ __('messages.res11') }} {{$reservation[0]->id}}</div>
                 <div class="row"><b>{{ __('messages.Amount') }}: </b> {{ __('messages.whole') }} {{$reservation[0]->payment_to_pay}} PLN {{ __('messages.or') }} {{ __('messages.advance') }} 100.00 PLN</div>
             </div>
@@ -238,17 +238,17 @@
                 <div class="col-sm-6 col-md-12 col-lg-2 mb-2 font-14 font-m-12">
                     <span>
                         {{ __('messages.Contact') }}:<br class="d-none d-lg-inline">
-                        Justyna Mroczek
+                        {{ $infos->contact_person }}
                     </span>
                 </div>
                 <div class="col-sm-6 col-md-3 col-lg-2 mb-2 px-lg-1">
-                    <div class="contact-item"><i class="fa fa-lg fa-phone" style="margin-right: 10px"></i>+48 600 000 000</div>
+                    <div class="contact-item"><i class="fa fa-lg fa-phone" style="margin-right: 10px"></i>{{ $infos->first_phone }}</div>
                 </div>
                 <div class="col-sm-6 col-md-3 col-lg-2 mb-2 px-lg-2">
-                    <div class="contact-item"><i class="fa fa-lg fa-phone" style="margin-right: 10px"></i>+48 600 000 000</div>
+                    <div class="contact-item"><i class="fa fa-lg fa-phone" style="margin-right: 10px"></i>{{ $infos->second_phone }}</div>
                 </div>
                 <div class="col-sm-6 col-md-5 col-lg-3 mb-2 px-lg-1">
-                    <div class="contact-item"><i class="fa fa-lg fa-envelope" style="margin-right: 10px"></i>justyna.mroczek@gmail.com</div>
+                    <div class="contact-item"><i class="fa fa-lg fa-envelope" style="margin-right: 10px"></i>{{ $infos->contact_person_email }}</div>
                 </div>
                 <div class="col-lg-3 mb-2">
                     <span style="font-size: 11px; display: block;">

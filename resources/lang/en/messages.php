@@ -660,4 +660,11 @@ return [
     'Click the heart icon in the upper right corner of the site announcement.' => 'Click the heart icon in the upper right corner of the site announcement.',
     'Or on the apartment side' => 'Or on the apartment side',
     'You can pay online or when collecting keys.' => 'You can pay online or when collecting keys.',
+    'The email was sent successfully' => 'The email was sent successfully',
+    'Popular cities' => 'Popular cities',
+    'Rest' => 'Rest',
+    'Journey' => 'Journey',
+    'Other journeys' => 'Other journeys',
+    'Other cities' => 'Other cities',
+    'Places to rest' => 'Places to rest',
 ];

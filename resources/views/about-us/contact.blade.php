@@ -3,6 +3,11 @@
 
 @section('content')
 <div class="container">
+    @if(session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <img style="width: 100%; height: auto;" src='{{ asset("images/about_us/mainImg.png") }}'>
 
     <h1 id="faq" class="faq-header mt-4">{{__('messages.faq2')}}</h1>
@@ -68,15 +73,15 @@
                     <div class="col-lg-6 mt-3 mt-lg-0">
                         <div class="mb-3">
                             <img src="{{asset('images/contact/phoneMinIcon.png')}}">
-                            <span class="ml-1">+48 18 20 64 002</span>
+                            <span class="ml-1">{{ $infos->first_phone }}</span>
                         </div>
                         <div class="mb-3">
                             <img src="{{asset('images/contact/phoneMinIcon.png')}}">
-                            <span class="ml-1">+48 600 49 49 49</span>
+                            <span class="ml-1">{{ $infos->second_phone }}</span>
                         </div>
                         <div class="">
                             <img src="{{asset('images/contact/Fax_24.png')}}">
-                            <span class="ml-1">fax: +48 18 521 39 38</span>
+                            <span class="ml-1">fax: {{ $infos->fax }}</span>
                         </div>
                     </div>
                 </div>
@@ -84,7 +89,7 @@
                     <div class="col-6">
                         {{__('messages.Talk with us via')}} Skype:
                         <div>
-                            <a href="skype:visitzakopane.pl?call">
+                            <a href="skype:{{ $infos->skype }}?call">
                                 <img src="{{asset('images/contact/callMe.png')}}" alt="call me via Skype">
                             </a>
                         </div>
@@ -92,7 +97,7 @@
                     <div class="col-6">
                         {{__('messages.Talk with us via')}} GG:
                         <div>
-                            <img style="width: 25px; height: auto" src="{{asset('images/contact/gg.png')}}">Nr: 48401665
+                            <img style="width: 25px; height: auto" src="{{asset('images/contact/gg.png')}}">Nr: {{ $infos->gg }}
                         </div>
                     </div>
                 </div>
@@ -106,18 +111,18 @@
                         <img src="{{asset('images/contact/forMediaPhoto.png')}}">
                     </div>
                     <div class="col-9">
-                        <div class="bold">Anna Mroczko</div>
+                        <div class="bold">{{ $infos->contact_person }}</div>
                         <div class="font-11 mt-2">{{__('messages.Specialist in contact with the media')}}</div>
                     </div>
                 </div>
                 <a href="#" class="btn btn-black writeToUsOpen" style="width: 100%">{{__('messages.Write to us')}}</a>
                 <div class="mt-3">
                     <img src="{{asset('images/contact/phoneMinIcon.png')}}">
-                    <span class="ml-1">+48 18 20 64 002</span>
+                    <span class="ml-1">{{ $infos->first_phone }}</span>
                 </div>
                 <div class="mt-3">
                     <img src="{{asset('images/contact/Envelop_24.png')}}">
-                    <a href="mailto: media@aaaa.pl" class="ml-1">media@aaaa.pl</a>
+                    <a href="mailto: {{ $infos->contact_email }}" class="ml-1">{{ $infos->contact_email }}</a>
                 </div>
             </div>
         </div>
@@ -127,20 +132,18 @@
         <div class="col-12 col-md-4 mb-3 mb-md-0">
             <div class="contact-box">
                 <div class="bold">{{__('messages.Headquarters')}}</div>
-                <div>Nazwa_firmy Sp. z o.o.</div>
-                <div>ul. Tetmajera 35/12</div>
-                <div>34-500 Zakopane</div>
+                {!! $infos->headquarter !!}
             </div>
         </div>
         <div class="col-12 col-md-8" id="account">
             <div class="contact-box">
-                <div><span class="bold">{{__('messages.Account')}} (PLN):</span> PL 20 1050 1038 1000 0090 6587 9562</div>
-                <div><span class="bold">{{__('messages.Account')}}  (EURO):</span> PL 08 1050 0015 1000 0090 4505 3866</div>
-                <div><span class="bold">Kod SWIFT:</span> INGBPLPW</div>
+                <div><span class="bold">{{__('messages.Account')}} (PLN):</span> {{ $infos->accountPLN }}</div>
+                <div><span class="bold">{{__('messages.Account')}}  (EURO):</span> {{ $infos->accountEUR }}</div>
+                <div><span class="bold">Kod SWIFT:</span> {{ $infos->SWIFTcode }}</div>
                 <div class="row mt-3">
                     <div class="col-md-6 col-lg-4">
-                        <div class=""><span class="bold">NIP:</span> 634-239-97-06</div>
-                        <div><span class="bold">Regon:</span> 276898760</div>
+                        <div class=""><span class="bold">NIP:</span> {{ $infos->NIP }}</div>
+                        <div><span class="bold">Regon:</span> {{ $infos->Regon }}</div>
                     </div>
                     <div class="col-md-6 col-lg-8 font-11">
                         {{__('messages.Please state the reservation number in the transfer')}}
@@ -174,7 +177,7 @@
 <script type="text/javascript">
 
     var mapa;
-    var wspolrzedne = new google.maps.LatLng({{ $geo_lat }}, {{ $geo_lon }});
+    var wspolrzedne = new google.maps.LatLng({{ $infos->headquarter_geo_lat }}, {{ $infos->headquarter_geo_lon }});
 
     function mapaStart()
     {
@@ -186,7 +189,7 @@
         };
 
         mapa = new google.maps.Map(document.getElementById("mapka"), opcjeMapy);
-        dodajZielonyMarker( {{ $geo_lat }}, {{ $geo_lon }},'', greenIcon);
+        dodajZielonyMarker( {{ $infos->headquarter_geo_lat }}, {{ $infos->headquarter_geo_lon }},'', greenIcon);
     }
     function dodajZielonyMarker(lat,lng,txt, ikona)
     {
