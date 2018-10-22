@@ -25,7 +25,7 @@
     </div>
 
     <div class="img-container" style="position: relative;">
-        <img class="img-fluid" src='{{ asset("images/guidebooks/detail_$guidebook->guidebook_img") }}'>
+        <img class="img-fluid" style="min-height: 184px;" src='{{ asset("images/guidebooks/detail_$guidebook->guidebook_img") }}'>
         <span style="position: absolute; left: 30px; bottom: 30px; background-color: rgba(255,255,255,0.69); padding: 8px 10px;">
             <h1 class="h1-owners">{{$guidebook->guidebook_title}}</h1>
         </span>

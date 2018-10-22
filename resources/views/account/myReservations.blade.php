@@ -6,33 +6,33 @@
 <div class="container">
     <div class="row mt-4 mb-2">
         <div class="col-lg-3 col-12"><h1 style="font-size: 28px"><b>{{__('messages.My reservations')}}</b></h1></div>
-        {{--
-        <div class="col-lg-3 col-12 inline-wrapper text-right">
-            <div class="btn-group pull-left">
-                <a class="btn btn-mobile btn-selected" href="{{ route('myReservations')}}">{{__('Data przyjazdu')}}</a>
-                <a class="btn btn-mobile btn-info" href="{{url()->current()}}?sort=reservation">{{__('Data rezerwacji')}}</a>
-            </div>
-        </div>
-        <div class="col-lg-6 col-12">
-            <input class="col-lg-6 col-5" id="search-reservation" type="text" style="width: 100%; font-size: 10px" placeholder="np: nr rezerwacji, nazwa/adres obiektu">
-            <button class="btn btn-mobile btn-dark col-lg-4 col-6">Szukaj rezerwacji</button>
-            <button type="button" class="btn btn-filter dropdown-toggle" id="menu1" data-toggle="dropdown"><span>{{ __('messages.Filters') }}</span></button>
-            <div class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                {!! Form::open(array('url' => '#')) !!}
-                <div class="row">
-                    <div class="col-3">
-
-                    </div>
+        <div class="col-lg-9 col-12 inline-wrapper text-right">
+            {!! Form::open(array('route' => ['myReservations'], 'method' => 'GET', 'id' => 'resSearchForm', 'class' => 'form-inline')) !!}
+            <input type="hidden" name="sortBy" value="{{$request->sortBy ?? ''}}">
+                <div class="btn-group pull-left col px-0 mb-2 mb-md-0">
+                    <button id="sortArrive" class="col btn btn-mobile @if($request->sortBy == '' || $request->sortBy == 'arrive') btn-selected @else btn-info @endif">{{__('messages.arrival date')}}</button>
+                    <button id="sortReservation" class="col btn btn-mobile @if($request->sortBy == 'reservation') btn-selected @else btn-info @endif">{{__('messages.Reservation date')}}</button>
                 </div>
-                <hr>
-                <button type="submit" class="btn btn-primary searchbtn">{{ __('messages.Apply filters') }}</button>
-                <a id="resetFilters" href="#">{{ __('messages.Restore default') }}</a>
-                {!! Form::close() !!}
+                <input class="form-control col ml-md-2 mx-lg-2 ml-sm-0" name="searchReservation" value="{{ old('searchReservation') }}" type="text" style="width: 100%; font-size: 10px; height: 32px" placeholder="{{__('messages.fexRes')}}">
+                <button class="btn btn-mobile btn-dark col-lg-3 col-6 ml-md-auto ml-lg-0 mt-md-2 mt-lg-0 ">{{__('messages.Search for reservation')}}</button>
+                {{--<button type="button" class="btn btn-filter dropdown-toggle" id="menu1" data-toggle="dropdown"><span>{{ __('messages.Filters') }}</span></button>
+                <div class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    <div class="row">
+                        <div class="col-3">
 
-            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary searchbtn">{{ __('messages.Apply filters') }}</button>
+                    <a id="resetFilters" href="#">{{ __('messages.Restore default') }}</a>
+                </div>--}}
+            {!! Form::close() !!}
         </div>
-        --}}
     </div>
+    @if($users_reservations_future->isEmpty() && $users_reservations_gone->isEmpty() && $any_reservations > 0)
+        <div class="my-3">{{__('messages.NullSearch')}}</div>
+        <div class="my-3">{{__('messages.Change the search criteria')}} {{__('messages.or')}} <a href="{{route('myReservations')}}">{{__('messages.show all')}}</a></div>
+    @else
     <div class="row col-12 mb-4">
         <span class="font-11">* {{__('messages.AdditionalCostExp')}}.</span>
     </div>
@@ -52,7 +52,11 @@
                 </div>
                 <div class="col-6">
                     <div class="row font-11">{{__('messages.arrive')}}:</div>
-                    <div class="row">{{__('messages.inDays')}} {{ ceil((strtotime($reservation->reservation_arrive_date) - strtotime($current_data)) / (60*60*24)) }} {{__('messages.days2')}}</div>
+                    <div class="row">
+                        @if(ceil((strtotime($reservation->reservation_arrive_date) - strtotime($current_data)) / (60*60*24)) < 4)<span style="color: red">{{__('messages.inDays')}} {{ceil((strtotime($reservation->reservation_arrive_date) - strtotime($current_data)) / (60*60*24))}} {{trans_choice('messages.days', ceil((strtotime($reservation->reservation_arrive_date) - strtotime($current_data)) / (60*60*24)))}}</span>
+                        @else {{__('messages.inDays')}} {{ceil((strtotime($reservation->reservation_arrive_date) - strtotime($current_data)) / (60*60*24))}} {{__('messages.days2')}}
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,7 +65,11 @@
             @if($reservation->reservation_status == 0)
                 <div class="row font-11">{{__('messages.Pre-booking')}}:</div>
                 <div class="row">{{ strtolower(strftime("%d %b %Y", strtotime($reservation->created_at))) }}</div>
-                <!--wygasa za -->
+                <div class="row font-11">
+                    @if((ceil((strtotime($reservation->reservation_arrive_date) - strtotime($current_data)) / (60*60*24))) < 8)<span style="color: red">{{__('messages.expires in')}} {{ceil((strtotime($reservation->reservation_arrive_date) - strtotime($current_data)) / (60*60*24))}} {{trans_choice('messages.days', ceil((strtotime($reservation->reservation_arrive_date) - strtotime($current_data)) / (60*60*24)))}}</span>
+                    @else {{__('messages.expires in')}} {{ceil((strtotime($reservation->reservation_arrive_date) - strtotime($current_data)) / (60*60*24))}} {{__('messages.days2')}}
+                    @endif
+                </div>
             @else
                 <div class="row font-11">{{__('messages.reservation')}}:</div>
                 <div class="row">{{ strtolower(strftime("%d %b %Y", strtotime($reservation->created_at))) }}</div>
@@ -188,6 +196,7 @@
             </div>
         </div>
     @endforeach
+    @endif
 </div>
 
 <script>
@@ -211,6 +220,16 @@
             $(this).addClass("phone-expanded");
             $(this).find(".phone-addition-text").text("{{__('messages.Call')}} 713333222");
         }
+    });
+
+    $("#sortArrive").click(function() {
+        $("input[name=sortBy]").val("arrive");
+        $("#resSearchForm").submit();
+    });
+
+    $("#sortReservation").click(function() {
+        $("input[name=sortBy]").val("reservation");
+        $("#resSearchForm").submit();
     });
 
     $(window).on("click", function(event){

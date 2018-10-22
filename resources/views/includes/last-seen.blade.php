@@ -9,9 +9,6 @@
                     <div class="apartament" style="background-image: url('{{ asset("images/apartaments/$apartament->id/main.jpg") }}'); background-size: cover; position: relative; margin-bottom: 0px">
                         <div class="map-see-more ">
                             <div class="container py-1">
-                                <a href="/apartaments/{{ $apartament->apartament_link }}?{{ http_build_query(Request::except('page', 'region')) }}" class="btn btn-primary" style="width: 100%">{{ __("messages.book") }}</a>
-                            </div>
-                            <div class="container py-1">
                                 <a href="/apartaments/{{ $apartament->apartament_link }}?{{ http_build_query(Request::except('page', 'region')) }}" class="btn btn-see-more" style="width: 100%">{{ __("messages.see details") }}</a>
                             </div>
                         </div>

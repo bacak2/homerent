@@ -10,7 +10,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\{Apartament, Apartament_description, Apartament_group, Reservation};
+use App\{Apartament, Apartament_description, Apartament_group, Reservation, Idosell};
 use Auth;
 use Crypt;
 use Illuminate\Contracts\Session\Session;
@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Redirect;
 use Barryvdh\DomPDF\Facade as PDF;
 use View;
 use App;
+use Illuminate\Support\Facades\Log;
 
 class Reservations extends Controller
 {
@@ -27,6 +28,7 @@ class Reservations extends Controller
     protected $languageCode = 'pl';
     protected $idReservationOtozakopane;
     protected $idReservationVisit;
+    protected $lastStatus;
 
     public function __construct()
     {
@@ -405,12 +407,13 @@ class Reservations extends Controller
         $dataSet = $reservationData + $userData;
 
         $visitApartamentId = DB::table('visitzakopane_apartaments_ids')
-            ->select('visitzakopane_id')
+            ->select('visitzakopane_id', 'idosell_id')
             ->where('otozakopane_id', $request->id)
             ->first();
 
         $visitDataSet[] = [
             'apartament_id'  => $visitApartamentId->visitzakopane_id,
+            'apartament_id_idosell'  => $visitApartamentId->idosell_id ?? 0,
             'reservation_date_p' => $request->przyjazdDb,
             'reservation_date_k' => $request->powrotDb,
             'reservation_data' => date('Y-m-d H:i:s'),
@@ -432,7 +435,7 @@ class Reservations extends Controller
             'konsultant_id' => '0',
             'reservation_data_waznosci_2' => '0000-00-00 00:00:00.000000',
             'reservation_data_waznosci_sort' => '0000-00-00 00:00:00.000000',
-            'reservation_services' => '0',
+            'reservation_services' => '66',
             'reservation_consultant' => '0',
             'reservation_parking_or_garage' => '0',
             'reservation_wyjechal_date' => '0000-00-00 00:00:00.000000',
@@ -457,20 +460,61 @@ class Reservations extends Controller
             'reservation_paid' => $dataSet['reservation_advance'] ?? 0,
         ];
 
-        //adding reservation if there is no visitzakopane
-        //$this->idReservationOtozakopane = DB::table('reservations')->insertGetId($dataSet);
+        $visitClientData = array(
+            'client_add_date' => date('Y-m-d H:i:s'),
+            'client_login' => $dataSet['email'],
+            'client_haslo' => md5('blob'),
+            'client_first_name' => $dataSet['name'],
+            'client_second_name' => $dataSet['surname'],
+            'client_email' => $dataSet['email'],
+            'client_address' => $dataSet['address'] ?? '',
+            'client_postcode' => $dataSet['postcode'] ?? '',
+            'client_city' => $dataSet['place'] ?? '',
+            'client_country' => $dataSet['country'] ?? '',
+            'client_phone' => $dataSet['phone'] ?? '',
+            'client_invoice_name' => $dataSet['company_name'] ?? '',
+            'client_invoice_address' => $dataSet['address_invoice'] ?? '',
+            'client_invoice_postcode' => $dataSet['postcode_invoice'] ?? '',
+            'client_invoice_city' => $dataSet['place_invoice'] ?? '',
+            'client_invoice_country' => $dataSet['country'] ?? '',
+            'client_invoice_nip' => $dataSet['nip'] ?? '',
+            'client_status' => 1
+        );
 
         //something like transaction - do both function or none
         try{
+            if(isset($visitApartamentId->idosell_id)){
+                $idosellApi = new Idosell();
+                $result = $idosellApi->setReservation($visitDataSet[0]);
+                $idosellAdded = $result['result']['reservations'][0]['success'];
+                if(!$idosellAdded) return response()->view('errors.500', [], 500);
+            }
+            else{
+                $idosellAdded = false;
+            }
+
+            $reservation_id_idosell = $visitDataSet[0]['reservation_id_idosell'] = $result['result']['reservations'][0]['reservationId'] ?? 0;
+            DB::connection('mysql2')->table('visit_clients')->insert($visitClientData, 'client_id');
+            $visitDataSet[0]['client_id'] = DB::connection('mysql2')->getPdo()->lastInsertId();
             DB::connection('mysql2')->table('visit_reservations')->insert($visitDataSet, 'reservation_id');
             $this->idReservationVisit = DB::connection('mysql2')->getPdo()->lastInsertId();
             $dataSet['visit_reservation_id'] = $this->idReservationVisit;
             $this->idReservationOtozakopane = $idReservation = DB::connection('mysql')->table('reservations')->insertGetId($dataSet);
         }catch(\Exception $e){
+
+            Log::error($e->getMessage());
+        }
+
+        if($this->idReservationOtozakopane && $this->idReservationVisit && ($idosellAdded || !$reservation_id_idosell)){}
+        else{
             if($this->idReservationOtozakopane != false) DB::connection('mysql')->table('reservations')->where('id', $this->idReservationOtozakopane)->delete();
             if($this->idReservationVisit != false) DB::connection('mysql2')->table('visit_reservations')->where('reservation_id', $this->idReservationVisit)->delete();
-            //return $e->getMessage();
-            return response()->view('errors.custom', [], 500);
+            if($idosellAdded && $reservation_id_idosell){
+                $idosell = new Idosell();
+                $idosell->editReservation($reservation_id_idosell, 'canceled');
+            }
+
+            return response()->view('errors.500', [], 500);
         }
 
         //change reservation_id of additional services to real id
@@ -593,15 +637,62 @@ class Reservations extends Controller
         return response()->json(['res' => 'done']);
     }
 
-    //Async cancel reservation
-    public function CancelReservation(Request $request){
+    //Cancel reservation
+    public function CancelReservation($reservationId){
+        if(Auth::user()){
+            try{
+                $reservationOtozakopaneDetail = DB::connection('mysql')->table('reservations')->where('id', $reservationId)->first();
+                $reservationVisitDetail = DB::connection('mysql2')->table('visit_reservations')->select('reservation_id', 'reservation_status', 'reservation_id_idosell')->where('reservation_id', $reservationOtozakopaneDetail->visit_reservation_id)->first();
+                $this->lastStatus = $reservationVisitDetail->reservation_status;
 
-        $idReservationVisit = DB::connection('mysql')->table('reservations')->select('visit_reservation_id')->where('id', $request->reservationId)->first();
-        $idReservationVisit = $idReservationVisit->visit_reservation_id;
-        DB::connection('mysql')->table('reservations')->where('id', $request->reservationId)->delete();
-        DB::connection('mysql2')->table('visit_reservations')->where('reservation_id', $idReservationVisit)->delete();
+                $this->idReservationVisit = false;
+                $this->idReservationVisit = DB::connection('mysql2')
+                    ->table('visit_reservations')
+                    ->where('reservation_id', $reservationOtozakopaneDetail->visit_reservation_id)
+                    ->update(['reservation_status'=> 5]);
 
-        return response()->json(['res' => 'done']);
+                $this->idReservationOtozakopane = false;
+                $this->idReservationOtozakopane = DB::connection('mysql')
+                    ->table('reservations')
+                    ->where('id', $reservationId)
+                    ->delete();
+
+                if($reservationVisitDetail->reservation_id_idosell){
+                    $idosell = new Idosell();
+                    //pobranie z idosella ostatniego statusu
+                    $idosellStatusBackup = $idosell->getReservationById($reservationVisitDetail->reservation_id_idosell);
+                    $idosellStatusBackup = $idosellStatusBackup['result']['reservations'][0]['reservationDetails']['status'];
+                    $result = $idosell->editReservation($reservationVisitDetail->reservation_id_idosell, 'canceled');
+                    $idosellDeleted = $result['result']['reservations'][0]['success'];
+                }
+                else{
+                    $idosellDeleted = false;
+                    $reservationVisitDetail->reservation_id_idosell = false;
+                }
+            }catch(\Exception $e){
+                Log::error($e->getMessage());
+            }
+            if($this->idReservationOtozakopane && $this->idReservationVisit && ($idosellDeleted || !$reservationVisitDetail->reservation_id_idosell)) return redirect()->action('Apartaments@showIndex');
+            else{
+                if($this->idReservationOtozakopane){
+                    DB::connection('mysql')->table('reservations')->insert($reservationOtozakopaneDetail);
+                }
+                if($this->idReservationVisit){
+                    DB::connection('mysql2')
+                        ->table('visit_reservations')
+                        ->where('reservation_id', $reservationOtozakopaneDetail->visit_reservation_id)
+                        ->update(['reservation_status'=> $this->lastStatus]);
+                }
+                if($idosellDeleted && $reservationVisitDetail->reservation_id_idosell){
+                    $idosell = new Idosell();
+                    $idosell->editReservation($reservationVisitDetail->reservation_id_idosell, $idosellStatusBackup);
+                }
+
+                return response()->view('errors.500', [], 500);
+            }
+        }
+        else return response()->view('errors.500', [], 500);
+
     }
 
     //Gets min apartament price
@@ -788,6 +879,12 @@ class Reservations extends Controller
                 'amount' => $coupon->promotion_code_value,
             ]);
         }
+    }
+
+    public function syncReservationVisit(){
+        $reservation = new Reservation();
+        $reservation->syncReservationVisit();
+        return "Synchronize was success";
     }
 
 }

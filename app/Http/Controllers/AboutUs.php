@@ -15,6 +15,7 @@ use Session;
 use Mail;
 use Barryvdh\DomPDF\Facade as PDF;
 use App;
+use Illuminate\Support\Facades\Cookie;
 
 class AboutUs extends Controller
 {
@@ -240,6 +241,12 @@ class AboutUs extends Controller
             ->setPaper('a4', 'landscape')->setWarnings(false);
 
         return $pdf->download('Artykuł_'.$news->news_title.'.pdf');
+    }
+
+    public function acceptCookies()
+    {
+        Cookie::queue('cookieAccepted', true, 129600);
+        return response()->json(['res' => 'true']);
     }
 
 }

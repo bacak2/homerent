@@ -114,12 +114,17 @@ class Account extends Controller
         ]);
     }
 
-    public function reservations()
+    public function reservations(Request $request)
     {
+        //dd($request);
+        $request->flash();
+
+        switch($request->sortBy){
+            case 'reservation': $order = 'created_at'; $orderByFuture = 'DESC'; $orderByGone = 'DESC'; break;
+            case 'arrive': default: $order = 'reservation_arrive_date'; $orderByFuture = 'ASC'; $orderByGone = 'DESC'; break;
+        }
 
         $current_data = date("Y-m-d");
-
-        //if(Request::has('sort')) exit();
 
         $users_reservations_future = DB::table('reservations')
             ->select('reservations.*', 'apartaments.apartament_address', 'apartaments.apartament_address_2', 'apartaments.apartament_city', 'apartaments.apartament_district', 'apartament_descriptions.apartament_name', 'apartament_link')
@@ -128,8 +133,20 @@ class Account extends Controller
             ->leftjoin('apartament_descriptions', 'reservations.apartament_id', '=', 'apartament_descriptions.apartament_id')
             ->where('user_id', Auth::user()->id)
             ->where('reservation_arrive_date', '>=', $current_data)
+            ->where(function($query) use ($request){
+                if($request->searchReservation == NULL){
+                    //
+                }
+                else{
+                    $query->where('apartaments.apartament_address', 'like', '%'.$request->searchReservation.'%')
+                        ->orWhere('apartaments.apartament_city', 'like', '%'.$request->searchReservation.'%')
+                        ->orWhere('apartaments.apartament_district', 'like', '%'.$request->searchReservation.'%')
+                        ->orWhere('apartament_descriptions.apartament_name', 'like', '%'.$request->searchReservation.'%')
+                        ->orWhere('reservations.id', 'like', '%'.$request->searchReservation.'%');
+                }
+            })
             ->groupBy('id')
-            ->orderBy('reservation_arrive_date', 'ASC')
+            ->orderBy($order, $orderByFuture)
             ->get();
 
         $users_reservations_gone = DB::table('reservations')
@@ -140,25 +157,46 @@ class Account extends Controller
             ->leftjoin('apartament_opinions', 'reservations.id', 'apartament_opinions.id_reservation')
             ->where('user_id', Auth::user()->id)
             ->where('reservation_arrive_date', '<', $current_data)
+            ->where(function($query) use ($request){
+                if($request->searchReservation == NULL){
+                    //
+                }
+                else{
+                    $query->where('apartaments.apartament_address', 'like', '%'.$request->searchReservation.'%')
+                        ->orWhere('apartaments.apartament_city', 'like', '%'.$request->searchReservation.'%')
+                        ->orWhere('apartaments.apartament_district', 'like', '%'.$request->searchReservation.'%')
+                        ->orWhere('apartament_descriptions.apartament_name', 'like', '%'.$request->searchReservation.'%')
+                        ->orWhere('reservations.id', 'like', '%'.$request->searchReservation.'%');
+                }
+            })
             ->groupBy('id')
-            ->orderBy('reservation_arrive_date', 'DESC')
+            ->orderBy($order, $orderByGone)
             ->get();
 
         if($users_reservations_future->isEmpty() && $users_reservations_gone->isEmpty()){
 
-            $guidebooks = DB::table('guidebooks')
-                ->limit(15)
-                ->get();
+            $any_reservations = DB::table('reservations')
+                ->where('user_id', Auth::user()->id)
+                ->count();
 
-            return view('account.myReservations-empty', [
-                'guidebooks' => $guidebooks,
-            ]);
+            if($any_reservations == 0){
+                $guidebooks = DB::table('guidebooks')
+                    ->where('guidebook_language_id', $this->language->id)
+                    ->limit(15)
+                    ->get();
+
+                return view('account.myReservations-empty', [
+                    'guidebooks' => $guidebooks,
+                ]);
+            }
         }
 
         return view('account.myReservations', [
             'users_reservations_future' => $users_reservations_future,
             'users_reservations_gone' => $users_reservations_gone,
             'current_data' => $current_data,
+            'request' => $request,
+            'any_reservations' => $any_reservations ?? 1,
         ]);
     }
 
@@ -624,6 +662,11 @@ class Account extends Controller
                 case "Witów": $coordinates = '49.3210546, 19.8265185'; break;
                 case "Zakopane": default: $coordinates = '49.292166,19.952385'; break;
             }
+        }
+
+        if(isset($_GET['t-start'])){
+            $backUrl = route("search", ["view"=>"kafle"])."?".http_build_query($request->except('_token'));
+            session(["backToResults" => $backUrl]);
         }
 
         if(!isset($_GET['t-start']) && $request->route()->getName() != 'myFavouritesMap') {
@@ -1277,7 +1320,7 @@ class Account extends Controller
 
             }
 
-            if ($favouritesCount === 0) return view('pages.results-none', ['nightsCounter' => $nightsCounter, 'request' => $request]);
+            if ($favouritesCount === 0) return view('pages.results-none', ['nightsCounter' => $nightsCounter, 'notMeetCriteria' => $finds, 'request' => $request]);
 
         }
 

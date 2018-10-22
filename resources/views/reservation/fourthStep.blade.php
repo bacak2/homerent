@@ -58,10 +58,10 @@
                     <div class="row">{{ __('messages.res8') }}</div>
                 </span>
                 <div class="row mt-2">
-                    <b>{{ __('messages.res9') }}: </b> {{ $infos->accountPLN }}
-                    <span style="margin-left: 60px"></span><b>{{ __('messages.SWIFT code') }}: </b> {{ $infos->SWIFTcode }}
+                    <b>{{ __('messages.res9') }}: </b> {{ $infos['accountPLN'] }}
+                    <span style="margin-left: 60px"></span><b>{{ __('messages.SWIFT code') }}: </b> {{ $infos['SWIFTcode'] }}
                 </div>
-                <div class="row"><b>{{ __('messages.Data') }}: </b> {{ $infos->headquarter_data_inline }}</div>
+                <div class="row"><b>{{ __('messages.Data') }}: </b> {{ $infos['headquarter_data_inline'] }}</div>
                 <div class="row"><b>{{ __('messages.res10') }}: </b> {{ __('messages.res11') }} {{$reservation[0]->id}}</div>
                 <div class="row"><b>{{ __('messages.Amount') }}: </b> {{ __('messages.whole') }} {{$reservation[0]->payment_to_pay}} PLN {{ __('messages.or') }} {{ __('messages.advance') }} 100.00 PLN</div>
             </div>
@@ -238,17 +238,17 @@
                 <div class="col-sm-6 col-md-12 col-lg-2 mb-2 font-14 font-m-12">
                     <span>
                         {{ __('messages.Contact') }}:<br class="d-none d-lg-inline">
-                        {{ $infos->contact_person }}
+                        {{ $infos['contact_person'] }}
                     </span>
                 </div>
                 <div class="col-sm-6 col-md-3 col-lg-2 mb-2 px-lg-1">
-                    <div class="contact-item"><i class="fa fa-lg fa-phone" style="margin-right: 10px"></i>{{ $infos->first_phone }}</div>
+                    <div class="contact-item"><i class="fa fa-lg fa-phone" style="margin-right: 10px"></i>{{ $infos['first_phone'] }}</div>
                 </div>
                 <div class="col-sm-6 col-md-3 col-lg-2 mb-2 px-lg-2">
-                    <div class="contact-item"><i class="fa fa-lg fa-phone" style="margin-right: 10px"></i>{{ $infos->second_phone }}</div>
+                    <div class="contact-item"><i class="fa fa-lg fa-phone" style="margin-right: 10px"></i>{{ $infos['second_phone'] }}</div>
                 </div>
                 <div class="col-sm-6 col-md-5 col-lg-3 mb-2 px-lg-1">
-                    <div class="contact-item"><i class="fa fa-lg fa-envelope" style="margin-right: 10px"></i>{{ $infos->contact_person_email }}</div>
+                    <div class="contact-item"><i class="fa fa-lg fa-envelope" style="margin-right: 10px"></i>{{ $infos['contact_person_email'] }}</div>
                 </div>
                 <div class="col-lg-3 mb-2">
                     <span style="font-size: 11px; display: block;">
@@ -460,7 +460,7 @@
         mapa = new google.maps.Map(document.getElementById("mapka"), opcjeMapy);
         trasa_render.setMap(mapa);
         trasa_render.setPanel(document.getElementById('wskazowki'));
-        var marker1 = dodajZielonyMarker( {{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }},'', greenIcon);
+        var marker1 = dodajZielonyMarker( {{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }},'<div><div class="col-12" style="font-size: 16px"><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></div><div class="col-12" style="font-size: 14px">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}</div></div>', greenIcon);
     }
 
     function znajdz_wskazowki()
@@ -510,6 +510,12 @@
         }
         var marker = new google.maps.Marker(opcjeMarkera);
         marker.txt=txt;
+
+        google.maps.event.addListener(marker,"click",function()
+        {
+            dymek.setContent(marker.txt);
+            dymek.open(mapa,marker);
+        });
 
         greenMarkers.push(marker);
         return marker;
@@ -566,6 +572,11 @@
     });
 
     function cancelReservation(){
+        window.location.replace("{{route('reservations.CancelReservation', ['reservationId' => $reservation[0]->id])}}");
+    }
+
+    {{--
+    function cancelReservation(){
         var reservationId = {{$reservation[0]->id}};
         $.ajax({
             type: "GET",
@@ -574,14 +585,18 @@
             data: {
                 reservationId: reservationId,
             },
-            success: function() {
-                window.location.replace("{{route('index')}}");
+            success: function(response) {
+                console.log(response);
+                if(response.res == 'done') window.location.replace("{{route('index')}}");
+                else alert('{{ __("messages.500title") }}');
             },
             error: function(data) {
                 console.log(data);
+                alert('{{ __("messages.500title") }}');
             },
         });
     }
+    --}}
 </script>
 
     <script>

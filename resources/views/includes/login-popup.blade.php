@@ -37,9 +37,9 @@
                 </div>
                 <div class="form-group">
                     <div class="row font-12">
-                        {{--<div class="col-6">
-                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> <span class="">Zapamiętaj</span>
-                        </div>--}}
+                        <div class="col-6">
+                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> <span style="position: relative;top: -4px;">{{ __('messages.Remember') }}</span>
+                        </div>
                         <div class="col-6 pull-right" style="text-align: right;"> <a href="{{route('password.request')}}">{{ __('messages.Have you forgot your password?') }}</a></div>
                     </div>
                 </div>

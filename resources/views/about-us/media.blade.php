@@ -128,18 +128,18 @@
                         <img src="{{asset('images/contact/forMediaPhoto.png')}}">
                     </div>
                     <div class="col-9">
-                        <div class="bold">{{ $infos->contact_person }}</div>
+                        <div class="bold">{{ $infos['contact_person'] }}</div>
                         <div class="font-11 mt-2">{{ __('messages.Specialist in contact with the media') }}</div>
                     </div>
                 </div>
                 <button class="btn btn-black writeToUsOpen" style="width: 100%">{{ __('messages.Write to us') }}</button>
                 <div class="mt-3">
                     <img src="{{asset('images/media/phone.png')}}">
-                    <span class="ml-1">{{ $infos->first_phone }}</span>
+                    <span class="ml-1">{{ $infos['first_phone'] }}</span>
                 </div>
                 <div class="mt-3">
                     <img src="{{asset('images/media/Envelop_24.png')}}">
-                    <a href="mailto: {{ $infos->contact_email }}" class="ml-1">{{ $infos->contact_email }}</a>
+                    <a href="mailto: {{ $infos['contact_email'] }}" class="ml-1">{{ $infos['contact_email'] }}</a>
                 </div>
             </div>
         </div>

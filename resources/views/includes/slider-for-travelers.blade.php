@@ -1,10 +1,9 @@
 <!-- Slider -->
 <header>
   <div id="mainSliderSearch" class="carousel slide" data-ride="carousel" data-interval="7000">
-      <div id="topSearch" style="height: 100%; top: 70px;">
-        <div class="container searchCont" style="padding-top: 0px">
-              <h1 class="d-block d-sm-none" style="color: black">Szukaj wśród 34 678<br>
-              noclegów w Polsce</h1>
+      <div id="topSearch" style="height: 100%; top: 70px;" @tablet class="position-relative" @endtablet>
+        <div class="container searchCont px-0" style="padding-top: 0px">
+              <span class="d-block d-sm-none px-3" style="color: black">{{__('messages.travelers1')}}</span>
               @include('includes.search-form')
         </div>
       </div>
@@ -12,43 +11,6 @@
 </header>
 
 <script type="text/javascript">
-
-$('.pick-date').dateRangePicker(
-  {
-    separator : ' to ',
-    autoClose: true,
-    startOfWeek: 'monday',
-    language:'{{ App::getLocale() }}',
-    startDate: new Date(),
-    format: 'ddd D.M.YYYY',  //more formats at http://momentjs.com/docs/#/displaying/format/
-    customOpenAnimation: function(cb)
-    {
-      $(this).fadeIn(100, cb);
-    },
-    customCloseAnimation: function(cb)
-    {
-      $(this).fadeOut(100, cb);
-    },
-
-    getValue: function()
-    {
-      if ($('#przyjazd').val() && $('#powrot').val() )
-        return $('#przyjazd').val() + ' to ' + $('#powrot').val();
-      else
-        return '';
-    },
-    setValue: function(s,s1,s2)
-    {
-      if ('{{ App::getLocale() }}' == 'pl') {
-          s1 = s1.replace('Mon', 'Pon').replace('Tue', 'Wto').replace('Wed', 'Śro').replace('Thu', 'Czw').replace('Fri', 'Pią').replace('Sat', 'Sob').replace('Sun', 'Nie');
-          s2 = s2.replace('Mon', 'Pon').replace('Tue', 'Wto').replace('Wed', 'Śro').replace('Thu', 'Czw').replace('Fri', 'Pią').replace('Sat', 'Sob').replace('Sun', 'Nie');
-      }
-      $('#przyjazd').val(s1);
-      $('#powrot').val(s2);
-    }
-  });
-
-
 var options = {
 	url: function(phrase) {
 		return "autocomplete?phrase=" + phrase + "&format=json";
@@ -70,8 +32,16 @@ var options = {
 
 };
 
+var jsCalendarLegend = false;
 
-	$("#region").easyAutocomplete(options);
+$("#region").easyAutocomplete(options);
 
+$("#wyszukiwarka").submit(function( event ) {
+    var getDates = $('.t-datepicker').tDatePicker('getDates')
+    if(getDates[0] == null){
+        event.preventDefault();
+        alert("{{ __('messages.Please select the date of your stay') }}");
+    }
+});
 
 </script>

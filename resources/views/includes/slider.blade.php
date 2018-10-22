@@ -23,6 +23,7 @@
 </header>
 
 <script type="text/javascript">
+        var jsCalendarLegend = false;
         $('.t-datepicker').tDatePicker({
             autoClose: true,
             numCalendar: @handheld 1 @elsehandheld 2 @endhandheld,

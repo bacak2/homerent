@@ -32,6 +32,7 @@
 
 @section('scripts')
 <script type="text/javascript">
+    var jsCalendarLegend = false;
     $('.t-datepicker').tDatePicker({
         autoClose: true,
         numCalendar : @handheld 1 @elsehandheld 2 @endhandheld,
@@ -100,6 +101,7 @@
     }
 
 @handheld
+    @if(!Request::is('*/for-travelers*'))
     var priceSlider = document.getElementById('priceSlider');
     var firstPrice = document.getElementById('Mamount');
     var secondPrice = document.getElementById('Mamount2');
@@ -146,6 +148,7 @@
             setSliderHandle(handle, this.value);
         });
     });
+    @endif
 @endhandheld
 
     function rangeBar(){

@@ -6,11 +6,13 @@
 	<div class="row mx-0">
 		<div class="container py-1">
 			<div class="pull-left d-none d-md-block">
-				<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButton.png") }}')">
+				@if(Session::get("backToResults") !== null)
+				<a href="{{ Session::get("backToResults") }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButton.png") }}')">
 					<div  class="btn font-13 py-2 px-3" style="width: 100%" >
 						{{ __('messages.Back to search results') }}
 					</div>
 				</a>
+				@endif
 			</div>
 			<div class="d-md-none pull-left font-13 mt-2 ml-md-3 col-12 px-0">
 				<a href="{{route('index')}}">Start ></a>
@@ -88,12 +90,12 @@
 		</div>
 	</div>
 	@endhandheld
-	<div class="row back" style="background-image: url( {{ asset('images/apartaments/'.$groupDescription[0]->id.'/main_big.jpg') }} );">
+	<div class="row back mx-0" style="background-image: url( {{ asset('images/apartaments_group/'.$groupDescription[0]->id.'/main_big.jpg') }} );">
 		<div class="container">
 			<div class="row apartament-info">
 				<div class="col-md-8">
 					<div class="col transparent mt-2 mb-2 pb-1 pt-1 ">
-						<h1 style="font-size: 26px"><b>{{  $groupDescription[0]->group_name or '' }}</b><span class="pull-right">{{$apartamentsAmount}} {{trans_choice('messages.nrApartmentsInKomplex', $apartamentsAmount)}}</span></h1>
+						<h1 style="font-size: 26px"><b>{{  $groupDescription[0]->group_name or '' }}</b><span class="@mobile d-block @elsemobile pull-right @endmobile">{{$apartamentsAmount}} {{trans_choice('messages.nrApartmentsInKomplex', $apartamentsAmount)}}</span></h1>
 						<h2 style="font-size: 20px">{{ $groupDescription[0]->apartament_city }}, {{ $groupDescription[0]->apartament_address }}</h2>
 					</div>
 					<div class="col transparent mt-4 mb-2 pt-3 ">
@@ -445,6 +447,7 @@
 
 	<script type="text/javascript">
         moment.locale('{{App::getLocale()}}');
+        var jsCalendarLegend = false;
         $(document).ready(function(){
             $('.t-datepicker').tDatePicker({
                 autoClose: true,
@@ -545,12 +548,16 @@
             checkIn = new Date(dataDate[0]);
             checkInMonth = checkIn.getMonth()+1;
             if(checkInMonth < 10) checkInMonth = "0"+checkInMonth;
-            dateInc = checkIn.getFullYear()+"-"+checkInMonth+"-"+checkIn.getDate();
+            checkInDay = checkIn.getDate();
+            if(checkInDay < 10) checkInDay = "0"+checkInDay;
+            dateInc = checkIn.getFullYear()+"-"+checkInMonth+"-"+checkInDay;
 
             checkOut = new Date(dataDate[1]);
             checkOutMonth = checkOut.getMonth()+1;
             if(checkOutMonth < 10) checkOutMonth = "0"+checkOutMonth;
-            dateOut = checkOut.getFullYear()+"-"+checkOutMonth+"-"+checkOut.getDate();
+            checkOutDay = checkOut.getDate();
+            if(checkOutDay < 10) checkOutDay = "0"+checkOutDay;
+            dateOut = checkOut.getFullYear()+"-"+checkOutMonth+"-"+checkOutDay;
             ajaxConenction();
         });
 
@@ -600,7 +607,8 @@
                 mapa = new google.maps.Map(document.getElementById("mapka"), opcjeMapy);
                 trasa_render.setMap(mapa);
                 trasa_render.setPanel(document.getElementById('wskazowki'));
-                var marker1 = dodajZielonyMarker( {{ $groupDescription[0]->apartament_geo_lat }}, {{ $groupDescription[0]->apartament_geo_lan }},'', greenIcon);
+                var marker1 = dodajZielonyMarker( {{ $groupDescription[0]->apartament_geo_lat }}, {{ $groupDescription[0]->apartament_geo_lan }},'<div><div class="col-12" style="font-size: 16px"><b>{{  $groupDescription[0]->descriptions[0]->apartament_name or '' }}</b></div><div class="col-12" style="font-size: 14px">{{ $groupDescription[0]->apartament_city }}, {{ $groupDescription[0]->apartament_address }}</div></div>', greenIcon);
+
             }
 
             function znajdz_wskazowki()
@@ -650,6 +658,12 @@
                     }
                 var marker = new google.maps.Marker(opcjeMarkera);
                 marker.txt=txt;
+
+                google.maps.event.addListener(marker,"click",function()
+                {
+                    dymek.setContent(marker.txt);
+                    dymek.open(mapa,marker);
+                });
 
                 greenMarkers.push(marker);
                 return marker;

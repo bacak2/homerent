@@ -62,10 +62,9 @@
 
         <span class="d-md-none">
             <div class="guide-2-popup guide-mobile-popup col-sm-12 col-md-4 mb-3">
-                <span class="font-13">
-                    {{__('messages.TravelersInfo1')}}
-                </span>
-                <img style="width: 100%" src='{{ asset('images/for_travelers/pop2-inside-').App::getLocale().'.png' }}'>
+                <span class="font-13">{{__('messages.TravelersInfo1')}}</span>
+                <div><img class="w-100" src='{{ asset('images/for_travelers/pop2-inside-apartment.jpg') }}'></div>
+                <span class="font-13">{{__('messages.TravelersInfo2')}}</span>
             </div>
         </span>
 
@@ -78,45 +77,36 @@
 
         <span class="d-md-none">
             <div class="guide-3-popup guide-mobile-popup col-sm-12 col-md-4 mb-3">
-                <img style="width: 100%" src='{{ asset('images/for_travelers/pop3-inside-').App::getLocale().'.png' }}'>
+                {{__('messages.travelers3')}}
+                <img style="width: 100%" src='{{ asset('images/for_travelers/pop3-inside-pl.png') }}'>
             </div>
         </span>
     </div>
 
-<span class="d-sm-none d-md-block">
+<span class="d-none d-md-block">
     <div class="row">
         <div class="guide-1-popup guide-popup" style="background-image: url('{{ asset('images/for_travelers/popup.png') }}');">
             <div class="container searchCont">
+                <span style="position: absolute; top: 40px; left: 50%;transform: translateX(-50%);width: 70%;">{{__('messages.travelers1')}}</span>
                 @include('includes.slider-for-travelers')
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="guide-2-popup guide-popup px-4" style="background-image: url('{{ asset('images/for_travelers/popup2.png') }}');">
             <div class="row" style="margin: 40px 10px 0px 10px;">
-                <div class="col-4 @handheld font-11 @endhandheld" style="position: relative;">
+                <div class="@handheld font-11 @endhandheld" style="position: relative;">
                     {{__('messages.TravelersInfo1')}}
-                    <br><br>
+                    <div class="text-center"><img style="" src='{{ asset('images/for_travelers/pop2-inside-apartment.jpg') }}'></div>
                     {{__('messages.TravelersInfo2')}}
-                    <br><br>
-                    {{__('messages.TravelersInfo3')}}
-                    <span style="position: absolute; bottom: 10px; left: 6px;">
-                        <img src='{{ asset('images/for_travelers/miniIcon.png') }}'>
-                        <img src='{{ asset('images/for_travelers/miniIcon.png') }}'>
-                        <img src='{{ asset('images/for_travelers/miniIcon.png') }}'>
-                    </span>
-                </div>
-                <div class="col-8">
-                    <img style="margin: 20px 40px 30px 40px; width: 100%" src='{{ asset('images/for_travelers/pop2-inside-').App::getLocale().'.png' }}'>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="guide-3-popup guide-popup px-4" style="background-image: url('{{ asset('images/for_travelers/popup3.png') }}');">
-            <img style="margin: 40px 0px; border: 1px solid black; width: 100%" src='{{ asset('images/for_travelers/pop3-inside-').App::getLocale().'.png' }}'>
+            <div style="margin-top: 40px;text-align: center;">{{__('messages.travelers3')}}</div>
+            <img style="width: 100%" src='{{ asset('images/for_travelers/pop3-inside-pl.png') }}'>
         </div>
     </div>
 </span>
@@ -160,7 +150,7 @@
         </div>
     </div>
 
-    <h2 class="mt-4 h2-owners">{{__('messages.Media about us')}}</h2>
+    {{--<h2 class="mt-4 h2-owners">{{__('messages.Media about us')}}</h2>
     <div class="row mb-5">
         <div class="col-sm-12 col-md-4">
             <div class="row mb-4">
@@ -193,7 +183,7 @@
             </div>
         </div>
     </div>
-
+    --}}
     <h2 class="mt-4 h2-owners">{{__('messages.help')}}</h2>
     <div class="row mb-3">
         <div class="col-12 col-md-4">
@@ -209,8 +199,8 @@
                     <div style="width:100%; min-height: 125px; background-color: #cfcfcf; border: 1px solid black; padding: 12px 20px">
                         <h4 style="font-size: 24px; font-weight: bold; margin-bottom: 15px">{{__('messages.Do you have any questions? Contact with us')}}</h4>
                         <div class="mr-2" style="float: left"><img src='{{ asset("images/for_travelers/Call_48.png") }}'></div>
-                        <a href="mailto: {{ $infos->contact_email }}" class="btn btn-black pull-right" style="width: 170px">{{__('messages.Write to us')}}</a>
-                        <span style="font-size: 20px;">{{__('messages.phoneShort')}}: {{ $infos->first_phone }}, {{ $infos->second_phone }}</span><br>
+                        <a href="mailto: {{ $infos['contact_email'] }}" class="btn btn-black pull-right" style="width: 170px">{{__('messages.Write to us')}}</a>
+                        <span style="font-size: 20px;">{{__('messages.phoneShort')}}: {{ $infos['first_phone'] }}, {{ $infos['second_phone'] }}</span><br>
                         <span class="font-13" style="display: inline-block">{{__('messages.monToFri')}}, 8:00-18:00</span>
                     </div>
                 </div>
@@ -219,7 +209,7 @@
                 <div style="width:100%; min-height: 125px; background-color: #cfcfcf; border: 1px solid black; width: 408px; padding: 16px 20px">
                     <h4 style="font-size: 18px; font-weight: bold; margin-bottom: 15px">{{__('messages.Do you have any questions? Contact with us')}}</h4>
                     <div class="mr-2" style="float: left"><img src='{{ asset("images/for_owners/icon2.png") }}'></div>
-                    <span class="font-13 bold" style="display: inline-block">{{__('messages.phoneShort')}}: {{ $infos->first_phone }}, {{ $infos->second_phone }}</span>
+                    <span class="font-13 bold" style="display: inline-block">{{__('messages.phoneShort')}}: {{ $infos['first_phone'] }}, {{ $infos['second_phone']}}</span>
                     <span class="font-13" style="display: inline-block;">{{__('messages.monToFri')}}, 8:00-18:00</span>
                     <div style="clear: both"></div>
                     <button class="btn btn-black mt-4" style="width: 100%">{{__('messages.Write to us')}}</button>

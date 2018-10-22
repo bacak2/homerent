@@ -56,49 +56,53 @@
         </div>
     </div>
 
+    <div class="my-4">{{__('messages.aboutUs1')}}</div>
+    <div class="mb-4">{{__('messages.aboutUs2')}}</div>
+    <div class="mb-4">{{__('messages.aboutUs3')}}</div>
 
+    {{--
+        <img style="width: 100%; height: auto; margin-bottom: 30px" src='{{ asset("images/about_us/photo1.png") }}'>
+        <img style="width: 100%; height: auto;" src='{{ asset("images/about_us/photo1.png") }}'>
 
-    <img style="width: 100%; height: auto; margin-bottom: 30px" src='{{ asset("images/about_us/photo1.png") }}'>
-    <img style="width: 100%; height: auto;" src='{{ asset("images/about_us/photo1.png") }}'>
+        <h2 class="mt-4 mb-3 h2-owners">{{__('messages.About service')}}</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
+        </p>
+        <img style="width: 100%; height: auto;" src='{{ asset("images/about_us/photo1.png") }}'>
 
-    <h2 class="mt-4 mb-3 h2-owners">{{__('messages.About service')}}</h2>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
-    </p>
-    <img style="width: 100%; height: auto;" src='{{ asset("images/about_us/photo1.png") }}'>
+        <h2 class="mt-4 mb-3 h2-owners">{{__('messages.Who we are')}}</h2>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
+        </p>
 
-    <h2 class="mt-4 mb-3 h2-owners">{{__('messages.Who we are')}}</h2>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget odio.
-    </p>
-
-    <div class="mb-5">
-        <div class="pr-2 pr-md-3 pt-3 pt-md-1" style="display: inline-block">
-            <img src='{{ asset("images/about_us/chairmanPhoto.png") }}'>
-            <div class="font-11 bold">Jan Kowalski</div>
-            <div class="font-11">{{__('messages.Chairman')}}</div>
+        <div class="mb-5">
+            <div class="pr-2 pr-md-3 pt-3 pt-md-1" style="display: inline-block">
+                <img src='{{ asset("images/about_us/chairmanPhoto.png") }}'>
+                <div class="font-11 bold">Jan Kowalski</div>
+                <div class="font-11">{{__('messages.Chairman')}}</div>
+            </div>
+            <div class="pr-2 pr-md-3 pt-3 pt-md-1" style="display: inline-block">
+                <img src='{{ asset("images/about_us/chairmanPhoto.png") }}'>
+                <div class="font-11 bold">Anna Nowak</div>
+                <div class="font-11">{{__('messages.Chief accountant')}}</div>
+            </div>
+            <div class="pr-2 pr-md-3 pt-3 pt-md-1" style="display: inline-block">
+                <img src='{{ asset("images/about_us/chairmanPhoto.png") }}'>
+                <div class="font-11 bold">Anna Nowak</div>
+                <div class="font-11">{{__('messages.bok')}}</div>
+            </div>
+            <div class="pr-2 pr-md-3 pt-3 pt-md-1" style="display: inline-block">
+                <img src='{{ asset("images/about_us/chairmanPhoto.png") }}'>
+                <div class="font-11 bold">Anna Nowak</div>
+                <div class="font-11">Lorem ipsum</div>
+            </div>
+            <div class="pr-2 pr-md-3 pt-3 pt-md-1" style="display: inline-block">
+                <img src='{{ asset("images/about_us/chairmanPhoto.png") }}'>
+                <div class="font-11 bold">Anna Nowak</div>
+                <div class="font-11">Lorem ipsum</div>
+            </div>
         </div>
-        <div class="pr-2 pr-md-3 pt-3 pt-md-1" style="display: inline-block">
-            <img src='{{ asset("images/about_us/chairmanPhoto.png") }}'>
-            <div class="font-11 bold">Anna Nowak</div>
-            <div class="font-11">{{__('messages.Chief accountant')}}</div>
-        </div>
-        <div class="pr-2 pr-md-3 pt-3 pt-md-1" style="display: inline-block">
-            <img src='{{ asset("images/about_us/chairmanPhoto.png") }}'>
-            <div class="font-11 bold">Anna Nowak</div>
-            <div class="font-11">{{__('messages.bok')}}</div>
-        </div>
-        <div class="pr-2 pr-md-3 pt-3 pt-md-1" style="display: inline-block">
-            <img src='{{ asset("images/about_us/chairmanPhoto.png") }}'>
-            <div class="font-11 bold">Anna Nowak</div>
-            <div class="font-11">Lorem ipsum</div>
-        </div>
-        <div class="pr-2 pr-md-3 pt-3 pt-md-1" style="display: inline-block">
-            <img src='{{ asset("images/about_us/chairmanPhoto.png") }}'>
-            <div class="font-11 bold">Anna Nowak</div>
-            <div class="font-11">Lorem ipsum</div>
-        </div>
-    </div>
+        --}}
 
 
 </div>

@@ -339,7 +339,7 @@
         mapa = new google.maps.Map(document.getElementById("mapka"), opcjeMapy);
         trasa_render.setMap(mapa);
         trasa_render.setPanel(document.getElementById('wskazowki'));
-        var marker1 = dodajZielonyMarker( {{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }},'', greenIcon);
+        var marker1 = dodajZielonyMarker( {{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }},'<div><div class="col-12" style="font-size: 16px"><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></div><div class="col-12" style="font-size: 14px">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}</div></div>', greenIcon);
     }
 
     function znajdz_wskazowki()
@@ -389,6 +389,12 @@
         }
         var marker = new google.maps.Marker(opcjeMarkera);
         marker.txt=txt;
+
+        google.maps.event.addListener(marker,"click",function()
+        {
+            dymek.setContent(marker.txt);
+            dymek.open(mapa,marker);
+        });
 
         greenMarkers.push(marker);
         return marker;

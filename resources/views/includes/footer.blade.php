@@ -1,6 +1,6 @@
 <!-- Footer -->
 <footer class="noprint">
-    <div class="pt-5 pb-3 bg-footer">
+    <div class="py-5 bg-footer">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-md-6">
@@ -43,13 +43,13 @@
                     <div class="row font-13">
                         <div class="col-6 col-md-7">
                             <div><a href="{{route('aboutUs.index')}}">{{ __('messages.About company') }}</a></div>
-                            <div><a href="{{route('aboutUs.media')}}">{{ __('Media') }}</a></div>
+                            {{--<div><a href="{{route('aboutUs.media')}}">{{ __('Media') }}</a></div>--}}
                             <div><a href="/privacy-policy">{{ __('messages.Privacy policy') }}</a></div>
                             <div><a href="/regulations">{{ __('messages.Regulations') }}</a></div>
                             <div><a href="{{route('aboutUs.contact')}}">{{ __('messages.Contact') }}</a></div>
+                            <div><a href="{{route('aboutUs.news')}}">{{ __('messages.News') }}</a></div>
                         </div>
                         <div class="col-6 col-md-5 mobile-none">
-                            <div><a href="{{route('aboutUs.news')}}">{{ __('messages.News') }}</a></div>
                             <!--div><a href="#">Program afiliacyjny</a></div-->
                         </div>
                     </div>
@@ -71,15 +71,16 @@
             </div>
         </div>
     </div>
-
-    <div class="pt-4 pb-2 bg-footer-privace-policy">
+    @if(Cookie::get('cookieAccepted') == null)
+    <div id="bg-footer-privace-policy" class="pt-4 pb-2 bg-footer-privace-policy">
         <div class="container">
             <div class="row font-11">
-                <div class="col-12 col-md-8">
+                <div class="col-12">
                     {{ __('messages.cookies') }}
                     <br>
                     {{ __('messages.cookies2') }}
                     <a class="text-white" style="text-decoration: underline" href="/privacy-policy">{{ __('messages.privacypolicy') }}</a>
+                    <button class="btn btn-secondary btn-accept-cookie font-11" onclick="cookiesAccepted()">{{__('messages.I accept the cookie policy')}}</button>
                 </div>
                 <div class="col-4">
 
@@ -87,4 +88,5 @@
             </div>
         </div>
     </div>
+    @endif
 </footer>

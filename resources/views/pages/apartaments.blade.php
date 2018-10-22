@@ -6,11 +6,13 @@
 	<div class="row mx-0">
 		<div class="container py-1">
 			<div class="pull-left d-none d-md-block">
-				<a href="{{ url()->previous() }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButton.png") }}')">
+				@if(Session::get("backToResults") !== null)
+				<a href="{{ Session::get("backToResults") }}" class="pointer-back" style="background-image: url('{{ asset("images/apartment_detal/backButton.png") }}')">
 					<div  class="btn font-13 py-2 px-3" style="width: 100%" >
 						{{ __('messages.Back to search results') }}
 					</div>
 				</a>
+				@endif
 			</div>
 			<div class="d-md-none pull-left font-13 mt-2 ml-md-3 col-12 px-0">
 				<a href="{{route('index')}}">Start ></a>
@@ -229,7 +231,13 @@
 					<div class="col">
 						<h4 class=""><b>{{ __('messages.description') }}</b></h4>
 						<span id="description" style="padding-top: 120px; margin-top: -120px;"></span>
-						<p>{!! $apartament->descriptions[0]->apartament_description or '' !!}</p>
+						<p class="mb-0">
+							{!! substr($apartament->descriptions[0]->apartament_description, 0, $firstParagraphEndsPosition) !!}
+							@if($firstParagraphEndsPosition)
+								<div id="showHiddenDescription" class="text-center mt-3 mx-0 font-13">{{__('messages.Show all description')}} ▼</div>
+							@endif
+							<span id="hiddenDescription" style="display: none">{!! substr($apartament->descriptions[0]->apartament_description, $firstParagraphEndsPosition) !!}</span>
+						</p>
 					</div>
 				</div>
 				<div class="row mb-3">
@@ -463,6 +471,11 @@
 							<li class="nav-item">
 								<a class="nav-link" data-toggle="tab" href="#showStreetview">{{ __('messages.Area') }} (Street view)</a>
 							</li>
+                            @if($apartament->walk_3d_src != null)
+							<li class="nav-item">
+								<a class="nav-link" data-toggle="tab" href="#showWalk3d">{{ __('messages.Walk 3d') }}</a>
+							</li>
+                            @endif
 						</ul>
 						<div class="tab-content">
 							<div id="showMap" class="tab-pane active">
@@ -496,6 +509,11 @@
 							<div id="showStreetview" class="tab-pane">
 								<div id="streetView" style="width: 100%; height: 500px; margin-bottom: 30px;"></div>
 							</div>
+                            @if($apartament->walk_3d_src != null)
+							<div id="showWalk3d" class="tab-pane">
+								<iframe src="{{$apartament->walk_3d_src}}" frameborder="0" style="width:100%;height: 500px;" allowfullscreen></iframe>
+							</div>
+                            @endif
 						</div>
 					</div>
 				</div>
@@ -2209,6 +2227,13 @@
 	</div>
 	<script type="text/javascript">
 		moment.locale('{{App::getLocale()}}');
+        var bookedDays = { {!! $reservedDates !!} };
+        var preBookedDays = { {!! $preReservedDates !!} };
+        var jsCalendarLegend = true;
+        var messagesAvailable = "{{ __('messages.Available') }}";
+        var messagesOccupied = "{{ __('messages.Occupied') }}";
+        var messagesPreliminary = "{{ __('messages.Preliminary reservation') }}";
+
         $(document).ready(function(){
             $('.t-datepicker').tDatePicker({
                 autoClose: true,
@@ -2223,6 +2248,9 @@
                 iconDate: '<i class="fa fa-lg fa-calendar" aria-hidden="true"></i>',
                 titleDays: {!! titleDays() !!},
             	titleMonths: {!! titleMonths() !!},
+				fnDataEvent: bookedDays,
+				fnDataEvent2: preBookedDays,
+                startDate : '{{date("Y-m-d")}}',
             });
 
 			@if(isset($_GET['t-start']) && isset($_GET['t-end']) && isset($request->dorosli))
@@ -2307,12 +2335,16 @@
             checkIn = new Date(dataDate[0]);
             checkInMonth = checkIn.getMonth()+1;
             if(checkInMonth < 10) checkInMonth = "0"+checkInMonth;
-            dateInc = checkIn.getFullYear()+"-"+checkInMonth+"-"+checkIn.getDate();
+            checkInDay = checkIn.getDate();
+            if(checkInDay < 10) checkInDay = "0"+checkInDay;
+            dateInc = checkIn.getFullYear()+"-"+checkInMonth+"-"+checkInDay;
 
             checkOut = new Date(dataDate[1]);
             checkOutMonth = checkOut.getMonth()+1;
             if(checkOutMonth < 10) checkOutMonth = "0"+checkOutMonth;
-            dateOut = checkOut.getFullYear()+"-"+checkOutMonth+"-"+checkOut.getDate();
+            checkOutDay = checkOut.getDate();
+            if(checkOutDay < 10) checkOutDay = "0"+checkOutDay;
+            dateOut = checkOut.getFullYear()+"-"+checkOutMonth+"-"+checkOutDay;
             ajaxConenction();
         });
 
@@ -2358,8 +2390,7 @@
             mapa = new google.maps.Map(document.getElementById("mapka"), opcjeMapy);
             trasa_render.setMap(mapa);
             trasa_render.setPanel(document.getElementById('wskazowki'));
-            var marker1 = dodajZielonyMarker( {{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }},'', greenIcon);
-
+            var marker1 = dodajZielonyMarker( {{ $apartament->apartament_geo_lat }}, {{ $apartament->apartament_geo_lan }},'<div><div class="col-12" style="font-size: 16px"><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></div><div class="col-12" style="font-size: 14px">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}</div></div>', greenIcon);
         }
 
         function znajdz_wskazowki()
@@ -2408,6 +2439,12 @@
                 }
             var marker = new google.maps.Marker(opcjeMarkera);
             marker.txt=txt;
+
+            google.maps.event.addListener(marker,"click",function()
+            {
+                dymek.setContent(marker.txt);
+                dymek.open(mapa,marker);
+            });
 
             greenMarkers.push(marker);
             return marker;
@@ -3605,6 +3642,11 @@
             $('#send-news').hide();
             $('#confirm-send-news-friends').show();
         }
+
+        $("#showHiddenDescription").on('click', function(){
+            $("#hiddenDescription").show();
+            $(this).remove();
+        });
 	</script>
 
 @endsection

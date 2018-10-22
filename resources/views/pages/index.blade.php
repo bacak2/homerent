@@ -87,7 +87,7 @@
 
 					<h4 class="h4-index">{{ __('messages.Recommend') }} {{ __('messages.in Zakopane') }}</h4>
 					@foreach ($apartamentsFirstCity as $apartament)
-						<div style="position: relative">
+						<div class="mb-2" style="position: relative">
 							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
 								<img style="width:99%; height: 210px;" src="{{asset("images/apartaments/$apartament->id/polecane.jpg")}}">
 							</a>
@@ -116,7 +116,7 @@
 
 					<h4 class="h4-index">{{ __('messages.Recommend') }} {{ __('messages.in Koscielisko') }}</h4>
 					@foreach ($apartamentsSecondCity as $apartament)
-						<div style="position: relative">
+						<div class="mb-2" style="position: relative">
 							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
 								<img style="width:99%; height: 210px;" src="{{asset("images/apartaments/$apartament->id/polecane.jpg")}}">
 							</a>
@@ -145,7 +145,7 @@
 
 					<h4 class="h4-index">{{ __('messages.Recommend') }} {{ __('messages.in Witow') }}</h4>
 					@foreach ($apartamentsThirdCity as $apartament)
-						<div style="position: relative">
+						<div class="mb-2" style="position: relative">
 							<a class="to-download-description" href="/apartaments/{{ $apartament->apartament_link }}">
 								<img style="width:99%; height: 210px;" src="{{asset("images/apartaments/$apartament->id/polecane.jpg")}}">
 							</a>

@@ -160,6 +160,7 @@ class Apartaments extends Controller
             $query->where('language_id', $this->language->id);
         }))->find($id);
 
+        $firstParagraphEndsPosition = strpos($apartament->descriptions[0]->apartament_description, '<br>');
 
         $apartamentGroup = DB::table('apartaments')
             ->select('group_id')
@@ -205,8 +206,13 @@ class Apartaments extends Controller
 
         setcookie('lastSeenApartments', serialize($lastSeenApartments), time() + (86400 * 30), '/');
 
+        $apartment = new Apartament();
         // Generates calendar
-        $calendar = Apartament::generateCalendar($id);
+        $calendar = $apartment->generateCalendar($id);
+
+        // Generates dates with description to JS calendar
+        $reservedDates = $apartment->generateReservedDates($id);
+        $preReservedDates = $apartment->generatePreReservedDates($id);
 
         if(isset($_COOKIE['lastSeenApartments'])) $cookiesApartments = unserialize($_COOKIE['lastSeenApartments']);
         else $cookiesApartments = [];
@@ -221,9 +227,6 @@ class Apartaments extends Controller
             ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
                 cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
             '), 'sub.id_apartament', '=', 'apartaments.id')
-            ->leftjoin(DB::raw('(select apartament_id, reservations.created_at as lastReservationDate from `apartaments`
-                right join `reservations` on `apartaments`.`id` = `reservations`.`id`  group by apartament_id) lastReservation
-            '), 'lastReservation.apartament_id', '=', 'apartaments.id')
             ->whereIn('apartaments.id', $cookiesApartments)
             ->groupBy('apartaments.id')
             ->limit(4)
@@ -231,7 +234,6 @@ class Apartaments extends Controller
 
         $countedCookies = $lastSeen->count();
 
-    //////rules to change!!!
         $seeAlso = Apartament::selectRaw('*, apartaments.id, MIN(price_value) AS min_price, sub.opinionAmount, sub.ratingAvg')
             ->join('apartament_descriptions','apartaments.id', '=', 'apartament_descriptions.apartament_id')
             ->join('languages', function($join) {
@@ -242,9 +244,7 @@ class Apartaments extends Controller
             ->leftjoin(DB::raw('(select id_apartament, count(id_apartament) as opinionAmount, avg(total_rating) as ratingAvg from `reservations`
                 cross join `apartament_opinions` on `reservations`.`id` = `apartament_opinions`.`id_reservation`  group by id_apartament) sub
             '), 'sub.id_apartament', '=', 'apartaments.id')
-            ->leftjoin(DB::raw('(select apartament_id, reservations.created_at as lastReservationDate from `apartaments`
-                right join `reservations` on `apartaments`.`id` = `reservations`.`id`  group by apartament_id) lastReservation
-            '), 'lastReservation.apartament_id', '=', 'apartaments.id')
+            ->where('apartaments.id', '<>', $id)
             ->groupBy('apartaments.id')
             ->limit(4)
             ->get();
@@ -628,7 +628,8 @@ class Apartaments extends Controller
             $kidsArray[$i] = $i;
         }
 
-        return view('pages.apartaments', ['apartament' => $apartament,
+        return view('pages.apartaments', [
+            'apartament' => $apartament,
             'groups' => $groups,
             'images' => $images,
             'priceFrom' => $priceFrom,
@@ -663,6 +664,9 @@ class Apartaments extends Controller
             'request' => $request,
             'personsArray' => $personsArray,
             'kidsArray' => $kidsArray,
+            'reservedDates' => $reservedDates,
+            'preReservedDates' => $preReservedDates,
+            'firstParagraphEndsPosition' => $firstParagraphEndsPosition,
         ]);
 
     }
@@ -822,6 +826,8 @@ class Apartaments extends Controller
         $dprz = strtotime($arriveDate);
         $dpwr = strtotime($returnDate);
         $nightsCounter = ($dpwr - $dprz)/(60 * 60 * 24);
+
+        session(["backToResults" => url()->full()]);
 
         switch($view) {
             case 'kafle':

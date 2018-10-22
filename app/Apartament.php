@@ -25,7 +25,7 @@ class Apartament extends Model
         return $this->belongsTo('App\Apartament_group');
     }
 
-    public static function generateCalendar($apartament_id){
+    public function generateCalendar($apartament_id){
 
         $reserveds = DB::table('reservations')->select('reservation_arrive_date', 'reservation_departure_date')->where('apartament_id', $apartament_id)->where('reservation_status', 1)->get();
         $preBookings = DB::table('reservations')->select('reservation_arrive_date', 'reservation_departure_date')->where('apartament_id', $apartament_id)->where('reservation_status', 0)->get();
@@ -125,6 +125,54 @@ class Apartament extends Model
         }
 
         return $calendar;
+    }
+
+    public function generateReservedDates($apartament_id)
+    {
+        $reservedDates = '';
+
+        $reserveds = DB::table('reservations')
+            ->select('reservation_arrive_date', 'reservation_departure_date')
+            ->where('apartament_id', $apartament_id)
+            ->where('reservation_status', 1)
+            ->whereRaw('reservation_arrive_date > NOW() - INTERVAL 1 DAY')
+            ->get();
+
+        for ($i = 0; count($reserveds) > $i; $i++) {
+
+            $arriveDate = new DateTime($reserveds[$i]->reservation_arrive_date);
+            $departureDate = new DateTime($reserveds[$i]->reservation_departure_date);
+
+            for ($arriveDate; $arriveDate <= $departureDate; $arriveDate = $arriveDate->modify("+1 days")) {
+                $reservedDates = $reservedDates."'".$arriveDate->format('Y-m-d')."' : '',";
+            }
+        }
+
+        return $reservedDates;
+    }
+
+    public function generatePreReservedDates($apartament_id)
+    {
+        $reservedDates = '';
+
+        $prebookings = DB::table('reservations')
+            ->select('reservation_arrive_date', 'reservation_departure_date')
+            ->where('apartament_id', $apartament_id)
+            ->where('reservation_status', 0)
+            ->whereRaw('reservation_arrive_date > NOW() - INTERVAL 1 DAY')
+            ->get();
+
+        for ($i = 0; count($prebookings) > $i; $i++) {
+
+            $arriveDate = new DateTime($prebookings[$i]->reservation_arrive_date);
+            $departureDate = new DateTime($prebookings[$i]->reservation_departure_date);
+
+            for ($arriveDate; $arriveDate <= $departureDate; $arriveDate = $arriveDate->modify("+1 days")) {
+                $reservedDates = $reservedDates."'".$arriveDate->format('Y-m-d')."' : '',";
+            }
+        }
+
+        return $reservedDates;
     }
 
 }

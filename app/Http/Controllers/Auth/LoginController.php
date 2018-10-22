@@ -56,6 +56,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request)
     {
+        Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember ? true : false);
 
         $userId = DB::table('users')
             ->select('id')

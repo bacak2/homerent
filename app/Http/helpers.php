@@ -43,21 +43,29 @@ function countLastReservationDiff($lastReservationDate){
 }
 
 function getContactEmail(){
-    return DB::table('contact_infos')->select('contact_email')->first()->contact_email;
+    return DB::table('contact_info')->select('value')->where('key', 'contact_email')->first()->value;
 }
 
 function getContactPerson(){
-    return DB::table('contact_infos')->select('contact_person')->first()->contact_person;
+    return DB::table('contact_info')->select('value')->where('key', 'contact_person')->first()->value;
 }
 
 function getContactPersonEmail(){
-    return DB::table('contact_infos')->select('contact_person_email')->first()->contact_person_email;
+    return DB::table('contact_info')->select('value')->where('key', 'contact_person_email')->first()->value;
 }
 
 function getContactPhone(){
-    return DB::table('contact_infos')->select('first_phone')->first()->first_phone;
+    return DB::table('contact_info')->select('value')->where('key', 'first_phone')->first()->value;
 }
 
 function getContactSecondPhone(){
-    return DB::table('contact_infos')->select('second_phone')->first()->second_phone;
+    return DB::table('contact_info')->select('value')->where('key', 'second_phone')->first()->value;
+}
+
+function getPageContent($page_link){
+    return DB::table('pages_content')
+        ->select('page_content')
+        ->where('page_link', $page_link)
+        ->where('language', App::getLocale())
+        ->first()->page_content;
 }

@@ -21,6 +21,8 @@ Route::group(
     {
         Route::get('/', 'Apartaments@showIndex')->name('index');
 
+        Route::get('/idosell-reservations', 'ApiIdosell@getReservation');
+
         Route::post('logout', 'Auth\LoginController@logout');
 
         Route::get('/log-via-fb', 'Auth\LoginController@logViaFb');
@@ -41,7 +43,7 @@ Route::group(
 
         Route::get('/apartaments-group/{link}', 'Apartaments@showApartamentGroup')->name('apartamentGroup');
 
-        Route::get('/search/{view}','Apartaments@searchApartaments');
+        Route::get('/search/{view}','Apartaments@searchApartaments')->name('search');
 
         Route::get('/test','Apartaments@showTotalApartamentPrice');
 
@@ -146,11 +148,6 @@ Route::group(
             'as' => 'reservations.SendMail'
         ]);
 
-        Route::GET('/cancel-reservation', [
-            'uses' => 'Reservations@CancelReservation',
-            'as' => 'reservations.CancelReservation'
-        ]);
-
         Route::post('/sendContactForm', [
             'uses' => 'AboutUs@SendMail',
             'as' => 'aboutUs.SendMail'
@@ -248,6 +245,13 @@ Route::group(
             'as' => 'aboutUs.sendMailWithGuidebook'
         ]);
 
+        Route::GET('/accept-cookies', [
+            'uses' => 'AboutUs@acceptCookies',
+            'as' => 'aboutUs.acceptCookies'
+        ]);
+
+        Route::get('/sync-reservations', 'Reservations@syncReservationVisit');
+
         Route::prefix('/account')->group(function () {
             Route::GET('/data', [
                 'uses' => 'Account@index',
@@ -277,6 +281,11 @@ Route::group(
             Route::GET('/my-reservations', [
                 'uses' => 'Account@reservations',
                 'as' => 'myReservations'
+            ]);
+
+            Route::GET('/cancel-reservation/{reservationId}', [
+                'uses' => 'Reservations@CancelReservation',
+                'as' => 'reservations.CancelReservation'
             ]);
 
             Route::GET('/my-opinons', [

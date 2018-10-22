@@ -60,12 +60,30 @@
                     @endif
                 </div>
                 <div class="description-map-bottom-right desktop-none">
-                    @for ($i = 0; $i < 5; $i++)
-                        <img src="{{ asset("images/results/star.png") }}">
+                    @for ($i = 0; $i < floor($apartament->ratingAvg/2); $i++)
+                        <img src='{{ asset("images/results/star.png") }}'>
+                    @endfor
+                    @if(floor($apartament->ratingAvg/2) != ceil($apartament->ratingAvg/2))
+                        <img src='{{ asset("images/results/star_half.png") }}'>
+                    @endif
+                    @for ($i = ceil($apartament->ratingAvg/2); $i < 5; $i++)
+                        <img src='{{ asset("images/results/star_empty.png") }}'>
                     @endfor
                     <br>
-                    <span style="color: green; margin-right: 10px">{{ __("messages.Perfect") }}</span>
-                    <span style="color: blue">55 {{ __("messages.reviews_number") }}</span>
+                        @if($apartament->ratingAvg < 1)
+                            <span class="opinion-to-left" style="margin-right: 10px;"></span>
+                        @elseif($apartament->ratingAvg < 2.5)
+                            <span class="opinion-to-left txt-red" style="margin-right: 10px;">{{ __("messages.Awful") }}</span>
+                        @elseif($apartament->ratingAvg < 4.5)
+                            <span class="opinion-to-left txt-red" style="margin-right: 10px;">{{ __("messages.Bad") }}</span>
+                        @elseif($apartament->ratingAvg < 6.5)
+                            <span class="opinion-to-left txt-yellow" style="margin-right: 10px;">{{ __("messages.Average") }}</span>
+                        @elseif($apartament->ratingAvg < 8.5)
+                            <span class="opinion-to-left txt-green" style="margin-right: 10px;">{{ __("messages.Very good") }}</span>
+                        @else
+                            <span class="opinion-to-left txt-green" style="margin-right: 10px;">{{ __("messages.Perfect") }}</span>
+                        @endif
+                        <span class="txt-blue nr-reviews-right">{{$apartament->opinionAmount ?? 0}} {{trans_choice('messages.nrReviews', $apartament->opinionAmount ?? 0)}}</span>
                 </div>
             </div>
         </div>

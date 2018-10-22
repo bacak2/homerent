@@ -68,6 +68,8 @@ $start = mikrooo();
 	@endauth
 
 	@yield('scripts')
+
+	@include('includes.cookies')
 <?php
 $stop = mikrooo(); $czas = $stop - $start;
 echo "<!--Czas generowania strony : ".$czas." sek-->";

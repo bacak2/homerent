@@ -12,7 +12,7 @@
               <img class="d-block w-100" src="/images/slider/3.jpg" alt="Third slide">
           </div>
       </div>
-      <div id="topSearch" style="background-image: {{url('/images/slider/1.jpg')}}">
+      <div id="topSearch" style="background-image: url('{{asset('/images/slider/1.jpg')}}')">
         <h1 class="container" style="text-shadow: 1px 1px 0 black; padding-top: 0px; color: white; font-size: 32px; font-weight: bold;">{{ __('messages.404title') }}</h1>
         <div class="container searchCont" style="padding-top: 60px;">
               <span style="color: white; font-size: 32px; font-weight: bold; text-shadow: 1px 1px 0 black;">{{ __('messages.Search among') }} {{ countAllApartments() }} {{ __('messages.accommodation in Poland') }}</span>
@@ -23,6 +23,7 @@
 </header>
 
 <script type="text/javascript">
+    var jsCalendarLegend = false;
     $('.t-datepicker').tDatePicker({
         autoClose: true,
         numCalendar: @handheld 1 @elsehandheld 2 @endhandheld,

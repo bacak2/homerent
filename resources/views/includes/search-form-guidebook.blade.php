@@ -50,7 +50,7 @@
 </div>
 
 <script type="text/javascript">
-
+    var jsCalendarLegend = false;
     $('.t-datepicker').tDatePicker({
         autoClose: true,
         numCalendar: @mobile 1 @elsemobile 2 @endmobile,
