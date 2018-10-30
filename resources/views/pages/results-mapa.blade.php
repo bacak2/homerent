@@ -23,9 +23,9 @@
                 <div id="mapka" style="width: 100%; height: 500px; margin-bottom: 30px;" itemprop="hasMap"></div>
             </div>
 @if(\App::environment('production'))
-<script src="https://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw" type="text/javascript"></script>
+<script src="https://maps.google.com/maps/api/js?key=AIzaSyC93Rrn_968K55K_tf-vxokz53xx7MWyhQ" type="text/javascript"></script>
 @else
-<script src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw" type="text/javascript"></script>
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyC93Rrn_968K55K_tf-vxokz53xx7MWyhQ" type="text/javascript"></script>
 @endif
 		<script type="text/javascript">
 

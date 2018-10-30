@@ -5,7 +5,7 @@
 
     @if(isset($faqToShow))
         $("#questions div:nth-child({{$faqToShow}}) .answer").show();
-    @endif</script>@if(\App::environment('production'))<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language={{$language}}"></script>@else<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyBBEtTo5au09GsH6EvJhj1R_uc0BpTLVaw&language={{$language}}"></script>@endif<script type="text/javascript">var mapa;
+    @endif</script>@if(\App::environment('production'))<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyC93Rrn_968K55K_tf-vxokz53xx7MWyhQ&language={{$language}}"></script>@else<script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyC93Rrn_968K55K_tf-vxokz53xx7MWyhQ&language={{$language}}"></script>@endif<script type="text/javascript">var mapa;
     var wspolrzedne = new google.maps.LatLng({{ $geo_lat }}, {{ $geo_lon }});
 
     function mapaStart()
