@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //seeder to add prices
+        /*
         $i=0;
         while ($i<365){
             DB::table('apartament_prices')->insert([
@@ -25,10 +26,11 @@ class DatabaseSeeder extends Seeder
             $i++;
         }
 
+*/
         //seeder to add names of photo from all dir
-        //add main.jpg and mail.jpg after this seed
-        /*
-        $apartamentId = 9;
+        //add main.jp, main_big.jpg, mail.jpg and polecane.jpg after this seed
+/*
+        $apartamentId = 12;
         $dirName = "/home/adminartplus/Pulpit/htdocs/Homerent/httpdocs/public/images/apartaments/$apartamentId";
         $scanned_directory = array_diff(scandir($dirName), array('..', '.'));
         foreach($scanned_directory as $photoName){
@@ -37,6 +39,19 @@ class DatabaseSeeder extends Seeder
                 'photo_link' => $photoName,
             ]);
         }
-        */
+*/
+
+
+        //seeder to add names of photo from whole dir
+        $groupId = 3;
+        $dirName = "/home/adminartplus/Pulpit/htdocs/Homerent/httpdocs/public/images/apartaments_group/$groupId";
+        $scanned_directory = array_diff(scandir($dirName), array('..', '.'));
+        foreach($scanned_directory as $photoName){
+            DB::table('apartament_group_photos')->insert([
+                'group_id' => $groupId,
+                'photo_link' => $photoName,
+            ]);
+        }
+
     }
 }

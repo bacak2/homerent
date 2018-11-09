@@ -3,21 +3,37 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Idosell extends Model
 {
-    /*
-        private $Baza = null;
-        private $Domena;
-        private $Language;
-        *
-         * Konstruktor
-         *
 
-    function __construct($Baza) {
-        $this->Baza = $Baza;
+    private $CryptKey = '77djdf02-d9g9das--a=s3';
+
+    function __construct() {
+        $password = DB::connection('mysql2')
+            ->table('visit_dane_baza')
+            ->select('dane_pass')
+            ->where('dane_adres', 'ApiIdosell')
+            ->where('dane_id', 330)
+            ->first()
+            ->dane_pass;
+
+        $login = DB::connection('mysql2')
+            ->table('visit_dane_baza')
+            ->select('dane_dostepowe')
+            ->where('dane_adres', 'ApiIdosell')
+            ->where('dane_id', 330)
+            ->first()
+            ->dane_dostepowe;
+
+        $this->login = $this->DecryptDane($login);
+        $this->password = $this->DecryptDane($password);
     }
-    */
+
+    public function DecryptDane($string){
+        return rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($this->CryptKey), base64_decode($string), MCRYPT_MODE_CBC, md5(md5($this->CryptKey))), "\0");
+    }
 
     /**
      * @return requestBookings
@@ -28,8 +44,8 @@ class Idosell extends Model
         $address = 'https://client6127.idosell.com/api/objects/getAll/7/json';
         $request = array();
         $request['authenticate'] = array();
-        $request['authenticate']['systemKey'] = "Gala1712!@";
-        $request['authenticate']['systemLogin'] = "barpru666";
+        $request['authenticate']['systemKey'] = $this->password;
+        $request['authenticate']['systemLogin'] = $this->login;
         $request['authenticate']['lang'] = 'eng';
 
         $response = $this->prepareCurl($address, $request);
@@ -91,8 +107,8 @@ class Idosell extends Model
 
         $request = array();
         $request['authenticate'] = array();
-        $request['authenticate']['systemKey'] = "Gala1712!@";
-        $request['authenticate']['systemLogin'] = "barpru666";
+        $request['authenticate']['systemKey'] = $this->password;
+        $request['authenticate']['systemLogin'] = $this->login;
         $request['authenticate']['lang'] = 'pol';
         $request['reservations'] = array();
         $request['reservations'][0] = array();
@@ -137,8 +153,8 @@ class Idosell extends Model
         $address = 'https://client6127.idosell.com/api/reservations/get/3/json';
         $request = array();
         $request['authenticate'] = array();
-        $request['authenticate']['systemKey'] = "Gala1712!@";
-        $request['authenticate']['systemLogin'] = "barpru666";
+        $request['authenticate']['systemKey'] = $this->password;
+        $request['authenticate']['systemLogin'] = $this->login;
         $request['authenticate']['lang'] = 'eng';
         //$request['paramsSearch']['objectsIds'] = array();
         $request['paramsSearch']['modificationDateRange']['startDate'] = "2000-10-10 00:00";
@@ -159,8 +175,8 @@ class Idosell extends Model
         $address = 'https://client6127.idosell.com/api/reservations/getByIds/3/json';
         $request = array();
         $request['authenticate'] = array();
-        $request['authenticate']['systemKey'] = "Gala1712!@";
-        $request['authenticate']['systemLogin'] = "barpru666";
+        $request['authenticate']['systemKey'] = $this->password;
+        $request['authenticate']['systemLogin'] = $this->login;
         $request['authenticate']['lang'] = 'eng';
         //$request['paramsSearch']['objectsIds'] = array();
         //$request['paramsSearch']['modificationDateRange']['startDate'] = "2000-10-10 00:00";
@@ -184,8 +200,8 @@ class Idosell extends Model
         $address = 'https://client6127.idosell.com/api/reservations/get/3/json';
         $request = array();
         $request['authenticate'] = array();
-        $request['authenticate']['systemKey'] = "Gala1712!@";
-        $request['authenticate']['systemLogin'] = "barpru666";
+        $request['authenticate']['systemKey'] = $this->password;
+        $request['authenticate']['systemLogin'] = $this->login;
         $request['authenticate']['lang'] = 'eng';
         //$request['paramsSearch']['objectsIds'] = array();
         //$request['paramsSearch']['modificationDateRange']['startDate'] = "2000-10-10 00:00";
@@ -206,8 +222,8 @@ class Idosell extends Model
         $address = 'https://client6127.idosell.com/api/reservations/edit/3/json';
         $request = array();
         $request['authenticate'] = array();
-        $request['authenticate']['systemKey'] = "Gala1712!@";
-        $request['authenticate']['systemLogin'] = "barpru666";
+        $request['authenticate']['systemKey'] = $this->password;
+        $request['authenticate']['systemLogin'] = $this->login;
         $request['authenticate']['lang'] = 'eng';
         $request['reservations'] = array();
         $request['reservations'][0] = array();
@@ -257,8 +273,8 @@ class Idosell extends Model
         $address = 'https://client6127.idosell.com/api/reservations/edit/3/json';
         $request = array();
         $request['authenticate'] = array();
-        $request['authenticate']['systemKey'] = "Gala1712!@";
-        $request['authenticate']['systemLogin'] = "barpru666";
+        $request['authenticate']['systemKey'] = $this->password;
+        $request['authenticate']['systemLogin'] = $this->login;
         $request['authenticate']['lang'] = 'eng';
 
         $request['reservations'] = array();
@@ -302,8 +318,8 @@ class Idosell extends Model
         $address = 'https://client6127.idosell.com/api/reservations/edit/3/json';
         $request = array();
         $request['authenticate'] = array();
-        $request['authenticate']['systemKey'] = "Gala1712!@";
-        $request['authenticate']['systemLogin'] = "barpru666";
+        $request['authenticate']['systemKey'] = $this->password;
+        $request['authenticate']['systemLogin'] = $this->login;
         $request['authenticate']['lang'] = 'eng';
 
         $request['reservations'] = array();
@@ -345,8 +361,8 @@ class Idosell extends Model
         $address = 'https://client6127.idosell.com/api/reservations/get/3/json';
         $request = array();
         $request['authenticate'] = array();
-        $request['authenticate']['systemKey'] = "Gala1712!@";
-        $request['authenticate']['systemLogin'] = "barpru666";
+        $request['authenticate']['systemKey'] = $this->password;
+        $request['authenticate']['systemLogin'] = $this->login;
         $request['authenticate']['lang'] = 'eng';
         //$request['paramsSearch']['objectsIds'] = array();
         //$request['paramsSearch']['modificationDateRange']['startDate'] = "2000-10-10 00:00";
@@ -370,8 +386,8 @@ class Idosell extends Model
         $address = 'https://client6127.idosell.com/api/reservations/get/3/json';
         $request = array();
         $request['authenticate'] = array();
-        $request['authenticate']['systemKey'] = "Gala1712!@";
-        $request['authenticate']['systemLogin'] = "barpru666";
+        $request['authenticate']['systemKey'] = $this->password;
+        $request['authenticate']['systemLogin'] = $this->login;
         $request['authenticate']['lang'] = 'eng';
         //$request['paramsSearch']['objectsIds'] = array();
         $request['paramsSearch']['addDateRange']['startDate'] = $start_date;

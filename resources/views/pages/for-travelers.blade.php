@@ -4,7 +4,7 @@
 @section('content')
 <div class="container">
     <div class="img-container" style="position: relative">
-        <img style="width: 100%; height: auto; min-height: 270px;" src='{{ asset("images/for_travelers/mainImg.png") }}'>
+        <img style="width: 100%; height: auto; min-height: 270px;" src='{{ asset("images/for_travelers/mainImg.jpg") }}'>
         <span style="position: absolute; left: 30px; bottom: 30px">
             <h1 class="h1-owners">{{__('messages.Information for travelers')}}</h1>
         </span>
@@ -12,24 +12,7 @@
 
     <h2 class="mt-4 mb-1 h2-owners">{{__('messages.Why it is worth it')}}</h2>
     <div class="row mt-3">
-        <div class="col-sm-12 col-md-4 mb-3">
-            <div class="row mb-1">
-                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/procent.png") }}'></div>
-                <div class="col-8"><h3 class="h3-owners">{{__('messages.cheap')}}</h3><span class="font-13">{{__('messages.travelersWhy1')}}</span></div>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-4 mb-3">
-            <div class="row mb-1">
-                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/time.png") }}'></div>
-                <div class="col-8"><h3 class="h3-owners">{{__('messages.fast')}}</h3><span class="font-13">{{__('messages.travelersWhy2')}}</span></div>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-4">
-            <div class="row mb-1">
-                <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/up.png") }}'></div>
-                <div class="col-8"><h3 class="h3-owners">{{__('messages.safe')}}</h3><span class="font-13">{{__('messages.safeExp')}} {{ countAllReservations() }} {{__('messages.travelersWhy3')}}</span></div>
-            </div>
-        </div>
+        @include('includes.benifits')
     </div>
 
     <h2 class="mt-4 h2-owners">{{__('messages.How it works')}}</h2>
@@ -62,9 +45,8 @@
 
         <span class="d-md-none">
             <div class="guide-2-popup guide-mobile-popup col-sm-12 col-md-4 mb-3">
-                <span class="font-13">{{__('messages.TravelersInfo1')}}</span>
+                <span class="font-13">{{__('messages.TravelersInfo1')}} {{__('messages.TravelersInfo2')}}</span>
                 <div><img class="w-100" src='{{ asset('images/for_travelers/pop2-inside-apartment.jpg') }}'></div>
-                <span class="font-13">{{__('messages.TravelersInfo2')}}</span>
             </div>
         </span>
 
@@ -78,7 +60,9 @@
         <span class="d-md-none">
             <div class="guide-3-popup guide-mobile-popup col-sm-12 col-md-4 mb-3">
                 {{__('messages.travelers3')}}
-                <img style="width: 100%" src='{{ asset('images/for_travelers/pop3-inside-pl.png') }}'>
+                {{__('messages.travelers4')}}
+                {{__('messages.travelers5')}}
+                <img style="width: 100%" src='{{ asset('images/for_travelers/pop3-inside.jpg') }}'>
             </div>
         </span>
     </div>
@@ -94,33 +78,36 @@
     </div>
     <div class="row">
         <div class="guide-2-popup guide-popup px-4" style="background-image: url('{{ asset('images/for_travelers/popup2.png') }}');">
-            <div class="row" style="margin: 40px 10px 0px 10px;">
-                <div class="@handheld font-11 @endhandheld" style="position: relative;">
-                    {{__('messages.TravelersInfo1')}}
-                    <div class="text-center"><img style="" src='{{ asset('images/for_travelers/pop2-inside-apartment.jpg') }}'></div>
-                    {{__('messages.TravelersInfo2')}}
-                </div>
+            <div class="row" style="margin: 40px 10px 20px 10px;">
+                <div class="col-6 col-lg-7">{{__('messages.TravelersInfo1')}}{{__('messages.TravelersInfo2')}}</div>
+                <div class="col-6 col-lg-4"><img class="img-fluid" src='{{ asset('images/for_travelers/pop2-inside-apartment.jpg') }}'></div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="guide-3-popup guide-popup px-4" style="background-image: url('{{ asset('images/for_travelers/popup3.png') }}');">
-            <div style="margin-top: 40px;text-align: center;">{{__('messages.travelers3')}}</div>
-            <img style="width: 100%" src='{{ asset('images/for_travelers/pop3-inside-pl.png') }}'>
+            <div class="row" style="margin: 40px 10px 20px 10px;">
+                <div class="col-6 col-lg-8" style="margin-top: 40px;text-align: center;">
+                    <div class="my-2">{{__('messages.travelers3')}}</div>
+                    <div class="my-2">{{__('messages.travelers4')}}</div>
+                    <div class="my-2">{{__('messages.travelers5')}}</div>
+                </div>
+                <div class="col-6 col-lg-4"><img class="img-fluid" src='{{ asset('images/for_travelers/pop3-inside.jpg') }}'></div>
+            </div>
         </div>
     </div>
 </span>
 
-    <div class="row py-3 mt-4" style="background-color: #cfcfcf">
+    <div class="row py-3 mt-4 mx-0" style="background-color: #cfcfcf">
         <div class="col-sm-12 col-md-4">
             <div class="row mb-sm-30">
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/icon.png") }}'></div>
                 <div class="col-8">
                     <span class="font-16 font-m-13">
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. "
+                        "Szybko znalazłam na stronie wygodny apartament na nasz spontaniczny wyjazd, zależało nam na szczególnie na kominku. Kilka kliknięć i rezerwacja była już potwierdzona, a nam zostało pakowanie się do drogi."
                     </span>
                     <br><br>
-                    <span class="font-13 font-m-11">Joanna, Zakopane</span>
+                    <span class="font-13 font-m-11">Karolina, Kraków</span>
                 </div>
             </div>
         </div>
@@ -129,10 +116,10 @@
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/icon.png") }}'></div>
                 <div class="col-8">
                     <span class="font-16 font-m-13">
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. "
+                        "Bardzo duży wybór obiektów. Wszystko jasno i przejrzyście opisane jest na stronie. Na miejscu potwierdziło się, że apartament wygląda tak jak na zdjęciach. Polecam."
                     </span>
-                    <br><br>
-                    <span class="font-13 font-m-11">Joanna, Zakopane</span>
+                    <br><br><br>
+                    <span class="font-13 font-m-11">Andrzej, Chełm</span>
                 </div>
             </div>
         </div>
@@ -141,11 +128,83 @@
                 <div class="col-4"><img style="width: 100%; height: auto;" src='{{ asset("images/for_travelers/icon.png") }}'></div>
                 <div class="col-8">
                     <span class="font-16 font-m-13">
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. "
+                        "Szukaliśmy noclegu dla 4 rodzin z dziećmi – udało nam się znaleźć apartamenty w jednym kompleksie. Fajnie, że są w ten sposób wyszczególnione w wyszukiwarce.  Sam pobyt bardzo udany."
                     </span>
                     <br><br>
-                    <span class="font-13 font-m-11">Joanna, Zakopane</span>
+                    <span class="font-13 font-m-11">Kinga, Białystok</span>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <span class="faq-header">{{__('messages.Contact')}}</span>
+        {{--<a class="@desktop pull-right @else d-block @enddesktop font-14" href="#account">{{__('messages.Account number for payments for reservations')}} ↓</a>--}}
+    </div>
+
+    <div class="row mb-3 mb-md-5">
+        <div class="col-md-6 col-lg-7">
+            <div class="contact-box font-14">
+                <div class="row mb-3 mb-md-5">
+                    <div class="col-lg-6">
+                        {{--
+                        <div class="mb-3 pb-3" style="border-bottom: dashed 1px black">
+                            {{__('messages.We invite you to familiarize yourself with')}}
+                            <a href="#faq">{{__('messages.frequently asked questions by travelers')}}</a>
+                        </div>
+                        --}}
+                        <a href="mailto:{{ $infos['contact_email'] }}" class="btn btn-black mb-3" style="width: 100%">{{__('messages.Write to us')}}</a>
+                        <span class="font-12">{{__('messages.Talk with us via')}} Skype:</span>
+                        <a href="skype:{{ $infos['skype'] }}?call">
+                            <img src="{{asset('images/contact/callMe.png')}}" alt="call me via Skype">
+                        </a>
+                    </div>
+                    <div class="col-lg-6 mt-3 mt-lg-0">
+                        <div class="mb-3">
+                            <img src="{{asset('images/contact/phoneMinIcon.png')}}">
+                            <span class="ml-1">{{ $infos['first_phone'] }}</span>
+                        </div>
+                        <div class="mb-3">
+                            <img src="{{asset('images/contact/phoneMinIcon.png')}}">
+                            <span class="ml-1">{{ $infos['second_phone'] }}</span>
+                        </div>
+                        <div class="mb-3">
+                            <img src="{{asset('images/contact/Envelop_24.png')}}">
+                            <span class="ml-1">{{ $infos['contact_email'] }}</span>
+                        </div>
+                        {{--<div class="">
+                            <img src="{{asset('images/contact/Fax_24.png')}}">
+                            <span class="ml-1">fax: {{ $infos['fax'] }}</span>
+                        </div>--}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="bold">{{__('messages.Headquarters')}}</div>
+                        {!! $infos['headquarter'] !!}
+                    </div>
+                    <div class="col-6">
+                        <div class="bold">{{__('messages.Working hours')}}</div>
+                        <div><span style="min-width: 54px; display: inline-block;">{{__('messages.MonToFri')}}</span><span class="ml-1">8:00 - 22:00</span></div>
+                        <div><span style="min-width: 54px; display: inline-block;">{{__('messages.SatToSun')}}</span><span class="ml-1">9:00 - 22:00</span></div>
+                        {{--{{__('messages.Talk with us via')}} GG:
+                        <div>
+                            <img style="width: 25px; height: auto" src="{{asset('images/contact/gg.png')}}">Nr: {{ $infos['gg'] }}
+                        </div>
+                        --}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-5 mt-3 mt-md-0">
+            <div class="contact-box font-14">
+                <div class="bold mb-3" style="font-size: 18px">{{__('messages.Account number for payments for reservations')}}</div>
+                <div><span class="bold">{{__('messages.Account')}} (PLN):</span> {{ $infos['accountPLN'] }}</div>
+                <div><span class="bold">{{__('messages.Account')}}  (EURO):</span> {{ $infos['accountEUR'] }}</div>
+                <div><span class="bold">Kod SWIFT:</span> {{ $infos['SWIFTcode'] }}</div>
+                <div class="mt-5">OtoZakopane {{__('messages.belongs to vg')}}</div>
+                <div class="mt-3"><span class="bold">NIP:</span> {{ $infos['NIP'] }}</div>
+                <div><span class="bold">Regon:</span> {{ $infos['Regon'] }}</div>
             </div>
         </div>
     </div>
@@ -184,15 +243,17 @@
         </div>
     </div>
     --}}
-    <h2 class="mt-4 h2-owners">{{__('messages.help')}}</h2>
+    <h2 class="mt-4 h2-owners">{{--__('messages.help')--}}</h2>
     <div class="row mb-3">
         <div class="col-12 col-md-4">
+            {{--<div class="mb-2"><a href="#" class="font-16 font-m-13">Tytuł artykułu lorem ipsum</a></div>
             <div class="mb-2"><a href="#" class="font-16 font-m-13">Tytuł artykułu lorem ipsum</a></div>
             <div class="mb-2"><a href="#" class="font-16 font-m-13">Tytuł artykułu lorem ipsum</a></div>
             <div class="mb-2"><a href="#" class="font-16 font-m-13">Tytuł artykułu lorem ipsum</a></div>
             <div class="mb-2"><a href="#" class="font-16 font-m-13">Tytuł artykułu lorem ipsum</a></div>
-            <div class="mb-2"><a href="#" class="font-16 font-m-13">Tytuł artykułu lorem ipsum</a></div>
+            --}}
         </div>
+        {{--
         <div class="col-12 col-md-8">
             <div class="row mobile-none" style="margin-bottom: 28px">
                 <div class="col-12">
@@ -216,6 +277,7 @@
                 </div>
             </div>
         </div>
+        --}}
     </div>
 </div>
 

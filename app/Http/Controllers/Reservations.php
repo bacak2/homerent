@@ -500,6 +500,15 @@ class Reservations extends Controller
             $this->idReservationVisit = DB::connection('mysql2')->getPdo()->lastInsertId();
             $dataSet['visit_reservation_id'] = $this->idReservationVisit;
             $this->idReservationOtozakopane = $idReservation = DB::connection('mysql')->table('reservations')->insertGetId($dataSet);
+
+            /*$testZapisu = array(
+                'idosel'=> $idosellAdded,
+                'visit_client'=> $visitDataSet[0]['client_id'],
+                'visit'=> $this->idReservationVisit,
+                'oto'=> $this->idReservationOtozakopane,
+                );
+            dd($testZapisu);
+            */
         }catch(\Exception $e){
 
             Log::error($e->getMessage());

@@ -690,11 +690,9 @@ class Apartaments extends Controller
             ->get();
 
         //Generates an array of images gallery
-        $images = DB::table('apartament_groups')
-            ->select('apartament_photos.photo_link','apartaments.id')
-            ->join('apartaments','apartaments.group_id','=','apartament_groups.group_id')
-            ->join('apartament_photos','apartaments.id','=','apartament_photos.apartament_id')
-            ->where('apartament_groups.group_id', $id)
+        $images = DB::table('apartament_group_photos')
+            ->selectRaw('photo_link, group_id AS id')
+            ->where('group_id', $id)
             ->get();
 
         $priceFrom = $this->getPriceFrom($id);

@@ -90,7 +90,7 @@
 		</div>
 	</div>
 	@endhandheld
-	<div class="row back mx-0" style="background-image: url( {{ asset('images/apartaments_group/'.$groupDescription[0]->id.'/main_big.jpg') }} );">
+	<div class="row back mx-0" style="background-image: url( {{ asset('images/apartaments_group/'.$groupDescription[0]->group_id.'/main_big.jpg') }} );">
 		<div class="container">
 			<div class="row apartament-info">
 				<div class="col-md-8">
@@ -229,7 +229,7 @@
 						<div class="fotorama" data-nav="thumbs" data-autoplay="true">
 
 							@forelse($images as $image)
-								<a href="{{ asset("images/apartaments/$image->id/$image->photo_link") }}"><img src="{{ asset("images/apartaments/$image->id/$image->photo_link") }}"></a>
+								<a href="{{ asset("images/apartaments_group/$image->id/$image->photo_link") }}"><img src="{{ asset("images/apartaments_group/$image->id/$image->photo_link") }}"></a>
 							@empty
 								<p>{{__('messages.No photos')}}</p>
 							@endforelse
