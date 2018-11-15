@@ -65,7 +65,7 @@
                             <a href="#faq">{{__('messages.frequently asked questions by travelers')}}</a>
                         </div>
                         --}}
-                        <a href="#" class="btn btn-black writeToUsOpen mb-3" style="width: 100%">{{__('messages.Write to us')}}</a>
+                        <a href="#" class="btn btn-primary-blue writeToUsOpen mb-3" style="width: 100%">{{__('messages.Write to us')}}</a>
                         <span class="font-12">{{__('messages.Talk with us via')}} Skype:</span>
                         <a href="skype:{{ $infos['skype'] }}?call">
                             <img src="{{asset('images/contact/callMe.png')}}" alt="call me via Skype">

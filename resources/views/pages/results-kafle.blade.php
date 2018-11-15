@@ -13,13 +13,13 @@
                 @endhandheld
             </div>
             <div class="row d-xl-none">
-                <div class="col-8"><h1 class="pb-2" style="display: inline; font-size: 24px">@if(isset($request->region) && (ucfirst($request->region) == 'Zakopane' || ucfirst($request->region) == 'Kościelisko' || ucfirst($request->region) == 'Witów')){{ $request->region }}@endif<span class="d-xl-none">({{ $countedApartaments }})</span></h1><span class="pb-2 d-none d-xl-inline"> ({{ $countedApartaments }} {{trans_choice('messages.apartaments', $countedApartaments)}})</span></div>
+                <div class="col-8"><h1 class="pb-2" style="display: inline; font-size: 24px">@if(isset($request->region) && (ucfirst($request->region) == 'Zakopane' || ucfirst($request->region) == 'Kościelisko' || ucfirst($request->region) == 'Witów')){{ $request->region }} @endif <span class="d-xl-none">@if(!$request->has('complex-only'))({{ $countedApartaments }}) @else() ({{ $countedObjects }}) @endif</span> </h1><span class="pb-2 d-none d-xl-inline"> ({{ $countedApartaments }} {{trans_choice('messages.apartaments', $countedApartaments)}})</span></div>
                 <div class="col-4 inline-wrapper text-right d-xl-none"> <div style="position: absolute; right:10px;"   class="btn-group"><a class="btn btn-selected btn-mobile" href="/search/kafle?{{ http_build_query(Request::except('page')) }}">{{__('messages.Offers')}}</a><a class="btn btn-info btn-mobile" href="/search/mapa?{{ http_build_query(Request::except('page')) }}">{{__('messages.Map')}}</a></div></div>
             </div>
 
             @desktop
             <div class="row d-none d-xl-flex">
-                <div class="col-lg-6 col-md-12"><h1 style="font-size: 28px" class="pb-2">{{ $countedApartaments }} {{trans_choice('messages.apartaments', $countedApartaments)}} {{__('messages.in')}} {{ $countedObjects }} {{trans_choice('messages.objects', $countedObjects)}}</h1></div>
+                <div class="col-lg-6 col-md-12"><h1 style="font-size: 28px" class="pb-2">@if(!$request->has('complex-only')){{ $countedApartaments }} {{trans_choice('messages.apartaments', $countedApartaments)}} {{__('messages.in')}} {{ $countedObjects }} {{trans_choice('messages.objects', $countedObjects)}} @else {{ $countedObjects }} {{trans_choice('messages.objects3', $countedObjects)}} @endif</h1></div>
                 <div class="col-12 col-lg-3 col-md-7 col-sm-12 col-xs-12">{{__('messages.Sort by')}}:
                     {{ Form::select('sort', $sortSelectArray, $request->sort ?? 1, array('class'=>'input-sm', 'id'=>'u1001_input', 'onchange'=>'submitSort()'))}}
                 </div>

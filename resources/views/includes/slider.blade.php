@@ -27,6 +27,8 @@
         $('.t-datepicker').tDatePicker({
             autoClose: true,
             numCalendar: @handheld 1 @elsehandheld 2 @endhandheld,
+            dateCheckIn: '{{$todayDate}}',
+            dateCheckOut: '{{$after3DaysDate}}',
             titleCheckIn: '{{ __('messages.arrival date') }}',
             titleCheckOut: '{{ __('messages.departure date') }}',
             titleToday: '{{ __('messages.Today') }}',

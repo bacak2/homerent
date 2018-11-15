@@ -96,7 +96,11 @@
 				<div class="col-md-8">
 					<div class="col transparent mt-2 mb-2 pb-1 pt-1 ">
 						<h1 style="font-size: 26px"><b>{{  $apartament->descriptions[0]->apartament_name or '' }}</b></h1>
-						<h2 style="font-size: 20px">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}</h2>
+						@if($apartament->apartament_district == NULL)
+							<h2 style="font-size: 20px">{{ $apartament->apartament_address }}</h2>
+						@else
+							<h2 style="font-size: 20px">{{ $apartament->apartament_city }}, {{ $apartament->apartament_address }}</h2>
+						@endif
 					</div>
 					<div class="col transparent mt-4 mb-2 pt-3 ">
 						<div class="container">

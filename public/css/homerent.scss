@@ -73,6 +73,18 @@ body	{
 	}
 }
 
+.btn-primary-blue{
+	color: #fff !important;
+	font-weight: bold;
+	background-color: #218be5;
+	border: none;
+
+	&:hover{
+		color: #d2d2d2 !important;
+		background-color: #2180d9;
+	}
+}
+
 .btn-see-more{
 	color: #333333;
 	font-weight: bold;
@@ -2704,6 +2716,10 @@ span.error-show{
 }
 
 @media (max-width: 990px){
+	.h1-owners{
+		color: white;
+	}
+
 	.h1-owners, .h1-reservation{
 		font-size: 20px;
 		font-weight: bold;

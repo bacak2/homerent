@@ -47,6 +47,7 @@ return [
 	'fprice' => 'Razem:',
 	'aval' => 'Ten termin jest dostępny',
 	'objects' => '{0}obiektach|{1}obiekcie|[2,*]obiektach',
+	'objects3' => '{0}obiektów|{1}obiekt|[2,*]obiekty|[5,*]obiektów',
 	'apartaments' => '{0}apartamentów|{1}apartament|[2,4]apartamenty|[5,*]apartamentów',
 	'other apartaments' => '{0}innych apartamentów|{1}inny apartament|[2,4]inne apartamenty|[5,*]innych apartamentów',
 	'found' => 'Znaleziono',
@@ -696,4 +697,6 @@ return [
     'faqQ2-answer' => 'Możesz użyć szybkich płatności DotPay lub przelewu tradycyjnego. Dane do przelewu znajdziesz na potwierdzeniu rezerwacji na naszej stronie oraz w wiadomości mailowej, która otrzymasz. Przy płatności przelewem tradycyjnym ważne jest by w tytule wpisać TYLKO numer rezerwacji, oraz po dokonaniu przelewu wysłać nam potwierdzenie płatności (plik PDF ze strony banku lub czytelny skan/zdjęcie potwierdzenia papierowego)',
     'Working hours' => 'Godziny pracy',
     'belongs to vg' => 'należy do Grupy Visit',
+    'Apartment complexes' => 'Kompleksy apartamentów',
+    'See all complexes' => 'Zobacz wszystkie kompleksy',
 ];

@@ -36,6 +36,35 @@
 		    </div>
 		</div>
 
+		<h3 class="h3-index">{{ __('messages.Apartment complexes') }}</h3>
+		<div class="container mb-5">
+		    <div class="row">
+				@foreach ($apartamentComplexes as $apartament)
+			      <a class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3" href="/apartaments-group/{{ $apartament->group_link }}">
+			        <div style="background-image: url('{{ asset("images/apartaments_group/$apartament->group_id/main.jpg") }}');" class="apartament" itemscope itemtype="http://schema.org/Hotel">
+    					<div class="col-8 col-sm-11 col-lg-8 semi-transparent">
+    						<h4 style="font-size: 18px;" itemprop="name">{{$apartament->group_name}}</h4>
+    						<p class="p-0 m-0 price">{{ $apartament->apartaments_amount }} {{ trans_choice('messages.apartaments', $apartament->apartaments_amount) }}</p>
+    					</div>
+                    </div>
+			      </a>
+				@endforeach
+				<div class="col-12 text-center p-0 mt-2">
+					<div class="gray-bar-index">
+						<form action="/search/kafle" method="GET">
+							<input type="hidden" name="region" value="">
+							<input type="hidden" name="t-start" value="{{$todayDate}}">
+							<input type="hidden" name="t-end" value="{{$tomorrowDate}}">
+							<input type="hidden" name="dzieci" value="0">
+							<input type="hidden" name="dorosli" value="1">
+							<input type="hidden" name="complex-only" value="1">
+							<input class="hrefSubmit" type="submit" style="color: #0066CC" value="{{ __('messages.See all complexes') }} >">
+						</form>
+					</div>
+				</div>
+		    </div>
+		</div>
+
 		<div class="row desktop-none">
 			<div class="col-6">
 				<h3 class="h3-index">{{ __('messages.Popular') }}</h3>

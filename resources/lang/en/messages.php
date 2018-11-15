@@ -49,6 +49,7 @@ return [
 	'apartaments' => '{0}apartments|{1}apartment|[2,*]apartments',
     'other apartaments' => 'other apartaments',
 	'objects' => '{0}objects|{1}object|[2,*]objects',
+	'objects3' => '{0}objects|{1}object|[2,*]objects',
 	'found' => 'We found',
 	'inclbreakfast' => 'Breakfast included',
 	'choosedate' => 'Choose date',
@@ -693,4 +694,6 @@ return [
     'TravelersInfo2' => 'you will have to wait for a fully equipped apartment, fragrant bedding, clean towels, a comfortable bed and many other amenities.',
     'Show all description' => 'Show all',
     'belongs to vg' => 'belongs to Visit Group',
+    'Apartment complexes' => 'Apartment complexes',
+    'See all complexes' => 'See all complexes',
 ];

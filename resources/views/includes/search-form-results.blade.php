@@ -1,5 +1,6 @@
 <div class="col">
     <form id="wyszukiwarka" class="wyszukiwarka" action="{{$request->getPathInfo()}}" method="GET" >
+    @if($request->has('complex-only'))<input type="hidden" name="complex-only" value="1">@endif
     <div class="form-row">
       <div class="col-lg-3 mb-2 mb-lg-0">
         {{ Form::select('region', array('Zakopane'=>'Zakopane', 'Zakopane Centrum'=>'Zakopane Centrum', 'Zakopane Pardałówka'=>'Zakopane Pardałówka', 'Zakopane Nosal'=>'Zakopane Nosal', 'Zakopane Szymoszkowa'=>'Zakopane Szymoszkowa', 'Kościelisko'=>'Kościelisko', 'Witów'=>'Witów'), $request->region, array('class'=>'form-control'))}}

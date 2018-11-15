@@ -96,7 +96,11 @@
 				<div class="col-md-8">
 					<div class="col transparent mt-2 mb-2 pb-1 pt-1 ">
 						<h1 style="font-size: 26px"><b>{{  $groupDescription[0]->group_name or '' }}</b><span class="@mobile d-block @elsemobile pull-right @endmobile">{{$apartamentsAmount}} {{trans_choice('messages.nrApartmentsInKomplex', $apartamentsAmount)}}</span></h1>
-						<h2 style="font-size: 20px">{{ $groupDescription[0]->apartament_city }}, {{ $groupDescription[0]->apartament_address }}</h2>
+						@if($groupDescription[0]->apartament_district == NULL)
+							<h2 style="font-size: 20px">{{ $groupDescription[0]->apartament_address }}</h2>
+						@else
+							<h2 style="font-size: 20px">{{ $groupDescription[0]->apartament_city }}, {{ $groupDescription[0]->apartament_address }}</h2>
+						@endif
 					</div>
 					<div class="col transparent mt-4 mb-2 pt-3 ">
 						<div class="container">

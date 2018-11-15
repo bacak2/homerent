@@ -14,7 +14,11 @@
 </script>
 <nav class="navbar navbar-expand-lg navbar-light noprint" style="background-color: white;" >
       <div class="container px-0 px-md-3">
-        <a class="navbar-brand" href="{{ url('/') }}">Otozakopane</a>
+        <div class="col-9 col-md-6 col-lg-4 col-xl-3 px-0">
+            <a class="navbar-brand mr-0" href="{{ url('/') }}">
+                <img class="img-fluid" src="{{ asset("images/logo.png") }}" alt="Otozakopane">
+            </a>
+        </div>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenuTop" aria-controls="navMenuTop" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

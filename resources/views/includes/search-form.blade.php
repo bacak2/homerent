@@ -52,7 +52,7 @@
         </div>
       </div>
       <div class="col-12 col-sm col-xl-1 mt-3 mt-sm-0 h-100">
-        <button type="submit" class="btn btn-primary searchbtn py-2">{{ __('messages.search') }}</button>
+        <button type="submit" class="btn btn-primary-blue searchbtn py-2">{{ __('messages.search') }}</button>
       </div>
     </div>
   </form>

@@ -4,8 +4,8 @@
 @section('content')
 <div class="container">
     <div class="img-container" style="position: relative">
-        <img style="width: 100%; height: auto; min-height: 270px;" src='{{ asset("images/for_travelers/mainImg.jpg") }}'>
-        <span style="position: absolute; left: 30px; bottom: 30px">
+        <img style="width: 100%; height: auto; min-height: 170px;" src='{{ asset("images/for_travelers/mainImg.jpg") }}'>
+        <span style="position: absolute; left: 30px; top: 30px">
             <h1 class="h1-owners">{{__('messages.Information for travelers')}}</h1>
         </span>
     </div>
@@ -153,7 +153,7 @@
                             <a href="#faq">{{__('messages.frequently asked questions by travelers')}}</a>
                         </div>
                         --}}
-                        <a href="mailto:{{ $infos['contact_email'] }}" class="btn btn-black mb-3" style="width: 100%">{{__('messages.Write to us')}}</a>
+                        <a href="mailto:{{ $infos['contact_email'] }}" class="btn btn-primary-blue mb-3" style="width: 100%">{{__('messages.Write to us')}}</a>
                         <span class="font-12">{{__('messages.Talk with us via')}} Skype:</span>
                         <a href="skype:{{ $infos['skype'] }}?call">
                             <img src="{{asset('images/contact/callMe.png')}}" alt="call me via Skype">
